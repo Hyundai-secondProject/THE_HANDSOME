@@ -1,4 +1,4 @@
-package com.kosa.domain;
+package com.kosa.domain.product;
 
 import java.sql.Timestamp;
 

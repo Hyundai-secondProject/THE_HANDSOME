@@ -1,9 +1,11 @@
-package com.kosa.domain;
+package com.kosa.domain.product;
+
+import java.sql.Timestamp;
 
 import lombok.Data;
 
 /**
- * CategoryVO
+ * BrandVO
  * @author 공통
  * @since 2022.10.13
  * @version 1.0
@@ -16,9 +18,7 @@ import lombok.Data;
  */
 
 @Data
-public class CategoryVO {
-	private int cateno; // 카테고리 번호
-	private String depth1name; // 대분류
-	private String depth2name; // 중분류
-	private String depth3name; // 소분류
+public class BrandVO {
+	private int bno; // 브랜드 번호
+	private String bname; // 브랜드 이름
 }

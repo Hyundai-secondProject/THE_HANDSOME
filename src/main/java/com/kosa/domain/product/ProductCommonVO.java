@@ -1,11 +1,8 @@
-package com.kosa.domain;
-
-import java.sql.Timestamp;
+package com.kosa.domain.product;
 
 import lombok.Data;
-
 /**
- * BrandVO
+ * ProductCommonVO
  * @author 공통
  * @since 2022.10.13
  * @version 1.0
@@ -18,7 +15,10 @@ import lombok.Data;
  */
 
 @Data
-public class BrandVO {
+public class ProductCommonVO {
+	private String pid; // 물품 id
+	private String pname; // 물품 이름
+	private String pnote; // 물품 설명
 	private int bno; // 브랜드 번호
-	private String bname; // 브랜드 이름
+	private int pstatus; // 물품 품절 상태 - 1:판매가능 / 2:품절
 }
