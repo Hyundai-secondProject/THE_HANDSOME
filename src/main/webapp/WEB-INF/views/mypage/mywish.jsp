@@ -1,68 +1,96 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 
 <%@ include file="/WEB-INF/views/common/header.jsp"%>
-    <div id="bodyWrap">
-        <h3 class="cnts_title">
-            <span id="menuTitle"></span>
-        </h3>
-        <div class="sub_container">
-            <!-- lnb -->
-            <div class="lnb_wrap">
-                <h4><a href="/ko/mypage">마이페이지
-                        <!-- 마이페이지 --></a></h4>
-                <div class="lnb">
-                    <dl>
-                        <dt>주문조회</dt>
-                        <dd><a href="/ko/mypage/order/myorders"
-                                onclick="GA_Event('마이페이지','LNB','주문/배송/반품/취소');">주문/배송/반품/취소</a></dd>
-                    </dl>
-                    <dl>
-                        <dt>혜택관리</dt>
-                        <dd><a href="/ko/mypage/voucher" onclick="GA_Event('마이페이지','LNB','나의 쿠폰');">나의 쿠폰
-                                <!-- 쿠폰함 --></a></dd>
-                    </dl>
-                    <dl>
-                        <dt>나의 상품관리</dt>
-                        <dd><a href="/ko/mypage/myWish" onclick="GA_Event('마이페이지','LNB','위시리스트');">위시리스트
-                                <!-- 위시리스트 --></a></dd>
-                        <dd><a href="/ko/mypage/rsalarm" onclick="GA_Event('마이페이지','LNB','재입고 알림');">재입고 알림
-                                <!-- 재입고알림 --></a></dd>
-                    </dl>
-                    <dl>
-                        <dt>나의 정보관리</dt>
-                        <dd><a href="/ko/mypage/personInfomationChangePWCheck"
-                                onclick="GA_Event('마이페이지','LNB','개인정보 변경/탈퇴');">개인정보 변경/탈퇴</a></dd>
-                        <dd><a href="/ko/mypage/shoppingAddressPWCheck" onclick="GA_Event('마이페이지','LNB','배송지 관리');">배송지
-                                관리</a></dd>
-                        <dd><a href="/ko/mypage/oneClick" onclick="GA_Event('마이페이지','LNB','원클릭 결제 관리');">원클릭 결제 관리</a>
-                        </dd>
-                    </dl>
-                    <dl>
-                        <dt>나의 활동관리</dt>
-                        <!-- <dd><a href="#">회원등급</a></dd> -->
-                        <dd><a href="/ko/mypage/myreview" onclick="GA_Event('마이페이지','LNB','내 상품평');">내 상품평</a></dd>
-                        <dd><a href="/ko/mypage/myqna" onclick="GA_Event('마이페이지','LNB','상품 Q&A');">상품 Q&A</a></dd>
-                        <dd><a href="/ko/mypage/mymantomaninquiry" onclick="GA_Event('마이페이지','LNB','1:1 문의');">1:1
-                                문의</a></dd>
-                        <!-- <dd><a href="#">이벤트 참여현황</a></dd> -->
-                    </dl>
-                </div>
-                <!-- ph_guide -->
-                <div class="ph_guide">
-                    <p class="tlt">고객센터 운영 안내</p>
-                    <p class="phone">1800-5700<span style="color:#c69c6d;" class="txt">(유료)</span></p>
-                    <p class="txt">평일(월~금)<br>am 09:00 ~ pm 18:00<span>토/일, 공휴일 휴무</span></p>
-                    <a href="mailto:shophelp@thehandsome.com">shophelp<br>@thehandsome.com</a>
-                </div>
-                <!-- //ph_guide -->
-            </div>
-            <!-- //lnb -->
-            <!-- cnts -->
-            <div class="sub_cnts">
+<div id="bodyWrap">
+	<h3 class="cnts_title">
+		<span id="menuTitle">위시리스</span>
+	</h3>
+	<div class="sub_container">
+		<!-- lnb -->
+		<div class="lnb_wrap">
+			<h4>
+				<a href="/ko/mypage">마이페이지 <!-- 마이페이지 --></a>
+			</h4>
+			<div class="lnb">
+				<dl>
+					<dt>주문조회</dt>
+					<dd>
+						<a href="/ko/mypage/order/myorders"
+							onclick="GA_Event('마이페이지','LNB','주문/배송/반품/취소');">주문/배송/반품/취소</a>
+					</dd>
+				</dl>
+				<dl>
+					<dt>혜택관리</dt>
+					<dd>
+						<a href="/ko/mypage/voucher"
+							onclick="GA_Event('마이페이지','LNB','나의 쿠폰');">나의 쿠폰 <!-- 쿠폰함 --></a>
+					</dd>
+				</dl>
+				<dl>
+					<dt>나의 상품관리</dt>
+					<dd>
+						<a href="/ko/mypage/myWish"
+							onclick="GA_Event('마이페이지','LNB','위시리스트');">위시리스트 <!-- 위시리스트 --></a>
+					</dd>
+					<dd>
+						<a href="/ko/mypage/rsalarm"
+							onclick="GA_Event('마이페이지','LNB','재입고 알림');">재입고 알림 <!-- 재입고알림 --></a>
+					</dd>
+				</dl>
+				<dl>
+					<dt>나의 정보관리</dt>
+					<dd>
+						<a href="/ko/mypage/personInfomationChangePWCheck"
+							onclick="GA_Event('마이페이지','LNB','개인정보 변경/탈퇴');">개인정보 변경/탈퇴</a>
+					</dd>
+					<dd>
+						<a href="/ko/mypage/shoppingAddressPWCheck"
+							onclick="GA_Event('마이페이지','LNB','배송지 관리');">배송지 관리</a>
+					</dd>
+					<dd>
+						<a href="/ko/mypage/oneClick"
+							onclick="GA_Event('마이페이지','LNB','원클릭 결제 관리');">원클릭 결제 관리</a>
+					</dd>
+				</dl>
+				<dl>
+					<dt>나의 활동관리</dt>
+					<!-- <dd><a href="#">회원등급</a></dd> -->
+					<dd>
+						<a href="/ko/mypage/myreview"
+							onclick="GA_Event('마이페이지','LNB','내 상품평');">내 상품평</a>
+					</dd>
+					<dd>
+						<a href="/ko/mypage/myqna"
+							onclick="GA_Event('마이페이지','LNB','상품 Q&A');">상품 Q&A</a>
+					</dd>
+					<dd>
+						<a href="/ko/mypage/mymantomaninquiry"
+							onclick="GA_Event('마이페이지','LNB','1:1 문의');">1:1 문의</a>
+					</dd>
+					<!-- <dd><a href="#">이벤트 참여현황</a></dd> -->
+				</dl>
+			</div>
+			<!-- ph_guide -->
+			<div class="ph_guide">
+				<p class="tlt">고객센터 운영 안내</p>
+				<p class="phone">
+					1800-5700<span style="color: #c69c6d;" class="txt">(유료)</span>
+				</p>
+				<p class="txt">
+					평일(월~금)<br>am 09:00 ~ pm 18:00<span>토/일, 공휴일 휴무</span>
+				</p>
+				<a href="mailto:shophelp@thehandsome.com">shophelp<br>@thehandsome.com
+				</a>
+			</div>
+			<!-- //ph_guide -->
+		</div>
+		<!-- //lnb -->
+		<!-- cnts -->
+		<div class="sub_cnts">
 
 
-                <script type="text/javascript">
+			<script type="text/javascript">
                     //<![CDATA[ 
                     var chooseDelFlag = false;
                     var cartQuantity = {};
@@ -1016,163 +1044,180 @@
                             //]]>
                 </script>
 
-                <input type="hidden" id="isEasyMember" value="true" />
-                <input type="hidden" id="normalPoint" value="5.0" />
-                <input type="hidden" id="outletPoint" value="1.0" />
-                <div class="title_wrap mt30">
-                    <h4 class="float_left">위시리스트
-                        <!-- 위시리스트 -->
-                    </h4>
-                    <p class="txt_line">위시리스트에는 상품이 최대 200개 까지 저장 됩니다.
-                        <!-- 위시리스트에는 상품이 최대 200개 까지 저장 됩니다. -->
-                    </p>
-                </div>
-                <form id="wishListForm" action="/ko/mypage/myWishList">
-                </form>
-                <!-- Table -->
-                <div class="tblwrap">
-                    <table class="tbl_ltype">
-                        <caption>Backet</caption>
-                        <colgroup>
-                            <col style="width:10px" />
-                            <col />
-                            <col style="width:105px" />
-                            <col style="width:120px" />
-                            <col style="width:110px" />
-                        </colgroup>
-                        <thead>
-                            <tr>
-                                <th scope="col"><input type="checkbox" title="선택" value="" name="allcheck" /></th>
-                                <th scope="col">상품정보
-                                    <!-- 상품정보 -->
-                                </th>
-                                <th scope="col">판매가
-                                    <!-- 판매가 -->
-                                </th>
-                                <th scope="col">한섬마일리지<br>적립율</th>
-                                <th scope="col">선택
-                                    <!-- 선택 -->
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody id="listBody">
-                        <tbody id="listBody">
-                            <tr>
-                                <td class="frt"><input type="checkbox" title="선택" value="9605989106366" name="checkpd"
-                                        data-value="TG2C9ACK002WDI"></td>
-                                <td class="pt_list_wrap">
-                                    <div class="pt_list_all"> <a href="/ko/p/TG2C9ACK002WDI"
-                                            onclick="javascript:setEcommerceData('0','Click');GA_Event('위시리스트', '상품', '[ADIDAS] 미드 컷 크루 양말 세트');"><img
-                                                src="http://newmedia.thehandsome.com/TG/2C/FW/TG2C9ACK002WDI_ML_S01.jpg"
-                                                alt="상품 이미지"></a>
-                                        <div class="tlt_wrap"> <a href="/ko/p/TG2C9ACK002WDI" class="basket_tlt"
-                                                onclick="javascript:setEcommerceData('0','Click');GA_Event('위시리스트', '상품', '[ADIDAS] 미드 컷 크루 양말 세트');">
-                                                <span class="tlt">TOM GREYHOUND</span> <span class="sb_tlt">[ADIDAS] 미드
-                                                    컷 크루 양말 세트 </span> </a> </div>
-                                    </div>
-                                </td>
-                                <td class="al_middle">
-                                    <div class="price_wrap"> <span> ￦22,000 </span> </div>
-                                </td>
-                                <td class="al_middle"> <span class="earn">0 %</span> </td>
-                                <td class="al_middle">
-                                    <div class="btn_wrap"> <a href="javascript:void(0)"
-                                            class="btn wt_ss add_bag parent_add_bag" product="8864709541889" index="0"
-                                            productcode="TG2C9ACK002WDI"
-                                            onclick="GA_Event(&quot;위시리스트&quot;, &quot;쇼핑백담기&quot;, &quot;[ADIDAS] 미드 컷 크루 양말 세트&quot;);">쇼핑백담기
-                                            <!-- 쇼핑백담기 --></a> <a href="javascript:void(0)" class="btn wt_ss wishDel"
-                                            wishcode="9605989106366"
-                                            onclick="GA_Event(&quot;위시리스트&quot;, &quot;삭제&quot;, &quot;[ADIDAS] 미드 컷 크루 양말 세트&quot;);"
-                                            data-value="TG2C9ACK002WDI">삭제
-                                            <!-- 삭제 --></a> </div>
-                                </td>
-                            </tr>
-                            <tr class="hid">
-                                <td colspan="5" class="basket_wrap">
-                                    <div class="basket_info" id="cart0"> <span class="btn_arr">위치아이콘</span>
-                                        <div class="info">
-                                            <div class="pt_list" id="pt_list_0"> </div>
-                                            <div class="btns"> <a href="javascript:void(0)" class="btn wt_ss bag"
-                                                    id="addToCart_0">쇼핑백담기
-                                                    <!-- 쇼핑백담기 --></a> <a href="javascript:void(0)"
-                                                    class="btn wt_ss mt10 bag" id="cancle_0">취소
-                                                    <!-- 취소 --></a> <a href="javascript:void(0)" class="btn_close bag"
-                                                    id="close_0">닫기
-                                                    <!-- 닫기 --></a> </div>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="frt"><input type="checkbox" title="선택" value="9602194277054" name="checkpd"
-                                        data-value="TH2CAWJM336M"></td>
-                                <td class="pt_list_wrap">
-                                    <div class="pt_list_all"> <a href="/ko/p/TH2CAWJM336M"
-                                            onclick="javascript:setEcommerceData('1','Click');GA_Event('위시리스트', '상품', '크링클 드로우스트링 점퍼');"><img
-                                                src="http://newmedia.thehandsome.com/TH/2C/FW/TH2CAWJM336M_BK_S01.jpg"
-                                                alt="상품 이미지"></a>
-                                        <div class="tlt_wrap"> <a href="/ko/p/TH2CAWJM336M" class="basket_tlt"
-                                                onclick="javascript:setEcommerceData('1','Click');GA_Event('위시리스트', '상품', '크링클 드로우스트링 점퍼');">
-                                                <span class="tlt">TIME HOMME</span> <span class="sb_tlt">크링클 드로우스트링 점퍼
-                                                </span> </a> </div>
-                                    </div>
-                                </td>
-                                <td class="al_middle">
-                                    <div class="price_wrap"> <span> ￦930,000 </span> </div>
-                                </td>
-                                <td class="al_middle"> <span class="earn">0 %</span> </td>
-                                <td class="al_middle">
-                                    <div class="btn_wrap"> <a href="javascript:void(0)"
-                                            class="btn wt_ss add_bag parent_add_bag" product="8863936708609" index="1"
-                                            productcode="TH2CAWJM336M"
-                                            onclick="GA_Event(&quot;위시리스트&quot;, &quot;쇼핑백담기&quot;, &quot;크링클 드로우스트링 점퍼&quot;);">쇼핑백담기
-                                            <!-- 쇼핑백담기 --></a> <a href="javascript:void(0)" class="btn wt_ss wishDel"
-                                            wishcode="9602194277054"
-                                            onclick="GA_Event(&quot;위시리스트&quot;, &quot;삭제&quot;, &quot;크링클 드로우스트링 점퍼&quot;);"
-                                            data-value="TH2CAWJM336M">삭제
-                                            <!-- 삭제 --></a> </div>
-                                </td>
-                            </tr>
-                            <tr class="hid">
-                                <td colspan="5" class="basket_wrap">
-                                    <div class="basket_info" id="cart1"> <span class="btn_arr">위치아이콘</span>
-                                        <div class="info">
-                                            <div class="pt_list" id="pt_list_1"> </div>
-                                            <div class="btns"> <a href="javascript:void(0)" class="btn wt_ss bag"
-                                                    id="addToCart_1">쇼핑백담기
-                                                    <!-- 쇼핑백담기 --></a> <a href="javascript:void(0)"
-                                                    class="btn wt_ss mt10 bag" id="cancle_1">취소
-                                                    <!-- 취소 --></a> <a href="javascript:void(0)" class="btn_close bag"
-                                                    id="close_1">닫기
-                                                    <!-- 닫기 --></a> </div>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                        </tbody>
-                    </table>
-                </div>
-                <!-- //Table -->
+			<input type="hidden" id="isEasyMember" value="true" /> <input
+				type="hidden" id="normalPoint" value="5.0" /> <input type="hidden"
+				id="outletPoint" value="1.0" />
+			<div class="title_wrap mt30">
+				<h4 class="float_left">
+					위시리스트
+					<!-- 위시리스트 -->
+				</h4>
+				<p class="txt_line">
+					위시리스트에는 상품이 최대 200개 까지 저장 됩니다.
+					<!-- 위시리스트에는 상품이 최대 200개 까지 저장 됩니다. -->
+				</p>
+			</div>
+			<form id="wishListForm" action="/ko/mypage/myWishList"></form>
+			<!-- Table -->
+			<div class="tblwrap">
+				<table class="tbl_ltype">
+					<caption>Backet</caption>
+					<colgroup>
+						<col style="width: 10px" />
+						<col />
+						<col style="width: 105px" />
+						<col style="width: 120px" />
+						<col style="width: 110px" />
+					</colgroup>
+					<thead>
+						<tr>
+							<th scope="col"><input type="checkbox" title="선택" value=""
+								name="allcheck" /></th>
+							<th scope="col">상품정보 <!-- 상품정보 -->
+							</th>
+							<th scope="col">판매가 <!-- 판매가 -->
+							</th>
+							<th scope="col">한섬마일리지<br>적립율
+							</th>
+							<th scope="col">선택 <!-- 선택 -->
+							</th>
+						</tr>
+					</thead>
+					<tbody id="listBody">
+						<tr>
+							<td class="frt"><input type="checkbox" title="선택"
+								value="9605989106366" name="checkpd" data-value="TG2C9ACK002WDI"></td>
+							<td class="pt_list_wrap">
+								<div class="pt_list_all">
+									<a href="/ko/p/TG2C9ACK002WDI"
+										onclick="javascript:setEcommerceData('0','Click');GA_Event('위시리스트', '상품', '[ADIDAS] 미드 컷 크루 양말 세트');"><img
+										src="http://newmedia.thehandsome.com/TG/2C/FW/TG2C9ACK002WDI_ML_S01.jpg"
+										alt="상품 이미지"></a>
+									<div class="tlt_wrap">
+										<a href="/ko/p/TG2C9ACK002WDI" class="basket_tlt"
+											onclick="javascript:setEcommerceData('0','Click');GA_Event('위시리스트', '상품', '[ADIDAS] 미드 컷 크루 양말 세트');">
+											<span class="tlt">TOM GREYHOUND</span> <span class="sb_tlt">[ADIDAS]
+												미드 컷 크루 양말 세트 </span>
+										</a>
+									</div>
+								</div>
+							</td>
+							<td class="al_middle">
+								<div class="price_wrap">
+									<span> ￦22,000 </span>
+								</div>
+							</td>
+							<td class="al_middle"><span class="earn">0 %</span></td>
+							<td class="al_middle">
+								<div class="btn_wrap">
+									<a href="javascript:void(0)"
+										class="btn wt_ss add_bag parent_add_bag"
+										product="8864709541889" index="0" productcode="TG2C9ACK002WDI"
+										onclick="GA_Event(&quot;위시리스트&quot;, &quot;쇼핑백담기&quot;, &quot;[ADIDAS] 미드 컷 크루 양말 세트&quot;);">쇼핑백담기
+										<!-- 쇼핑백담기 -->
+									</a> <a href="javascript:void(0)" class="btn wt_ss wishDel"
+										wishcode="9605989106366"
+										onclick="GA_Event(&quot;위시리스트&quot;, &quot;삭제&quot;, &quot;[ADIDAS] 미드 컷 크루 양말 세트&quot;);"
+										data-value="TG2C9ACK002WDI">삭제 <!-- 삭제 --></a>
+								</div>
+							</td>
+						</tr>
+						<tr class="hid">
+							<td colspan="5" class="basket_wrap">
+								<div class="basket_info" id="cart0">
+									<span class="btn_arr">위치아이콘</span>
+									<div class="info">
+										<div class="pt_list" id="pt_list_0"></div>
+										<div class="btns">
+											<a href="javascript:void(0)" class="btn wt_ss bag"
+												id="addToCart_0">쇼핑백담기 <!-- 쇼핑백담기 --></a> <a
+												href="javascript:void(0)" class="btn wt_ss mt10 bag"
+												id="cancle_0">취소 <!-- 취소 --></a> <a
+												href="javascript:void(0)" class="btn_close bag" id="close_0">닫기
+												<!-- 닫기 -->
+											</a>
+										</div>
+									</div>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td class="frt"><input type="checkbox" title="선택"
+								value="9602194277054" name="checkpd" data-value="TH2CAWJM336M"></td>
+							<td class="pt_list_wrap">
+								<div class="pt_list_all">
+									<a href="/ko/p/TH2CAWJM336M"
+										onclick="javascript:setEcommerceData('1','Click');GA_Event('위시리스트', '상품', '크링클 드로우스트링 점퍼');"><img
+										src="http://newmedia.thehandsome.com/TH/2C/FW/TH2CAWJM336M_BK_S01.jpg"
+										alt="상품 이미지"></a>
+									<div class="tlt_wrap">
+										<a href="/ko/p/TH2CAWJM336M" class="basket_tlt"
+											onclick="javascript:setEcommerceData('1','Click');GA_Event('위시리스트', '상품', '크링클 드로우스트링 점퍼');">
+											<span class="tlt">TIME HOMME</span> <span class="sb_tlt">크링클
+												드로우스트링 점퍼 </span>
+										</a>
+									</div>
+								</div>
+							</td>
+							<td class="al_middle">
+								<div class="price_wrap">
+									<span> ￦930,000 </span>
+								</div>
+							</td>
+							<td class="al_middle"><span class="earn">0 %</span></td>
+							<td class="al_middle">
+								<div class="btn_wrap">
+									<a href="javascript:void(0)"
+										class="btn wt_ss add_bag parent_add_bag"
+										product="8863936708609" index="1" productcode="TH2CAWJM336M"
+										onclick="GA_Event(&quot;위시리스트&quot;, &quot;쇼핑백담기&quot;, &quot;크링클 드로우스트링 점퍼&quot;);">쇼핑백담기
+										<!-- 쇼핑백담기 -->
+									</a> <a href="javascript:void(0)" class="btn wt_ss wishDel"
+										wishcode="9602194277054"
+										onclick="GA_Event(&quot;위시리스트&quot;, &quot;삭제&quot;, &quot;크링클 드로우스트링 점퍼&quot;);"
+										data-value="TH2CAWJM336M">삭제 <!-- 삭제 --></a>
+								</div>
+							</td>
+						</tr>
+						<tr class="hid">
+							<td colspan="5" class="basket_wrap">
+								<div class="basket_info" id="cart1">
+									<span class="btn_arr">위치아이콘</span>
+									<div class="info">
+										<div class="pt_list" id="pt_list_1"></div>
+										<div class="btns">
+											<a href="javascript:void(0)" class="btn wt_ss bag"
+												id="addToCart_1">쇼핑백담기 <!-- 쇼핑백담기 --></a> <a
+												href="javascript:void(0)" class="btn wt_ss mt10 bag"
+												id="cancle_1">취소 <!-- 취소 --></a> <a
+												href="javascript:void(0)" class="btn_close bag" id="close_1">닫기
+												<!-- 닫기 -->
+											</a>
+										</div>
+									</div>
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<!-- //Table -->
 
-                <!--  <p class="mt10 ml10">* 세일/가격인하/아울렛 일부 할인 상품은 한섬마일리지 적립이 불가합니다. 정확한 적립율은 쇼핑백과 상품상세페이지에서 확인하세요.</p>-->
-                <p class="mt10 ml10">* 정확한 적립율은 상품상세페이지에서 확인하세요.</p>
-                <div class="btn_btwrap">
-                    <a href="javascript:void(0);" class="btn wt_ss chooseDel">선택삭제
-                        <!-- 선택삭제 --></a>
-                </div>
-                <!-- paging -->
-                <div class="paging">
+			<!--  <p class="mt10 ml10">* 세일/가격인하/아울렛 일부 할인 상품은 한섬마일리지 적립이 불가합니다. 정확한 적립율은 쇼핑백과 상품상세페이지에서 확인하세요.</p>-->
+			<p class="mt10 ml10">* 정확한 적립율은 상품상세페이지에서 확인하세요.</p>
+			<div class="btn_btwrap">
+				<a href="javascript:void(0);" class="btn wt_ss chooseDel">선택삭제 <!-- 선택삭제 --></a>
+			</div>
+			<!-- paging -->
+			<div class="paging"></div>
+			<!-- //paging -->
 
-                </div>
-                <!-- //paging -->
+		</div>
+		<!-- //cnts -->
+	</div>
+</div>
 
-            </div>
-            <!-- //cnts -->
-        </div>
-    </div>
-
-    <script type="text/javascript">
+<script type="text/javascript">
         var fileIdx = 1;
         var reviewRate_en = "";
         var reviewSymbol_en = "";
@@ -2550,9 +2595,9 @@
         }
     </script>
 
-    <!-- footerWrap -->
+<!-- footerWrap -->
 
-    <script type="text/javascript">
+<script type="text/javascript">
         //<![CDATA[ 
 
         $(document).ready(function () {
@@ -2585,5 +2630,4 @@
 
         //]]>
     </script>
-	<%@ include file="/WEB-INF/views/common/footer.jsp"%>
-  
+<%@ include file="/WEB-INF/views/common/footer.jsp"%>
