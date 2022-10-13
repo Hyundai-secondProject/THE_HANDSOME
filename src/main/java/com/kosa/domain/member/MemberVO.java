@@ -7,7 +7,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 /**
- * BrandVO
+ * MemberVO
  * @author 공통
  * @since 2022.10.13
  * @version 1.0
