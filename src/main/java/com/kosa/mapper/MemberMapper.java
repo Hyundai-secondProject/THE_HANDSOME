@@ -1,5 +1,5 @@
 package com.kosa.mapper;
 
-public class MemberMapper {
+public interface MemberMapper {
 
 }
