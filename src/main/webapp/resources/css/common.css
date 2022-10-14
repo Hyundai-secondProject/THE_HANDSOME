@@ -3222,7 +3222,7 @@ table td .receive_choice>span label {
   width: 40px;
   height: 20px;
   color: #222;
-  background: url("/_ui/desktop/common/images/common/ico_ship.gif") no-repeat right 4px;
+  background: url("/resources/images/common/ico_ship.gif") no-repeat right 4px;
 }
 
 .shcode_wrap {
