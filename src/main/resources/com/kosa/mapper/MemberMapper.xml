@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- /**
  * @author 신기원
  * @since 2022.10.14
@@ -6,7 +9,6 @@
  * 
  * <pre>
  * 수정일              수정자                   수정내용
- * ----------  --------    ---------------------------
  * 2022.10.14     신기원              최초 생성
  * </pre>
  */ -->
@@ -14,12 +16,12 @@
 	
 	<insert id="join">
 		insert into member 
-		values(#{mid}, #{mpassword}, #{mname}, #{memail}, #{mphone}, #{mtel}, 
-		#{mzipcode}, #{madderess1}, #{madderss2}, #{mbirth}, #{mgender}, #{mrefid},
+		values(#{mid}, #{mpassword}, #{mname}, #{meamil}, #{mphone}, #{mtel}, 
+		#{mzipcode}, #{maddress1}, #{maddress2}, #{mbirth}, #{mgender}, #{mrefid},
 		#{mlogintype}, #{mtosno}, #{menabled}, #{mrole}, #{mgrade}, #{mmileage})
 	</insert>
 	
-	<select id="fingById" resultType="com.kosa.domain.member.MemberVO">
+	<select id="findById" resultType="com.kosa.domain.member.MemberVO">
 		select * from member
 		where mid = #{mid}
 	</select>

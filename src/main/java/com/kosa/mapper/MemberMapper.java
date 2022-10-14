@@ -1,6 +1,7 @@
 package com.kosa.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
 
 import com.kosa.domain.member.MemberVO;
 /**
