@@ -38,6 +38,7 @@ public interface CartMapper {
 		
 //	@Select("select * from cart")     // xml 문에서 sql문 처리했으니
 	public List<CartVO> select(String mid); // select 테스트
+	public List<CartVO> select2(String mid); // select 테스트2
 	public void insert(CartVO cart); // insert 테스트
 	// 스프링 mybatis에서는 param이 1개밖에 들어가지 않아서 여러개를 할때는 @Param을 사용한다
 	public void delete(@Param("mid") String mid, @Param("psid") String psid); 

@@ -27,6 +27,15 @@
 	<!-- 회원 id 받아서 처리필요 -->
 	</select>
 	
+	<!-- 뷰 적용 -->
+	<select id="select2" resultType="com.kosa.domain.member.CartVO">
+	SELECT pcimg1, bname, pname, pccolorcode, psize, pquantity, pcprice  
+	FROM cart, member, view_product_detail 
+	WHERE cart.psid=view_product_detail.psid
+	AND member.mid = #{mid}
+	<!-- 회원 id 받아서 처리필요 -->
+	</select>
+	
 	<!-- insert시에 mid와 psid는 fk이므로 부모데이터가 존재해야한다 -->
 	<insert id ="insert">
 	insert into cart 
