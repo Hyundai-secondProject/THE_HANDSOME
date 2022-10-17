@@ -27,12 +27,13 @@ public class CartMapperTests {
 	@Test
 	public void selectTest() {
 		log.info("test중입니다");
-		mapper.selectTest().forEach(mapper -> log.info(mapper));
+//		회원 아이디 입력
+		mapper.selectTest("ehfhfh1313").forEach(mapper -> log.info(mapper));
 	}
 	
 	@Test
 	public void testGetList2() {
-		for(  CartVO  cart:mapper.selectTest() ) {
+		for(  CartVO  cart:mapper.selectTest("ehfhfh1313") ) {
 			log.info(cart);
 		}
 	}

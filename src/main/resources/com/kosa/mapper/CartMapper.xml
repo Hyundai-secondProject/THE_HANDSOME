@@ -5,14 +5,16 @@
   
 <mapper namespace="com.kosa.mapper.CartMapper">
 
-
+	<!-- 많은 join으로 이후 view로 수정필요 -->
 	<select id="selectTest" resultType="com.kosa.domain.member.CartVO">
 	SELECT pcimg1, bname, pname, pccolorcode, psize, pquantity, pcprice  
-	FROM cart, product_stock ps, product_color pclr, product_common pcomm, brand
+	FROM cart, product_stock ps, product_color pclr, product_common pcomm, brand, member
 	WHERE cart.psid=ps.psid
 	AND ps.pcid = pclr.pcid
 	AND pclr.pid = pcomm.pid
 	AND pcomm.bno = brand.bno
+	AND member.mid = #{mid}
+	<!-- 회원 id 받아서 처리필요 -->
 	</select>
 	
 	<!-- insert시에 mid와 psid는 fk이므로 부모데이터가 존재해야한다 -->
