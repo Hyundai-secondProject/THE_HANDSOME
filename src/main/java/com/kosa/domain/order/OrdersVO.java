@@ -1,6 +1,7 @@
 package com.kosa.domain.order;
 
 import java.util.Date;
+import java.util.List;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -41,4 +42,8 @@ public class OrdersVO {
 	private String cpid; // 쿠폰 id
 	private String oaddress2; // 상세 배송지
 	
+	private List<OrderItemVO> itemList;
+	
+	private String pname;
+	private String bname;
 }
