@@ -27,7 +27,7 @@ public class MemberVO {
 	private String mid;	// 회원아이디
 	private String mpassword;  // 회원비밀번호
 	private String mname;  // 회원이름
-	private String meamil;  // 회원이메일
+	private String memail;  // 회원이메일
 	private String mphone; // 휴대폰번호
 	private String mtel;  //  전화번호
 	private String mzipcode;  // 우편번호
