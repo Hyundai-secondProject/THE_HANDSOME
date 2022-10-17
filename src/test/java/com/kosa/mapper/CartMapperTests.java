@@ -39,12 +39,12 @@ public class CartMapperTests {
 	public void selectTest() {
 		log.info("test중입니다");
 //		회원 아이디 입력
-		mapper.selectTest("ehfhfh1313").forEach(mapper -> log.info(mapper));
+		mapper.select("ehfhfh1313").forEach(mapper -> log.info(mapper));
 	}
 	
 	@Test
 	public void testGetList2() {
-		for(  CartVO  cart:mapper.selectTest("ehfhfh1313") ) {
+		for(  CartVO  cart:mapper.select("ehfhfh1313") ) {
 			log.info(cart);
 		}
 	}
@@ -56,7 +56,7 @@ public class CartMapperTests {
 		cart.setMid("ehfhfh1313");	// fk 멤버테이블에 이 값이 있어야함
 		cart.setPsid("psidN123Wstock");  // fk product_stock 테이블이 이 값이 있어야함
 		cart.setPquantity(3);
-		mapper.insertTest(cart);
+		mapper.insert(cart);
 	}
 	
 	@Test

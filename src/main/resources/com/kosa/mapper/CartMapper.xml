@@ -3,10 +3,20 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
+  <!-- /**
+ * @author 김민찬
+ * @since 2022.10.17
+ * @version 1.0
+ * 
+ * <pre>
+ * 수정일                       수정자                   수정내용
+ * 2022.10.17     김민찬             최초 생성
+ * </pre>
+ */ -->
 <mapper namespace="com.kosa.mapper.CartMapper">
 
 	<!-- 많은 join으로 이후 view로 수정필요 -->
-	<select id="selectTest" resultType="com.kosa.domain.member.CartVO">
+	<select id="select" resultType="com.kosa.domain.member.CartVO">
 	SELECT pcimg1, bname, pname, pccolorcode, psize, pquantity, pcprice  
 	FROM cart, product_stock ps, product_color pclr, product_common pcomm, brand, member
 	WHERE cart.psid=ps.psid
@@ -18,7 +28,7 @@
 	</select>
 	
 	<!-- insert시에 mid와 psid는 fk이므로 부모데이터가 존재해야한다 -->
-	<insert id ="insertTest">
+	<insert id ="insert">
 	insert into cart 
 	values( #{mid}, #{psid}, #{pquantity})
 	</insert>

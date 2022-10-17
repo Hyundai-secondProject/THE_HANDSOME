@@ -18,7 +18,7 @@ import lombok.ToString;
  * 수정일                     수정자                  수정내용
  * ----------  --------     ---------------------------
  * 2022.10.13    공통                  최초 생성
- * 2022.10.17    김민찬                화면에 보여줄 내용으로 변수 변경
+ * 2022.10.17    김민찬                화면에 보여줄 내용으로  변경
  * </pre>
  */
 
@@ -44,7 +44,6 @@ public class CartVO {
 	private String pccolorcode;
 	private String pcimg1;
 	private int pcprice;
-
 		
 	// 물품재고테이블 사이즈
 	private String psize;
