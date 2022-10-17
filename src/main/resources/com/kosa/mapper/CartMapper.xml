@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <!-- /**
+ * @author 김민찬
+ * @since 2022.10.17
+ * @version 1.0
+ * 
+ * <pre>
+ * 수정일                       수정자                   수정내용
+ * 2022.10.17     김민찬             최초 생성
+ * </pre>
+ */ -->
+<mapper namespace="com.kosa.mapper.CartMapper">
+
+	<!-- 많은 join으로 이후 view로 수정필요 -->
+	<select id="select" resultType="com.kosa.domain.member.CartVO">
+	SELECT pcimg1, bname, pname, pccolorcode, psize, pquantity, pcprice  
+	FROM cart, product_stock ps, product_color pclr, product_common pcomm, brand, member
+	WHERE cart.psid=ps.psid
+	AND ps.pcid = pclr.pcid
+	AND pclr.pid = pcomm.pid
+	AND pcomm.bno = brand.bno
+	AND member.mid = #{mid}
+	<!-- 회원 id 받아서 처리필요 -->
+	</select>
+	
+	<!-- 뷰 적용 -->
+	<select id="select2" resultType="com.kosa.domain.member.CartVO">
+	SELECT pcimg1, bname, pname, pccolorcode, psize, pquantity, pcprice  
+	FROM cart, member, view_product_detail 
+	WHERE cart.psid=view_product_detail.psid
+	AND member.mid = #{mid}
+	<!-- 회원 id 받아서 처리필요 -->
+	</select>
+	
+	<!-- insert시에 mid와 psid는 fk이므로 부모데이터가 존재해야한다 -->
+	<insert id ="insert">
+	insert into cart 
+	values( #{mid}, #{psid}, #{pquantity})
+	</insert>
+
+	<delete id = "delete">
+		delete from cart where mid = #{mid} and psid = #{psid}	
+	</delete>
+	
+	<update id="update">
+		UPDATE cart
+		SET
+		pquantity = #{pquantity}
+		where mid = #{mid} and psid = #{psid}
+	</update>
+
+
+	
+</mapper>  
+
+<!-- 
+<mapper namespace="com.mycompany.webapp.dao.ShoppingbagDao">
+	<insert id="insertProduct" parameterType="shoppingbag">
+		INSERT INTO
+		shoppingbag(SBNO, SBPRODUCTCOLOR, SBPRODUCTSIZE, SBPRODUCTAMOUNT, MNO,
+		PCODE)
+		VALUES(sbno_seq.nextval, #{sbproductcolor}, #{sbproductsize},
+		#{sbproductamount}, #{mno},
+		#{pcode})
+	</insert>
+
+	<update id="updateProduct" parameterType="shoppingbag">
+		UPDATE shoppingbag
+		SET
+		sbproductcolor = #{sbproductcolor},
+		sbproductamount = #{sbproductamount},
+		sbproductsize = #{sbproductsize}
+		WHERE sbno = #{sbno}
+	</update>
+
+	<delete id="deleteProduct" parameterType="int">
+		DELETE FROM shoppingbag
+		WHERE sbno = #{sbno}
+	</delete>
+	
+ 	<select id="selectProductNo" parameterType="shoppingbag"
+		resultType="int">
+		SELECT sbno
+		FROM shoppingbag
+		WHERE mno = #{mno}
+		AND pcode = #{pcode}
+		AND sbproductcolor = #{sbproductcolor}
+		AND sbproductsize = #{sbproductsize}
+		UNION ALL
+		SELECT -1 as sbno
+		FROM dual
+		WHERE NOT EXISTS( SELECT sbno
+		                  FROM shoppingbag
+		                  WHERE mno = #{mno}
+		                  AND pcode = #{pcode}
+		                  AND sbproductcolor = #{sbproductcolor}
+		                  AND sbproductsize = #{sbproductsize} )
+	</select>
+
+	<select id="selectShoppingProducts" parameterType="int"
+		resultType="shoppingbag">
+		SELECT SBNO, SBPRODUCTCOLOR, SBPRODUCTSIZE,
+		SBPRODUCTAMOUNT, MNO, PCODE
+		FROM shoppingbag
+		WHERE mno = #{mno}
+		ORDER BY
+		sbno DESC
+	</select>
+	<select id="selectShoppingProduct" parameterType="int"
+		resultType="shoppingbag">
+		SELECT SBNO, SBPRODUCTCOLOR, SBPRODUCTSIZE,
+		SBPRODUCTAMOUNT, MNO, PCODE
+		FROM shoppingbag
+		WHERE sbno = #{sbno}
+	</select>
+
+</mapper> -->
+
+
+<!-- List뽑아내기 -->
+<!-- 	<!<resultMap type="com.kosa.domain.member.CartVO" id="cartMap">
+    <id property="cartId" column="cartId"/>
+    <result property="bname" column="bname"/>
+    <result property="pname" column="pname"/>
+    <result property="psize" column="psize"/>
+    <result property="pquantity" column="pquantity"/>
+    <collection property="pclrList" resultMap="pclrMap">
+    </collection> 
+  </resultMap>
+  
+  <resultMap type="com.kosa.domain.product.ProductColorVO" id="pclrMap">
+    <result property="pccolorcode" column="pccolorcode"/>
+    <result property="pcimg1" column="pcimg1"/>
+    <result property="pcprice" column="pcprice"/>
+  </resultMap>
+  
+  <select id="selectRMTest" resultMap="memberMap">
+	SELECT   mem.userid,  userpw, username, enabled, regdate, updatedate, auth
+	FROM   cart, product_stock ps, product_common pcomm, brand 
+	LEFT OUTER JOIN  product_color pclr
+	ON mem.userid = pclr.userid
+	WHERE cart.psid=ps.psid
+	AND ps.pcid = pclr.pcid
+	AND pclr.pid = pcomm.pid
+	AND pcomm.bno = brand.bno
+  </select>  -->
