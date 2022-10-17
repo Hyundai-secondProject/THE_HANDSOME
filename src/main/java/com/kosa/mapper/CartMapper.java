@@ -21,7 +21,17 @@ import org.apache.ibatis.annotations.Select;
 
 import com.kosa.domain.member.CartVO;
 
-
+/**
+ * @author 김민찬
+ * @since 2022.10.17
+ * @version 1.0
+ * 
+ * <pre>
+ * 수정일                      수정자                   수정내용
+ * ----------  --------    ---------------------------
+ * 2022.10.17     김민찬              cart관련 crud 생성
+ * </pre>
+ */
 
 @Mapper
 public interface CartMapper {
