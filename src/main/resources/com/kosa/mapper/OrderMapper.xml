@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- /**
+ * @author 장주연
+ * @since 2022.10.17
+ * @version 1.0
+ * 
+ * <pre>
+ * 수정일              수정자                   수정내용
+ * 2022.10.17     장주연              최초 생성
+ * </pre>
+ */ -->  
+  
+ <mapper namespace="com.kosa.mapper.OrderMapper">
+ 
+   <resultMap type="com.kosa.domain.order.OrdersVO" id="orderMap">
+    <id property="oid" column="oid"/>
+    <result property="ostatus" column="ostatus"/>
+    <result property="odate" column="odate"/>
+    <result property="pname" column="pname"/>
+    <result property="bname" column="bname"/>
+    <collection property="itemList" resultMap="itemMap">
+    </collection> 
+  </resultMap>
+  
+    <resultMap type="com.kosa.domain.order.OrderItemVO" id="itemMap">
+    <result property="oid" column="oid"/>
+    <result property="oicount" column="oicount"/>
+    <result property="oitotalprice" column="oitotalprice"/>
+  </resultMap>
+ 
+ <sql id="criteria">
+ <trim prefix="(" suffix=") AND " prefixOverrides="OR">
+ 	<foreach item="type" collection="typeArr">
+ 		<trim prefix="OR">
+ 			<choose>
+ 				<when test="type== 'P'.toString()">
+ 					pname like '%' ||  #{keyword} ||  '%' 				
+ 				</when>
+ 				<when test="type== 'O'.toString()">
+ 					oid like '%' ||  #{keyword} ||  '%' 
+ 				</when>			
+ 			</choose> <!-- end choose --> 
+ 		</trim><!--end trim OR  -->
+ 	</foreach> <!--foreach  -->
+ </trim> <!--end trim pre...  -->
+</sql>
+
+ <select id="getTotalCount" resultType="int">
+ 	select count(*) from orders where 
+ 	<include refid="criteria"> </include> 	
+ 	oid > '00000'
+ </select>
+ 
+ <select id="getList" resultType="com.kosa.domain.order.OrdersVO">
+ select * from orders
+ </select>  
+ 
+   <select id="getListWithPaging" resultMap="orderMap" >
+     <![CDATA[
+  	select oid, ostatus, odate, oicount, oitotalprice, pname, bname
+  	from (
+  		select 
+  		rownum rn, o.oid, ostatus, odate, oicount, oitotalprice, pname, bname
+  		from orders o
+  		left outer join order_item items
+  		on o.oid = items.oid
+  		left outer join view_product_detail vpd 
+  		on items.psid = vpd.psid
+  	 where
+   ]]>
+ <include refid="criteria"> </include> 
+  <![CDATA[
+  rownum <= #{pageNum} * #{amount}
+  )
+where rn > ( #{pageNum} - 1 ) *  #{amount}  
+ ]]>
+ </select>   
+ 
+  <insert id="insert">
+ insert into orders
+values (#{oid}, #{ozipcode},#{oaddress1},#{oreceiver},#{ophone},#{otel},#{omemo},#{oemail},#{ousedmileage},#{obeforeprice},#{oafterprice},#{ostatus},#{mid},#{pmcode},#{odate},#{cpid},#{oaddress2})
+ </insert> 
+ 
+  </mapper> 
