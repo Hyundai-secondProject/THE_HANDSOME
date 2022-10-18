@@ -75,6 +75,7 @@ public class ProductController {
 
 		jsonObject.put("products", jsonArray);
 		jsonObject.put("result", "success");
+		jsonObject.put("totalCnt", products.getTotalCnt());
 		String json = jsonObject.toString();
 
 		return json;

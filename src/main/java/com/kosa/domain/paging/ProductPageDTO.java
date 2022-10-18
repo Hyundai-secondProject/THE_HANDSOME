@@ -12,6 +12,6 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 public class ProductPageDTO {
-	private int replyCnt;
+	private int totalCnt;
 	private List<ProductVO> list;
 }
