@@ -1,5 +1,7 @@
 package com.kosa.domain.order;
 
+import com.kosa.domain.product.ProductDetailVO;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -14,6 +16,7 @@ import lombok.ToString;
  * 수정일              수정자                   수정내용
  * ----------  --------    ---------------------------
  * 2022.10.13     공통              최초 생성
+ * 2022.10.18	 장주연	       상품 정보를 담을 객체 추가
  * </pre>
  */
 
@@ -25,4 +28,6 @@ public class OrderItemVO {
 	private String oid; // 주문 번호
 	private int oicount; // 각각의 상품 갯수
 	private int oitotalprice; // 각각의 상품에 대한 가격
+	
+	private ProductDetailVO productDetail; // 상품 정보
 }

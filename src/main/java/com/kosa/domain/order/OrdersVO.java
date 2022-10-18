@@ -42,8 +42,5 @@ public class OrdersVO {
 	private String cpid; // 쿠폰 id
 	private String oaddress2; // 상세 배송지
 	
-	private List<OrderItemVO> itemList;
-	
-	private String pname;
-	private String bname;
+	private List<OrderItemVO> itemList; // 주문 내 상품 목록
 }
