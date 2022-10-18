@@ -55,7 +55,7 @@ public class OrderMapperTest {
 	public void testGetListWithPaging() {		
 		Criteria cri = new Criteria();
 		for (OrdersVO order : mapper.getListWithPaging(cri)) {
-			log.info(order.getOid());
+			log.info(order);
 		}
 	}
 	
@@ -63,23 +63,23 @@ public class OrderMapperTest {
 	@Test
 	public void testInsert() {
 		OrdersVO order = new OrdersVO();
-		order.setOid("A0020");
-		order.setOzipcode("12001");
-		order.setOaddress1("서울특별시 종로구 혜화동");
-		order.setOreceiver("김보경");
-		order.setOphone("0101111111");
+		order.setOid("O1114");
+		order.setOzipcode("18100");
+		order.setOaddress1("경상남도 부산시 해운대구 OO아파트");
+		order.setOreceiver("장부산");
+		order.setOphone("01055555555");
 		order.setOtel("");
-		order.setOmemo("빠른 배송 부탁드립니다");
-		order.setOemail("");
+		order.setOmemo("빨리 왔으면 좋겠어요!");
+		order.setOemail("busan@google.com");
 		order.setOusedmileage(0);
-		order.setObeforeprice(25000);
-		order.setOafterprice(25000 - order.getOusedmileage());
-		order.setOstatus("배송 중");
-		order.setMid("rlaqhrud1011");
+		order.setObeforeprice(195000);
+		order.setOafterprice(order.getObeforeprice() - order.getOusedmileage());
+		order.setOstatus("준비 중");
+		order.setMid("busanii");
 		order.setPmcode("001");
 		order.setOdate(new Date());
 		order.setCpid("");
-		order.setOaddress2("110동 602");
+		order.setOaddress2("1110동 1302호");
 		mapper.insert(order);
 		log.info(order);
 	}
