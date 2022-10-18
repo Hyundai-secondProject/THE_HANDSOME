@@ -56,10 +56,7 @@
 </style>
 <script type="text/javascript" src="/resources/js/jquery-1.11.2.min.js"></script>
 <script type="text/javascript" src="/resources/js/jquery.vticker.js"></script>
-<!-- 200318 ì¶ê° -->
-<script type="text/javascript">
-	
-</script>
+
 <script type="text/javascript">
 	//<![CDATA[
 	ACC.addons = {}; //JS holder for addons properties
@@ -3055,7 +3052,7 @@ deg
 								</div>
 							</div></li>
 
-						<li><a href="/ko/item/we"
+						<li><a href="${pageContext.request.contextPath}/product/productlist?depth1=여성&cMedium=none&cSmall=none&pageNo=1"
 							onclick="GA_Event('공통','GNB','여성');GA_Event('공통_카테고리','1DEPTH','여성');">
 								여성 <span class="arr">arrow</span>
 						</a>

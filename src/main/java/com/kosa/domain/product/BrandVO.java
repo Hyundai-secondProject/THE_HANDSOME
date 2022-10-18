@@ -1,9 +1,11 @@
-package com.kosa.domain;
+package com.kosa.domain.product;
+
+import java.sql.Timestamp;
 
 import lombok.Data;
 
 /**
- * Depth3VO
+ * BrandVO
  * @author 공통
  * @since 2022.10.13
  * @version 1.0
@@ -16,6 +18,13 @@ import lombok.Data;
  */
 
 @Data
-public class Depth3VO {
-	private String depth1name; // 소분류
+public class BrandVO {
+	private int bno; // 브랜드 번호
+	private String bname; // 브랜드 이름
+	
+	public BrandVO(String bname) {
+		this.bname = bname;
+	}
+	
+	public BrandVO() {} // 빈생성자
 }

@@ -23,7 +23,7 @@ public class JDBCTests {
 			Connection con = 
 					DriverManager.getConnection(
 							"jdbc:oracle:thin:@localhost:1521/xepdb1"
-							,"book_ex2","book_ex2");
+							,"team5","team5");
 			log.info(con);
 		} catch (SQLException e) {
 			fail(e.getMessage());			

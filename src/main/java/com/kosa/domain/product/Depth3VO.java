@@ -1,9 +1,9 @@
-package com.kosa.domain;
+package com.kosa.domain.product;
 
 import lombok.Data;
 
 /**
- * Depth2VO
+ * Depth3VO
  * @author 공통
  * @since 2022.10.13
  * @version 1.0
@@ -16,6 +16,6 @@ import lombok.Data;
  */
 
 @Data
-public class Depth2VO {
-	private String depth1name; //중분류
+public class Depth3VO {
+	private String depth1name; // 소분류
 }

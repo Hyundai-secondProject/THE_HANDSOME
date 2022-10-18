@@ -1,8 +1,9 @@
-package com.kosa.domain;
+package com.kosa.domain.product;
 
 import lombok.Data;
+
 /**
- * ProductCategoryVO
+ * WithProductVO
  * @author 공통
  * @since 2022.10.13
  * @version 1.0
@@ -15,7 +16,7 @@ import lombok.Data;
  */
 
 @Data
-public class ProductCategoryVO {
-	private int cateno; // 카테고리 번호
-	private String pid; // 물품 id
+public class WithProductVO {
+	private String pcid; // 물품 색포함 id
+	private String withpcid; // 함께 코디한 물품 색포함 id
 }

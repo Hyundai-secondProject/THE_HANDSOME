@@ -4,11 +4,119 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.kosa.mapper.ProductMapper">
 
+	<!-- 테스트용 -->
 	<select id="selectProductVO"
-			resultType="com.kosa.domain.ProductCommonVO">
+		resultType="com.kosa.domain.product.ProductCommonVO">
 		<![CDATA[
 		select * from product_common where pid = #{pid}
 		 ]]>
 	</select>
 
+	<!-- 대분류 -->
+	<!-- paging처리 코드 수정 필요 -->
+	<select id="selectProductsDepth1"
+		resultType="com.kosa.domain.product.ProductVO" parameterType="HashMap">
+		<![CDATA[
+	select pid, pname, pnote, bno, pstatus, depth1name, depth2name,depth3name, bname
+			from (
+				select rownum as rnum, pid, pname, pnote, bno, pstatus, depth1name, depth2name,depth3name, bname
+				from (
+	  				select pid, pname, pnote, bno, pstatus, depth1name, depth2name,depth3name, bname
+  					from productVO_view pv
+  					WHERE depth1name = #{category.depth1name}
+  					AND depth2name LIKE '%'
+  					AND depth3name LIKE '%'
+				)
+				where ROWNUM <= #{cri.pageNum} * #{cri.amount}
+		)
+		where rnum > (#{cri.pageNum} - 1) * #{cri.amount}
+
+		]]>
+	</select>
+	
+	<!-- 중분류 -->
+	<!-- paging처리 코드 수정 필요 -->
+	<select id="selectProductsDepth2"
+		resultType="com.kosa.domain.product.ProductVO" parameterType="HashMap">
+		<![CDATA[
+	select pid, pname, pnote, bno, pstatus, depth1name, depth2name,depth3name, bname
+			from (
+				select rownum as rnum, pid, pname, pnote, bno, pstatus, depth1name, depth2name,depth3name, bname
+				from (
+	  				select pid, pname, pnote, bno, pstatus, depth1name, depth2name,depth3name, bname
+  					from productVO_view pv
+  					WHERE depth1name = #{category.depth1name}
+  					AND depth2name = #{category.depth2name}
+  					AND depth3name LIKE '%'
+				)
+				where ROWNUM <= #{cri.pageNum} * #{cri.amount}
+		)
+		where rnum > (#{cri.pageNum} - 1) * #{cri.amount}
+
+		]]>
+	</select>
+	
+	<!-- 소분류 -->
+	<!-- paging처리 코드 수정 필요 -->
+	<select id="selectProductsDepth3"
+		resultType="com.kosa.domain.product.ProductVO" parameterType="HashMap">
+		<![CDATA[
+	select pid, pname, pnote, bno, pstatus, depth1name, depth2name,depth3name, bname
+			from (
+				select rownum as rnum, pid, pname, pnote, bno, pstatus, depth1name, depth2name,depth3name, bname
+				from (
+	  				select pid, pname, pnote, bno, pstatus, depth1name, depth2name,depth3name, bname
+  					from productVO_view pv
+  					WHERE depth1name = #{category.depth1name}
+  					AND depth2name = #{category.depth2name}
+  					AND depth3name = #{category.depth3name}
+				)
+				where ROWNUM <= #{cri.pageNum} * #{cri.amount}
+		)
+		where rnum > (#{cri.pageNum} - 1) * #{cri.amount}
+
+		]]>
+	</select>
+
+	<!-- 대분류 갯수 세기 -->
+	<select id="countDepth1" resultType="int"
+		parameterType="com.kosa.domain.product.CategoryVO">
+		SELECT
+		COUNT(pid)
+		FROM productVO_view
+		WHERE depth1name = #{depth1name}
+		AND depth2name LIKE '%'
+		AND depth3name LIKE '%'
+	</select>
+
+	<!-- 중분류 갯수 세기 -->
+	<select id="countDepth2" resultType="int"
+		parameterType="com.kosa.domain.product.CategoryVO">
+		SELECT
+		COUNT(pid)
+		FROM productVO_view
+		WHERE depth1name = #{depth1name}
+		AND depth2name = #{depth2name}
+		AND depth3name LIKE '%'
+	</select>
+
+	<!-- 소분류 갯수 세기 -->
+	<select id="countDepth3" resultType="int"
+		parameterType="com.kosa.domain.product.CategoryVO">
+		SELECT
+		COUNT(pid)
+		FROM productVO_view
+		WHERE depth1name = #{depth1name}
+		AND depth2name = #{depth2name}
+		AND depth3name = #{depth3name}
+	</select>
+
+	<!-- 제품 코드로 생상 정보 가녀오기 -->
+	<select id="selectProductColor"
+		resultType="com.kosa.domain.product.ProductColorVO"
+		parameterType="com.kosa.domain.product.ProductVO">
+		select pcid, pcimg1, pcimg2, pcimg3, pcchipimg, pccolorcode, pcprice, pid
+		from product_color
+		where pid = #{pid}
+	</select>
 </mapper>

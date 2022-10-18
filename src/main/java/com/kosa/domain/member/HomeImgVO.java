@@ -1,9 +1,11 @@
-package com.kosa.domain;
+package com.kosa.domain.member;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 /**
- * WithProductVO
+ * HomeImgVO
  * @author 공통
  * @since 2022.10.13
  * @version 1.0
@@ -15,8 +17,12 @@ import lombok.Data;
  * </pre>
  */
 
-@Data
-public class WithProductVO {
-	private String pcid; // 물품 색포함 id
-	private String withpcid; // 함께 코디한 물품 색포함 id
+@Getter
+@Setter
+@ToString
+public class HomeImgVO {
+	
+	private String hiname;  // 브랜드홈이름
+	private String hiimg;  // 브랜드이미지
+
 }
