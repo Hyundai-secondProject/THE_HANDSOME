@@ -63,6 +63,24 @@
 <script type="text/javascript" src="/resources/js/jquery-1.11.2.min.js"></script>
 <script type="text/javascript" src="/resources/js/jquery.vticker.js"></script>
 
+
+<!-- 검색 결과화면 색상 필터-->
+<script type="text/javascript" src="/resources/js/d3.min.js"></script>
+<script type="text/javascript" src="/resources/js/d3pie.js"></script>
+<!-- 검색 결과화면 색상 필터 끝 -->
+
+
+
+<!-- 검색 결과화면 색상 필터-->
+<script type="text/javascript" src="/resources/js/d3.min.js"></script>
+<script type="text/javascript" src="/resources/js/d3pie.js"></script>
+<!-- 검색 결과화면 색상 필터 끝 -->
+
+
+<script type="text/javascript">
+	
+</script>
+
 <!-- 검색 결과화면 색상 필터-->
 <script type="text/javascript" src="/resources/js/d3.min.js"></script>
 <script type="text/javascript" src="/resources/js/d3pie.js"></script>
@@ -593,48 +611,40 @@ keyframes target_image { 0% {
 transform
 
 
-
-
 :
 
-
  
-
 
 rotate
 
 
-
-
 (9
 deg
-
-
 )
+
+
+            
+
 }
 100%
 {
 transform
 
 
-
-
 :
 
-
  
-
 
 rotate
 
 
-
-
 (-1
 deg
-
-
 );
+
+
+            
+
 }
 }
 </style>
@@ -1299,7 +1309,8 @@ deg
 	<!-- 광고 유입 끝 -->
 	<!-- Loading -->
 	<div class="loading_bar" id="loadingBarDiv" style="display: none;">
-		<img src="/resources/images/common/loading.gif" alt="loading" /> <span>�로딩중</span>
+		<img src="/resources/images/common/loading.gif" alt="loading" />
+		<span>�로딩중</span>
 	</div>
 	<!-- //Loading -->
 
@@ -1314,7 +1325,8 @@ deg
 	<!-- headerWrap -->
 	<div id="headerWrap">
 		<div class="header header_fixed header_main1903">
-			<script type="text/javascript" src="/resources/js/SsoAjax.js"></script>
+			<script type="text/javascript"
+				src="/resources/js/SsoAjax.js"></script>
 
 			<script>
 				var arkQuery = $.noConflict(true);
@@ -1463,8 +1475,10 @@ deg
 			</script>
 			<script type="text/javascript"
 				src="/resources/wisenut/ark/js/beta.fix.js"></script>
-			<script type="text/javascript" src="/resources/wisenut/ark/js/ark.js"></script>
-			<script type="text/javascript" src="/resources/wisenut/js/search.js"></script>
+			<script type="text/javascript"
+				src="/resources/wisenut/ark/js/ark.js"></script>
+			<script type="text/javascript"
+				src="/resources/wisenut/js/search.js"></script>
 			<script type="text/javascript">
 				//<![CDATA[
 				// #1067 - 201803 메인 개편
@@ -3071,7 +3085,7 @@ deg
 								</div>
 							</div></li>
 
-						<li><a href="/ko/item/we"
+						<li><a href="${pageContext.request.contextPath}/product/productlist?depth1=여성&cMedium=none&cSmall=none&pageNo=1"
 							onclick="GA_Event('공통','GNB','여성');GA_Event('공통_카테고리','1DEPTH','여성');">
 								여성 <span class="arr">arrow</span>
 						</a>
