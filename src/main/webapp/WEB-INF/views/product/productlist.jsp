@@ -477,7 +477,8 @@ function changeColor(product_idx, color_idx) {
 	$(p_color_id).html(tmp);
 }
 
-// 페이징 처리 
+// 페이징 처리 자바스크립트
+
 var pageNum = 1;
 var pageNation = $(".paging")
 
