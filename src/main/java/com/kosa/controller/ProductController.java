@@ -20,6 +20,7 @@ import com.kosa.domain.paging.ProductPageDTO;
 import com.kosa.domain.product.BrandVO;
 import com.kosa.domain.product.CategoryVO;
 import com.kosa.domain.product.ProductColorVO;
+import com.kosa.domain.product.ProductSizeVO;
 import com.kosa.domain.product.ProductVO;
 import com.kosa.service.ProductService;
 
@@ -84,53 +85,36 @@ public class ProductController {
 	@GetMapping("/productlist")
 	public String productList() {
 		log.info("제품 리스트 출력");
-		/*
-		 * // 상품 리스트 상단 카테고리 정보 보여주기 위해 저장 CategoryVO category = new CategoryVO(depth1,
-		 * depth2, depth3); // pager에서 사용하기 위해 저장 model.addAttribute("category",
-		 * category);
-		 * 
-		 * // DB에 접근해서 해당 카테고리에 상품의 총 개수를 가져온다. // Pager에 사용하고, 전체 상품 개수를 보여주기 위함 int
-		 * totalRows = productService.getTotalProductNum(category);
-		 * session.setAttribute("totalRows", totalRows);
-		 * 
-		 * // 한 페이지에 12개 상품, // 페이지 목록 5 페이지, // totalRows: 전체 상품 개수 / pageNo: 현재 페이지
-		 * Pager pager = new Pager(12, 5, totalRows, pageNo); // pager도 request 범위에
-		 * 저장하는데, 그 이유는 jsp에서 사용하기 위해서 model.addAttribute("pager", pager);
-		 */
 
 		return "product/productlist";
 	}
 
 	@RequestMapping("/productdetail")
-	public String productDetail() {
-		/*
-		 * logger.info("실행");
-		 * 
-		 * // pcode를 이용해서 product 객체 1개를 DB에서 가져온다. Product product =
-		 * productService.getProduct(pcode); // product를 이용해서 해당 상품이 가지고 있는 color와 size를
-		 * 가져온다. List<ProductColor> colors = productService.getProductColor(product);
-		 * List<ProductSize> sizes = productService.getProductSize(product);
-		 * 
-		 * for (int i = 0; i < colors.size(); i++) { if
-		 * (cproductcolor.equals(colors.get(i).getCproductcolor())) {
-		 * model.addAttribute("productimage1", colors.get(i).getCimageproduct1());
-		 * model.addAttribute("productimage2", colors.get(i).getCimageproduct2());
-		 * model.addAttribute("productimage3", colors.get(i).getCimageproduct3());
-		 * break; } }
-		 * 
-		 * model.addAttribute("product", product); model.addAttribute("colors", colors);
-		 * model.addAttribute("sizes", sizes);
-		 * 
-		 * int mileage = (int) (product.getPprice() * 0.05); int hpoint = (int)
-		 * (product.getPprice() * 0.001);
-		 * 
-		 * model.addAttribute("mileage", mileage); model.addAttribute("hpoint", hpoint);
-		 * 
-		 * if (viewers.containsKey(pcode)) { viewers.put(pcode, viewers.get(pcode) + 1);
-		 * } else { viewers.put(pcode, 1); }
-		 * 
-		 * model.addAttribute("viewer", viewers.get(pcode));
-		 */
-		return "product/productdetail";
+	public String productDetail(String pid, String pcid, Model model) {
+		log.info("상세 페이지");
+		
+		// pid를 통해 제품 객체 가져오기
+		ProductVO product = service.getProduct(pid);
+		
+		// product로 색상, 사이즈 가져오기
+		List<ProductColorVO> colors = service.getProductColor(product);
+		List<ProductSizeVO> sizes = service.getProductSize(product);
+		
+		for (int i = 0; i < colors.size(); i++) {
+			if (pcid.equals(colors.get(i).getPcid())) {
+				model.addAttribute("pcimg1", colors.get(i).getPcimg1());
+				model.addAttribute("pcimg2", colors.get(i).getPcimg2());
+				model.addAttribute("pcimg3", colors.get(i).getPcimg3());
+				break;
+			}
+		}
+		log.info("제품 사진 : " + colors.get(0).getPcimg1());
+
+		model.addAttribute("pcrice", colors.get(0).getPcprice());
+		model.addAttribute("product", product);
+		model.addAttribute("colors", colors);
+		model.addAttribute("sizes", sizes);
+		
+		return "product/productdetail";		
 	}
 }

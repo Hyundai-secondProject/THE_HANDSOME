@@ -47,4 +47,6 @@ public class ProductMapperTests {
 		List<ProductVO> list = mapper.selectProductsDepth3(categoryPager);
 		list.forEach( i -> log.info( i));
 	}//end test
+	
+
 }

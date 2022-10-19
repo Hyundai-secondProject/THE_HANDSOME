@@ -16,10 +16,7 @@ import lombok.Data;
  */
 
 @Data
-public class ProductStockVO {
-	private String psid; // 무품 재고 id
-	private int psstock; // 재고 수량
+public class ProductSizeVO {
+	private String pid; // 물품 id
 	private String psize; // 물품 사이즈
-	private String pcid; // 물품 색포함 id
-	
 }
