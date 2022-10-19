@@ -5,12 +5,8 @@
 <mapper namespace="com.kosa.mapper.ProductMapper">
 
 	<!-- 테스트용 -->
-	<select id="selectProductVO"
-		resultType="com.kosa.domain.product.ProductCommonVO">
-		<![CDATA[
-		select * from product_common where pid = #{pid}
-		 ]]>
-	</select>
+	<!-- <select id="selectProduct" resultType="com.kosa.domain.product.ProductCommonVO"> 
+		<![CDATA[ select * from product_common where pid = #{pid} ]]> </select> -->
 
 	<!-- 대분류 -->
 	<!-- paging처리 코드 수정 필요 -->
@@ -33,7 +29,7 @@
 
 		]]>
 	</select>
-	
+
 	<!-- 중분류 -->
 	<!-- paging처리 코드 수정 필요 -->
 	<select id="selectProductsDepth2"
@@ -55,7 +51,7 @@
 
 		]]>
 	</select>
-	
+
 	<!-- 소분류 -->
 	<!-- paging처리 코드 수정 필요 -->
 	<select id="selectProductsDepth3"
@@ -84,7 +80,8 @@
 		SELECT
 		COUNT(pid)
 		FROM productVO_view
-		WHERE depth1name = #{depth1name}
+		WHERE depth1name =
+		#{depth1name}
 		AND depth2name LIKE '%'
 		AND depth3name LIKE '%'
 	</select>
@@ -95,7 +92,8 @@
 		SELECT
 		COUNT(pid)
 		FROM productVO_view
-		WHERE depth1name = #{depth1name}
+		WHERE depth1name =
+		#{depth1name}
 		AND depth2name = #{depth2name}
 		AND depth3name LIKE '%'
 	</select>
@@ -106,17 +104,62 @@
 		SELECT
 		COUNT(pid)
 		FROM productVO_view
-		WHERE depth1name = #{depth1name}
+		WHERE depth1name =
+		#{depth1name}
 		AND depth2name = #{depth2name}
-		AND depth3name = #{depth3name}
+		AND depth3name =
+		#{depth3name}
 	</select>
 
-	<!-- 제품 코드로 생상 정보 가녀오기 -->
+	<!-- 제품 코드로 색상 정보 가녀오기 -->
 	<select id="selectProductColor"
 		resultType="com.kosa.domain.product.ProductColorVO"
 		parameterType="com.kosa.domain.product.ProductVO">
-		select pcid, pcimg1, pcimg2, pcimg3, pcchipimg, pccolorcode, pcprice, pid
+		select pcid, pcimg1, pcimg2, pcimg3, pcchipimg,
+		pccolorcode, pcprice, pid
 		from product_color
 		where pid = #{pid}
+	</select>
+
+	<!-- 제품 코드로 사이즈 정보 가녀오기 -->
+	<!-- s,m,l 순서로 정렬 -->
+	<select id="selectProductSize"
+		resultType="com.kosa.domain.product.ProductSizeVO"
+		parameterType="com.kosa.domain.product.ProductVO">
+		select *
+		from sizeVO_view
+		where pid = #{pid}
+		order by
+		case
+		psize when 'S' then 1
+		when 'M' then 2
+		when 'L' then 3
+		end
+		asc,
+		psize asc
+	</select>
+
+	<!-- 제품 색상 id로 size별 재고 가져오기 -->
+	<select id="selectProductStock"
+		resultType="com.kosa.domain.product.ProductStockVO"
+		parameterType="String">
+		select *
+		from product_stock
+		where psid = #{psid}
+	</select>
+
+	<!-- 재고수량 변경 -->
+	<update id="updateProductStock">
+		update product_stock
+		set psstock = #{psstock}
+		where
+		psid = #{psid}
+	</update>
+
+	<select id="selectProduct"
+		resultType="com.kosa.domain.product.ProductVO">
+		<![CDATA[
+		select * from PRODUCTVO_VIEW where pid = #{pid}
+		 ]]>
 	</select>
 </mapper>

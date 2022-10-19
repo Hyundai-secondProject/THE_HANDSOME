@@ -8,7 +8,7 @@
 
 <link rel="stylesheet" type="text/css" href="/resources/css/product.css"
 	media="all" />
-<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.12.4.min.js"></script>	
+<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.12.4.min.js"></script>
 
 <div id="bodyWrap" class="products">
 	<!-- 클롭 모나코 팝업 -->
@@ -17,17 +17,39 @@
 	<!--title-->
 	<!-- #1141 - 카테고리 개편(카테고리/브랜드 Navigation) -->
 	<h3 class="cnts_title ou1804">
-		<span> <!-- 정상 브랜드 카테고리 목록 --> <a href="/ko/c/WE/"
+		<span id = "cnts_title"> <!-- 정상 브랜드 카테고리 목록 --> 
+<!-- 			<a href="/ko/c/WE/"
 			onclick="GA_Event('카테고리_리스트','카테고리','여성')"> 여성</a> <img
 			src="http://cdn.thehandsome.com/_ui/desktop/common/images/products/ou_location_arr.png"
 			alt="location arr"> <a href="/ko/c/WE05/"
 			onclick="GA_Event('카테고리_리스트','카테고리','아우터')"> 아우터</a> <img
 			src="http://cdn.thehandsome.com/_ui/desktop/common/images/products/ou_location_arr.png"
 			alt="location arr"> <a href="javascript:void(0);"
-			onclick="GA_Event('카테고리_리스트','카테고리','재킷')"> 재킷</a>
+			onclick="GA_Event('카테고리_리스트','카테고리','재킷')"> 재킷</a> -->
+			
 		</span>
 	</h3>
-	<!--  카테고리 개편 아울렛 -->
+	<script type="text/javascript">
+	const url = new URL(window.location.href);
+	const urlParams = url.searchParams;	
+	
+	let CatTmp = "";
+	let arr = new Array();
+	arr = [urlParams.get("depth1"),urlParams.get("depth2"),urlParams.get("depth3")]
+	
+	// 배열 출력 (for 문)
+	for(let i = 0; i < arr.length; i++) {
+	  if (arr[i].equals("none")) {
+		  return;
+	  } else {
+		  consol.log("실행");
+		  CatTmp += "<a href='${pageContext.request.contextPath}/product/productlist?depth1=" + urlParams.get("depth1") + "&depth2=" + urlParams.get("depth2") + "&depth3=" + urlParams.get("depth3") + "'>" + arr[i] + "</a>";
+	  		
+	  }
+	}
+	$("#cnts_title").html(CatTmp);
+	</script>
+
 	<!--//title-->
 	<div class="adaptive_wrap">
 
@@ -345,7 +367,7 @@
 						onclick="GA_Event('카테고리_리스트','정렬','적용');">적용</a></li>
 				</ul>
 				<div class="items_count float_right">
-					<span class="num">536</span> <span>전체</span>
+					<!-- 상품 갯수 표기!!!!!!!!!!!!!!!!!!!!! -->
 				</div>
 			</div>
 		</form>
@@ -354,13 +376,13 @@
 		<div class="items_list cate_item4" id="listContent"
 			style="display: block;">
 			<ul class="clearfix" id="listBody">
-		<!-- ajax으로 상품 리스트 띄우는 곳 -->
+				<!-- ajax으로 상품 리스트 띄우는 곳 -->
 			</ul>
 		</div>
 		<!-- //items list -->
 		<!-- paging -->
 		<div class="paging" style="display: block;">
-		<!-- 페이징 처리 자바 스크립트로 실행!!!!!!!!!!-->
+			<!-- 페이징 처리 자바 스크립트로 실행!!!!!!!!!!-->
 		</div>
 		<!-- //paging -->
 
@@ -387,185 +409,267 @@
 
 <!-- 상품 리스트 ajax 처리 -->
 <script type="text/javascript">
-    $(document).ready(function () {
+	$(window)
+			.ready(
+					function() {
 
-        // 바로 상품 띄우기
-        showList(1);
+						// 바로 상품 띄우기
+						showList(1);
 
-        // ajax로 제품 띄우기
-        function showList(page) {
+						// 카테고리 띄우기
+							const url = new URL(window.location.href);
+							const urlParams = url.searchParams;	
+	
+							let CatTmp = "";
+							let arr = new Array();
+							arr = [urlParams.get("depth1"),urlParams.get("depth2"),urlParams.get("depth3")]
+	
+							// 배열 출력 (for 문)
+ 							for(let i = 0; i < arr.length; i++) {
+							  if (arr[i] === "none") {
+								  break;
+							  } else {
+								  if (i != 0) {
+									  CatTmp += "<img src='http://cdn.thehandsome.com/_ui/desktop/common/images/products/ou_location_arr.png' alt='location arr'>";
+								  }
+								  CatTmp += "<a href='${pageContext.request.contextPath}/product/productlist?depth1=" + urlParams.get("depth1") + "&depth2=" + urlParams.get("depth2") + "&depth3=" + urlParams.get("depth3") + "'>" + arr[i] + "</a>";
+							  }
+							}
 
-            let product_array;
-            let totalCnt;
-            const urlParams = new URL(location.href).searchParams;
+							console.log("CatTmp : " + CatTmp);
+							$("#cnts_title").html(CatTmp);
+						
+						// ajax로 제품 띄우기
+						function showList(page) {
 
-            $.ajax({
-                url: "${pageContext.request.contextPath}/product/getProductList?depth1=" + urlParams
-                    .get("depth1") +
-                    "&depth2=" + urlParams.get("depth2") +
-                    "&depth3=" + urlParams.get("depth3")
-            }).done(function (data) {
+							let product_array;
+							let totalCnt;
+							const urlParams = new URL(location.href).searchParams;
 
-                product_array = data.products;
-                totalCnt = data.totalCnt;
+							$
+									.ajax(
+											{
+												url : "${pageContext.request.contextPath}/product/getProductList?depth1="
+														+ urlParams
+																.get("depth1")
+														+ "&depth2="
+														+ urlParams
+																.get("depth2")
+														+ "&depth3="
+														+ urlParams
+																.get("depth3")
+											})
+									.done(
+											function(data) {
 
-                console.log(product_array);
-                let html_tmp = "";
+												product_array = data.products;
+												totalCnt = data.totalCnt;
 
-                if (product_array == null || product_array.length == 0) {
-                    $("#listBody").html("");
-                    return;
-                }
+												// 전체 갯수 표시
+												let CntTmp = ""
+												CntTmp += "<span class= 'num'>"
+														+ totalCnt + "</span>";
+												CntTmp += "<span>전체</span>";
+												$(".items_count").html(CntTmp);
 
-                for (let i = 0; i < product_array.length; i++) {
-                    let product = product_array.at(i);
-                    let product_color = product.colors;
-                    let product_info = product.product;
-                    let product_price = product.pprice;
+												// 제품 띄우기
+												console.log(product_array);
+												let html_tmp = "";
 
-                    let tmp = "";
-                    //console.log(product_info);
-                    console.log(product_color.at(0).pcimg1);
-                    console.log(product_color.at(0).pcimg2);
-                    console.log(product_color.at(0).pcimg3);
-                    console.log(product_color.at(0).pcchipimg);
-                    console.log(product_price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','));
-                    console.log(totalCnt);
+												if (product_array == null
+														|| product_array.length == 0) {
+													$("#listBody").html("");
+													return;
+												}
 
-                    if (i == 4 || i == 8 || i == 12) {
-                        tmp += "<li class = 'mr1m'>" // list 시작
-                    } else if (i == 5 || i == 9) {
-                        tmp += "<li class = 'clear: both'>"
-                    } else {
-                        tmp += "<li>"
-                    }
-                    tmp += "<div class = 'item_box'> "; // div1 시작
+												for (let i = 0; i < product_array.length; i++) {
+													let product = product_array
+															.at(i);
+													let product_color = product.colors;
+													let product_info = product.product;
+													let product_price = product.pprice;
 
-                    tmp += "<a href='productdetail?pcode=" + product_array.at(i).product.pcode +
-                        "' class='item_info1' onclick='setEcommerceData('1', 'CATEGORY')'> "; // 상세 페이지로 연결 + 제품 색상 넣기 필요!!!!!!!!!!!
-                    tmp += "<span class = 'item_img'>";
-                    tmp += "		<img src='" + product_color.at(0).pcimg2 +
-                        "' alt='' class='respon_image'/>";
-                    tmp += "		<img src='" + product_color.at(0).pcimg3 +
-                        "' alt='' class='respon_image on' style='display: none; opacity: 1;'/>";
-                    tmp += "</span>"
-                    tmp +=
-                        "<span class = 'item_size' id = 'itemsize_1' style='display: none; height: 4.36886px; padding-top: 2.81557px; margin-top: 0px; padding-bottom: 2.81557px; margin-bottom: 0px;'>";
-                    tmp += "</span>";
-                    tmp += "</a>";
-                    tmp +=
-                        "<a href='/ko/p/YN2CAWCT156W_BR?categoryCode=we05' class='item_info2' onclick='setEcommerceData('1', 'CATEGORY')'> ";
-                    tmp += "	<span class='brand'>" + product_info.bname + "</span>";
-                    tmp += "	<span class='title'>" + product_info.pname + "</span>";
-                    tmp += "	<span class='price'> ￦" + product_price.toString().replace(
-                        /\B(?=(\d{3})+(?!\d))/g, ',') + "원</span>";
-                    tmp += "	<span class='flag'> <span class='product'></span> </span>"
-                    tmp += "</a>";
-                    tmp += "<div class='color_more_wrap'>";
-                    for (let j = 0; j < product_color.length; j++) {
-                        tmp += "<a href='javascript:changeColor(" + i + ", " + j + ")' ><img src='" +
-                            product_color.at(j).pcchipimg + "'class = 'cl wt'/></a>";
-                    }
-                    tmp += "</div>";
-                    tmp +=
-                        "<a href='javascript:addWishListClick('YN2CAWCT156W');' class='add_wishlist' id='wish_YN2CAWCT156W' onclick='GA_Category('wish', $(this));' data-value='YN2CAWCT156W_BR'>위시리스트 담기</a> ";
-                    tmp += "	</div>"; // div1 종료
-                    tmp += "</li>"; // list 종료
-                    html_tmp += tmp;
+													let tmp = "";
+													//console.log(product_info);
+													console.log(product_color
+															.at(0).pcimg1);
+													console.log(product_color
+															.at(0).pcimg2);
+													console.log(product_color
+															.at(0).pcimg3);
+													console.log(product_color
+															.at(0).pcchipimg);
+													console
+															.log(product_price
+																	.toString()
+																	.replace(
+																			/\B(?=(\d{3})+(?!\d))/g,
+																			','));
+													console.log(totalCnt);
 
-                }
-                $("#listBody").html(html_tmp);
-                //$("#listBody").html(html_tmp);  
+													if (i == 4 || i == 8
+															|| i == 12) {
+														tmp += "<li class = 'mr1m'>" // list 시작
+													} else if (i == 5 || i == 9) {
+														tmp += "<li class = 'clear: both'>"
+													} else {
+														tmp += "<li>"
+													}
+													tmp += "<div class = 'item_box'> "; // div1 시작
 
-                // 페이징 출력
-                showProductPage(totalCnt);
-            });
+													tmp += "<a href='productdetail?pid="
+															+ product_array
+																	.at(i).product.pid + "&pcid=" + product_array.at(i).colors.at(0).pcid
+															+ "' class='item_info1' onclick='setEcommerceData('1', 'CATEGORY')'> "; // 상세 페이지로 연결 + 제품 색상 넣기 필요!!!!!!!!!!!
+													tmp += "<span class = 'item_img'>";
+													tmp += "		<img src='"
+															+ product_color
+																	.at(0).pcimg2
+															+ "' alt='' class='respon_image'/>";
+													tmp += "		<img src='"
+															+ product_color
+																	.at(0).pcimg3
+															+ "' alt='' class='respon_image on' style='display: none; opacity: 1;'/>";
+													tmp += "</span>"
+													tmp += "<span class = 'item_size' id = 'itemsize_1' style='display: none; height: 4.36886px; padding-top: 2.81557px; margin-top: 0px; padding-bottom: 2.81557px; margin-bottom: 0px;'>";
+													tmp += "</span>";
+													tmp += "</a>";
+													tmp += "<a href='/ko/p/YN2CAWCT156W_BR?categoryCode=we05' class='item_info2' onclick='setEcommerceData('1', 'CATEGORY')'> ";
+													tmp += "	<span class='brand'>"
+															+ product_info.bname
+															+ "</span>";
+													tmp += "	<span class='title'>"
+															+ product_info.pname
+															+ "</span>";
+													tmp += "	<span class='price'> ￦"
+															+ product_price
+																	.toString()
+																	.replace(
+																			/\B(?=(\d{3})+(?!\d))/g,
+																			',')
+															+ "원</span>";
+													tmp += "	<span class='flag'> <span class='product'></span> </span>"
+													tmp += "</a>";
+													tmp += "<div class='color_more_wrap'>";
+													for (let j = 0; j < product_color.length; j++) {
+														tmp += "<a href='javascript:changeColor("
+																+ i
+																+ ", "
+																+ j
+																+ ")' ><img src='"
+																+ product_color
+																		.at(j).pcchipimg
+																+ "'class = 'cl wt'/></a>";
+													}
+													tmp += "</div>";
+													tmp += "<a href='javascript:addWishListClick('YN2CAWCT156W');' class='add_wishlist' id='wish_YN2CAWCT156W' onclick='GA_Category('wish', $(this));' data-value='YN2CAWCT156W_BR'>위시리스트 담기</a> ";
+													tmp += "	</div>"; // div1 종료
+													tmp += "</li>"; // list 종료
+													html_tmp += tmp;
 
+												}
+												$("#listBody").html(html_tmp);
+												//$("#listBody").html(html_tmp);  
 
-        }
-        // 색상으로 변경되는거 수정해야 함------------------------------------
-        function changeColor(product_idx, color_idx) {
-            product_array.at(product_idx)["state"] = color_idx;
+												// 페이징 출력
+												showProductPage(totalCnt);
+											});
 
-            let color_img = product_array.at(product_idx).colors.at(color_idx);
-            let p_color_id = "#product_img" + product_idx;
-            let p_link = "#product_link" + product_idx;
+						}
+						// 색상으로 변경되는거 수정해야 함------------------------------------
+						function changeColor(product_idx, color_idx) {
+							product_array.at(product_idx)["state"] = color_idx;
 
-            let tmp = "";
-            tmp += "<img src='" + color_img["cimageproduct1"] + "' alt='' />";
-            tmp += "<img src='" + color_img["cimageproduct2"] + "' alt='' />";
+							let color_img = product_array.at(product_idx).colors
+									.at(color_idx);
+							let p_color_id = "#product_img" + product_idx;
+							let p_link = "#product_link" + product_idx;
 
-            $(p_link).attr("href", "productdetail?pcid=" + product_array.at(product_idx).product.pcode +
-                "&cproductcolor=" + product_array.at(product_idx).colors.at(product_array.at(product_idx)
-                    .state)
-                .cproductcolor);
-            $(p_color_id).html(tmp);
-        }
+							let tmp = "";
+							tmp += "<img src='" + color_img["cimageproduct1"] + "' alt='' />";
+							tmp += "<img src='" + color_img["cimageproduct2"] + "' alt='' />";
 
-        // 페이징 표시 자바스크립트
-        var pageNum = 1;
-        var pageNation = $(".paging")
+							$(p_link)
+									.attr(
+											"href",
+											"productdetail?pcid="
+													+ product_array
+															.at(product_idx).product.pcode
+													+ "&cproductcolor="
+													+ product_array
+															.at(product_idx).colors
+															.at(product_array
+																	.at(product_idx).state).cproductcolor);
+							$(p_color_id).html(tmp);
+						}
 
-        function showProductPage(totalCnt) {
-            // 시작 페이지, 마지막 페이지, 이전페이지, 다음 페이지 구현
-            var endNum = Math.ceil(pageNum / 10.0) * 10;
-            var startNum = endNum - 9;
-            //var prev = startNum != 1;
-            //var next = false; // 기본 값은 false 
-            // 현재 보이는 pagenation의 마지막 숫자의 *10은 현재 까지의 데이터 갯수인데
-            // 이것보다 total 갯수가 더 적다면 -> 페이지 조정이 필요
-            if (endNum * 10 >= totalCnt) { //마지막페이지계산
-                endNum = Math.ceil(totalCnt / 10.0);
-            } //end if	      
-            if (endNum * 10 < totalCnt) { //다음페이지 가능
-                next = true;
-            } //end if	 
+						// 페이징 표시 자바스크립트
+						var pageNum = 1;
+						var pageNation = $(".paging")
 
-            console.log("pageNum" + pageNum);
-            console.log("endNum" + endNum);
-            console.log("startNum" + startNum);
-            // 페이지 네이션 표시
-            var str = "";
-            str += "<a class='prev2' href='1'> 처음 페이지 </a>";
-            if (pageNum <= 0) {
-                str += "<a class='prev' href='1'> 이전 페이지 </a>";
-            } else {
-                str += "<a class='prev' href='" + (pageNum - 1) + "'> 이전 페이지 </a>";
-            }
-            str += "<span class = 'num'>";
-            for (var i = startNum; i <= endNum; i++) {
-                // 현재 페이지 active
-                var active = pageNum == i ? "on" : "";
-                str += "<a href='" + i + "'class='pageBtn " + active + "'>" + i + "</a>";
-            }
-            str += "</span>";
-            if (pageNum >= endNum) {
-                str += "<a class='next' href='" + endNum + "'> 다음 페이지 </a>";
-            } else {
-                str += "<a class='next' href='" + (pageNum + 1) + "'> 다음 페이지 </a>";
-            }
-            str += "<a class='next2' href='" + endNum + "'> 마지막 페이지 </a>";
-            // console.log(str);
+						function showProductPage(totalCnt) {
+							// 시작 페이지, 마지막 페이지, 이전페이지, 다음 페이지 구현
+							var endNum = Math.ceil(pageNum / 10.0) * 10;
+							var startNum = endNum - 9;
+							//var prev = startNum != 1;
+							//var next = false; // 기본 값은 false 
+							// 현재 보이는 pagenation의 마지막 숫자의 *10은 현재 까지의 데이터 갯수인데
+							// 이것보다 total 갯수가 더 적다면 -> 페이지 조정이 필요
+							if (endNum * 10 >= totalCnt) { //마지막페이지계산
+								endNum = Math.ceil(totalCnt / 10.0);
+							} //end if	      
+							if (endNum * 10 < totalCnt) { //다음페이지 가능
+								next = true;
+							} //end if	 
 
-            pageNation.html(str);
-        }
+							console.log("pageNum" + pageNum);
+							console.log("endNum" + endNum);
+							console.log("startNum" + startNum);
+							// 페이지 네이션 표시
+							var str = "";
+							str += "<a class='prev2' href='1'> 처음 페이지 </a>";
+							if (pageNum <= 0) {
+								str += "<a class='prev' href='1'> 이전 페이지 </a>";
+							} else {
+								str += "<a class='prev' href='" + (pageNum - 1)
+										+ "'> 이전 페이지 </a>";
+							}
+							str += "<span class = 'num'>";
+							for (var i = startNum; i <= endNum; i++) {
+								// 현재 페이지 active
+								var active = pageNum == i ? "on" : "";
+								str += "<a href='" + i + "'class='pageBtn " + active + "'>"
+										+ i + "</a>";
+							}
+							str += "</span>";
+							if (pageNum >= endNum) {
+								str += "<a class='next' href='" + endNum + "'> 다음 페이지 </a>";
+							} else {
+								str += "<a class='next' href='" + (pageNum + 1)
+										+ "'> 다음 페이지 </a>";
+							}
+							str += "<a class='next2' href='" + endNum + "'> 마지막 페이지 </a>";
+							// console.log(str);
 
-        //페이지 번호 클릭	
-        //반드시 on함수 사용해야 한다. - js에 의해 새로 생긴 태그에는 이벤트가 주어지지 않기 때문에 찾아서 이벤트를 넣어줘야 한다.
-        pageNation.on("click", "a", function (e) {
-            // 링크 이동 행동 무시
-            e.preventDefault(); //<a> 동작 중지
-            console.log("page click");
-            var targetPageNum = $(this).attr("href"); //페이지넘버 가져오기	       
-            console.log("targetPageNum: " + targetPageNum);
-            if (targetPageNum <= 0) {
-            	targetPageNum = 1;
-            }
-            console.log("targetPageNum: " + targetPageNum);
-            // 전역 변수에 값 전달
-            pageNum = targetPageNum; //값전달
-            showList(pageNum); //페이지 리스트 다시 출력
-        }); //end replyPageFooter click
-    });
+							pageNation.html(str);
+						}
+
+						//페이지 번호 클릭	
+						//반드시 on함수 사용해야 한다. - js에 의해 새로 생긴 태그에는 이벤트가 주어지지 않기 때문에 찾아서 이벤트를 넣어줘야 한다.
+						pageNation.on("click", "a", function(e) {
+							// 링크 이동 행동 무시
+							e.preventDefault(); //<a> 동작 중지
+							console.log("page click");
+							var targetPageNum = $(this).attr("href"); //페이지넘버 가져오기	       
+							console.log("targetPageNum: " + targetPageNum);
+							if (targetPageNum <= 0) {
+								targetPageNum = 1;
+							}
+							console.log("targetPageNum: " + targetPageNum);
+							// 전역 변수에 값 전달
+							pageNum = targetPageNum; //값전달
+							showList(pageNum); //페이지 리스트 다시 출력
+						}); //end replyPageFooter click
+					});
 </script>
 <%@ include file="/WEB-INF/views/common/footer.jsp"%>

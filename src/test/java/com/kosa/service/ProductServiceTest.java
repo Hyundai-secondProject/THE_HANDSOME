@@ -16,6 +16,8 @@ import com.kosa.domain.paging.Criteria;
 import com.kosa.domain.paging.ProductPageDTO;
 import com.kosa.domain.product.BrandVO;
 import com.kosa.domain.product.CategoryVO;
+import com.kosa.domain.product.ProductColorVO;
+import com.kosa.domain.product.ProductStockVO;
 import com.kosa.domain.product.ProductVO;
 import com.kosa.mapper.ProductMapperTests;
 
@@ -39,4 +41,15 @@ public class ProductServiceTest {
 		list.getList().forEach(product -> log.info(product.getPid()));
 		log.info("select test2--------------------------------------------");
 	}// end test
+	
+	@Test
+	public void testStock() {
+		
+		log.info("testStock--------------------------------------------");
+		ProductStockVO test = service.getProductStock("TM2CAWOT765WP1_LE_82");
+		log.info(test);
+		log.info("testStock end--------------------------------------------");
+	}// end test
+	
+	
 }

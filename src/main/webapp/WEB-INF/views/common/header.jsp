@@ -611,40 +611,64 @@ keyframes target_image { 0% {
 transform
 
 
+
+
+
+
 :
 
+
+
  
+
+
 
 rotate
 
 
+
+
+
+
 (9
 deg
+
+
+
+
 )
-
-
-            
-
 }
 100%
 {
 transform
 
 
+
+
+
+
 :
 
+
+
  
+
+
 
 rotate
 
 
+
+
+
+
 (-1
 deg
+
+
+
+
 );
-
-
-            
-
 }
 }
 </style>
@@ -1309,8 +1333,7 @@ deg
 	<!-- 광고 유입 끝 -->
 	<!-- Loading -->
 	<div class="loading_bar" id="loadingBarDiv" style="display: none;">
-		<img src="/resources/images/common/loading.gif" alt="loading" />
-		<span>�로딩중</span>
+		<img src="/resources/images/common/loading.gif" alt="loading" /> <span>�로딩중</span>
 	</div>
 	<!-- //Loading -->
 
@@ -1325,8 +1348,7 @@ deg
 	<!-- headerWrap -->
 	<div id="headerWrap">
 		<div class="header header_fixed header_main1903">
-			<script type="text/javascript"
-				src="/resources/js/SsoAjax.js"></script>
+			<script type="text/javascript" src="/resources/js/SsoAjax.js"></script>
 
 			<script>
 				var arkQuery = $.noConflict(true);
@@ -1475,10 +1497,8 @@ deg
 			</script>
 			<script type="text/javascript"
 				src="/resources/wisenut/ark/js/beta.fix.js"></script>
-			<script type="text/javascript"
-				src="/resources/wisenut/ark/js/ark.js"></script>
-			<script type="text/javascript"
-				src="/resources/wisenut/js/search.js"></script>
+			<script type="text/javascript" src="/resources/wisenut/ark/js/ark.js"></script>
+			<script type="text/javascript" src="/resources/wisenut/js/search.js"></script>
 			<script type="text/javascript">
 				//<![CDATA[
 				// #1067 - 201803 메인 개편
@@ -3085,7 +3105,8 @@ deg
 								</div>
 							</div></li>
 
-						<li><a href="${pageContext.request.contextPath}/product/productlist?depth1=여성&cMedium=none&cSmall=none&pageNo=1"
+						<li><a
+							href="${pageContext.request.contextPath}/product/productlist?depth1=여성&depth2=none&depth3=none&pageNo=1"
 							onclick="GA_Event('공통','GNB','여성');GA_Event('공통_카테고리','1DEPTH','여성');">
 								여성 <span class="arr">arrow</span>
 						</a>
@@ -3095,43 +3116,9 @@ deg
 										<li><a href="/ko/c/we"
 											onclick="GA_Event('공통_카테고리','2DEPTH','여성_전체보기');"> 전체보기 <!-- 전체보기 -->
 										</a></li>
-										<li><a href="/ko/c/we09/"
-											onclick="GA_Event('공통_카테고리','2DEPTH','여성_SPECIAL SHOP*');">SPECIAL
-												SHOP*</a>
-											<ul class="clearfix">
-												<li><a href="/ko/c/we09n/"
-													onclick="GA_Event('공통_카테고리','3DEPTH','여성_SPECIAL SHOP*_SJSJ : SIGNATURE JEANS');">SJSJ
-														: SIGNATURE JEANS</a></li>
-												<li><a href="/ko/c/we09b/"
-													onclick="GA_Event('공통_카테고리','3DEPTH','여성_SPECIAL SHOP*_O&amp;#039;2ND : MIDNIGHT IN PARIS');">O'2ND
-														: MIDNIGHT IN PARIS</a></li>
-												<li><a href="/ko/c/we09q/"
-													onclick="GA_Event('공통_카테고리','3DEPTH','여성_SPECIAL SHOP*_LATT : RIDING INTO THE CLASSIC');">LATT
-														: RIDING INTO THE CLASSIC</a></li>
-												<li><a href="/ko/c/we098/"
-													onclick="GA_Event('공통_카테고리','3DEPTH','여성_SPECIAL SHOP*_SYSTEM : PARIS PRESENTATION');">SYSTEM
-														: PARIS PRESENTATION</a></li>
-												<li><a href="/ko/c/we09x/"
-													onclick="GA_Event('공통_카테고리','3DEPTH','여성_SPECIAL SHOP*_TIME : 22 FALL CAPSULE COLLECTION');">TIME
-														: 22 FALL CAPSULE COLLECTION</a></li>
-												<li><a href="/ko/c/we091/"
-													onclick="GA_Event('공통_카테고리','3DEPTH','여성_SPECIAL SHOP*_OBZEE : ICONIC OBZEE');">OBZEE
-														: ICONIC OBZEE</a></li>
-												<li><a href="/ko/c/we09j/"
-													onclick="GA_Event('공통_카테고리','3DEPTH','여성_SPECIAL SHOP*_TOMGREYHOUND: EXCLUSIVE');">TOMGREYHOUND:
-														EXCLUSIVE</a></li>
-												<li><a href="/ko/c/we095/"
-													onclick="GA_Event('공통_카테고리','3DEPTH','여성_SPECIAL SHOP*_FOURM THE STORE: EXCLUSIVE');">FOURM
-														THE STORE: EXCLUSIVE</a></li>
-												<li><a href="/ko/c/we09r/"
-													onclick="GA_Event('공통_카테고리','3DEPTH','여성_SPECIAL SHOP*_LATT : THE FIRST');">LATT
-														: THE FIRST</a></li>
-												<li><a href="/ko/c/we09y/"
-													onclick="GA_Event('공통_카테고리','3DEPTH','여성_SPECIAL SHOP*_MINE : CODE MINE ATELIER');">MINE
-														: CODE MINE ATELIER</a></li>
-											</ul></li>
+
 										<!--  status2.last end -->
-										<li><a href="/ko/c/we05/"
+										<li><a href="${pageContext.request.contextPath}/product/productlist?depth1=여성&depth2=아우터&depth3=none&pageNo=1"
 											onclick="GA_Event('공통_카테고리','2DEPTH','여성_아우터');">아우터</a>
 											<ul class="clearfix">
 												<li><a href="/ko/c/we051/"
@@ -3227,23 +3214,6 @@ deg
 										<li><a href="/ko/c/me"
 											onclick="GA_Event('공통_카테고리','2DEPTH','남성_전체보기');"> 전체보기 <!-- 전체보기 -->
 										</a></li>
-										<li><a href="/ko/c/me09/"
-											onclick="GA_Event('공통_카테고리','2DEPTH','남성_SPECIAL SHOP*');">SPECIAL
-												SHOP*</a>
-											<ul class="clearfix">
-												<li><a href="/ko/c/me09f/"
-													onclick="GA_Event('공통_카테고리','3DEPTH','남성_SPECIAL SHOP*_SYSTEM HOMME : ONLINE EXCLUSIVE');">SYSTEM
-														HOMME : ONLINE EXCLUSIVE</a></li>
-												<li><a href="/ko/c/me094/"
-													onclick="GA_Event('공통_카테고리','3DEPTH','남성_SPECIAL SHOP*_SYSTEM HOMME : PARIS PRESENTATION');">SYSTEM
-														HOMME : PARIS PRESENTATION</a></li>
-												<li><a href="/ko/c/me091/"
-													onclick="GA_Event('공통_카테고리','3DEPTH','남성_SPECIAL SHOP*_CLUB MONACO : PANTS ARCHIVE');">CLUB
-														MONACO : PANTS ARCHIVE</a></li>
-												<li><a href="/ko/c/me095/"
-													onclick="GA_Event('공통_카테고리','3DEPTH','남성_SPECIAL SHOP*_TIME HOMME : ONLINE EXCLUSIVE');">TIME
-														HOMME : ONLINE EXCLUSIVE</a></li>
-											</ul></li>
 										<!--  status2.last end -->
 										<li><a href="/ko/c/me03/"
 											onclick="GA_Event('공통_카테고리','2DEPTH','남성_아우터');">아우터</a>
@@ -3463,232 +3433,6 @@ deg
 												</li>
 												<li><a href="/ko/c/as078/"
 													onclick="GA_Event('공통_카테고리','3DEPTH','잡화_기타 ACC_기타소품');">기타소품</a>
-												</li>
-											</ul></li>
-									</ul>
-									<div class="gnb_banner float_right"></div>
-								</div>
-							</div> <!--  status2.last end --> <!-- categoryItemList end --></li>
-						<li><a href="/ko/c/gf"
-							onclick="GA_Event('공통','GNB','골프');GA_Event('공통_카테고리','1DEPTH','골프');">
-								골프 <i class="ico-new">new</i> <span class="arr">arrow</span>
-						</a>
-							<div class="sub_back">
-								<div class="sub_menu clearfix">
-									<ul class="al_frt1">
-										<li><a href="/ko/c/gf"
-											onclick="GA_Event('공통_카테고리','2DEPTH','골프_전체보기');"> 전체보기 <!-- 전체보기 -->
-										</a></li>
-										<li><a href="/ko/c/gf01/"
-											onclick="GA_Event('공통_카테고리','2DEPTH','골프_여성웨어');">여성웨어</a>
-											<ul class="clearfix">
-												<li><a href="/ko/c/gf011/"
-													onclick="GA_Event('공통_카테고리','3DEPTH','골프_여성웨어_아우터');">아우터</a>
-												</li>
-												<li><a href="/ko/c/gf012/"
-													onclick="GA_Event('공통_카테고리','3DEPTH','골프_여성웨어_가디건/베스트');">가디건/베스트</a>
-												</li>
-												<li><a href="/ko/c/gf013/"
-													onclick="GA_Event('공통_카테고리','3DEPTH','골프_여성웨어_탑');">탑</a></li>
-												<li><a href="/ko/c/gf014/"
-													onclick="GA_Event('공통_카테고리','3DEPTH','골프_여성웨어_스커트/원피스');">스커트/원피스</a>
-												</li>
-												<li><a href="/ko/c/gf015/"
-													onclick="GA_Event('공통_카테고리','3DEPTH','골프_여성웨어_팬츠');">팬츠</a>
-												</li>
-											</ul></li>
-										<!--  status2.last end -->
-										<li><a href="/ko/c/gf02/"
-											onclick="GA_Event('공통_카테고리','2DEPTH','골프_남성웨어');">남성웨어</a>
-											<ul class="clearfix">
-												<li><a href="/ko/c/gf021/"
-													onclick="GA_Event('공통_카테고리','3DEPTH','골프_남성웨어_아우터');">아우터</a>
-												</li>
-												<li><a href="/ko/c/gf022/"
-													onclick="GA_Event('공통_카테고리','3DEPTH','골프_남성웨어_베스트');">베스트</a>
-												</li>
-												<li><a href="/ko/c/gf023/"
-													onclick="GA_Event('공통_카테고리','3DEPTH','골프_남성웨어_탑');">탑</a></li>
-												<li><a href="/ko/c/gf024/"
-													onclick="GA_Event('공통_카테고리','3DEPTH','골프_남성웨어_팬츠');">팬츠</a>
-												</li>
-											</ul></li>
-										<!--  status2.last end -->
-										<li style="margin-right: 0px"><a href="/ko/c/gf03/"
-											onclick="GA_Event('공통_카테고리','2DEPTH','골프_ACC');">ACC</a>
-											<ul class="clearfix">
-												<li><a href="/ko/c/gf031/"
-													onclick="GA_Event('공통_카테고리','3DEPTH','골프_ACC_골프백');">골프백</a>
-												</li>
-												<li><a href="/ko/c/gf032/"
-													onclick="GA_Event('공통_카테고리','3DEPTH','골프_ACC_골프화');">골프화</a>
-												</li>
-												<li><a href="/ko/c/gf033/"
-													onclick="GA_Event('공통_카테고리','3DEPTH','골프_ACC_모자');">모자</a>
-												</li>
-												<li><a href="/ko/c/gf034/"
-													onclick="GA_Event('공통_카테고리','3DEPTH','골프_ACC_장갑');">장갑</a>
-												</li>
-												<li><a href="/ko/c/gf035/"
-													onclick="GA_Event('공통_카테고리','3DEPTH','골프_ACC_양말');">양말</a>
-												</li>
-												<li><a href="/ko/c/gf036/"
-													onclick="GA_Event('공통_카테고리','3DEPTH','골프_ACC_벨트');">벨트</a>
-												</li>
-												<li><a href="/ko/c/gf037/"
-													onclick="GA_Event('공통_카테고리','3DEPTH','골프_ACC_기타');">기타</a>
-												</li>
-											</ul></li>
-									</ul>
-									<div class="gnb_banner float_right"></div>
-								</div>
-							</div> <!--  status2.last end --> <!-- categoryItemList end --></li>
-						<li><a href="/ko/c/be"
-							onclick="GA_Event('공통','GNB','뷰티');GA_Event('공통_카테고리','1DEPTH','뷰티');">
-								뷰티 <span class="arr">arrow</span>
-						</a>
-							<div class="sub_back">
-								<div class="sub_menu clearfix">
-									<ul class="al_frt1">
-										<li><a href="/ko/c/be"
-											onclick="GA_Event('공통_카테고리','2DEPTH','뷰티_전체보기');"> 전체보기 <!-- 전체보기 -->
-										</a></li>
-										<li><a href="/ko/c/be01/"
-											onclick="GA_Event('공통_카테고리','2DEPTH','뷰티_스킨케어');">스킨케어</a>
-											<ul class="clearfix">
-												<li><a href="/ko/c/be011/"
-													onclick="GA_Event('공통_카테고리','3DEPTH','뷰티_스킨케어_토너/에멀전/크림');">토너/에멀전/크림</a>
-												</li>
-												<li><a href="/ko/c/be012/"
-													onclick="GA_Event('공통_카테고리','3DEPTH','뷰티_스킨케어_세럼/앰플/오일/밤');">세럼/앰플/오일/밤</a>
-												</li>
-												<li><a href="/ko/c/be013/"
-													onclick="GA_Event('공통_카테고리','3DEPTH','뷰티_스킨케어_클렌징/스크럽/마스크');">클렌징/스크럽/마스크</a>
-												</li>
-											</ul></li>
-										<!--  status2.last end -->
-										<li><a href="/ko/c/be02/"
-											onclick="GA_Event('공통_카테고리','2DEPTH','뷰티_메이크업');">메이크업</a>
-											<ul class="clearfix">
-												<li><a href="/ko/c/be021/"
-													onclick="GA_Event('공통_카테고리','3DEPTH','뷰티_메이크업_페이스 메이크업');">페이스
-														메이크업</a></li>
-												<li><a href="/ko/c/be023/"
-													onclick="GA_Event('공통_카테고리','3DEPTH','뷰티_메이크업_립 메이크업');">립
-														메이크업</a></li>
-											</ul></li>
-										<!--  status2.last end -->
-										<li><a href="/ko/c/be03/"
-											onclick="GA_Event('공통_카테고리','2DEPTH','뷰티_바디/헤어케어');">바디/헤어케어</a>
-											<ul class="clearfix">
-												<li><a href="/ko/c/be031/"
-													onclick="GA_Event('공통_카테고리','3DEPTH','뷰티_바디/헤어케어_핸드·바디로션/크림/오일');">핸드·바디로션/크림/오일</a>
-												</li>
-												<li><a href="/ko/c/be032/"
-													onclick="GA_Event('공통_카테고리','3DEPTH','뷰티_바디/헤어케어_핸드·바디워시/스크럽');">핸드·바디워시/스크럽</a>
-												</li>
-												<li><a href="/ko/c/be033/"
-													onclick="GA_Event('공통_카테고리','3DEPTH','뷰티_바디/헤어케어_샴푸/컨디셔너');">샴푸/컨디셔너</a>
-												</li>
-												<li><a href="/ko/c/be034/"
-													onclick="GA_Event('공통_카테고리','3DEPTH','뷰티_바디/헤어케어_트리트먼트/오일/스프레이');">트리트먼트/오일/스프레이</a>
-												</li>
-												<li><a href="/ko/c/be035/"
-													onclick="GA_Event('공통_카테고리','3DEPTH','뷰티_바디/헤어케어_기타 바디/헤어케어');">기타
-														바디/헤어케어</a></li>
-											</ul></li>
-										<!--  status2.last end -->
-										<li style="margin-right: 0px"><a href="/ko/c/be04/"
-											onclick="GA_Event('공통_카테고리','2DEPTH','뷰티_향수');">향수</a>
-											<ul class="clearfix">
-												<li><a href="/ko/c/be041/"
-													onclick="GA_Event('공통_카테고리','3DEPTH','뷰티_향수_향수');">향수</a></li>
-											</ul></li>
-									</ul>
-									<div class="gnb_banner float_right"></div>
-								</div>
-							</div> <!--  status2.last end --> <!-- categoryItemList end --></li>
-						<li><a href="/ko/c/ls"
-							onclick="GA_Event('공통','GNB','라이프스타일');GA_Event('공통_카테고리','1DEPTH','라이프스타일');">
-								라이프스타일 <span class="arr">arrow</span>
-						</a>
-							<div class="sub_back">
-								<div class="sub_menu clearfix">
-									<ul class="al_frt1">
-										<li><a href="/ko/c/ls"
-											onclick="GA_Event('공통_카테고리','2DEPTH','라이프스타일_전체보기');">
-												전체보기 <!-- 전체보기 -->
-										</a></li>
-										<li><a href="/ko/c/ls01/"
-											onclick="GA_Event('공통_카테고리','2DEPTH','라이프스타일_홈');">홈</a>
-											<ul class="clearfix">
-												<li><a href="/ko/c/ls011/"
-													onclick="GA_Event('공통_카테고리','3DEPTH','라이프스타일_홈_패브릭');">패브릭</a>
-												</li>
-												<li><a href="/ko/c/ls012/"
-													onclick="GA_Event('공통_카테고리','3DEPTH','라이프스타일_홈_프래그런스');">프래그런스</a>
-												</li>
-												<li><a href="/ko/c/ls013/"
-													onclick="GA_Event('공통_카테고리','3DEPTH','라이프스타일_홈_데코레이션');">데코레이션</a>
-												</li>
-												<li><a href="/ko/c/ls014/"
-													onclick="GA_Event('공통_카테고리','3DEPTH','라이프스타일_홈_기타소품');">기타소품</a>
-												</li>
-											</ul></li>
-										<!--  status2.last end -->
-										<li><a href="/ko/c/ls02/"
-											onclick="GA_Event('공통_카테고리','2DEPTH','라이프스타일_배스');">배스</a>
-											<ul class="clearfix">
-												<li><a href="/ko/c/ls022/"
-													onclick="GA_Event('공통_카테고리','3DEPTH','라이프스타일_배스_욕실용품');">욕실용품</a>
-												</li>
-											</ul></li>
-										<!--  status2.last end -->
-										<li><a href="/ko/c/ls03/"
-											onclick="GA_Event('공통_카테고리','2DEPTH','라이프스타일_키친');">키친</a>
-											<ul class="clearfix">
-												<li><a href="/ko/c/ls031/"
-													onclick="GA_Event('공통_카테고리','3DEPTH','라이프스타일_키친_그릇');">그릇</a>
-												</li>
-												<li><a href="/ko/c/ls032/"
-													onclick="GA_Event('공통_카테고리','3DEPTH','라이프스타일_키친_보드/트레이');">보드/트레이</a>
-												</li>
-												<li><a href="/ko/c/ls033/"
-													onclick="GA_Event('공통_카테고리','3DEPTH','라이프스타일_키친_커트러리');">커트러리</a>
-												</li>
-												<li><a href="/ko/c/ls034/"
-													onclick="GA_Event('공통_카테고리','3DEPTH','라이프스타일_키친_커피/티');">커피/티</a>
-												</li>
-												<li><a href="/ko/c/ls035/"
-													onclick="GA_Event('공통_카테고리','3DEPTH','라이프스타일_키친_패브릭/냅킨');">패브릭/냅킨</a>
-												</li>
-												<li><a href="/ko/c/ls036/"
-													onclick="GA_Event('공통_카테고리','3DEPTH','라이프스타일_키친_기타소품');">기타소품</a>
-												</li>
-											</ul></li>
-										<!--  status2.last end -->
-										<li><a href="/ko/c/ls04/"
-											onclick="GA_Event('공통_카테고리','2DEPTH','라이프스타일_데스크');">데스크</a>
-											<ul class="clearfix">
-												<li><a href="/ko/c/ls041/"
-													onclick="GA_Event('공통_카테고리','3DEPTH','라이프스타일_데스크_문구');">문구</a>
-												</li>
-												<li><a href="/ko/c/ls042/"
-													onclick="GA_Event('공통_카테고리','3DEPTH','라이프스타일_데스크_책');">책</a>
-												</li>
-												<li><a href="/ko/c/ls043/"
-													onclick="GA_Event('공통_카테고리','3DEPTH','라이프스타일_데스크_기타소품');">기타소품</a>
-												</li>
-											</ul></li>
-										<!--  status2.last end -->
-										<li style="margin-right: 0px"><a href="/ko/c/ls06/"
-											onclick="GA_Event('공통_카테고리','2DEPTH','라이프스타일_키즈');">키즈</a>
-											<ul class="clearfix">
-												<li><a href="/ko/c/ls061/"
-													onclick="GA_Event('공통_카테고리','3DEPTH','라이프스타일_키즈_의류');">의류</a>
-												</li>
-												<li><a href="/ko/c/ls062/"
-													onclick="GA_Event('공통_카테고리','3DEPTH','라이프스타일_키즈_잡화');">잡화</a>
 												</li>
 											</ul></li>
 									</ul>

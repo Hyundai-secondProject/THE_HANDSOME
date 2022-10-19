@@ -11,6 +11,8 @@ import com.kosa.domain.paging.ProductPageDTO;
 import com.kosa.domain.product.BrandVO;
 import com.kosa.domain.product.CategoryVO;
 import com.kosa.domain.product.ProductColorVO;
+import com.kosa.domain.product.ProductSizeVO;
+import com.kosa.domain.product.ProductStockVO;
 import com.kosa.domain.product.ProductVO;
 import com.kosa.mapper.ProductMapper;
 
@@ -47,10 +49,26 @@ public class ProductService {
 		// 대분류 + 중분류 + 소분류
 		return new ProductPageDTO(mapper.countDepth3(category), mapper.selectProductsDepth3(categoryPager));
 	}
+	
+	
 
 	// 제품 코드로 제품 별 색상 가져오기
 	public List<ProductColorVO> getProductColor(ProductVO pid) {
 		return mapper.selectProductColor(pid);
 	}
+	
+	// 제품 코드로 제품 별 사이즈 가져오기
+	public List<ProductSizeVO> getProductSize(ProductVO pid) {
+		return mapper.selectProductSize(pid);
+	}
+	
+	// 색상 코드 + 사이즈 로 재고 가져오기
+	public ProductStockVO getProductStock(String psid) {
+		return mapper.selectProductStock(psid);
+	}
 
+	// 제폼 코드로 제품 가져오기
+	public ProductVO getProduct(String pid) {
+		return mapper.selectProduct(pid);
+	}
 }
