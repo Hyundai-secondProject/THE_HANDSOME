@@ -38,7 +38,7 @@ public class CartServiceImpl implements CartService {
     }
     @Override
     public List<CartVO> getProducts(String mid) {
-        return cartMapper.select(mid);
+        return cartMapper.selectList(mid);
     }
     @Override
     public void deleteProduct(CartVO cart) {

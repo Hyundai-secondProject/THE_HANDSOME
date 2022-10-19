@@ -15,23 +15,27 @@
  */ -->
 <mapper namespace="com.kosa.mapper.CartMapper">
 
-	<!-- 많은 join으로 이후 view로 수정필요 -->
-	<select id="select" resultType="com.kosa.domain.member.CartVO">
-	SELECT pcimg1, bname, pname, pccolorcode, psize, pquantity, pcprice  
-	FROM cart, product_stock ps, product_color pclr, product_common pcomm, brand, member
-	WHERE cart.psid=ps.psid
-	AND ps.pcid = pclr.pcid
-	AND pclr.pid = pcomm.pid
-	AND pcomm.bno = brand.bno
-	AND member.mid = #{mid}
-	<!-- 회원 id 받아서 처리필요 -->
-	</select>
-	
+   <resultMap type="com.kosa.domain.member.CartVO" id="cartMap">
+    <result property="mid" column="mid"/>
+    <result property="psid" column="psid"/>
+    <result property="pquantity" column="pquantity"/>
+    <association property="productDetail" resultMap="productMap"/><!-- 1:1은 association으로 가져오기 -->
+  </resultMap>
+  
+  <resultMap type="com.kosa.domain.product.ProductDetailVO" id="productMap">
+  		<result property="bname" column="bname"/>
+    	<result property="pname" column="pname"/>
+    	<result property="pccolorcode" column="pccolorcode"/>
+    	<result property="pcimg1" column="pcimg1"/>
+    	<result property="pcprice" column="pcprice"/>
+    	<result property="psize" column="psize"/>
+  </resultMap>
+  
 	<!-- 뷰 적용 -->
-	<select id="select2" resultType="com.kosa.domain.member.CartVO">
-	SELECT pcimg1, bname, pname, pccolorcode, psize, pquantity, pcprice  
-	FROM cart, member, view_product_detail 
-	WHERE cart.psid=view_product_detail.psid
+	<select id="selectList" resultMap="cartMap">
+	SELECT bname, pname, pccolorcode, pcimg1, pcprice, psize, pquantity  
+	FROM cart, member, view_product_detail vpd
+	WHERE cart.psid=vpd.psid
 	AND member.mid = #{mid}
 	<!-- 회원 id 받아서 처리필요 -->
 	</select>
@@ -52,7 +56,6 @@
 		pquantity = #{pquantity}
 		where mid = #{mid} and psid = #{psid}
 	</update>
-
 
 	
 </mapper>  
