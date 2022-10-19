@@ -21,4 +21,10 @@ import lombok.Data;
 public class BrandVO {
 	private int bno; // 브랜드 번호
 	private String bname; // 브랜드 이름
+	
+	public BrandVO(String bname) {
+		this.bname = bname;
+	}
+	
+	public BrandVO() {} // 빈생성자
 }
