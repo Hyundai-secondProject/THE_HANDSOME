@@ -1,5 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	
+		<!--  
+/**
+ * body.jsp
+ * @author 공통
+ * @since 2022.10.13
+ * @version 1.0
+ * 
+ * <pre>
+ * 수정일              수정자                   수정내용
+ * ----------  --------    ---------------------------
+ * 2022.10.17    김민규                 최초생성
+ * </pre>
+ */-->
 
 
 

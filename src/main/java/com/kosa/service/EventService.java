@@ -1,11 +1,8 @@
-package com.kosa.mapper;
+package com.kosa.service;
 
 import java.util.List;
-
-import com.kosa.event.EventViewVO;
-
 /**
- * SearchMapper
+ * EventService
  * @author 김민규
  * @since 2022.10.18
  * @version 1.0
@@ -13,10 +10,13 @@ import com.kosa.event.EventViewVO;
  * <pre>
  * 수정일              수정자                   수정내용
  * ----------  --------    ---------------------------
- * 2022.10.18   김민규                    최초 생성
+ * 2022.10.18   김민규                   최초 생성
  * </pre>
  */
-public interface EventMapper {
-	/*이벤트*/
+
+import com.kosa.event.EventViewVO;
+
+public interface EventService {
 	public List<EventViewVO> getEventList();
+	
 }

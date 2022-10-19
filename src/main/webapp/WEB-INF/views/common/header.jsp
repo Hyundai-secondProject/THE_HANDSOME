@@ -1,6 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
+	<!--  
+/**
+ * OrdersVO
+ * @author 공통
+ * @since 2022.10.13
+ * @version 1.0
+ * 
+ * <pre>
+ * 수정일              수정자                   수정내용
+ * ----------  --------    ---------------------------
+ * 2022.10.17    김민규                 최초생성
+ * </pre>
+ */-->
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -35,6 +47,8 @@
 <link rel="stylesheet" type="text/css" href="/resources/css/font_80.css"
 	media="all" />
 <link rel="stylesheet" type="text/css" href="/resources/css/common.css"
+	media="all" />
+	<link rel="stylesheet" type="text/css" href="/resources/css/products.css"
 	media="all" />
 <link rel="stylesheet" type="text/css" href="/resources/css/layout.css"
 	media="all" />
@@ -3688,7 +3702,7 @@ deg
 						<li><a href="/ko/magazine/exhibitions"
 							onclick="GA_Event('공통','GNB','기획전');"> 기획전 <!-- 기획전 -->
 						</a></li>
-						<li><a href="/ko/magazine/events"
+						<li><a href="/magazine/event"
 							onclick="GA_Event('공통','GNB','이벤트');">이벤트</a></li>
 						<!-- THE 매거진 수정 200330 -->
 						<li><a href="/ko/magazine/submain" class="magazine1803"

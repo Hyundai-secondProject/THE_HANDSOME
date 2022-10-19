@@ -1391,7 +1391,7 @@ input[type="week"]:disabled {
 
 .tab_b li {
   float: left;
-  background: url("/_ui/desktop/common/images/common/bul_1.gif") left 4px no-repeat
+  background: url("/resources/images/common/bul_1.gif") left 4px no-repeat
 }
 
 .tab_b li:first-child {
@@ -4026,7 +4026,7 @@ table td .receive_choice>span label {
   width: 23px;
   height: 28px;
   text-indent: -9999px;
-  background: url('/_ui/desktop/common/images/common/ico_utilmenu.png') no-repeat;
+  background: url('/resources/images/common/ico_utilmenu.png') no-repeat;
   background-position: -74px -28px;
 }
 
@@ -6730,7 +6730,7 @@ table td .receive_choice>span label {
   appearance: none;
   outline: none;
   border: 1px solid #ccc;
-  background: url('/_ui/desktop/common/images/common/ico_utilmenu.png') 12px 12px no-repeat;
+  background: url('/resources/images/common/ico_utilmenu.png') 12px 12px no-repeat;
   margin-right: 0;
 }
 
