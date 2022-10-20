@@ -301,44 +301,10 @@ $(document).ready(function ()
         	 // 기본값: 무이자할인
         	 // 기본값: 무이자할인
         
-        	
         	 // 부분무이자할인		
        	   			 // 무이자할부 진행여부    					     			   
    	   			 // 부분무이자할인		
        	   			 // 무이자할부 진행여부    					     			   
-   	   			 // 부분무이자할인		
-       	   			 // 무이자할부 진행여부    					     			   
-   	   			 // 부분무이자할인		
-       	   			 // 무이자할부 진행여부    					     			   
-   	   			 // 부분무이자할인		
-       	   			 // 무이자할부 진행여부    					     			   
-   	   			 // 부분무이자할인		
-       	   			 // 무이자할부 진행여부    					     			   
-   	   			 // 부분무이자할인		
-       	   			 // 무이자할부 진행여부    					     			   
-   	   			 // 부분무이자할인		
-       	   			 // 무이자할부 진행여부    					     			   
-   	   			 // 부분무이자할인		
-       	   			 // 무이자할부 진행여부    					     			   
-   	   			 // 부분무이자할인		
-       	   			 // 무이자할부 진행여부    					     			   
-   	   			 // 부분무이자할인		
-       	   			 // 무이자할부 진행여부    					     			   
-   	   			 // 부분무이자할인		
-       	   			 // 무이자할부 진행여부    					     			   
-   	   			 // 부분무이자할인		
-       	   			 // 무이자할부 진행여부    					     			   
-   	   			 // 부분무이자할인		
-       	   			 // 무이자할부 진행여부    					     			   
-   	   			 // 부분무이자할인		
-       	   			 // 무이자할부 진행여부    					     			   
-   	   			 // 부분무이자할인		
-       	   			 // 무이자할부 진행여부    					     			   
-   	   			 // 부분무이자할인		
-       	   			 // 무이자할부 진행여부    					     			   
-   	   			 // 부분무이자할인		
-       	   			 // 무이자할부 진행여부    					     			   
-   	   			        
         
         // 할인 정보 노출 Control
          // 기본값: 무이자할인
@@ -1107,6 +1073,7 @@ function cartListCheckPrice(entryPkList, only4pm) {
 		entryPkList = ",";
 	}
 	
+	// 히든태그에서 오는값인데..
 	var cartDivision = $("#ordersheetCartDivision").val();
 	
 	if(only4pm == false) {
@@ -1268,11 +1235,15 @@ function slidNext(){
     return false;
 }
  
+ 
+ 
  // 선택상품 주문하기 버튼누르면 발생
 function checkoutPage() {
     var cartDivision = $("#ordersheetCartDivision").val();
     var resultReturn = true;
+     
     
+    // 가격이  잘못나온 것들 에러 처리
 	$("input[name=checkZeroPrice]").each(function(){
 		var price = $(this).val();
 		
@@ -1282,27 +1253,30 @@ function checkoutPage() {
 			return false;
 		}
 	});
-	
 	if(resultReturn == false) {
 		return false;
 	}
 	
+	// 체크된거 검사
  	var entryNumber = "";
 	$("input:checkbox[name='cartlist']:checked").each(function(){
 		entryNumber += $(this).val() + ",";
 	});
-	// 체크된게없으면
+	// 체크된게없으면 (0부터시작)
 	if(entryNumber == "") {
 		layerAlert("주문하실 상품을 선택해주세요.");
 		return false;
 	}
 	
 	entryNumber = entryNumber.substring(0,entryNumber.length-1);
-	
+	console.log(entryNumber);
 	//#2610 [주문] 가상계좌 결제수단 제외 및 중복 구매 제한 처리 요청 건 20220215 hyunbae
+	
+	//개수제한이 걸려있으면...
 	var hasQtyLimitProduct = false;
 	var entryNumberArray = entryNumber.split(',');
 	entryNumberArray.forEach(function(row){
+		// updateCartForm 0부터시작
 		var productCode = $('#updateCartForm'+row).find('[name=productCode]').val();
 		var productQty = $('#updateCartForm'+row).find('[name=initialQuantity]').val();
 		if(qtyLimitProductYnMap[productCode] == 'true' && parseInt(productQty) > 2){
@@ -1317,25 +1291,14 @@ function checkoutPage() {
 	}
 	
 	
-    //start of 4pm check
+/*     //start of 4pm check
+    // 이런 태그가없는데?
     if($(".fourpm").length > 0){
     	var fourpmProcessType = "";
-    	/*
-    	if($(".pt_list_wrap").length != $(".fourpm").length){
-    		var scrollTop = $(document).scrollTop();
-			var la = new layerAlert("PM 주문과 일반배송 주문을 같이 진행 할 수 없습니다.");
-			var top = $(".popwrap.w_type_1").css("margin-top").replace("px","");
-			$(document).scrollTop(scrollTop);
-			$(".popwrap.w_type_1").css("margin-top",Number(scrollTop)+Number(top)+"px");
-			la.confirmAction = function(){
-				return;
-			};
-			return false;
-    	} */
     	
         $.ajax({
             type: "GET",
-            url: "/ko/shoppingbag/check4pmProduct",
+            url: "/cartAjax",
             dataType: "json",
             async : false,
             data : {"entryNumber" : entryNumber
@@ -1370,13 +1333,13 @@ function checkoutPage() {
             }
         }
     }
-    //end of 4pm check
+    //end of 4pm check */
     
     //start at home
     
     //end at home
     
-    //퀵배송 검증 start
+    /* //퀵배송 검증 start
     var quickProcessType = "";
     $("[class^=shopping_cart_tab]").find("[name=cartDivision]").each(function(){
         if($(this).attr("data-division") == "quick"){
@@ -1435,7 +1398,7 @@ function checkoutPage() {
     if(quickProcessType != ""){
         return false;
     }
-    //퀵배송 검증 end
+    //퀵배송 검증 end */
     
     // 매장수령일 경우 확인 로직 추가 CMB
     // 브랜드 and 수령매장이 동일할 경우만
@@ -1447,7 +1410,8 @@ function checkoutPage() {
     var isStoreDateCheck = false;
     var pickDateList = new Array;
     
-    $("[class^=shopping_cart_tab]").find("[name=cartDivision]").each(function(){
+    // 방문수령도 일단 주석
+    /* $("[class^=shopping_cart_tab]").find("[name=cartDivision]").each(function(){
         if($(this).attr("data-division") == "store"){
           if($(this).hasClass("active")){
               //체크박스 체크 된 대상만 검증, 2개 이상일 경우
@@ -1518,7 +1482,7 @@ function checkoutPage() {
      if(isStoreCheck && isStoreBrandCheck && isStorePickCheck && isStoreDateCheck){
 		checkStoreProcess(pickDateList, entryNumber);
 		return;
-     }
+     } */
 
     
 /*     
@@ -1533,23 +1497,31 @@ function checkoutPage() {
 	ordersheetEntryNumber.val(entryNumber);
 	//checkout1(바로주문) 액션은 주문서페이지에서 일괄적으로 처리
 	//setEcommerceData(entryNumber, "Checkout1(바로주문)");
+	console.log(cartDivision);
 	if(cartDivision == "athome"){
+		console.log("test if ");
 	    GA_Event('쇼핑백','주문','앳홈_신청하기');
+	    
 	}else{
+		console.log("test if else");
 	    GA_Event('쇼핑백','주문','선택상품_주문하기');
 	}
 	
 	// 넷퍼넬 쇼핑백 -> 바로주문
+	console.log("여기도오나")
 	if("false" == "true" && "ko" == "ko"){
         NetFunnel_Action({action_id:"buy_now"},function(ev,ret){
+        	console.log("여기도오나2")
         	form.submit();
         });
 	}else{
-		form.submit();	
+		console.log("여기도오나3");
+		form.submit();
+		//form.submit();	
 	}
 	
-    // 상품주문 페이지로
-    location.href="checkout/ordersheet";
+    // 상품주문 페이지로 form.submit -> action
+    //location.href="checkout/ordersheet";
 }
 
 function checkStoreProcess(pickDateList, entryNumber){
@@ -2500,8 +2472,17 @@ $.ajax({
                     <a href="#;" onclick="checkoutPage();">
                         <input value="선택상품 주문하기" class="btn gray mr0" type="button" />
                         </a>
-                   
                      </div>
+                     
+                <!-- ordersheetCloneForm 히든태그 -->     
+               <!-- CSRF 적용하는 부분인가?! -->
+               <!-- checkPage() -> form.submit -> action -->
+                <form id="ordersheetCloneForm" name="orderSheetCloneForm" action="/chechout/ordersheet"  method="get"><input type="hidden" id="ordersheetEntryNumber" name="ordersheetEntryNumber" value="" />
+					<input type="hidden" id="ordersheetCartDivision" name="ordersheetCartDivision" value="" />
+			   <div>
+					<input type="hidden" name="CSRFToken" value="ae3faaff-c181-4913-ae57-c2a4ac651d0c" />
+				</div></form> 
+                     
                 <!--//button wrap-->
                  <div class="promotion_wrap mt60" id="freeGiftPromotion">
                         <dl class="promotion_list" style="border-top:1px solid #ebebeb; padding:60px 20px 18px 20px">
