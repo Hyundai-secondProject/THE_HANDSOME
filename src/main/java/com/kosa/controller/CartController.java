@@ -59,9 +59,6 @@ public class CartController {
         service.deleteProduct(cart);    // 반환값을 받아서 if로 성공하면 처리하도록 작성
         rttr.addFlashAttribute("result", cart.getMid());
         return "redirect:/cart/cart";
-        
-      
-        
     }
 //    @RequestMapping(value = "/cart", method = RequestMethod.GET)
 //    public String cart() {

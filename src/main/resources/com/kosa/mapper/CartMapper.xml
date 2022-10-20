@@ -33,7 +33,7 @@
   
 	<!-- 뷰 적용 -->
 	<select id="selectList" resultMap="cartMap">
-	SELECT bname, pname, pccolorcode, pcimg1, pcprice, psize, pquantity  
+	SELECT member.mid, cart.psid, bname, pname, pccolorcode, pcimg1, pcprice, psize, pquantity  
 	FROM cart, member, view_product_detail vpd
 	WHERE cart.psid=vpd.psid
 	AND member.mid = #{mid}
