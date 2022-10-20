@@ -4,9 +4,6 @@
 
 <%@ include file="../common/header.jsp" %>
 
-
-		
-<!-- AceCounter eCommerce (Cart_Inout) v7.5 Start -->
     <!-- Function and Variables Definition Block Start -->
     <script language='javascript' type="text/javascript">
 var _JV="AMZ2013010701";//script Version
@@ -31,45 +28,19 @@ if(!_IDV(_A_pn)) var _A_pn = Array(1) ;
 if(!_IDV(_A_amt)) var _A_amt = Array(1) ;
 </script>
     <!-- Function and Variables Definition Block End-->
-
-<!--  criteo 장바구니 페이지 트래커 START ---->
-<script type="text/javascript" src="//static.criteo.net/js/ld/ld.js" async="true"></script>
-<script type="text/javascript" src="/_ui/desktop/common/js/wpay.js"></script>
-<script type="text/javascript">
-window.criteo_q = window.criteo_q || [];
-window.criteo_q.push(
-        { event: "setAccount", account: 24596 },
-        
-        { event: "setHashedEmail", email: getCookie("criteoEmail")},
-        
-        { event: "setSiteType", type: "d" },
-        { event: "viewBasket", item: [
-            
-        //],requiresDOM: "yes"});
-          ]});
-</script>
-<!--  criteo 장바구니 페이지 트래커 END ---->
-
-<!-- #2191 [모비온] 신규 광고 매체 스크립트 Enliple Tracker Start -->
-<script type="text/javascript">
-var ENP_VAR = { conversion: { product: [] } };
-var ENP_TOTALQTY = 0;
-// 주문한 각 제품들을 배열에 저장
-
-ENP_VAR.conversion.totalPrice = '0';  // 없는 경우 단일 상품의 정보를 이용해 계산
-ENP_VAR.conversion.totalQty = ENP_TOTALQTY;  // 없는 경우 단일 상품의 정보를 이용해 계산
-
-(function(a,g,e,n,t){a.enp=a.enp||function(){(a.enp.q=a.enp.q||[]).push(arguments)};n=g.createElement(e);n.async=!0;n.defer=!0;n.src="https://cdn.megadata.co.kr/dist/prod/enp_tracker_self_hosted.min.js";t=g.getElementsByTagName(e)[0];t.parentNode.insertBefore(n,t)})(window,document,"script");
-enp('create', 'conversion', 'thehandsome', { device: 'W' }); // W:웹, M: 모바일, B: 반응형
-</script>
-<!-- #2191 [모비온] 신규 광고 매체 스크립트 Enliple Tracker End -->
-
-
-    <script type="text/javascript">
+       <script type="text/javascript">
 //<![CDATA[
 var qtyLimitProductYnMap = {};
 $(document).ready(function ()
 {
+	
+		qtyLimitProductYnMap['OL2C9ASZ014U_BK_41'] = 'false';	
+	
+		qtyLimitProductYnMap['LB2C8ABZ721U_LE_FR'] = 'true';	
+	
+		qtyLimitProductYnMap['LB2CAWTO363M_KE_L'] = 'true';	
+	
+		qtyLimitProductYnMap['CM2C8KTO071M_JD_105'] = 'true';	
 	
 		qtyLimitProductAlert();
 	
@@ -1130,6 +1101,7 @@ function deliveryKindChange(entryNumber, type, storeInfo) {
 	});	
 }
 
+// 체크된거 계산하는 함수
 function cartListCheckPrice(entryPkList, only4pm) {
 	if($.trim(entryPkList) == "") {
 		entryPkList = ",";
@@ -1151,7 +1123,7 @@ function cartListCheckPrice(entryPkList, only4pm) {
 	
 	$.ajax({
 		type: "GET",
-		url: "/ko/shoppingbag/shoppingbagCalculation",
+		url: "/cartAjax/calculation",
 		dataType: "json",
 		async : false,
         cache : false,			
@@ -1161,26 +1133,6 @@ function cartListCheckPrice(entryPkList, only4pm) {
 			$("#cartDataSubtotal").text("₩"+addComma(data.subTotal));
 			$("#cartDataDeliveryCost").text("₩"+addComma(data.deliveryCost));
 			$("#cartDataTotalPrice").text("₩"+addComma(data.totalPrice));
-
-			
-			/* if($("#freeGiftPromotion").length > 0) {
-				$.ajax({
-					type: "GET",
-					url: "/ko/shoppingbag/freeGiftPromotionView",
-					dataType: "json",
-					async : false,
-			        cache : false,			
-					data: {"entryPkList" : entryPkList
-						,"cartDivision" : cartDivision},
-					success: function(data){
-						$("#freeGiftPromotion").html(data.freeGiftPromotion);
-					},
-					error: function(xhr,  Status, error) {
-						alert('sendRequest error : ' + xhr.status + " ( " + error + " ) " );
-				    }
-				});
-			} */
-			
 		},
 		error: function(xhr,  Status, error) {
 			alert('sendRequest error : ' + xhr.status + " ( " + error + " ) " );
@@ -1316,6 +1268,7 @@ function slidNext(){
     return false;
 }
  
+ // 선택상품 주문하기 버튼누르면 발생
 function checkoutPage() {
     var cartDivision = $("#ordersheetCartDivision").val();
     var resultReturn = true;
@@ -1595,7 +1548,7 @@ function checkoutPage() {
 		form.submit();	
 	}
 	
-    
+    // 상품주문 페이지로
     //location.href="/ko/shoppingbag/checkout";
 }
 
@@ -1807,19 +1760,19 @@ function showChangeProductPriceLayoutAlert(){
 
 function showExchangeRate(){
     
-    var exchangeRateList = '[{symbol=¥, exchangeRate=199.66, currencyCode=CNY}, {symbol=$, exchangeRate=1433.5, currencyCode=USD}]';
+    var exchangeRateList = '[{symbol=¥, exchangeRate=198.12, currencyCode=CNY}, {symbol=$, exchangeRate=1425.6, currencyCode=USD}]';
     
     
     //var productPrice = $("#productPrice").val() == null || $("#productPrice").val() == 0 ? 0 : $("#productPrice").val();
     //var qty = $("#txtqty").val();
     //var sumPrice = parseFloat(productPrice * qty);
-    var sumPrice = parseFloat(0);
+    var sumPrice = parseFloat(4213000);
     
     var addHtml = ""; 
     
     
         var currecy = "CNY";
-        var rate = "199.66";
+        var rate = "198.12";
         var simbol = "¥";
         
         var exchangeAmt = Math.round(parseFloat(sumPrice) / parseFloat(rate) * 100) / 100 ;
@@ -1827,7 +1780,7 @@ function showExchangeRate(){
         addHtml += "<p>"+ simbol + ""+addComma(exchangeAmt); +"</p>"
     
         var currecy = "USD";
-        var rate = "1433.5";
+        var rate = "1425.6";
         var simbol = "$";
         
         var exchangeAmt = Math.round(parseFloat(sumPrice) / parseFloat(rate) * 100) / 100 ;
@@ -2103,7 +2056,7 @@ function promotionProductCartAddCheck(productCode) {
     
     $.ajax({
         type: "POST",
-        url: '/ko/rest/promotion/product/check'+'/'+promotionid+'?CSRFToken=563dc39e-b7d1-4dde-8f0b-ca86e4f255b0',
+        url: '/ko/rest/promotion/product/check'+'/'+promotionid+'?CSRFToken=ae3faaff-c181-4913-ae57-c2a4ac651d0c',
         dataType: "json",
         async:false,
         data:JSON.stringify({promotion:promotionid,productcode:productCode}),
@@ -2161,6 +2114,90 @@ function sendGroobee(){
     groobee( "VC", {
         goods : [
         
+            {
+                name: "텍스처 블록 하프 집업 탑", // 상품명
+                code: "LB2CAWTO363M", // URL에 표시되는 상품코드
+                amt: "638000", // 상품 금액 (할인 판매가 * 수량)
+                prc: "638000", // 판매가 (또는 원가)
+                salePrc:"638000", // 할인 판매가 (실제 판매가)
+                cnt: "1", // 수량
+                cat: "GF023", // 상품의 카테고리 코드
+                cateNm: "탑", // 상품의 카테고리명
+                catL: "GF", // 상품의 대분류 카테고리 코드
+                cateLNm: "골프", // 상품의 대분류 카테고리명
+                catM: "GF02", // 상품의 중분류 카테고리 코드
+                cateMNm: "남성웨어", // 상품의 중분류 카테고리명
+                catS: "GF023", // 상품의 소분류 카테고리 코드
+                cateSNm: "탑", // 상품의 소분류 카테고리명
+                catD: "", // 상품의 세분류 카테고리 코드
+                cateDNm: "", // 상품의 세분류 카테고리명
+                brand: "BR63", // 상품의 브랜드 코드
+                brandNm: "LANVIN BLANC" // 상품의 브랜드명
+            }
+            ,
+            {
+                name: "레더 로고 캐디백", // 상품명
+                code: "LB2C8ABZ721U", // URL에 표시되는 상품코드
+                amt: "1280000", // 상품 금액 (할인 판매가 * 수량)
+                prc: "1280000", // 판매가 (또는 원가)
+                salePrc:"1280000", // 할인 판매가 (실제 판매가)
+                cnt: "1", // 수량
+                cat: "GF031", // 상품의 카테고리 코드
+                cateNm: "골프백", // 상품의 카테고리명
+                catL: "GF", // 상품의 대분류 카테고리 코드
+                cateLNm: "골프", // 상품의 대분류 카테고리명
+                catM: "GF03", // 상품의 중분류 카테고리 코드
+                cateMNm: "ACC", // 상품의 중분류 카테고리명
+                catS: "GF031", // 상품의 소분류 카테고리 코드
+                cateSNm: "골프백", // 상품의 소분류 카테고리명
+                catD: "", // 상품의 세분류 카테고리 코드
+                cateDNm: "", // 상품의 세분류 카테고리명
+                brand: "BR63", // 상품의 브랜드 코드
+                brandNm: "LANVIN BLANC" // 상품의 브랜드명
+            }
+            ,
+            {
+                name: "카미온 뮬", // 상품명
+                code: "OL2C9ASZ014U", // URL에 표시되는 상품코드
+                amt: "1770000", // 상품 금액 (할인 판매가 * 수량)
+                prc: "590000", // 판매가 (또는 원가)
+                salePrc:"590000", // 할인 판매가 (실제 판매가)
+                cnt: "3", // 수량
+                cat: "AS012", // 상품의 카테고리 코드
+                cateNm: "로퍼/블로퍼", // 상품의 카테고리명
+                catL: "AS", // 상품의 대분류 카테고리 코드
+                cateLNm: "잡화", // 상품의 대분류 카테고리명
+                catM: "AS01", // 상품의 중분류 카테고리 코드
+                cateMNm: "여성슈즈", // 상품의 중분류 카테고리명
+                catS: "AS012", // 상품의 소분류 카테고리 코드
+                cateSNm: "로퍼/블로퍼", // 상품의 소분류 카테고리명
+                catD: "", // 상품의 세분류 카테고리 코드
+                cateDNm: "", // 상품의 세분류 카테고리명
+                brand: "BR64", // 상품의 브랜드 코드
+                brandNm: "OUR LEGACY" // 상품의 브랜드명
+            }
+            ,
+            {
+                name: "[MEN] 칼라 니트 탑", // 상품명
+                code: "CM2C8KTO071M", // URL에 표시되는 상품코드
+                amt: "525000", // 상품 금액 (할인 판매가 * 수량)
+                prc: "525000", // 판매가 (또는 원가)
+                salePrc:"525000", // 할인 판매가 (실제 판매가)
+                cnt: "1", // 수량
+                cat: "ME013", // 상품의 카테고리 코드
+                cateNm: "니트", // 상품의 카테고리명
+                catL: "ME", // 상품의 대분류 카테고리 코드
+                cateLNm: "남성", // 상품의 대분류 카테고리명
+                catM: "ME01", // 상품의 중분류 카테고리 코드
+                cateMNm: "탑", // 상품의 중분류 카테고리명
+                catS: "ME013", // 상품의 소분류 카테고리 코드
+                cateSNm: "니트", // 상품의 소분류 카테고리명
+                catD: "", // 상품의 세분류 카테고리 코드
+                cateDNm: "", // 상품의 세분류 카테고리명
+                brand: "BR08", // 상품의 브랜드 코드
+                brandNm: "the CASHMERE" // 상품의 브랜드명
+            }
+            
         ]
     });
 }
@@ -2168,7 +2205,175 @@ function sendGroobee(){
 //]]>
 </script>
 
-    <!-- bodyWrap -->
+ <script>
+ /* 참고 */
+/*  $(function(){
+	 //jquery를 이용 keyup할때마다 이벤트 발생
+    $("#testAjax").on("click", function(){
+    	
+       var $testMid = $("#testMid").val();
+       var $msg = $("#msg");
+       console.log($testMid+"테스트중");
+	
+       // 비동기 방식으로 URL을 타고들어간다
+       $.ajax({
+          type : "POST",
+          url: "/cartAjax",
+          data : data,
+          // dataType : "html",  // data타입이 없으면 알아서 추측해서 응답받음 우리는 json으로?
+          async : true,     //비동기 유무
+          //data로 결과 값을 받아온다
+          success : function(data){
+             console.log("data : "+data);
+             $msg.html("<h4 style=\"color:red\"> ※ 아이디가 이미 존재합니다 ※</h4>");
+          }
+		})
+    })
+ }) */
+
+</script>
+
+<script>
+$(document).ready(function(){
+var cartList;
+var mid = $('#testMid').val()
+$.ajax({
+	type: "GET",  
+	url: "/cartAjax/"+mid, 
+	data: {"mid" : mid}, 
+	dataType : "json",  // data타입이 없으면 알아서 추측해서 응답받음 우리는 json으로?
+	contentType: "application/json; charset=utf-8",
+	success: function(data) { 
+		console.log($("#testMid").val());
+		console.log(JSON.stringify(data));	// 콘솔에 잘뜨는지 확인
+		
+		cartList = '';
+		/* 
+		item.mid
+		item.psid
+		item.pquantity
+		item.productDetail.bname
+		item.productDetail.pname
+		item.productDetail.pccolorcode
+		item.productDetail.pcimg1
+		item.productDetail.pcprice
+		item.productDetail.psize
+		*/
+		$.each(data, function(index, item) { // 데이터 =item
+			console.log(index+"\n");
+			console.log(item);
+				cartList = '';
+				cartList+= ' <tr name="entryProductInfo" data-pk="10944579207212" data-deliverykind="" data-outofstock="false" data-category="GF031"> ';
+				cartList+= '<td class="frt">';
+				cartList+= '<input type="checkbox" name="cartlist" data-pk="10944579207212" data-division="" data-deliverykind="" value="'+ index +'">';
+				cartList+= '</td>';			 
+			    cartList+= ' <td class="pt_list_wrap">                                                              ';
+				cartList+= ' 	<div class="pt_list_all">                                                              ';
+				cartList+= '    	<a href="/ko/HANDSOME/GOLF/MEN-CLOTHING/Top/%ED%85%8D%EC%8A%A4%EC%B2%98-%EB%B8%94%EB%A1%9D-%ED%95%98%ED%94%84-%EC%A7%91%EC%97%85-%ED%83%91/p/LB2CAWTO363M_KE_L" onclick="javascript:setEcommerceData(\'0\', \'Click ADD\');GA_Event(\'쇼핑백\',\'상품\',\'텍스처 블록 하프 집업 탑\');">                ';
+				cartList+= '        	<img src="http://newmedia.thehandsome.com/LB/2C/FW/LB2CAWTO363M_KE_S01.jpg" alt="" />                                                       ';
+				cartList+= '        </a>                                                       ';
+				cartList+= '        <div class="tlt_wrap">                                                       ';
+				cartList+= '        	<a href="/ko/HANDSOME/GOLF/MEN-CLOTHING/Top/%ED%85%8D%EC%8A%A4%EC%B2%98-%EB%B8%94%EB%A1%9D-%ED%95%98%ED%94%84-%EC%A7%91%EC%97%85-%ED%83%91/p/LB2CAWTO363M_KE_L" class="basket_tlt" onclick="javascript:setEcommerceData(\'0\', \'Click ADD\');GA_Event(\'쇼핑백\',\'상품\',\'텍스처 블록 하프 집업 탑\');">              ';
+				cartList+= '            	<span class="tlt">' + item.productDetail.bname + '</span>                                                   ';
+				cartList+= '                <span class="sb_tlt">'+ item.productDetail.pname +'</span>                                               ';
+				cartList+= '            </a>                                                   ';
+				cartList+= '            <p class="color_op">                                                   ';
+				cartList+= '              color : '+ item.productDetail.pccolorcode +'<span class="and_line">/</span>                       ';
+				cartList+= '              size : '+ item.productDetail.psize +'</p>                                                 ';
+				cartList+= '            <div class="option_wrap">                                                   ';
+				cartList+= '            	<a href="#none" class="btn_option" id="optOpenLayer^3^LB2CAWTO363M_KE" onclick="GA_Event(\'쇼핑백\',\'옵션변경\',\' ' + item.productDetail.pname+ '\')">옵션변경</a>                         ';
+				cartList+= '            </div>                                                   ';
+				cartList+= '        </div>                                                       ';
+				cartList+= '    </div>                                                           ';
+				cartList+= '    <!-- //pt_list_all-->                                                           ';
+				cartList+= '    </td>                                                          ';
+				cartList+= '    <td class="al_middle">                                                          ';
+				cartList+= '    <form id="updateCartForm'+index+'" data-cart="{&quot;cartCode&quot; : &quot;424627137&quot;,&quot;productPostPrice&quot;:&quot;638000.0&quot;,&quot;productName&quot;:&quot;텍스처 블록 하프 집업 탑&quot;}" action="/ko/shoppingbag/update" method="post"><input type="hidden" name="entryNumber" value="'+ index +'" />                                ';
+				cartList+= '    	<input type="hidden" name="productCode" value="LB2CAWTO363M_KE_L" />                                                           ';
+				cartList+= '        <input type="hidden" name="initialQuantity" value="1" />                                                       ';
+				cartList+= '        <input type="hidden" name="chgProductCode" value="" />                                                       ';
+				cartList+= '        <input type="hidden" name="curSize" value="L" />                                                       ';
+				cartList+= '        <input type="hidden" name="storeId" value="" />                                                       ';
+				cartList+= '        <input type="hidden" name="storePickupDate" value="" />                                                       ';
+				cartList+= '        <input type="hidden" name="deliveryKind" value="" />                                                       ';
+				cartList+= '        <input type="hidden" name="cartDivision" value="" />                                                       ';
+				cartList+= '        <!-- qty_sel -->                                                       ';
+				cartList+= '        <span class="qty_sel num">                                                       ';
+				cartList+= '        	<a href="#none" onMouseDown="javascript:AEC_F_D(\'LB2CAWTO363M_KE_L\',\'o\',1);" class="left" onclick="GA_Event(\'쇼핑백\', \'수량\', \'-\');">이전 버튼</a>                                                       ';
+				cartList+= '            	<input id="quantity'+index+'" name="quantity" type="text" class="mr0" value="1" size="1" maxlength="3"/><a href="#none" onMouseDown="javascript:AEC_F_D(\'LB2CAWTO363M_KE_L\',\'i\',1);" class="right" onclick="GA_Event(\'쇼핑백\', \'수량\', \'+\');">다음 버튼</a>                                                   ';
+				cartList+= '            </span>                                                   ';
+				cartList+= '        <!-- //qty_sel -->                                                       ';
+				cartList+= '        <a href="#none" id="QuantityProduct_'+index+'" class="btn wt_ss qty_w mr0">변경</a>                                                       ';
+				cartList+= '        <div>                                                       ';
+				cartList+= '        <input type="hidden" name="CSRFToken" value="a2068709-377f-4a2e-9b44-9296791e4112" />                                                       ';
+				cartList+= '        </div>                                                   ';
+				cartList+= '    </form>                                                     ';
+				cartList+= '    </td>                                                       ';
+				cartList+= '        <td class="al_middle">                                                       ';
+				cartList+= '        <!-- Price -->                                                       ';
+				cartList+= '        	<div class="price_wrap">                                                       ';
+				// 가격에 조건처리 -> 3자리마다 반점찍기
+				cartList+= '        		<span>₩'+ item.productDetail.pcprice+' </span> <input type="hidden" name="checkZeroPrice" value="'+ item.productDetail.pcprice+'" />    ';
+				cartList+= '        	</div> <!-- //Price -->                                                       ';
+				cartList+= '        </td>                                                       ';
+				cartList+= '        <td class="al_middle">                                                       ';
+				cartList+= '        	<span class="earn">5% (한섬마일리지)</span>                                                       ';
+				cartList+= '            <br>                                                     ';
+				cartList+= '            <span class="earn">0.1% (H.Point)</span>                                                   ';
+				cartList+= '        </td>                                                       ';
+				cartList+= '        <td class="al_middle">                                                       ';
+				cartList+= '        	<!-- Button size -->                                                       ';
+				cartList+= '            <div class="btn_wrap">                                                   ';
+				cartList+= '            	<a href="#none" class="btn wt_ss" onclick="callWishListClick(\'텍스처 블록 하프 집업 탑\',$(this),\'LB2CAWTO363M_KE_L\');" data-value="0">위시리스트</a>                                                   ';
+				cartList+= '                <a href="#none" id="RemoveProduct_'+index+'" class="btn wt_ss" onclick="GA_Event(\'쇼핑백\',\'삭제\',\'텍스처 블록 하프 집업 탑\');">삭제</a>                                               ';
+				cartList+= '            </div> <!-- //Button size -->                                                   ';
+				cartList+= '       </td></tr>                                                        ';
+				cartList+= '       <!-- Info wrap -->                                                        ';
+			 	cartList+= '       <tr>                                                        ';
+				cartList+= '       		<td colspan="6" class="basket_wrap">                                                        ';
+				cartList+= '            <!-- Info -->                                                   ';
+				cartList+= '            	<div class="basket_info">                                                   ';
+				cartList+= '                	<span class="btn_arr">위치아이콘</span>                                               ';
+				cartList+= '                    <div class="info">                                           ';
+				cartList+= '                     	<!-- Products -->                                          ';
+				cartList+= '                        <div class="pt_list" id="pt_list_'+index+'">                         ';
+				cartList+= '                          </div>                                      ';
+				cartList+= '                        <!-- //Products -->                                       ';
+				cartList+= '                        <!-- btns -->                                       ';
+				cartList+= '                         <div class="btns">                                       ';
+				cartList+= '                         	<a href="#none" class="btn wt_ss mr0" id="UpdateCart_'+index+'">변경</a>                                      ';
+				cartList+= '                            <a href="#none" class="btn wt_ss mt10 mr0" id="optCancelLayer_'+index+'">취소</a>                                   ';
+				cartList+= '                            <a href="#none" class="btn_close" id="optCloseLayer_'+index+'">닫기</a>                                   ';
+				cartList+= '                        </div>                                       ';
+				cartList+= '                        <!-- //btns -->                                       ';
+				cartList+= '                    </div>                                           ';
+				cartList+= '                </div> <!-- //Info -->                                               ';
+				cartList+= '            </td>                                                   ';
+				cartList+= '        </tr>                                                      ';
+				cartList+= '        <tr>                                                       ';
+				cartList+= '        	<td colspan="6" class="basket_wrap">                   ';
+				cartList+= '        	</td>                   ';
+				cartList+= '        </tr>                                                       ';
+				cartList+= '         <!-- AceCounter eCommerce (Product_Detail) v7.5 Start -->                                                       ';
+				cartList+= '        <script language=\'javascript\' type="text/javascript">                                                       '; 
+				cartList+= '        _A_amt[_ace_countvar]="'+item.productDetail.pcprice+'";                                                       ';
+				cartList+= '        _A_nl[_ace_countvar]="1";                                                       ';
+				cartList+= '        _A_pl[_ace_countvar]="'+item.psid+'";                                                       ';
+				cartList+= '        _A_pn[_ace_countvar]="'+item.pname+'";                                                       ';
+				cartList+= '        _A_ct[_ace_countvar]="'+item.bname+'";                                                       ';
+				cartList+= '       _ace_countvar++;                                                         ';
+				cartList+= '       </'+'script'+'>                                                        ';
+				cartList+= '                                                               ';
+				
+			$("#msg").append(cartList);
+			});
+		}
+	});
+});
+</script>
+
+
+   <!-- bodyWrap -->
     <div id="bodyWrap">
         <!--title-->
         <h3 class="cnts_title cnts_tlt1807">
@@ -2178,677 +2383,13 @@ function sendGroobee(){
         
         <!-- 장바구니개편 -->
         <span id="shoppingbagCartView">
-        	<script type="text/javascript">
-
-if(typeof kakaoPixel !== 'undefined'){
-	var kakaoTrackId = '3482319208237780781'; //개발
-	if(location.href.indexOf("www.thehandsome.com") > -1) kakaoTrackId = '7855119525940511046'; //운영
-	kakaoPixel(kakaoTrackId).pageView();
-	kakaoPixel(kakaoTrackId).viewCart();
-}
-
-$(document).ready(function(){
-    var athomeAlertYn = "false";
-    var todayDate = new Date();
-    var startDate1 = new Date('2021/02/23 00:00:00'), endDate1 = new Date('2021/03/12 08:59:59');
-    if (todayDate.getTime() >= startDate1.getTime() && todayDate.getTime() <= endDate1.getTime()) {
-        if(athomeAlertYn == "true"){
-            var la = new layerAlert("앳홈 딜리버리 서비스가 <br>'한섬 케어 플러스(앳홈 클리닝 서비스)'로 <br> 변경 됨에 따라 기존 쇼핑백 내 [앳홈]에 <br> 담아 두셨던 상품은[택배]로 이동하였습니다. 택배 탭을 확인해 주세요.");
-        }
-    }
-
-    // 재입고 알림 신청 취소
-    $("#rewareHousingCancel").on('click', function(){
-        var lc = new customLayerConfirm("취소하시겠습니까?", "확인", "취소");
         
-        lc.confirmAction = function(){
-            $(".btn_close").trigger("click");
-        };
-    });
-    
-    // 재입고 알림 신청
-    $("#rewareHousingApply").on('click', function(){
-        var clc = new customLayerConfirm("재입고 알림을 신청하시겠습니까?", "확인", "취소");
-        clc.confirmAction = function(){
-            reqRewarehousingAlram();
-        };
-    });
-
-    if("" == ""){
-        $.ajax({
-            type: "GET",
-            url: "/ko/shoppingbag/isBuyOneclick",
-            dataType: "json",
-            success: function(data){
-                var isOneclickUser = data.isOneclickUser;
-				
-             if(isOneclickUser == "true" && "" == ""){ 
-                 var html = "<a href='#;' onclick='checkoutOneClick();'><input type='button' value='1 CLICK 결제' class='one_click_pay1910 btn gray mr0'></a>";
-                 /** var html = "<a href='#;' onclick='notiAlert();'><input type='button' value='1 CLICK 결제' class='one_click_pay1910 btn gray mr0'></a>";*/
-                 $("#checkout_btn_wrap").append(html);
-             }
-            },
-            error: function(xhr,  Status, error) {
-                alert('sendRequest error : ' + xhr.status + " ( " + error + " ) " );
-            }
-        });
-    }
-    
-    /** 2019.11.07 쇼핑백 최초 진입 시 선택 상품 없도록 수정 - 하단 합계 금액 계산 */
-    $("#cartDataSubtotal").text("₩"+0);
-	$("#cartDataDeliveryCost").text("₩"+0);
-	$("#cartDataTotalPrice").text("₩"+0);
-});
-
-//재입고 완료 신청
-function reqRewarehousingAlram() {
-    
-    //로그인체크
-    
-    
-    //신청
-    $.ajax({
-        url : '/ko/p/setRewareHousing',
-        type : 'GET',
-        datatype: 'json',
-        data :
-        {
-            'code' : $('#popupHProduct').val(),
-            'emailAddress' : $('#email_address').val() + '@' + $('#email_domain').val(),
-            'CSRFToken' : "563dc39e-b7d1-4dde-8f0b-ca86e4f255b0"
-        },
-        success : function(data) 
-        {
-            if ( data.rsltCd == 'E1') {
-                var clc = new customLayerConfirm("장시간 사용하지 않아 로그아웃 되었습니다.", "확인", "취소");
-                clc.confirmAction = function() {
-                    location.href='/ko/member/login';
-                };
-            } else {
-                var msg = '';
-                if ( data.rsltCd == 'S') {
-                    msg = "재입고 알림 신청을 완료하였습니다.";
-                } else if ( data.rsltCd == 'E2') {
-                    msg = "등록된 이메일 정보와 다릅니다.<br />확인 후 다시 시도하여 주세요.";
-                } else if ( data.rsltCd == 'E3') {
-                    msg = ""+data.userID+"(ID) 로<br/>이미 재입고 알림 신청 이력이 있습니다.<br/>(동일 e-mail)";
-                } else if ( data.rsltCd == 'E4') {
-                    msg = "이미 신청을 완료하였습니다.";
-                }
-                var cla = new customLayerAlert(msg);
-                cla.confirmAction = function(){
-                    hideProductLayer();
-                    $(".popwrap").hide();
-                };    
-            }
-        },
-        error   : function(xhr, Status, error) {
-            var cla = new customLayerAlert("[Error] " + error);
-            return;
-        }
-    });
-    
-    function hideProductLayer() {
-        $("#productLayer .layerBg").removeClass("white");
-        $("#productLayer").hide();
-    }
-    
-}
-
-function setEcommerceData(idx, action){
-
-    if(action == "Remove From Cart" || action == "Checkout1(원클릭결제)" || action == "Checkout2(원클릭결제)"){
-	    var checkIdx = ",".concat(idx).concat(",");
-	    var productData = [];
-	    
-	    
-	    
-	    if(productData.length > 0){
-	        if(action == "Remove From Cart"){
-				dataLayer.push({
-					'event': 'ga_event', 'layerCategory' : 'Ecommerce', 'layerAction' : 'Remove From Cart','layerLabel' : undefined,
-					'ecommerce': {
-						'currencyCode': 'KRW', //통화
-						'remove': {
-							'products': productData
-						}
-					}
-				});
-			}else if(action == "Checkout1(원클릭결제)"){
-                dataLayer.push({
-                    'event': 'ga_event', 'layerCategory' : 'Ecommerce', 'layerAction' : 'Checkout','layerLabel' : '원클릭결제',
-                    'ecommerce': {
-                        'currencyCode': 'KRW', //통화
-                        'checkout': {
-                            'actionField': { 'step': 1}, //결제단계
-                            'products': productData
-                        }
-                    }
-                });
-            }else if(action == "Checkout2(원클릭결제)"){
-		        dataLayer.push({
-		            'event': 'ga_event', 'layerCategory' : 'Ecommerce', 'layerAction' : 'Checkout','layerLabel' : '원클릭결제',
-		            'ecommerce': {
-		            'currencyCode': 'KRW', //통화
-		            'checkout': {
-		                'actionField': { 'step': 2, 'option': '1CLICK 결제' }, //결제단계 및 결제수단
-		                'products': productData
-		                }
-		            }
-		        });
-		    }
-	    }
-	}else if(action == "Click ADD"){
         
-    }else if(action == "Click RECOMMEND"){
-		
-		if("0" == idx){
-		    dataLayer.push({
-		        'event': 'ga_event', 'layerCategory' : 'Ecommerce', 'layerAction' : 'Click','layerLabel' : undefined,
-		        'ecommerce': {
-		        'currencyCode': 'KRW', //통화
-		        'click': {
-		            'actionField': { 'list': '쇼핑백_추천 상품' }, //상품 리스트명
-		            'products':
-		                [{
-		                    "id": "SH2C9NJM343N".indexOf("_") > -1 ? "SH2C9NJM343N".split("_")[0] : "SH2C9NJM343N" , //상품코드
-		                    "name": "[NEW PREP] 백 자수 데님 재킷", //상품명
-		                    "brand": "SYSTEM HOMME", //상품 브랜드
-		                    "category": "", //상품 카테고리
-		                    
-                            "position": 10 //상품 위치
-                            
-		                }]
-		            }
-		        }
-		    });
-		    
-		}
-		
-		if("1" == idx){
-		    dataLayer.push({
-		        'event': 'ga_event', 'layerCategory' : 'Ecommerce', 'layerAction' : 'Click','layerLabel' : undefined,
-		        'ecommerce': {
-		        'currencyCode': 'KRW', //통화
-		        'click': {
-		            'actionField': { 'list': '쇼핑백_추천 상품' }, //상품 리스트명
-		            'products':
-		                [{
-		                    "id": "MM2C9QJM313M".indexOf("_") > -1 ? "MM2C9QJM313M".split("_")[0] : "MM2C9QJM313M" , //상품코드
-		                    "name": "구스 다운 플라이트 점퍼", //상품명
-		                    "brand": "CLUB MONACO", //상품 브랜드
-		                    "category": "", //상품 카테고리
-		                    
-                            "position": 10 //상품 위치
-                            
-		                }]
-		            }
-		        }
-		    });
-		    
-		}
-		
-		if("2" == idx){
-		    dataLayer.push({
-		        'event': 'ga_event', 'layerCategory' : 'Ecommerce', 'layerAction' : 'Click','layerLabel' : undefined,
-		        'ecommerce': {
-		        'currencyCode': 'KRW', //통화
-		        'click': {
-		            'actionField': { 'list': '쇼핑백_추천 상품' }, //상품 리스트명
-		            'products':
-		                [{
-		                    "id": "OB2CAKTO788W".indexOf("_") > -1 ? "OB2CAKTO788W".split("_")[0] : "OB2CAKTO788W" , //상품코드
-		                    "name": "[FWOBZEE] 컷아웃 니트 탑", //상품명
-		                    "brand": "OBZEE", //상품 브랜드
-		                    "category": "", //상품 카테고리
-		                    
-                            "position": 10 //상품 위치
-                            
-		                }]
-		            }
-		        }
-		    });
-		    
-		}
-		
-		if("3" == idx){
-		    dataLayer.push({
-		        'event': 'ga_event', 'layerCategory' : 'Ecommerce', 'layerAction' : 'Click','layerLabel' : undefined,
-		        'ecommerce': {
-		        'currencyCode': 'KRW', //통화
-		        'click': {
-		            'actionField': { 'list': '쇼핑백_추천 상품' }, //상품 리스트명
-		            'products':
-		                [{
-		                    "id": "OB2CAKCD781W".indexOf("_") > -1 ? "OB2CAKCD781W".split("_")[0] : "OB2CAKCD781W" , //상품코드
-		                    "name": "[FWOBZEE] 울 펄 가디건", //상품명
-		                    "brand": "OBZEE", //상품 브랜드
-		                    "category": "", //상품 카테고리
-		                    
-                            "position": 10 //상품 위치
-                            
-		                }]
-		            }
-		        }
-		    });
-		    
-		}
-		
-		if("4" == idx){
-		    dataLayer.push({
-		        'event': 'ga_event', 'layerCategory' : 'Ecommerce', 'layerAction' : 'Click','layerLabel' : undefined,
-		        'ecommerce': {
-		        'currencyCode': 'KRW', //통화
-		        'click': {
-		            'actionField': { 'list': '쇼핑백_추천 상품' }, //상품 리스트명
-		            'products':
-		                [{
-		                    "id": "OB2CAQOT859W".indexOf("_") > -1 ? "OB2CAQOT859W".split("_")[0] : "OB2CAQOT859W" , //상품코드
-		                    "name": "[FWOBZEE] 플랩 구스 다운 점퍼", //상품명
-		                    "brand": "OBZEE", //상품 브랜드
-		                    "category": "", //상품 카테고리
-		                    
-                            "position": 10 //상품 위치
-                            
-		                }]
-		            }
-		        }
-		    });
-		    
-		}
-		
-		if("5" == idx){
-		    dataLayer.push({
-		        'event': 'ga_event', 'layerCategory' : 'Ecommerce', 'layerAction' : 'Click','layerLabel' : undefined,
-		        'ecommerce': {
-		        'currencyCode': 'KRW', //통화
-		        'click': {
-		            'actionField': { 'list': '쇼핑백_추천 상품' }, //상품 리스트명
-		            'products':
-		                [{
-		                    "id": "MM2C9WJM304MP".indexOf("_") > -1 ? "MM2C9WJM304MP".split("_")[0] : "MM2C9WJM304MP" , //상품코드
-		                    "name": "울 블렌드 컬러 라인 점퍼", //상품명
-		                    "brand": "CLUB MONACO", //상품 브랜드
-		                    "category": "", //상품 카테고리
-		                    
-                            "position": 10 //상품 위치
-                            
-		                }]
-		            }
-		        }
-		    });
-		    
-		}
-		
-		if("6" == idx){
-		    dataLayer.push({
-		        'event': 'ga_event', 'layerCategory' : 'Ecommerce', 'layerAction' : 'Click','layerLabel' : undefined,
-		        'ecommerce': {
-		        'currencyCode': 'KRW', //통화
-		        'click': {
-		            'actionField': { 'list': '쇼핑백_추천 상품' }, //상품 리스트명
-		            'products':
-		                [{
-		                    "id": "OB2CAWCT088W".indexOf("_") > -1 ? "OB2CAWCT088W".split("_")[0] : "OB2CAWCT088W" , //상품코드
-		                    "name": "캐시미어 블렌드 싱글 코트", //상품명
-		                    "brand": "OBZEE", //상품 브랜드
-		                    "category": "", //상품 카테고리
-		                    
-                            "position": 10 //상품 위치
-                            
-		                }]
-		            }
-		        }
-		    });
-		    
-		}
-		
-		if("7" == idx){
-		    dataLayer.push({
-		        'event': 'ga_event', 'layerCategory' : 'Ecommerce', 'layerAction' : 'Click','layerLabel' : undefined,
-		        'ecommerce': {
-		        'currencyCode': 'KRW', //통화
-		        'click': {
-		            'actionField': { 'list': '쇼핑백_추천 상품' }, //상품 리스트명
-		            'products':
-		                [{
-		                    "id": "MM2C9WPC504M".indexOf("_") > -1 ? "MM2C9WPC504M".split("_")[0] : "MM2C9WPC504M" , //상품코드
-		                    "name": "솔리드 플란넬 팬츠", //상품명
-		                    "brand": "CLUB MONACO", //상품 브랜드
-		                    "category": "", //상품 카테고리
-		                    
-                            "position": 10 //상품 위치
-                            
-		                }]
-		            }
-		        }
-		    });
-		    
-		}
-		
-		if("8" == idx){
-		    dataLayer.push({
-		        'event': 'ga_event', 'layerCategory' : 'Ecommerce', 'layerAction' : 'Click','layerLabel' : undefined,
-		        'ecommerce': {
-		        'currencyCode': 'KRW', //통화
-		        'click': {
-		            'actionField': { 'list': '쇼핑백_추천 상품' }, //상품 리스트명
-		            'products':
-		                [{
-		                    "id": "MM2C7LOT020H9A".indexOf("_") > -1 ? "MM2C7LOT020H9A".split("_")[0] : "MM2C7LOT020H9A" , //상품코드
-		                    "name": "스웨이드 재킷", //상품명
-		                    "brand": "CLUB MONACO", //상품 브랜드
-		                    "category": "", //상품 카테고리
-		                    
-                            "position": 10 //상품 위치
-                            
-		                }]
-		            }
-		        }
-		    });
-		    
-		}
-		
-		if("9" == idx){
-		    dataLayer.push({
-		        'event': 'ga_event', 'layerCategory' : 'Ecommerce', 'layerAction' : 'Click','layerLabel' : undefined,
-		        'ecommerce': {
-		        'currencyCode': 'KRW', //통화
-		        'click': {
-		            'actionField': { 'list': '쇼핑백_추천 상품' }, //상품 리스트명
-		            'products':
-		                [{
-		                    "id": "OB2CAWOP564W".indexOf("_") > -1 ? "OB2CAWOP564W".split("_")[0] : "OB2CAWOP564W" , //상품코드
-		                    "name": "[FWOBZEE] 캐시미어 블렌드 레이어 드레스", //상품명
-		                    "brand": "OBZEE", //상품 브랜드
-		                    "category": "", //상품 카테고리
-		                    
-                            "position": 10 //상품 위치
-                            
-		                }]
-		            }
-		        }
-		    });
-		    
-		}
-		
-		if("10" == idx){
-		    dataLayer.push({
-		        'event': 'ga_event', 'layerCategory' : 'Ecommerce', 'layerAction' : 'Click','layerLabel' : undefined,
-		        'ecommerce': {
-		        'currencyCode': 'KRW', //통화
-		        'click': {
-		            'actionField': { 'list': '쇼핑백_추천 상품' }, //상품 리스트명
-		            'products':
-		                [{
-		                    "id": "OB2CAWJC020W".indexOf("_") > -1 ? "OB2CAWJC020W".split("_")[0] : "OB2CAWJC020W" , //상품코드
-		                    "name": "[FWOBZEE] 울 블렌드 노치넥 재킷", //상품명
-		                    "brand": "OBZEE", //상품 브랜드
-		                    "category": "", //상품 카테고리
-		                    
-                            "position": 10 //상품 위치
-                            
-		                }]
-		            }
-		        }
-		    });
-		    
-		}
-		
-		if("11" == idx){
-		    dataLayer.push({
-		        'event': 'ga_event', 'layerCategory' : 'Ecommerce', 'layerAction' : 'Click','layerLabel' : undefined,
-		        'ecommerce': {
-		        'currencyCode': 'KRW', //통화
-		        'click': {
-		            'actionField': { 'list': '쇼핑백_추천 상품' }, //상품 리스트명
-		            'products':
-		                [{
-		                    "id": "MM2C9QJM311M".indexOf("_") > -1 ? "MM2C9QJM311M".split("_")[0] : "MM2C9QJM311M" , //상품코드
-		                    "name": "칼라 패딩 점퍼", //상품명
-		                    "brand": "CLUB MONACO", //상품 브랜드
-		                    "category": "", //상품 카테고리
-		                    
-                            "position": 10 //상품 위치
-                            
-		                }]
-		            }
-		        }
-		    });
-		    
-		}
-		
-		if("12" == idx){
-		    dataLayer.push({
-		        'event': 'ga_event', 'layerCategory' : 'Ecommerce', 'layerAction' : 'Click','layerLabel' : undefined,
-		        'ecommerce': {
-		        'currencyCode': 'KRW', //통화
-		        'click': {
-		            'actionField': { 'list': '쇼핑백_추천 상품' }, //상품 리스트명
-		            'products':
-		                [{
-		                    "id": "OB2CAWTO119W".indexOf("_") > -1 ? "OB2CAWTO119W".split("_")[0] : "OB2CAWTO119W" , //상품코드
-		                    "name": "모크넥 시퀸 퍼프 탑", //상품명
-		                    "brand": "OBZEE", //상품 브랜드
-		                    "category": "", //상품 카테고리
-		                    
-                            "position": 10 //상품 위치
-                            
-		                }]
-		            }
-		        }
-		    });
-		    
-		}
-		
-		if("13" == idx){
-		    dataLayer.push({
-		        'event': 'ga_event', 'layerCategory' : 'Ecommerce', 'layerAction' : 'Click','layerLabel' : undefined,
-		        'ecommerce': {
-		        'currencyCode': 'KRW', //통화
-		        'click': {
-		            'actionField': { 'list': '쇼핑백_추천 상품' }, //상품 리스트명
-		            'products':
-		                [{
-		                    "id": "OB2CAKTO794W".indexOf("_") > -1 ? "OB2CAKTO794W".split("_")[0] : "OB2CAKTO794W" , //상품코드
-		                    "name": "[FWOBZEE] 울 블렌드 하이넥 니트 탑", //상품명
-		                    "brand": "OBZEE", //상품 브랜드
-		                    "category": "", //상품 카테고리
-		                    
-                            "position": 10 //상품 위치
-                            
-		                }]
-		            }
-		        }
-		    });
-		    
-		}
-		
-		if("14" == idx){
-		    dataLayer.push({
-		        'event': 'ga_event', 'layerCategory' : 'Ecommerce', 'layerAction' : 'Click','layerLabel' : undefined,
-		        'ecommerce': {
-		        'currencyCode': 'KRW', //통화
-		        'click': {
-		            'actionField': { 'list': '쇼핑백_추천 상품' }, //상품 리스트명
-		            'products':
-		                [{
-		                    "id": "OB2CAKCD778W".indexOf("_") > -1 ? "OB2CAKCD778W".split("_")[0] : "OB2CAKCD778W" , //상품코드
-		                    "name": "[FWOBZEE] 울 블렌드 프릴 가디건", //상품명
-		                    "brand": "OBZEE", //상품 브랜드
-		                    "category": "", //상품 카테고리
-		                    
-                            "position": 10 //상품 위치
-                            
-		                }]
-		            }
-		        }
-		    });
-		    
-		}
-		
-		if("15" == idx){
-		    dataLayer.push({
-		        'event': 'ga_event', 'layerCategory' : 'Ecommerce', 'layerAction' : 'Click','layerLabel' : undefined,
-		        'ecommerce': {
-		        'currencyCode': 'KRW', //통화
-		        'click': {
-		            'actionField': { 'list': '쇼핑백_추천 상품' }, //상품 리스트명
-		            'products':
-		                [{
-		                    "id": "MM2C9WCT404M".indexOf("_") > -1 ? "MM2C9WCT404M".split("_")[0] : "MM2C9WCT404M" , //상품코드
-		                    "name": "캐시미어 블렌드 싱글 코트", //상품명
-		                    "brand": "CLUB MONACO", //상품 브랜드
-		                    "category": "", //상품 카테고리
-		                    
-                            "position": 10 //상품 위치
-                            
-		                }]
-		            }
-		        }
-		    });
-		    
-		}
-		
-		if("16" == idx){
-		    dataLayer.push({
-		        'event': 'ga_event', 'layerCategory' : 'Ecommerce', 'layerAction' : 'Click','layerLabel' : undefined,
-		        'ecommerce': {
-		        'currencyCode': 'KRW', //통화
-		        'click': {
-		            'actionField': { 'list': '쇼핑백_추천 상품' }, //상품 리스트명
-		            'products':
-		                [{
-		                    "id": "SH2C8WJM323M".indexOf("_") > -1 ? "SH2C8WJM323M".split("_")[0] : "SH2C8WJM323M" , //상품코드
-		                    "name": "텍스처 블록 레더 점퍼", //상품명
-		                    "brand": "SYSTEM HOMME", //상품 브랜드
-		                    "category": "", //상품 카테고리
-		                    
-                            "position": 10 //상품 위치
-                            
-		                }]
-		            }
-		        }
-		    });
-		    
-		}
-		
-		if("17" == idx){
-		    dataLayer.push({
-		        'event': 'ga_event', 'layerCategory' : 'Ecommerce', 'layerAction' : 'Click','layerLabel' : undefined,
-		        'ecommerce': {
-		        'currencyCode': 'KRW', //통화
-		        'click': {
-		            'actionField': { 'list': '쇼핑백_추천 상품' }, //상품 리스트명
-		            'products':
-		                [{
-		                    "id": "SH2C9WJCT03M".indexOf("_") > -1 ? "SH2C9WJCT03M".split("_")[0] : "SH2C9WJCT03M" , //상품코드
-		                    "name": "[PARIS] 울 멜란지 재킷", //상품명
-		                    "brand": "SYSTEM HOMME", //상품 브랜드
-		                    "category": "", //상품 카테고리
-		                    
-                            "position": 10 //상품 위치
-                            
-		                }]
-		            }
-		        }
-		    });
-		    
-		}
-		
-		if("18" == idx){
-		    dataLayer.push({
-		        'event': 'ga_event', 'layerCategory' : 'Ecommerce', 'layerAction' : 'Click','layerLabel' : undefined,
-		        'ecommerce': {
-		        'currencyCode': 'KRW', //통화
-		        'click': {
-		            'actionField': { 'list': '쇼핑백_추천 상품' }, //상품 리스트명
-		            'products':
-		                [{
-		                    "id": "MM2C9WOT306M".indexOf("_") > -1 ? "MM2C9WOT306M".split("_")[0] : "MM2C9WOT306M" , //상품코드
-		                    "name": "캐시미어 블렌드 패널 재킷", //상품명
-		                    "brand": "CLUB MONACO", //상품 브랜드
-		                    "category": "", //상품 카테고리
-		                    
-                            "position": 10 //상품 위치
-                            
-		                }]
-		            }
-		        }
-		    });
-		    
-		}
-		
-		if("19" == idx){
-		    dataLayer.push({
-		        'event': 'ga_event', 'layerCategory' : 'Ecommerce', 'layerAction' : 'Click','layerLabel' : undefined,
-		        'ecommerce': {
-		        'currencyCode': 'KRW', //통화
-		        'click': {
-		            'actionField': { 'list': '쇼핑백_추천 상품' }, //상품 리스트명
-		            'products':
-		                [{
-		                    "id": "SH2C9WTOT06M".indexOf("_") > -1 ? "SH2C9WTOT06M".split("_")[0] : "SH2C9WTOT06M" , //상품코드
-		                    "name": "[PARIS] 캐시미어 블렌드 후드 탑", //상품명
-		                    "brand": "SYSTEM HOMME", //상품 브랜드
-		                    "category": "", //상품 카테고리
-		                    
-                            "position": 10 //상품 위치
-                            
-		                }]
-		            }
-		        }
-		    });
-		    
-		}
-		
-		if("20" == idx){
-		    dataLayer.push({
-		        'event': 'ga_event', 'layerCategory' : 'Ecommerce', 'layerAction' : 'Click','layerLabel' : undefined,
-		        'ecommerce': {
-		        'currencyCode': 'KRW', //통화
-		        'click': {
-		            'actionField': { 'list': '쇼핑백_추천 상품' }, //상품 리스트명
-		            'products':
-		                [{
-		                    "id": "OB2CAKCD778WM1".indexOf("_") > -1 ? "OB2CAKCD778WM1".split("_")[0] : "OB2CAKCD778WM1" , //상품코드
-		                    "name": "[FWOBZEE] 울 블렌드 프릴 가디건", //상품명
-		                    "brand": "OBZEE", //상품 브랜드
-		                    "category": "", //상품 카테고리
-		                    
-                            "position": 10 //상품 위치
-                            
-		                }]
-		            }
-		        }
-		    });
-		    
-		}
-		
-	}
-    /* Ecommerce data 초기화
-            dataLayer에 남아 있는 경우에는 전자상거래 단계만을 위해 사용하는
-            필드들이 세팅되어 있으므로 undefined를 통해 초기화합니다. */
-    dataLayer.push({
-        'layerCategory' : undefined,
-        'layerAction' : undefined,
-        'nonInteraction' : false,
-        'ecommerce' : undefined
-    });
+<!-- <button id=testAjax">클릭테스트</button> -->
+<input type="hidden" class="testMid" id="testMid" name="testMid" value="ehfhfh1313">
+ 
 
-}
 
-function notiAlert(){
-	var msg = "원클릭결제  서비스가 원활하지 않습니다. <br><br>모바일앱을 이용하시거나 <br>'일반결제' 또는 '주문서 내 원클릭결제'를<br>이용해주시길 바랍니다.<br><br> 빠른 시일내에 원활한 서비스를 위해<br> 최선을 다하겠습니다.<br> 이용에 불편을 드려 죄송합니다.";
-	var cla = new customLayerAlert(msg);
-	cla.confirmAction = function(){
-	$("#productLayer .layerBg").removeClass("white");
-	$("#productLayer").hide();
-	$(".popwrap").hide();
-                };  
-}
-
-</script>
 <!--sub_container-->
         <div class="sub_container ">
             <!--order wrap-->
@@ -2862,7 +2403,7 @@ function notiAlert(){
                         <a href="#;" name="cartDivision" data-division="store" onclick="GA_Event('쇼핑백', '탭', '매장수령');" ><span class="spt_ico"></span>매장수령 (0)</a>
                     </li>
                     <li>
-                        <a href="#;" name="cartDivision" data-division="quick" onclick="GA_Event('쇼핑백', '탭', '퀵배송                                           ');" ><span class="quk_ico"></span>퀵배송                                            (0)</a>
+                        <a href="#;" name="cartDivision" data-division="quick" onclick="GA_Event('쇼핑백', '탭', '퀵배송 ');" ><span class="quk_ico"></span>퀵배송         (0)</a>
                     </li>
                     </ul>
                 <!-- //장바구니개편 -->
@@ -2881,8 +2422,7 @@ function notiAlert(){
                 <!--shoppingback table-->
                 <div class="tblwrap">
                     <table class="tbl_ltype">
-                        <caption>
-                            쇼핑백</caption>
+                        <caption>쇼핑백</caption>
                         <colgroup>
                             <col style="width: 10px;" />
                             <col />
@@ -2904,11 +2444,13 @@ function notiAlert(){
                                 <th scope="col">선택</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr>
-                                    <td colspan="6" class="no_data frt">쇼핑백에 담긴 상품이 없습니다.</td>
-                                    </tr>
-                            </tbody>
+                        <tbody id="msg">
+
+                        	<!-- <div id="msg">
+                      			여기에 데이터 추가
+                        	</div>> -->
+                            
+                        </tbody>
                     </table>
                 </div>
                 <!--// shoppingback table-->
@@ -2917,11 +2459,10 @@ function notiAlert(){
                     <!-- total -->
                     <div class="total_price_wrap">
                         <dl>
-                                <dt>
-                                    상품 합계</dt>
+                                <dt>상품 합계</dt>
                                 <dd>
                                     <span id="cartDataSubtotal">₩0</span>
-				</dd>
+								</dd>
                                 <dt class="delch_wrap">
                                     <p class="tlt_ship">배송비</p>
                                     <!--delivery charge layer popup-->
@@ -3066,681 +2607,8 @@ function notiAlert(){
         </div>
         <!--//sub_container-->
 </span>
-        <!-- // 장바구니개편 -->
-        
-        <!--추천상품 리스트 -->
-        <div class="rmd_pb_list_wrap">
-            <div class="rmd_pb_list">
-                <h4>고객님을 위한 추천상품</h4> <!-- 고객님을 위한 추천상품 -->
-                <img src="http://cdn.thehandsome.com/_ui/desktop/common/images/common/ico_quest.png" alt="추천상품이란?" class="tlt" onmouseover="onMouseOverRecommend();" onmouseout="onMouseOutRecommend();">
-                <div class="rmd_pb_popup" style="display:none;">
-	                <p>이 상품을 구매한 고객들이 함께 구매한 상품입니다.</p> <!-- 이 상품을 구매한 고객들이 함께 구매한 상품입니다. -->    
-	                <span class="box_arr"></span>
-	            </div> 
-                
-                
-                <div class="controls">
-                    <a href="javascript:void(0);" class="prev">이전</a>
-                    <a href="javascript:void(0);" class="next">다음</a>
-                </div>
-                <div class="hidden_wrap">
-                <ul class="clearfix productSlide">
-                 <li>
-                                   <a href="javascript:goDetailPage('SH2C9NJM343N', 'https://lc.recopick.com/1/banner/1919/pick?uid=22723613.1664160820039&source=&pick=SH2C9NJM343N&method=25&channel=cart&reco_type=user-item&product_type=R&reco_list=%5B%22SH2C9NJM343N%22%2C%22MM2C9QJM313M%22%2C%22OB2CAKTO788W%22%2C%22OB2CAKCD781W%22%2C%22OB2CAQOT859W%22%2C%22MM2C9WJM304MP%22%2C%22OB2CAWCT088W%22%2C%22MM2C9WPC504M%22%2C%22MM2C7LOT020H9A%22%2C%22OB2CAWOP564W%22%2C%22OB2CAWJC020W%22%2C%22MM2C9QJM311M%22%2C%22OB2CAWTO119W%22%2C%22OB2CAKTO794W%22%2C%22OB2CAKCD778W%22%2C%22MM2C9WCT404M%22%2C%22SH2C8WJM323M%22%2C%22SH2C9WJCT03M%22%2C%22MM2C9WOT306M%22%2C%22SH2C9WTOT06M%22%2C%22OB2CAKCD778WM1%22%2C%22MM2C8WJC200M%22%2C%22SH2C7NSH707MP%22%2C%22MM2C9WOT305M%22%2C%22OB2C9WSC460W%22%2C%22SH2C9WJM301M%22%2C%22MM2C8WOT301M%22%2C%22OB2C9WOT014W%22%2C%22MM2C7WOT025H8A%22%2C%22MM2C9WPC507MM%22%5D&tag=D');" onclick="GA_Event('쇼핑백','고객님을위한추천상품','[NEW PREP] 백 자수 데님 재킷');javascript:setEcommerceData('0', 'Click RECOMMEND');"> 
-                                       <img src="http://newmedia.thehandsome.com/SH/2C/FW/SH2C9NJM343N_BK_S01.jpg" alt="추천상품" class="respon_image" onerror="this.src='http://cdn.thehandsome.com/_ui/desktop/common/images/products/no_img2.jpg'" />
-                                   </a>
-                                   <div>
-                                       <span class="brand BR07">SYSTEM HOMME</span>
-                                       <span class="title">[NEW PREP] 백 자수 데님 재킷</span>
-                                       <span class="price">
-                                           ₩420,000</span>
-                                   </div>
-                               </li>
-                               <li>
-                                   <a href="javascript:goDetailPage('MM2C9QJM313M', 'https://lc.recopick.com/1/banner/1919/pick?uid=22723613.1664160820039&source=&pick=MM2C9QJM313M&method=25&channel=cart&reco_type=user-item&product_type=R&reco_list=%5B%22SH2C9NJM343N%22%2C%22MM2C9QJM313M%22%2C%22OB2CAKTO788W%22%2C%22OB2CAKCD781W%22%2C%22OB2CAQOT859W%22%2C%22MM2C9WJM304MP%22%2C%22OB2CAWCT088W%22%2C%22MM2C9WPC504M%22%2C%22MM2C7LOT020H9A%22%2C%22OB2CAWOP564W%22%2C%22OB2CAWJC020W%22%2C%22MM2C9QJM311M%22%2C%22OB2CAWTO119W%22%2C%22OB2CAKTO794W%22%2C%22OB2CAKCD778W%22%2C%22MM2C9WCT404M%22%2C%22SH2C8WJM323M%22%2C%22SH2C9WJCT03M%22%2C%22MM2C9WOT306M%22%2C%22SH2C9WTOT06M%22%2C%22OB2CAKCD778WM1%22%2C%22MM2C8WJC200M%22%2C%22SH2C7NSH707MP%22%2C%22MM2C9WOT305M%22%2C%22OB2C9WSC460W%22%2C%22SH2C9WJM301M%22%2C%22MM2C8WOT301M%22%2C%22OB2C9WOT014W%22%2C%22MM2C7WOT025H8A%22%2C%22MM2C9WPC507MM%22%5D&tag=D');" onclick="GA_Event('쇼핑백','고객님을위한추천상품','구스 다운 플라이트 점퍼');javascript:setEcommerceData('1', 'Click RECOMMEND');"> 
-                                       <img src="http://newmedia.thehandsome.com/MM/2C/FW/MM2C9QJM313M_BK_S01.jpg" alt="추천상품" class="respon_image" onerror="this.src='http://cdn.thehandsome.com/_ui/desktop/common/images/products/no_img2.jpg'" />
-                                   </a>
-                                   <div>
-                                       <span class="brand BR44">CLUB MONACO</span>
-                                       <span class="title">구스 다운 플라이트 점퍼</span>
-                                       <span class="price">
-                                           ₩698,000</span>
-                                   </div>
-                               </li>
-                               <li>
-                                   <a href="javascript:goDetailPage('OB2CAKTO788W', 'https://lc.recopick.com/1/banner/1919/pick?uid=22723613.1664160820039&source=&pick=OB2CAKTO788W&method=25&channel=cart&reco_type=user-item&product_type=R&reco_list=%5B%22SH2C9NJM343N%22%2C%22MM2C9QJM313M%22%2C%22OB2CAKTO788W%22%2C%22OB2CAKCD781W%22%2C%22OB2CAQOT859W%22%2C%22MM2C9WJM304MP%22%2C%22OB2CAWCT088W%22%2C%22MM2C9WPC504M%22%2C%22MM2C7LOT020H9A%22%2C%22OB2CAWOP564W%22%2C%22OB2CAWJC020W%22%2C%22MM2C9QJM311M%22%2C%22OB2CAWTO119W%22%2C%22OB2CAKTO794W%22%2C%22OB2CAKCD778W%22%2C%22MM2C9WCT404M%22%2C%22SH2C8WJM323M%22%2C%22SH2C9WJCT03M%22%2C%22MM2C9WOT306M%22%2C%22SH2C9WTOT06M%22%2C%22OB2CAKCD778WM1%22%2C%22MM2C8WJC200M%22%2C%22SH2C7NSH707MP%22%2C%22MM2C9WOT305M%22%2C%22OB2C9WSC460W%22%2C%22SH2C9WJM301M%22%2C%22MM2C8WOT301M%22%2C%22OB2C9WOT014W%22%2C%22MM2C7WOT025H8A%22%2C%22MM2C9WPC507MM%22%5D&tag=D');" onclick="GA_Event('쇼핑백','고객님을위한추천상품','[FWOBZEE] 컷아웃 니트 탑');javascript:setEcommerceData('2', 'Click RECOMMEND');"> 
-                                       <img src="http://newmedia.thehandsome.com/OB/2C/FW/OB2CAKTO788W_BK_S01.jpg" alt="추천상품" class="respon_image" onerror="this.src='http://cdn.thehandsome.com/_ui/desktop/common/images/products/no_img2.jpg'" />
-                                   </a>
-                                   <div>
-                                       <span class="brand BR43">OBZEE</span>
-                                       <span class="title">[FWOBZEE] 컷아웃 니트 탑</span>
-                                       <span class="price">
-                                           ₩595,000</span>
-                                   </div>
-                               </li>
-                               <li>
-                                   <a href="javascript:goDetailPage('OB2CAKCD781W', 'https://lc.recopick.com/1/banner/1919/pick?uid=22723613.1664160820039&source=&pick=OB2CAKCD781W&method=25&channel=cart&reco_type=user-item&product_type=R&reco_list=%5B%22SH2C9NJM343N%22%2C%22MM2C9QJM313M%22%2C%22OB2CAKTO788W%22%2C%22OB2CAKCD781W%22%2C%22OB2CAQOT859W%22%2C%22MM2C9WJM304MP%22%2C%22OB2CAWCT088W%22%2C%22MM2C9WPC504M%22%2C%22MM2C7LOT020H9A%22%2C%22OB2CAWOP564W%22%2C%22OB2CAWJC020W%22%2C%22MM2C9QJM311M%22%2C%22OB2CAWTO119W%22%2C%22OB2CAKTO794W%22%2C%22OB2CAKCD778W%22%2C%22MM2C9WCT404M%22%2C%22SH2C8WJM323M%22%2C%22SH2C9WJCT03M%22%2C%22MM2C9WOT306M%22%2C%22SH2C9WTOT06M%22%2C%22OB2CAKCD778WM1%22%2C%22MM2C8WJC200M%22%2C%22SH2C7NSH707MP%22%2C%22MM2C9WOT305M%22%2C%22OB2C9WSC460W%22%2C%22SH2C9WJM301M%22%2C%22MM2C8WOT301M%22%2C%22OB2C9WOT014W%22%2C%22MM2C7WOT025H8A%22%2C%22MM2C9WPC507MM%22%5D&tag=D');" onclick="GA_Event('쇼핑백','고객님을위한추천상품','[FWOBZEE] 울 펄 가디건');javascript:setEcommerceData('3', 'Click RECOMMEND');"> 
-                                       <img src="http://newmedia.thehandsome.com/OB/2C/FW/OB2CAKCD781W_BK_S01.jpg" alt="추천상품" class="respon_image" onerror="this.src='http://cdn.thehandsome.com/_ui/desktop/common/images/products/no_img2.jpg'" />
-                                   </a>
-                                   <div>
-                                       <span class="brand BR43">OBZEE</span>
-                                       <span class="title">[FWOBZEE] 울 펄 가디건</span>
-                                       <span class="price">
-                                           ₩745,000</span>
-                                   </div>
-                               </li>
-                               <li>
-                                   <a href="javascript:goDetailPage('OB2CAQOT859W', 'https://lc.recopick.com/1/banner/1919/pick?uid=22723613.1664160820039&source=&pick=OB2CAQOT859W&method=25&channel=cart&reco_type=user-item&product_type=R&reco_list=%5B%22SH2C9NJM343N%22%2C%22MM2C9QJM313M%22%2C%22OB2CAKTO788W%22%2C%22OB2CAKCD781W%22%2C%22OB2CAQOT859W%22%2C%22MM2C9WJM304MP%22%2C%22OB2CAWCT088W%22%2C%22MM2C9WPC504M%22%2C%22MM2C7LOT020H9A%22%2C%22OB2CAWOP564W%22%2C%22OB2CAWJC020W%22%2C%22MM2C9QJM311M%22%2C%22OB2CAWTO119W%22%2C%22OB2CAKTO794W%22%2C%22OB2CAKCD778W%22%2C%22MM2C9WCT404M%22%2C%22SH2C8WJM323M%22%2C%22SH2C9WJCT03M%22%2C%22MM2C9WOT306M%22%2C%22SH2C9WTOT06M%22%2C%22OB2CAKCD778WM1%22%2C%22MM2C8WJC200M%22%2C%22SH2C7NSH707MP%22%2C%22MM2C9WOT305M%22%2C%22OB2C9WSC460W%22%2C%22SH2C9WJM301M%22%2C%22MM2C8WOT301M%22%2C%22OB2C9WOT014W%22%2C%22MM2C7WOT025H8A%22%2C%22MM2C9WPC507MM%22%5D&tag=D');" onclick="GA_Event('쇼핑백','고객님을위한추천상품','[FWOBZEE] 플랩 구스 다운 점퍼');javascript:setEcommerceData('4', 'Click RECOMMEND');"> 
-                                       <img src="http://newmedia.thehandsome.com/OB/2C/FW/OB2CAQOT859W_EK_S01.jpg" alt="추천상품" class="respon_image" onerror="this.src='http://cdn.thehandsome.com/_ui/desktop/common/images/products/no_img2.jpg'" />
-                                   </a>
-                                   <div>
-                                       <span class="brand BR43">OBZEE</span>
-                                       <span class="title">[FWOBZEE] 플랩 구스 다운 점퍼</span>
-                                       <span class="price">
-                                           ₩925,000</span>
-                                   </div>
-                               </li>
-                               <li>
-                                   <a href="javascript:goDetailPage('MM2C9WJM304MP', 'https://lc.recopick.com/1/banner/1919/pick?uid=22723613.1664160820039&source=&pick=MM2C9WJM304MP&method=25&channel=cart&reco_type=user-item&product_type=R&reco_list=%5B%22SH2C9NJM343N%22%2C%22MM2C9QJM313M%22%2C%22OB2CAKTO788W%22%2C%22OB2CAKCD781W%22%2C%22OB2CAQOT859W%22%2C%22MM2C9WJM304MP%22%2C%22OB2CAWCT088W%22%2C%22MM2C9WPC504M%22%2C%22MM2C7LOT020H9A%22%2C%22OB2CAWOP564W%22%2C%22OB2CAWJC020W%22%2C%22MM2C9QJM311M%22%2C%22OB2CAWTO119W%22%2C%22OB2CAKTO794W%22%2C%22OB2CAKCD778W%22%2C%22MM2C9WCT404M%22%2C%22SH2C8WJM323M%22%2C%22SH2C9WJCT03M%22%2C%22MM2C9WOT306M%22%2C%22SH2C9WTOT06M%22%2C%22OB2CAKCD778WM1%22%2C%22MM2C8WJC200M%22%2C%22SH2C7NSH707MP%22%2C%22MM2C9WOT305M%22%2C%22OB2C9WSC460W%22%2C%22SH2C9WJM301M%22%2C%22MM2C8WOT301M%22%2C%22OB2C9WOT014W%22%2C%22MM2C7WOT025H8A%22%2C%22MM2C9WPC507MM%22%5D&tag=D');" onclick="GA_Event('쇼핑백','고객님을위한추천상품','울 블렌드 컬러 라인 점퍼');javascript:setEcommerceData('5', 'Click RECOMMEND');"> 
-                                       <img src="http://newmedia.thehandsome.com/MM/2C/FW/MM2C9WJM304MP_DN_S01.jpg" alt="추천상품" class="respon_image" onerror="this.src='http://cdn.thehandsome.com/_ui/desktop/common/images/products/no_img2.jpg'" />
-                                   </a>
-                                   <div>
-                                       <span class="brand BR44">CLUB MONACO</span>
-                                       <span class="title">울 블렌드 컬러 라인 점퍼</span>
-                                       <span class="price">
-                                           ₩698,000</span>
-                                   </div>
-                               </li>
-                               <li>
-                                   <a href="javascript:goDetailPage('OB2CAWCT088W', 'https://lc.recopick.com/1/banner/1919/pick?uid=22723613.1664160820039&source=&pick=OB2CAWCT088W&method=25&channel=cart&reco_type=user-item&product_type=R&reco_list=%5B%22SH2C9NJM343N%22%2C%22MM2C9QJM313M%22%2C%22OB2CAKTO788W%22%2C%22OB2CAKCD781W%22%2C%22OB2CAQOT859W%22%2C%22MM2C9WJM304MP%22%2C%22OB2CAWCT088W%22%2C%22MM2C9WPC504M%22%2C%22MM2C7LOT020H9A%22%2C%22OB2CAWOP564W%22%2C%22OB2CAWJC020W%22%2C%22MM2C9QJM311M%22%2C%22OB2CAWTO119W%22%2C%22OB2CAKTO794W%22%2C%22OB2CAKCD778W%22%2C%22MM2C9WCT404M%22%2C%22SH2C8WJM323M%22%2C%22SH2C9WJCT03M%22%2C%22MM2C9WOT306M%22%2C%22SH2C9WTOT06M%22%2C%22OB2CAKCD778WM1%22%2C%22MM2C8WJC200M%22%2C%22SH2C7NSH707MP%22%2C%22MM2C9WOT305M%22%2C%22OB2C9WSC460W%22%2C%22SH2C9WJM301M%22%2C%22MM2C8WOT301M%22%2C%22OB2C9WOT014W%22%2C%22MM2C7WOT025H8A%22%2C%22MM2C9WPC507MM%22%5D&tag=D');" onclick="GA_Event('쇼핑백','고객님을위한추천상품','캐시미어 블렌드 싱글 코트');javascript:setEcommerceData('6', 'Click RECOMMEND');"> 
-                                       <img src="http://newmedia.thehandsome.com/OB/2C/FW/OB2CAWCT088W_BG_S01.jpg" alt="추천상품" class="respon_image" onerror="this.src='http://cdn.thehandsome.com/_ui/desktop/common/images/products/no_img2.jpg'" />
-                                   </a>
-                                   <div>
-                                       <span class="brand BR43">OBZEE</span>
-                                       <span class="title">캐시미어 블렌드 싱글 코트</span>
-                                       <span class="price">
-                                           ₩1,550,000</span>
-                                   </div>
-                               </li>
-                               <li>
-                                   <a href="javascript:goDetailPage('MM2C9WPC504M', 'https://lc.recopick.com/1/banner/1919/pick?uid=22723613.1664160820039&source=&pick=MM2C9WPC504M&method=25&channel=cart&reco_type=user-item&product_type=R&reco_list=%5B%22SH2C9NJM343N%22%2C%22MM2C9QJM313M%22%2C%22OB2CAKTO788W%22%2C%22OB2CAKCD781W%22%2C%22OB2CAQOT859W%22%2C%22MM2C9WJM304MP%22%2C%22OB2CAWCT088W%22%2C%22MM2C9WPC504M%22%2C%22MM2C7LOT020H9A%22%2C%22OB2CAWOP564W%22%2C%22OB2CAWJC020W%22%2C%22MM2C9QJM311M%22%2C%22OB2CAWTO119W%22%2C%22OB2CAKTO794W%22%2C%22OB2CAKCD778W%22%2C%22MM2C9WCT404M%22%2C%22SH2C8WJM323M%22%2C%22SH2C9WJCT03M%22%2C%22MM2C9WOT306M%22%2C%22SH2C9WTOT06M%22%2C%22OB2CAKCD778WM1%22%2C%22MM2C8WJC200M%22%2C%22SH2C7NSH707MP%22%2C%22MM2C9WOT305M%22%2C%22OB2C9WSC460W%22%2C%22SH2C9WJM301M%22%2C%22MM2C8WOT301M%22%2C%22OB2C9WOT014W%22%2C%22MM2C7WOT025H8A%22%2C%22MM2C9WPC507MM%22%5D&tag=D');" onclick="GA_Event('쇼핑백','고객님을위한추천상품','솔리드 플란넬 팬츠');javascript:setEcommerceData('7', 'Click RECOMMEND');"> 
-                                       <img src="http://newmedia.thehandsome.com/MM/2C/FW/MM2C9WPC504M_GY_S01.jpg" alt="추천상품" class="respon_image" onerror="this.src='http://cdn.thehandsome.com/_ui/desktop/common/images/products/no_img2.jpg'" />
-                                   </a>
-                                   <div>
-                                       <span class="brand BR44">CLUB MONACO</span>
-                                       <span class="title">솔리드 플란넬 팬츠</span>
-                                       <span class="price">
-                                           ₩318,000</span>
-                                   </div>
-                               </li>
-                               <li>
-                                   <a href="javascript:goDetailPage('MM2C7LOT020H9A', 'https://lc.recopick.com/1/banner/1919/pick?uid=22723613.1664160820039&source=&pick=MM2C7LOT020H9A&method=25&channel=cart&reco_type=user-item&product_type=R&reco_list=%5B%22SH2C9NJM343N%22%2C%22MM2C9QJM313M%22%2C%22OB2CAKTO788W%22%2C%22OB2CAKCD781W%22%2C%22OB2CAQOT859W%22%2C%22MM2C9WJM304MP%22%2C%22OB2CAWCT088W%22%2C%22MM2C9WPC504M%22%2C%22MM2C7LOT020H9A%22%2C%22OB2CAWOP564W%22%2C%22OB2CAWJC020W%22%2C%22MM2C9QJM311M%22%2C%22OB2CAWTO119W%22%2C%22OB2CAKTO794W%22%2C%22OB2CAKCD778W%22%2C%22MM2C9WCT404M%22%2C%22SH2C8WJM323M%22%2C%22SH2C9WJCT03M%22%2C%22MM2C9WOT306M%22%2C%22SH2C9WTOT06M%22%2C%22OB2CAKCD778WM1%22%2C%22MM2C8WJC200M%22%2C%22SH2C7NSH707MP%22%2C%22MM2C9WOT305M%22%2C%22OB2C9WSC460W%22%2C%22SH2C9WJM301M%22%2C%22MM2C8WOT301M%22%2C%22OB2C9WOT014W%22%2C%22MM2C7WOT025H8A%22%2C%22MM2C9WPC507MM%22%5D&tag=D');" onclick="GA_Event('쇼핑백','고객님을위한추천상품','스웨이드 재킷');javascript:setEcommerceData('8', 'Click RECOMMEND');"> 
-                                       <img src="http://newmedia.thehandsome.com/MM/2C/FW/MM2C7LOT020H9A_BR_S01.jpg" alt="추천상품" class="respon_image" onerror="this.src='http://cdn.thehandsome.com/_ui/desktop/common/images/products/no_img2.jpg'" />
-                                   </a>
-                                   <div>
-                                       <span class="brand BR44">CLUB MONACO</span>
-                                       <span class="title">스웨이드 재킷</span>
-                                       <span class="price">
-                                           ₩978,000</span>
-                                   </div>
-                               </li>
-                               <li>
-                                   <a href="javascript:goDetailPage('OB2CAWOP564W', 'https://lc.recopick.com/1/banner/1919/pick?uid=22723613.1664160820039&source=&pick=OB2CAWOP564W&method=25&channel=cart&reco_type=user-item&product_type=R&reco_list=%5B%22SH2C9NJM343N%22%2C%22MM2C9QJM313M%22%2C%22OB2CAKTO788W%22%2C%22OB2CAKCD781W%22%2C%22OB2CAQOT859W%22%2C%22MM2C9WJM304MP%22%2C%22OB2CAWCT088W%22%2C%22MM2C9WPC504M%22%2C%22MM2C7LOT020H9A%22%2C%22OB2CAWOP564W%22%2C%22OB2CAWJC020W%22%2C%22MM2C9QJM311M%22%2C%22OB2CAWTO119W%22%2C%22OB2CAKTO794W%22%2C%22OB2CAKCD778W%22%2C%22MM2C9WCT404M%22%2C%22SH2C8WJM323M%22%2C%22SH2C9WJCT03M%22%2C%22MM2C9WOT306M%22%2C%22SH2C9WTOT06M%22%2C%22OB2CAKCD778WM1%22%2C%22MM2C8WJC200M%22%2C%22SH2C7NSH707MP%22%2C%22MM2C9WOT305M%22%2C%22OB2C9WSC460W%22%2C%22SH2C9WJM301M%22%2C%22MM2C8WOT301M%22%2C%22OB2C9WOT014W%22%2C%22MM2C7WOT025H8A%22%2C%22MM2C9WPC507MM%22%5D&tag=D');" onclick="GA_Event('쇼핑백','고객님을위한추천상품','[FWOBZEE] 캐시미어 블렌드 레이어 드레스');javascript:setEcommerceData('9', 'Click RECOMMEND');"> 
-                                       <img src="http://newmedia.thehandsome.com/OB/2C/FW/OB2CAWOP564W_LG_S01.jpg" alt="추천상품" class="respon_image" onerror="this.src='http://cdn.thehandsome.com/_ui/desktop/common/images/products/no_img2.jpg'" />
-                                   </a>
-                                   <div>
-                                       <span class="brand BR43">OBZEE</span>
-                                       <span class="title">[FWOBZEE] 캐시미어 블렌드 레이어 드레스</span>
-                                       <span class="price">
-                                           ₩1,250,000</span>
-                                   </div>
-                               </li>
-                               <li>
-                                   <a href="javascript:goDetailPage('OB2CAWJC020W', 'https://lc.recopick.com/1/banner/1919/pick?uid=22723613.1664160820039&source=&pick=OB2CAWJC020W&method=25&channel=cart&reco_type=user-item&product_type=R&reco_list=%5B%22SH2C9NJM343N%22%2C%22MM2C9QJM313M%22%2C%22OB2CAKTO788W%22%2C%22OB2CAKCD781W%22%2C%22OB2CAQOT859W%22%2C%22MM2C9WJM304MP%22%2C%22OB2CAWCT088W%22%2C%22MM2C9WPC504M%22%2C%22MM2C7LOT020H9A%22%2C%22OB2CAWOP564W%22%2C%22OB2CAWJC020W%22%2C%22MM2C9QJM311M%22%2C%22OB2CAWTO119W%22%2C%22OB2CAKTO794W%22%2C%22OB2CAKCD778W%22%2C%22MM2C9WCT404M%22%2C%22SH2C8WJM323M%22%2C%22SH2C9WJCT03M%22%2C%22MM2C9WOT306M%22%2C%22SH2C9WTOT06M%22%2C%22OB2CAKCD778WM1%22%2C%22MM2C8WJC200M%22%2C%22SH2C7NSH707MP%22%2C%22MM2C9WOT305M%22%2C%22OB2C9WSC460W%22%2C%22SH2C9WJM301M%22%2C%22MM2C8WOT301M%22%2C%22OB2C9WOT014W%22%2C%22MM2C7WOT025H8A%22%2C%22MM2C9WPC507MM%22%5D&tag=D');" onclick="GA_Event('쇼핑백','고객님을위한추천상품','[FWOBZEE] 울 블렌드 노치넥 재킷');javascript:setEcommerceData('10', 'Click RECOMMEND');"> 
-                                       <img src="http://newmedia.thehandsome.com/OB/2C/FW/OB2CAWJC020W_BK_S01.jpg" alt="추천상품" class="respon_image" onerror="this.src='http://cdn.thehandsome.com/_ui/desktop/common/images/products/no_img2.jpg'" />
-                                   </a>
-                                   <div>
-                                       <span class="brand BR43">OBZEE</span>
-                                       <span class="title">[FWOBZEE] 울 블렌드 노치넥 재킷</span>
-                                       <span class="price">
-                                           ₩695,000</span>
-                                   </div>
-                               </li>
-                               <li>
-                                   <a href="javascript:goDetailPage('MM2C9QJM311M', 'https://lc.recopick.com/1/banner/1919/pick?uid=22723613.1664160820039&source=&pick=MM2C9QJM311M&method=25&channel=cart&reco_type=user-item&product_type=R&reco_list=%5B%22SH2C9NJM343N%22%2C%22MM2C9QJM313M%22%2C%22OB2CAKTO788W%22%2C%22OB2CAKCD781W%22%2C%22OB2CAQOT859W%22%2C%22MM2C9WJM304MP%22%2C%22OB2CAWCT088W%22%2C%22MM2C9WPC504M%22%2C%22MM2C7LOT020H9A%22%2C%22OB2CAWOP564W%22%2C%22OB2CAWJC020W%22%2C%22MM2C9QJM311M%22%2C%22OB2CAWTO119W%22%2C%22OB2CAKTO794W%22%2C%22OB2CAKCD778W%22%2C%22MM2C9WCT404M%22%2C%22SH2C8WJM323M%22%2C%22SH2C9WJCT03M%22%2C%22MM2C9WOT306M%22%2C%22SH2C9WTOT06M%22%2C%22OB2CAKCD778WM1%22%2C%22MM2C8WJC200M%22%2C%22SH2C7NSH707MP%22%2C%22MM2C9WOT305M%22%2C%22OB2C9WSC460W%22%2C%22SH2C9WJM301M%22%2C%22MM2C8WOT301M%22%2C%22OB2C9WOT014W%22%2C%22MM2C7WOT025H8A%22%2C%22MM2C9WPC507MM%22%5D&tag=D');" onclick="GA_Event('쇼핑백','고객님을위한추천상품','칼라 패딩 점퍼');javascript:setEcommerceData('11', 'Click RECOMMEND');"> 
-                                       <img src="http://newmedia.thehandsome.com/MM/2C/FW/MM2C9QJM311M_DK_S01.jpg" alt="추천상품" class="respon_image" onerror="this.src='http://cdn.thehandsome.com/_ui/desktop/common/images/products/no_img2.jpg'" />
-                                   </a>
-                                   <div>
-                                       <span class="brand BR44">CLUB MONACO</span>
-                                       <span class="title">칼라 패딩 점퍼</span>
-                                       <span class="price">
-                                           ₩598,000</span>
-                                   </div>
-                               </li>
-                               <li>
-                                   <a href="javascript:goDetailPage('OB2CAWTO119W', 'https://lc.recopick.com/1/banner/1919/pick?uid=22723613.1664160820039&source=&pick=OB2CAWTO119W&method=25&channel=cart&reco_type=user-item&product_type=R&reco_list=%5B%22SH2C9NJM343N%22%2C%22MM2C9QJM313M%22%2C%22OB2CAKTO788W%22%2C%22OB2CAKCD781W%22%2C%22OB2CAQOT859W%22%2C%22MM2C9WJM304MP%22%2C%22OB2CAWCT088W%22%2C%22MM2C9WPC504M%22%2C%22MM2C7LOT020H9A%22%2C%22OB2CAWOP564W%22%2C%22OB2CAWJC020W%22%2C%22MM2C9QJM311M%22%2C%22OB2CAWTO119W%22%2C%22OB2CAKTO794W%22%2C%22OB2CAKCD778W%22%2C%22MM2C9WCT404M%22%2C%22SH2C8WJM323M%22%2C%22SH2C9WJCT03M%22%2C%22MM2C9WOT306M%22%2C%22SH2C9WTOT06M%22%2C%22OB2CAKCD778WM1%22%2C%22MM2C8WJC200M%22%2C%22SH2C7NSH707MP%22%2C%22MM2C9WOT305M%22%2C%22OB2C9WSC460W%22%2C%22SH2C9WJM301M%22%2C%22MM2C8WOT301M%22%2C%22OB2C9WOT014W%22%2C%22MM2C7WOT025H8A%22%2C%22MM2C9WPC507MM%22%5D&tag=D');" onclick="GA_Event('쇼핑백','고객님을위한추천상품','모크넥 시퀸 퍼프 탑');javascript:setEcommerceData('12', 'Click RECOMMEND');"> 
-                                       <img src="http://newmedia.thehandsome.com/OB/2C/FW/OB2CAWTO119W_WN_S01.jpg" alt="추천상품" class="respon_image" onerror="this.src='http://cdn.thehandsome.com/_ui/desktop/common/images/products/no_img2.jpg'" />
-                                   </a>
-                                   <div>
-                                       <span class="brand BR43">OBZEE</span>
-                                       <span class="title">모크넥 시퀸 퍼프 탑</span>
-                                       <span class="price">
-                                           ₩645,000</span>
-                                   </div>
-                               </li>
-                               <li>
-                                   <a href="javascript:goDetailPage('OB2CAKTO794W', 'https://lc.recopick.com/1/banner/1919/pick?uid=22723613.1664160820039&source=&pick=OB2CAKTO794W&method=25&channel=cart&reco_type=user-item&product_type=R&reco_list=%5B%22SH2C9NJM343N%22%2C%22MM2C9QJM313M%22%2C%22OB2CAKTO788W%22%2C%22OB2CAKCD781W%22%2C%22OB2CAQOT859W%22%2C%22MM2C9WJM304MP%22%2C%22OB2CAWCT088W%22%2C%22MM2C9WPC504M%22%2C%22MM2C7LOT020H9A%22%2C%22OB2CAWOP564W%22%2C%22OB2CAWJC020W%22%2C%22MM2C9QJM311M%22%2C%22OB2CAWTO119W%22%2C%22OB2CAKTO794W%22%2C%22OB2CAKCD778W%22%2C%22MM2C9WCT404M%22%2C%22SH2C8WJM323M%22%2C%22SH2C9WJCT03M%22%2C%22MM2C9WOT306M%22%2C%22SH2C9WTOT06M%22%2C%22OB2CAKCD778WM1%22%2C%22MM2C8WJC200M%22%2C%22SH2C7NSH707MP%22%2C%22MM2C9WOT305M%22%2C%22OB2C9WSC460W%22%2C%22SH2C9WJM301M%22%2C%22MM2C8WOT301M%22%2C%22OB2C9WOT014W%22%2C%22MM2C7WOT025H8A%22%2C%22MM2C9WPC507MM%22%5D&tag=D');" onclick="GA_Event('쇼핑백','고객님을위한추천상품','[FWOBZEE] 울 블렌드 하이넥 니트 탑');javascript:setEcommerceData('13', 'Click RECOMMEND');"> 
-                                       <img src="http://newmedia.thehandsome.com/OB/2C/FW/OB2CAKTO794W_GN_S01.jpg" alt="추천상품" class="respon_image" onerror="this.src='http://cdn.thehandsome.com/_ui/desktop/common/images/products/no_img2.jpg'" />
-                                   </a>
-                                   <div>
-                                       <span class="brand BR43">OBZEE</span>
-                                       <span class="title">[FWOBZEE] 울 블렌드 하이넥 니트 탑</span>
-                                       <span class="price">
-                                           ₩425,000</span>
-                                   </div>
-                               </li>
-                               <li>
-                                   <a href="javascript:goDetailPage('OB2CAKCD778W', 'https://lc.recopick.com/1/banner/1919/pick?uid=22723613.1664160820039&source=&pick=OB2CAKCD778W&method=25&channel=cart&reco_type=user-item&product_type=R&reco_list=%5B%22SH2C9NJM343N%22%2C%22MM2C9QJM313M%22%2C%22OB2CAKTO788W%22%2C%22OB2CAKCD781W%22%2C%22OB2CAQOT859W%22%2C%22MM2C9WJM304MP%22%2C%22OB2CAWCT088W%22%2C%22MM2C9WPC504M%22%2C%22MM2C7LOT020H9A%22%2C%22OB2CAWOP564W%22%2C%22OB2CAWJC020W%22%2C%22MM2C9QJM311M%22%2C%22OB2CAWTO119W%22%2C%22OB2CAKTO794W%22%2C%22OB2CAKCD778W%22%2C%22MM2C9WCT404M%22%2C%22SH2C8WJM323M%22%2C%22SH2C9WJCT03M%22%2C%22MM2C9WOT306M%22%2C%22SH2C9WTOT06M%22%2C%22OB2CAKCD778WM1%22%2C%22MM2C8WJC200M%22%2C%22SH2C7NSH707MP%22%2C%22MM2C9WOT305M%22%2C%22OB2C9WSC460W%22%2C%22SH2C9WJM301M%22%2C%22MM2C8WOT301M%22%2C%22OB2C9WOT014W%22%2C%22MM2C7WOT025H8A%22%2C%22MM2C9WPC507MM%22%5D&tag=D');" onclick="GA_Event('쇼핑백','고객님을위한추천상품','[FWOBZEE] 울 블렌드 프릴 가디건');javascript:setEcommerceData('14', 'Click RECOMMEND');"> 
-                                       <img src="http://newmedia.thehandsome.com/OB/2C/FW/OB2CAKCD778W_BK_S01.jpg" alt="추천상품" class="respon_image" onerror="this.src='http://cdn.thehandsome.com/_ui/desktop/common/images/products/no_img2.jpg'" />
-                                   </a>
-                                   <div>
-                                       <span class="brand BR43">OBZEE</span>
-                                       <span class="title">[FWOBZEE] 울 블렌드 프릴 가디건</span>
-                                       <span class="price">
-                                           ₩595,000</span>
-                                   </div>
-                               </li>
-                               <li>
-                                   <a href="javascript:goDetailPage('MM2C9WCT404M', 'https://lc.recopick.com/1/banner/1919/pick?uid=22723613.1664160820039&source=&pick=MM2C9WCT404M&method=25&channel=cart&reco_type=user-item&product_type=R&reco_list=%5B%22SH2C9NJM343N%22%2C%22MM2C9QJM313M%22%2C%22OB2CAKTO788W%22%2C%22OB2CAKCD781W%22%2C%22OB2CAQOT859W%22%2C%22MM2C9WJM304MP%22%2C%22OB2CAWCT088W%22%2C%22MM2C9WPC504M%22%2C%22MM2C7LOT020H9A%22%2C%22OB2CAWOP564W%22%2C%22OB2CAWJC020W%22%2C%22MM2C9QJM311M%22%2C%22OB2CAWTO119W%22%2C%22OB2CAKTO794W%22%2C%22OB2CAKCD778W%22%2C%22MM2C9WCT404M%22%2C%22SH2C8WJM323M%22%2C%22SH2C9WJCT03M%22%2C%22MM2C9WOT306M%22%2C%22SH2C9WTOT06M%22%2C%22OB2CAKCD778WM1%22%2C%22MM2C8WJC200M%22%2C%22SH2C7NSH707MP%22%2C%22MM2C9WOT305M%22%2C%22OB2C9WSC460W%22%2C%22SH2C9WJM301M%22%2C%22MM2C8WOT301M%22%2C%22OB2C9WOT014W%22%2C%22MM2C7WOT025H8A%22%2C%22MM2C9WPC507MM%22%5D&tag=D');" onclick="GA_Event('쇼핑백','고객님을위한추천상품','캐시미어 블렌드 싱글 코트');javascript:setEcommerceData('15', 'Click RECOMMEND');"> 
-                                       <img src="http://newmedia.thehandsome.com/MM/2C/FW/MM2C9WCT404M_BK_S01.jpg" alt="추천상품" class="respon_image" onerror="this.src='http://cdn.thehandsome.com/_ui/desktop/common/images/products/no_img2.jpg'" />
-                                   </a>
-                                   <div>
-                                       <span class="brand BR44">CLUB MONACO</span>
-                                       <span class="title">캐시미어 블렌드 싱글 코트</span>
-                                       <span class="price">
-                                           ₩758,000</span>
-                                   </div>
-                               </li>
-                               <li>
-                                   <a href="javascript:goDetailPage('SH2C8WJM323M', 'https://lc.recopick.com/1/banner/1919/pick?uid=22723613.1664160820039&source=&pick=SH2C8WJM323M&method=25&channel=cart&reco_type=user-item&product_type=R&reco_list=%5B%22SH2C9NJM343N%22%2C%22MM2C9QJM313M%22%2C%22OB2CAKTO788W%22%2C%22OB2CAKCD781W%22%2C%22OB2CAQOT859W%22%2C%22MM2C9WJM304MP%22%2C%22OB2CAWCT088W%22%2C%22MM2C9WPC504M%22%2C%22MM2C7LOT020H9A%22%2C%22OB2CAWOP564W%22%2C%22OB2CAWJC020W%22%2C%22MM2C9QJM311M%22%2C%22OB2CAWTO119W%22%2C%22OB2CAKTO794W%22%2C%22OB2CAKCD778W%22%2C%22MM2C9WCT404M%22%2C%22SH2C8WJM323M%22%2C%22SH2C9WJCT03M%22%2C%22MM2C9WOT306M%22%2C%22SH2C9WTOT06M%22%2C%22OB2CAKCD778WM1%22%2C%22MM2C8WJC200M%22%2C%22SH2C7NSH707MP%22%2C%22MM2C9WOT305M%22%2C%22OB2C9WSC460W%22%2C%22SH2C9WJM301M%22%2C%22MM2C8WOT301M%22%2C%22OB2C9WOT014W%22%2C%22MM2C7WOT025H8A%22%2C%22MM2C9WPC507MM%22%5D&tag=D');" onclick="GA_Event('쇼핑백','고객님을위한추천상품','텍스처 블록 레더 점퍼');javascript:setEcommerceData('16', 'Click RECOMMEND');"> 
-                                       <img src="http://newmedia.thehandsome.com/SH/2C/FW/SH2C8WJM323M_BK_S01.jpg" alt="추천상품" class="respon_image" onerror="this.src='http://cdn.thehandsome.com/_ui/desktop/common/images/products/no_img2.jpg'" />
-                                   </a>
-                                   <div>
-                                       <span class="brand BR07">SYSTEM HOMME</span>
-                                       <span class="title">텍스처 블록 레더 점퍼</span>
-                                       <span class="price">
-                                           ₩590,000</span>
-                                   </div>
-                               </li>
-                               <li>
-                                   <a href="javascript:goDetailPage('SH2C9WJCT03M', 'https://lc.recopick.com/1/banner/1919/pick?uid=22723613.1664160820039&source=&pick=SH2C9WJCT03M&method=25&channel=cart&reco_type=user-item&product_type=R&reco_list=%5B%22SH2C9NJM343N%22%2C%22MM2C9QJM313M%22%2C%22OB2CAKTO788W%22%2C%22OB2CAKCD781W%22%2C%22OB2CAQOT859W%22%2C%22MM2C9WJM304MP%22%2C%22OB2CAWCT088W%22%2C%22MM2C9WPC504M%22%2C%22MM2C7LOT020H9A%22%2C%22OB2CAWOP564W%22%2C%22OB2CAWJC020W%22%2C%22MM2C9QJM311M%22%2C%22OB2CAWTO119W%22%2C%22OB2CAKTO794W%22%2C%22OB2CAKCD778W%22%2C%22MM2C9WCT404M%22%2C%22SH2C8WJM323M%22%2C%22SH2C9WJCT03M%22%2C%22MM2C9WOT306M%22%2C%22SH2C9WTOT06M%22%2C%22OB2CAKCD778WM1%22%2C%22MM2C8WJC200M%22%2C%22SH2C7NSH707MP%22%2C%22MM2C9WOT305M%22%2C%22OB2C9WSC460W%22%2C%22SH2C9WJM301M%22%2C%22MM2C8WOT301M%22%2C%22OB2C9WOT014W%22%2C%22MM2C7WOT025H8A%22%2C%22MM2C9WPC507MM%22%5D&tag=D');" onclick="GA_Event('쇼핑백','고객님을위한추천상품','[PARIS] 울 멜란지 재킷');javascript:setEcommerceData('17', 'Click RECOMMEND');"> 
-                                       <img src="http://newmedia.thehandsome.com/SH/2C/FW/SH2C9WJCT03M_DG_S01.jpg" alt="추천상품" class="respon_image" onerror="this.src='http://cdn.thehandsome.com/_ui/desktop/common/images/products/no_img2.jpg'" />
-                                   </a>
-                                   <div>
-                                       <span class="brand BR07">SYSTEM HOMME</span>
-                                       <span class="title">[PARIS] 울 멜란지 재킷</span>
-                                       <span class="price">
-                                           ₩540,000</span>
-                                   </div>
-                               </li>
-                               <li>
-                                   <a href="javascript:goDetailPage('MM2C9WOT306M', 'https://lc.recopick.com/1/banner/1919/pick?uid=22723613.1664160820039&source=&pick=MM2C9WOT306M&method=25&channel=cart&reco_type=user-item&product_type=R&reco_list=%5B%22SH2C9NJM343N%22%2C%22MM2C9QJM313M%22%2C%22OB2CAKTO788W%22%2C%22OB2CAKCD781W%22%2C%22OB2CAQOT859W%22%2C%22MM2C9WJM304MP%22%2C%22OB2CAWCT088W%22%2C%22MM2C9WPC504M%22%2C%22MM2C7LOT020H9A%22%2C%22OB2CAWOP564W%22%2C%22OB2CAWJC020W%22%2C%22MM2C9QJM311M%22%2C%22OB2CAWTO119W%22%2C%22OB2CAKTO794W%22%2C%22OB2CAKCD778W%22%2C%22MM2C9WCT404M%22%2C%22SH2C8WJM323M%22%2C%22SH2C9WJCT03M%22%2C%22MM2C9WOT306M%22%2C%22SH2C9WTOT06M%22%2C%22OB2CAKCD778WM1%22%2C%22MM2C8WJC200M%22%2C%22SH2C7NSH707MP%22%2C%22MM2C9WOT305M%22%2C%22OB2C9WSC460W%22%2C%22SH2C9WJM301M%22%2C%22MM2C8WOT301M%22%2C%22OB2C9WOT014W%22%2C%22MM2C7WOT025H8A%22%2C%22MM2C9WPC507MM%22%5D&tag=D');" onclick="GA_Event('쇼핑백','고객님을위한추천상품','캐시미어 블렌드 패널 재킷');javascript:setEcommerceData('18', 'Click RECOMMEND');"> 
-                                       <img src="http://newmedia.thehandsome.com/MM/2C/FW/MM2C9WOT306M_BK_S01.jpg" alt="추천상품" class="respon_image" onerror="this.src='http://cdn.thehandsome.com/_ui/desktop/common/images/products/no_img2.jpg'" />
-                                   </a>
-                                   <div>
-                                       <span class="brand BR44">CLUB MONACO</span>
-                                       <span class="title">캐시미어 블렌드 패널 재킷</span>
-                                       <span class="price">
-                                           ₩558,000</span>
-                                   </div>
-                               </li>
-                               <li>
-                                   <a href="javascript:goDetailPage('SH2C9WTOT06M', 'https://lc.recopick.com/1/banner/1919/pick?uid=22723613.1664160820039&source=&pick=SH2C9WTOT06M&method=25&channel=cart&reco_type=user-item&product_type=R&reco_list=%5B%22SH2C9NJM343N%22%2C%22MM2C9QJM313M%22%2C%22OB2CAKTO788W%22%2C%22OB2CAKCD781W%22%2C%22OB2CAQOT859W%22%2C%22MM2C9WJM304MP%22%2C%22OB2CAWCT088W%22%2C%22MM2C9WPC504M%22%2C%22MM2C7LOT020H9A%22%2C%22OB2CAWOP564W%22%2C%22OB2CAWJC020W%22%2C%22MM2C9QJM311M%22%2C%22OB2CAWTO119W%22%2C%22OB2CAKTO794W%22%2C%22OB2CAKCD778W%22%2C%22MM2C9WCT404M%22%2C%22SH2C8WJM323M%22%2C%22SH2C9WJCT03M%22%2C%22MM2C9WOT306M%22%2C%22SH2C9WTOT06M%22%2C%22OB2CAKCD778WM1%22%2C%22MM2C8WJC200M%22%2C%22SH2C7NSH707MP%22%2C%22MM2C9WOT305M%22%2C%22OB2C9WSC460W%22%2C%22SH2C9WJM301M%22%2C%22MM2C8WOT301M%22%2C%22OB2C9WOT014W%22%2C%22MM2C7WOT025H8A%22%2C%22MM2C9WPC507MM%22%5D&tag=D');" onclick="GA_Event('쇼핑백','고객님을위한추천상품','[PARIS] 캐시미어 블렌드 후드 탑');javascript:setEcommerceData('19', 'Click RECOMMEND');"> 
-                                       <img src="http://newmedia.thehandsome.com/SH/2C/FW/SH2C9WTOT06M_GY_S01.jpg" alt="추천상품" class="respon_image" onerror="this.src='http://cdn.thehandsome.com/_ui/desktop/common/images/products/no_img2.jpg'" />
-                                   </a>
-                                   <div>
-                                       <span class="brand BR07">SYSTEM HOMME</span>
-                                       <span class="title">[PARIS] 캐시미어 블렌드 후드 탑</span>
-                                       <span class="price">
-                                           ₩540,000</span>
-                                   </div>
-                               </li>
-                               <li>
-                                   <a href="javascript:goDetailPage('OB2CAKCD778WM1', 'https://lc.recopick.com/1/banner/1919/pick?uid=22723613.1664160820039&source=&pick=OB2CAKCD778WM1&method=25&channel=cart&reco_type=user-item&product_type=R&reco_list=%5B%22SH2C9NJM343N%22%2C%22MM2C9QJM313M%22%2C%22OB2CAKTO788W%22%2C%22OB2CAKCD781W%22%2C%22OB2CAQOT859W%22%2C%22MM2C9WJM304MP%22%2C%22OB2CAWCT088W%22%2C%22MM2C9WPC504M%22%2C%22MM2C7LOT020H9A%22%2C%22OB2CAWOP564W%22%2C%22OB2CAWJC020W%22%2C%22MM2C9QJM311M%22%2C%22OB2CAWTO119W%22%2C%22OB2CAKTO794W%22%2C%22OB2CAKCD778W%22%2C%22MM2C9WCT404M%22%2C%22SH2C8WJM323M%22%2C%22SH2C9WJCT03M%22%2C%22MM2C9WOT306M%22%2C%22SH2C9WTOT06M%22%2C%22OB2CAKCD778WM1%22%2C%22MM2C8WJC200M%22%2C%22SH2C7NSH707MP%22%2C%22MM2C9WOT305M%22%2C%22OB2C9WSC460W%22%2C%22SH2C9WJM301M%22%2C%22MM2C8WOT301M%22%2C%22OB2C9WOT014W%22%2C%22MM2C7WOT025H8A%22%2C%22MM2C9WPC507MM%22%5D&tag=D');" onclick="GA_Event('쇼핑백','고객님을위한추천상품','[FWOBZEE] 울 블렌드 프릴 가디건');javascript:setEcommerceData('20', 'Click RECOMMEND');"> 
-                                       <img src="http://newmedia.thehandsome.com/OB/2C/FW/OB2CAKCD778WM1_LP_S01.jpg" alt="추천상품" class="respon_image" onerror="this.src='http://cdn.thehandsome.com/_ui/desktop/common/images/products/no_img2.jpg'" />
-                                   </a>
-                                   <div>
-                                       <span class="brand BR43">OBZEE</span>
-                                       <span class="title">[FWOBZEE] 울 블렌드 프릴 가디건</span>
-                                       <span class="price">
-                                           ₩595,000</span>
-                                   </div>
-                               </li>
-                               </ul>   
-                </div>     
-            </div>
-        </div>
-        <!--//추천상품 리스트 -->
-        
-        <!--Guide table-->
-        <div class="gd_wrap mt60">
-            <dl class="shoppingbag_list">
-                <dt>
-                    쇼핑백 이용안내</dt>
-                <dd class="shoppingbag_list_text">
-                    <ul class="bul_sty01_li">
-                        <li>쇼핑백에 담긴 상품은 30일 동안 보관됩니다. 30일이 지난 상품 자동 삭제됩니다.<br />더 오래 보관하고 싶은 상품은 위시리스트에 담아주세요.</li>
-                        <li>쇼핑백에 최대 50개까지 상품 보관이 가능하며, 실제 구매 시에는 가격이나 혜택이 변동될 수 있습니다.</li>
-                        
-<li>쇼핑백에 담은 상품이 판매종료가 되었을 경우 자동 삭제 됩니다.</li>
-						<li>쿠폰은 배송&결제정보 화면에서 입력 할 수 있습니다.</li>
-                        <li>상품별 지급율에 따라 한섬마일리지 및 H.POINT가 적립됩니다. 배송완료 10일 이후 적립되며 실 결제금액기준입니다.</li>
-                        	<li>해외 배송을 원할 경우 더한섬닷컴의 영문 혹은 중문 서비스를 이용해 주시기 바랍니다.</li>
-                            <li>
-                            </li>
-                        </ul>
-                </dd>
-            </dl>
-            <dl class="gd_list">
-				<dt>카드행사 혜택</dt>
-				<dd>
-					<ul class="gd_btn1807">
-						<li>
-							<a href="#;" rel="benefit_wrap1807">
-								<p>무이자 할부</p>
-								<span>자세히 보기 &gt;</span>
-							</a>
-						</li>
-						<li>
-							<a href="#;" rel="benefit2_wrap1807">
-								<p>청구할인</p>
-								<span>자세히 보기 &gt;</span>
-							</a>
-						</li>
-						<li>
-							<a href="#;" rel="benefit3_wrap1807">
-								<p>즉시할인</p>
-								<span>자세히 보기 &gt;</span>
-							</a>
-						</li>
-					</ul>
-				</dd>
-      		</dl>
-      		</div>
-        <!--//Guide table-->
-        
-        <form id="ordersheetCloneForm" name="orderSheetCloneForm" action="/ko/shoppingbag/checkout" method="get"><input type="hidden" id="ordersheetEntryNumber" name="ordersheetEntryNumber" value="" />
-			<input type="hidden" id="ordersheetCartDivision" name="ordersheetCartDivision" value="" />
-		<div>
-<input type="hidden" name="CSRFToken" value="563dc39e-b7d1-4dde-8f0b-ca86e4f255b0" />
-</div></form><!-- layer pop 1 -->
-			<div class="popwrap w_type_3" id="storePickupDiv" style="display:none;">
-				<!--title-->
-				<div class="pop_tltwrap">
-					<h3>수령 매장 선택</h3>
-				</div>
-				<!--//title-->
-				<!--contents-->
-				<div class="pop_cnt zipcode">
-					<!-- search -->
-					<div class="search">
-						<label for="search">지역명 (도로명)</label>
-						<input type="text" id="storePickupSearchWord" name="searchWord" placeholder="매장명 또는 지역 명을 입력 후 검색해 주세요" style="width:260px" />
-						<input type="button" value="검색" id="storePickupSearchBtn" class="btn wt_s mr0 min_auto" />
-					</div>
-					<!-- //search -->
-					<!--  del_tab_container -->
-					<div class="del_tab_container"> 
-						<table class="pop_dtable store">
-							<caption>배송지 목록</caption>
-							<thead>
-								<tr>
-									<th scope="col">선택</th>
-									<th scope="col">배송지 주소</th>
-									<th scope="col">연락처/휴대폰</th>
-								</tr>
-							</thead>
-							<tbody id="popupStorePickupContent">
+  
 
-							</tbody>
-						</table>
-						<div class="btnwrap">
-							<input class="btn wt_s" id="storePickupCloseBtn" value="취소" type="button" />
-							<input class="btn gray_s" id="storePickupChoiceBtn" value="확인" type="button" />
-						</div>
-					</div>
-					<!-- //del_tab_container -->
-				</div>
-				<!--//contents-->
-				<a href="#;" class="btn_close" id="storePickupClose"><img src="http://cdn.thehandsome.com/_ui/desktop/common/images/popup/ico_close.png" alt="닫기" /></a>
-			</div>
-			<!-- layer pop 1 -->
-<div class="benefit_wrap1807 popwrap" style="top: 1806.2px; position: absolute; left: 201px; z-index: 101; display:none;">
-	<div class="pop_tltwrap">
-		<h3>무이자 할부</h3>
-	</div>
-	<!--card event tab-->
-	<div class="tab_a m2" id="ce_tab">
-		<ul>
-			<li><a href="#;" class="active">무이자 할부</a></li>
-			<li><a href="#;" class="">부분 무이자 할부</a></li>
-		</ul>
-	</div>
-	<!--//card event tab-->
-	<!--card event tab container-->
-	<div class="ce_tab_container mt40">
-		<!--tab contents 1-->
-		<div style="display: block;">
-			<!--Table wrap-->
-			<table class="cnt_type1">
-				<caption>무이자 할부 행사</caption>
-				<colgroup>
-						<col style="width: 155px">
-						<col style="width: 370px">
-						<col>
-				</colgroup>
-				<tbody>
-<tr>
-						<th scope="row"><span class="card"><img src="/medias/shinhan.jpg?context=bWFzdGVyfHJvb3R8MjY1N3xpbWFnZS9qcGVnfGhkZS9oMmIvODgxNDE4MTUxNTI5NC5qcGd8NTAwMDYxM2ZmZmRlZGFhZDQ0ODNmODJjZTg2OTE3MGI3OWQ2ZmE3YzI0ZjA3MDY3NzIxYWVhNmY3NDQyYWUzMA"   alt="신한카드" /></span></th>
-						<td><b>신한카드 5만원이상 결제시 2~6개월 무이자 할부</b><br />
-대상: 신한카드 전 회원<br />
-(신한BC 제외/ 법인,기프트,체크,선불카드 제외)</td>
-						<td>행사기간 : 2022.10.01 ~ 2022.10.31</td>
-					</tr>
-		<tr>
-						<th scope="row"><span class="card"><img src="/medias/SAMSUNG.jpg?context=bWFzdGVyfHJvb3R8MzIxOXxpbWFnZS9qcGVnfGgzZC9oNGQvODgxNDE4MTYxMzU5OC5qcGd8ZGY1NDJiM2U1YWNmNGE5MTJkOTA0MTAxMDliMDc4ZjRlNTJmZjJlOTkxOTQzZTEwMDcxZWU2NGU2MjJmMWE2Mw"   alt="삼성카드" /></span></th>
-						<td><b>삼성카드 5만원이상 결제시 2~6개월 무이자 할부</b><br />
-대상: 삼성카드 전 회원<br />
-(법인,기프트,체크,선불카드 제외)</td>
-						<td>행사기간 : 2022.10.01 ~ 2022.10.31</td>
-					</tr>
-		<tr>
-						<th scope="row"><span class="card"><img src="/medias/BC.jpg?context=bWFzdGVyfHJvb3R8MjQ1OHxpbWFnZS9qcGVnfGhmMi9oMGQvODgxNDE4MTIyMDM4Mi5qcGd8MjZlZGU2ZGQyNDBkYzU5YmY2NWY0MDU3NDc1OTA0YWI5NmM4NDJjMDFiYjBiYjBjY2FhZjhmMzg3ZmE5NGU5Yw"   alt="비씨카드" /></span></th>
-						<td><b>비씨카드 5만원이상 결제시 2~7개월 무이자 할부</b><br /> 
-대상: 비씨카드 전 회원<br />(법인,기프트,체크,선불카드 제외)</td>
-						<td>행사기간 : 2022.10.01 ~ 2022.10.31</td>
-					</tr>
-		<tr>
-						<th scope="row"><span class="card"><img src="/medias/HYUNDAI.jpg?context=bWFzdGVyfHJvb3R8MjYxMHxpbWFnZS9qcGVnfGg1ZC9oN2MvODgxNDE4MTcxMTkwMi5qcGd8YmM5ZWY0ZjlhODlkMzdmMjYyNmY4NjQ4OWU5NWVjOWFlMGY4ODIwYzZlNjA0MjBlNDkwNWI0ZDllYThjMWE5Mw"   alt="현대카드" /></span></th>
-						<td><b>현대카드 5만원이상 결제시 2~7개월 무이자 할부</b><br />
-대상: 현대카드 전 회원<br />
-(법인,기프트,체크,선불카드 제외)</td>
-						<td>행사기간 : 2022.10.01 ~ 2022.10.31</td>
-					</tr>
-		<tr>
-						<th scope="row"><span class="card"><img src="/medias/kucmin.jpg?context=bWFzdGVyfHJvb3R8MzMwM3xpbWFnZS9qcGVnfGgyZS9oMzQvODgxNDE4MTAyMzc3NC5qcGd8MjM1YjEyN2I4OTljMGIxYzY3MjhjNDhkZWMyOTE5ODZjYmRiYWExNDdhOWZmNDQ3ZWNhNGIxZjYwYzk2MDA4Zg"   alt="국민카드" /></span></th>
-						<td><b>KB국민카드 5만원이상 결제시 2~7개월 무이자 할부</b><br />
-대상: KB국민카드 전 회원<br />
-(NH농협, 국민BC 제외/ 법인,기프트,체크,선불카드 제외)</td>
-						<td>행사기간 : 2022.10.01 ~ 2022.10.31</td>
-					</tr>
-		<tr>
-						<th scope="row"><span class="card"><img src="/medias/hanacard.gif?context=bWFzdGVyfHJvb3R8MTkzNXxpbWFnZS9naWZ8aDYwL2hmYi84ODE0MDU0OTY1Mjc4LmdpZnxhMGM5OWY0MDdhNDhjYzkwOTdiMzhkM2VmMDQ2YTI0NTAyNDBjZTljNTdiYzk4YWRhZmI0NjBhOWRhNzRiMGYw"   alt="하나카드" /></span></th>
-						<td><b>하나카드 5만원이상 결제시 2~8개월 무이자 할부</b><br />
-대상: 하나카드 전 회원 (구 하나SK, 구 외환)<br />
-(하나BC카드 포함/법인,기프트,체크,선불카드 제외)</td>
-						<td>행사기간 : 2022.10.01 ~ 2022.10.31</td>
-					</tr>
-		<tr>
-						<th scope="row"><span class="card"><img src="/medias/NH.jpg?context=bWFzdGVyfHJvb3R8Mzk3OXxpbWFnZS9qcGVnfGg4ZS9oMzYvODgxNDE4MTkwODUxMC5qcGd8ZWVlNmY1OWM0NDdmMjg2M2Y4NGZkNDZjYThmOTVkMWNmY2QwYWNkOWI1ODc5YTdiMTc5MjY4MThiZTkzYzNmMw"   alt="NH카드" /></span></th>
-						<td><b>NH농협카드 5만원이상 결제시 2~8개월 무이자 할부</b><br />
-대상: NH농협카드 전 회원<br />
-(NH농협BC카드 포함/ 법인,기프트,체크,선불카드 제외)
-</td>
-						<td>행사기간 : 2022.10.01 ~ 2022.10.31</td>
-					</tr>
-		<tr>
-						<th scope="row"><span class="card"><img src="/medias/LOTTE.jpg?context=bWFzdGVyfHJvb3R8MzI3MXxpbWFnZS9qcGVnfGhiMy9oNDcvODgxNDE4MTgxMDIwNi5qcGd8MDliOThkNzA1ZDc2ZDE4MzZhYmUzYjI2MDMxZDk0NGU3OTVjYzBhYTA1MmMzMjAyZmE0Y2U4OTZlNTU3NDU2Zg"   alt="롯데카드" /></span></th>
-						<td><b>롯데카드 5만원이상 결제시 2~4개월 무이자 할부</b><br />
-대상:롯데카드 전 회원<br />
-(법인,기프트,체크,선불카드 제외)</td>
-						<td>행사기간 : 2022.10.01 ~ 2022.10.31</td>
-					</tr>
-		</tbody>
-			</table>
-		</div>
-		<!--//tab contents 1-->
-		<!--tab contents 2-->
-		<div style="display: none;">
-			<!--Table wrap-->
-			<table class="cnt_type1">
-				<caption>부분 무이자 할부 행사</caption>
-				<colgroup>
-					<col style="width: 155px">
-					<col style="width: 370px">
-					<col>
-				</colgroup>
-				<tbody>
-<tr>
-						<th scope="row"><span class="card"><img src="/medias/shinhan.jpg?context=bWFzdGVyfHJvb3R8MjY1N3xpbWFnZS9qcGVnfGhkZS9oMmIvODgxNDE4MTUxNTI5NC5qcGd8NTAwMDYxM2ZmZmRlZGFhZDQ0ODNmODJjZTg2OTE3MGI3OWQ2ZmE3YzI0ZjA3MDY3NzIxYWVhNmY3NDQyYWUzMA" alt="신한카드" /></span></th>
-						<td><b>10개월 부분무이자</b><br />
-(5만원이상 결제시/1,2,3,4회차 고객부담, 잔여할부 수수료 면제/법인,체크,기프트카드 제외)</td>
-						<td>행사기간 : 2022.10.01 ~ 2022.10.31</td>
-					</tr>
-		<tr>
-						<th scope="row"><span class="card"><img src="/medias/SAMSUNG.jpg?context=bWFzdGVyfHJvb3R8MzIxOXxpbWFnZS9qcGVnfGgzZC9oNGQvODgxNDE4MTYxMzU5OC5qcGd8ZGY1NDJiM2U1YWNmNGE5MTJkOTA0MTAxMDliMDc4ZjRlNTJmZjJlOTkxOTQzZTEwMDcxZWU2NGU2MjJmMWE2Mw" alt="삼성카드" /></span></th>
-						<td><b>10개월 부분무이자</b><br />
-(5만원이상 결제시/1,2,3,4회차 고객 부담, 잔여할부 수수료 면제/법인,체크,기프트카드 제외)</b></td>
-						<td>행사기간 : 2022.10.01 ~ 2022.10.31</td>
-					</tr>
-		<tr>
-						<th scope="row"><span class="card"><img src="/medias/SAMSUNG.jpg?context=bWFzdGVyfHJvb3R8MzIxOXxpbWFnZS9qcGVnfGgzZC9oNGQvODgxNDE4MTYxMzU5OC5qcGd8ZGY1NDJiM2U1YWNmNGE5MTJkOTA0MTAxMDliMDc4ZjRlNTJmZjJlOTkxOTQzZTEwMDcxZWU2NGU2MjJmMWE2Mw" alt="삼성카드" /></span></th>
-						<td><b>12개월 부분무이자</b><br />
-(5만원이상 결제시/1,2,3,4,5회차 고객 부담, 잔여할부 수수료 면제/법인,체크,기프트카드 제외)</b>
-</td>
-						<td>행사기간 : 2022.10.01 ~ 2022.10.31</td>
-					</tr>
-		<tr>
-						<th scope="row"><span class="card"><img src="/medias/BC.jpg?context=bWFzdGVyfHJvb3R8MjQ1OHxpbWFnZS9qcGVnfGhmMi9oMGQvODgxNDE4MTIyMDM4Mi5qcGd8MjZlZGU2ZGQyNDBkYzU5YmY2NWY0MDU3NDc1OTA0YWI5NmM4NDJjMDFiYjBiYjBjY2FhZjhmMzg3ZmE5NGU5Yw" alt="비씨카드" /></span></th>
-						<td><b> 우리BC 10개월 부분무이자</b><br />
-(5만원이상 결제시/1,2,3회차 고객부담, 잔여할부 수수료 면제/법인,체크,기프트카드 제외)
-</td>
-						<td>행사기간 : 2022.10.01 ~ 2022.10.31</td>
-					</tr>
-		<tr>
-						<th scope="row"><span class="card"><img src="/medias/BC.jpg?context=bWFzdGVyfHJvb3R8MjQ1OHxpbWFnZS9qcGVnfGhmMi9oMGQvODgxNDE4MTIyMDM4Mi5qcGd8MjZlZGU2ZGQyNDBkYzU5YmY2NWY0MDU3NDc1OTA0YWI5NmM4NDJjMDFiYjBiYjBjY2FhZjhmMzg3ZmE5NGU5Yw" alt="비씨카드" /></span></th>
-						<td><b>우리BC 12개월 부분무이자</b><br />
-(5만원이상 결제시/1,2,3,4회차 고객부담, 잔여할부 수수료 면제/법인,체크,기프트카드 제외)
-</td>
-						<td>행사기간 : 2022.10.01 ~ 2022.10.31</td>
-					</tr>
-		<tr>
-						<th scope="row"><span class="card"><img src="/medias/kucmin.jpg?context=bWFzdGVyfHJvb3R8MzMwM3xpbWFnZS9qcGVnfGgyZS9oMzQvODgxNDE4MTAyMzc3NC5qcGd8MjM1YjEyN2I4OTljMGIxYzY3MjhjNDhkZWMyOTE5ODZjYmRiYWExNDdhOWZmNDQ3ZWNhNGIxZjYwYzk2MDA4Zg" alt="국민카드" /></span></th>
-						<td><b>10개월 부분무이자</b><br />
-(5만원이상 결제시/1,2,3,4 회차 고객부담, 잔여할부 수수료 면제/법인,체크,기프트카드 제외)</td>
-						<td>행사기간 : 2022.10.01 ~ 2022.10.31</td>
-					</tr>
-		<tr>
-						<th scope="row"><span class="card"><img src="/medias/kucmin.jpg?context=bWFzdGVyfHJvb3R8MzMwM3xpbWFnZS9qcGVnfGgyZS9oMzQvODgxNDE4MTAyMzc3NC5qcGd8MjM1YjEyN2I4OTljMGIxYzY3MjhjNDhkZWMyOTE5ODZjYmRiYWExNDdhOWZmNDQ3ZWNhNGIxZjYwYzk2MDA4Zg" alt="국민카드" /></span></th>
-						<td><b>12개월 부분무이자</b><br />
-(5만원이상 결제시/1,2,3,4,5 회차 고객부담, 잔여할부 수수료 면제/법인,체크,기프트카드 제외)</td>
-						<td>행사기간 : 2022.10.01 ~ 2022.10.31</td>
-					</tr>
-		<tr>
-						<th scope="row"><span class="card"><img src="/medias/hanacard.gif?context=bWFzdGVyfHJvb3R8MTkzNXxpbWFnZS9naWZ8aDYwL2hmYi84ODE0MDU0OTY1Mjc4LmdpZnxhMGM5OWY0MDdhNDhjYzkwOTdiMzhkM2VmMDQ2YTI0NTAyNDBjZTljNTdiYzk4YWRhZmI0NjBhOWRhNzRiMGYw" alt="하나카드" /></span></th>
-						<td><b>10개월 부분무이자</b><br />
-(5만원이상 결제시/1,2,3회차 고객부담, 잔여할부 수수료 면제/법인,체크,기프트카드 제외)</td>
-						<td>행사기간 : 2022.10.01 ~ 2022.10.31</td>
-					</tr>
-		<tr>
-						<th scope="row"><span class="card"><img src="/medias/hanacard.gif?context=bWFzdGVyfHJvb3R8MTkzNXxpbWFnZS9naWZ8aDYwL2hmYi84ODE0MDU0OTY1Mjc4LmdpZnxhMGM5OWY0MDdhNDhjYzkwOTdiMzhkM2VmMDQ2YTI0NTAyNDBjZTljNTdiYzk4YWRhZmI0NjBhOWRhNzRiMGYw" alt="하나카드" /></span></th>
-						<td><b>12개월 부분무이자</b><br />
-(5만원이상 결제시/1,2,3,4회차 고객부담, 잔여할부 수수료 면제/법인,체크,기프트카드 제외)</td>
-						<td>행사기간 : 2022.10.01 ~ 2022.10.31</td>
-					</tr>
-		<tr>
-						<th scope="row"><span class="card"><img src="/medias/shinhan.jpg?context=bWFzdGVyfHJvb3R8MjY1N3xpbWFnZS9qcGVnfGhkZS9oMmIvODgxNDE4MTUxNTI5NC5qcGd8NTAwMDYxM2ZmZmRlZGFhZDQ0ODNmODJjZTg2OTE3MGI3OWQ2ZmE3YzI0ZjA3MDY3NzIxYWVhNmY3NDQyYWUzMA" alt="신한카드" /></span></th>
-						<td><b>12개월 부분무이자</b><br />
-(5만원이상 결제시/1,2,3,4,5회차 고객부담, 잔여할부 수수료 면제/법인,체크,기프트카드 제외)</td>
-						<td>행사기간 : 2022.10.01 ~ 2022.10.31</td>
-					</tr>
-		</tbody>
-				</table>
-				<!--//Table wrap-->
-			</div>
-			<!--//tab contents 2-->
-			<!--//Table wrap-->
-			<ul class="bul_sty01_li mt40">
-				<li>ARS 무이자 할부는 해당 카드사 ARS 번호로 사전 신청을 하신 경우에 한하여 무이자 혜택이적용됩니다.<br>(ARS 부문 무이자 할부 포함)</li>
-				<li>상기 부분 무이자 할부는 5만원 이상 결제 시 자동 적용되며, 결제창에는 무이자 표시가 되지 않을 수 있습니다.</li>
-				<li>법인 / 체크 / 선불 / 기프트 / 은행 계열 카드는 제외됩니다.</li>
-				<li>고객 부담 수수료는 해당 카드사로 문의 바랍니다.</li>
-				<li>본 행사는 카드사 사정에 따라 일부 내용이 변경 또는 중단될 수 있습니다.</li>
-			</ul>			
-			<p class="btnwrap">
-				<a href="#;" class="btn gray close_btn">확인</a>
-			</p>
-			<a href="#;" class="btn_close"><img src="/_ui/desktop/common/images/popup/ico_close.png" alt="닫기"></a>
-	</div>
-	<!--//card event tab container-->
-</div>
-<div class="benefit2_wrap1807 popwrap" style="top: 2295.2px; position: absolute; left: 201px; z-index: 101; display: none;">
-	<div class="pop_tltwrap">
-		<h3>청구할인 행사</h3>
-	</div>
-	<!--Table wrap-->
-	<table class="cnt_type1">
-		<caption>청구할인 행사</caption>
-		<colgroup>
-				<col style="width: 155px">
-				<col style="width: 370px">
-				<col>
-		</colgroup>
-		<tbody>
-</tbody>
-	</table>
-	<!--//Table wrap-->
-	<ul class="bul_sty01_li mt40">
-			<li>법인/선불/기프트/은행 계열 카드는 제외됩니다.</li>
-			<!-- ><li>상기 청구할인 행사는 5만원 이상 결제 시 자동 적용되며, 결제창에는 표시가 되지 않을 수 있습니다.</li> -->
-			<li>본 행사는 카드사 사정에 따라 일부 내용이 변경 또는 중단될 수 있습니다.</li>
-	</ul>
-	<p class="btnwrap">
-		<a href="#;" class="btn gray close_btn">확인</a>
-	</p>
-	<a href="#;" class="btn_close"><img src="/_ui/desktop/common/images/popup/ico_close.png" alt="닫기"></a>
-</div>
-<div class="benefit3_wrap1807 popwrap" style="top: 2336.7px; position: absolute; left: 201px; z-index: 101; display: none;">
-	<div class="pop_tltwrap">
-		<h3>즉시할인 행사</h3>
-	</div>
-		<!--Table wrap-->
-		<table class="cnt_type1">
-				<caption>즉시할인 행사</caption>
-				<colgroup>
-						<col style="width: 155px">
-						<col style="width: 370px">
-						<col>
-				</colgroup>
-				<tbody>
-</tbody>
-		</table>
-		<!--//Table wrap-->
-		<div id="nowSale1Img" style="display: none;"><img src="/_ui/desktop/common/images/paynow.jpg" alt="paynow" width="100%"></div>
-		<ul class="bul_sty01_li" style="display:none" id="nowSale1">
-			<li>선착순 1,000명 대상 행사로, 조기 종료될 수 있습니다.</li>
-			<li>전액 취소될 경우에 한하여 할인 혜택이 복원됩니다.</li>
-			<li>PAYNOW로 결제하는 경우 무이자 할부는 PAYNOW 정책에 따라 진행됩니다.</li>
-			<li>결제문의 : 페이나우 고객센터 (1544-7772)</li>
-		</ul>
-		<ul class="bul_sty01_li mt40" id="nowSale2" style="display:none;">
-			<li>법인/체크/선불/기프트/은행 계열 카드는 제외됩니다.</li>
-			<li>상기 청구할인 행사는 5만원 이상 결제 시 자동 적용되며, 결제창에는 표시가 되지 않을 수 있습니다.</li>
-			<li>본 행사는 카드사 사정에 따라 일부 내용이 변경 또는 중단될 수 있습니다.</li>
-		</ul>
-		<p class="btnwrap">
-			<a href="#;" class="btn gray close_btn">확인</a>
-		</p>
-		<a href="#;" class="btn_close"><img src="/_ui/desktop/common/images/popup/ico_close.png" alt="닫기"></a>
-</div>
-<!-- layer pop 1 -->
-            <div class="popwrap w_type_2" id="restockReminder" style="width:450px;display:none;">
-                <div class="pop_tltwrap mb20">
-                    <h3>재입고 알림 신청</h3>
-                </div>
-                <div class="pop_cnt pop_con_restock1904">
-                    <div class="item_box" id="rewareHousingDiv">
-                        <input type="hidden" id="popupHProduct" value="" />
-                        <div class="pt_list_all">
-                            <img src="/_ui/desktop/common/images/popup/cart_set_img1.jpg" id="popupProductImageS01" alt="" />
-                            <div class="tlt_wrap">
-                                <div class="basket_tlt">
-                                    <span class="tlt" id="popupBrandName"></span>
-                                    <span class="sb_tlt" id="popupProductName"></span>
-                                </div>
-                                <p class="color_op" id="popupProductColor"></p>
-                                <input type="hidden" id="popupProductSize" />
-                                <p class="mt5" id="popupProductPrice"></p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="input_box1904">
-                        <p class="txt1904">재입고 알림을 받으실 이메일 정보를 확인해주세요.</p>
-                        <form action="#" method="post">
-                            <!-- email -->
-                            <input type="text" id="email_address" title="이메일 아이디" class="em_form" style="width:198px;" value="" disabled="disabled" />
-                            <span class="andmail">@</span>
-                            <input type="text" id="email_domain" title="이메일 도메인" class="em_form" style="width:198px;margin-right:0;" value="" disabled="disabled" />
-                        </form>
-                        <ul class="bul_sty01_li mt15">
-                            <li>재입고 알림 예정이 있는 상품(컬러/사이즈)에 한해서 재입고 알림 신청이 가능합니다. <br/>(제작상황에 따라 변경될 수 있습니다.)</li>
-                            <li>신청 후 30일 내에 상품이 재입고 되면 '1회' 알림이 발송됩니다.</li>
-                            <li>소량 입고되거나 동시 구매가 이루어질 경우 등 알림 후에도 품절이 발생할 수 있습니다.</li>
-                            <li>회원정보에 등록된 이메일 정보로 안내 드리며, 이메일 정보 수정은<br/>마이페이지 > 개인정보변경 페이지에서 가능합니다.</li>
-                            <li>알림 신청 시의 상품 옵션 및 가격 등의 상품정보가 재입고 시 변동될 수 있습니다.</li>
-                            <li>아울렛으로 판매 전환 되었을 경우, 알림이 발송되지 않습니다.</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="btnwrap">
-                    <input type="button" class="btn wt_s" id="rewareHousingCancel" value="취소">
-                    <input type="button" class="btn gray_s mr0" id="rewareHousingApply" value="신청">
-                </div>
-                <!-- btn_close -->
-                <a href="#" class="btn_close"><img src="/_ui/desktop/common/images/popup/ico_close.png" alt="닫기"></a>
-                <!-- //btn_close -->
-            </div>
-            <!-- layer pop 1 -->
-</div>
-	<div class="layerArea" id="productLayer" style="display: none;">
-		<div class="layerBg"></div>
-	</div>
-    <!-- //bodyWrap -->
-<!-- footerWrap -->
-
-<script type="text/javascript">
-//<![CDATA[ 
-
-$(document).ready(function(){
-    var ua = navigator.userAgent.toLowerCase();
-    // 익스플로러 브라우저 아닐 때만 인스타 링크버튼 노출
-    if((ua.indexOf('trident') == -1) && (ua.indexOf("msie") == -1) ){
-        $("#f_insta").show();
-    }
-});
-
-getNewsList("/ko/magazine");
-
-
-// 2022.03.29 푸터 공지사항 추가
-getFooterNotices("/ko/svcenter");
-
-
-function moveMobile(){
-// 	location.href = location.href.replace("?uiel=Desktop", "") + "?uiel=Mobile";
-	location.href = "/ko/?uiel=Mobile";
-}
-
-
-function setLogout(){
-    deletecookie("UID");   
-    deletecookie("criteoEmail"); 
-    deletecookie("memberGb");
-    location.href = "/ko/logout";
-}
-
-//]]>
-</script>
 
 
 <%@ include file="../common/footer.jsp" %>
