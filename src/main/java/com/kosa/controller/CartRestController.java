@@ -30,7 +30,7 @@ public class CartRestController {
         return service.getProducts("ehfhfh1313");
     }
   
-    
+    // post 방식으로 하는 대신 get 방식으로 한뒤 url에서값을가져와 사용
     @GetMapping("/{mid}")
     public List<CartVO> getCartGET(@PathVariable("mid") String mid){
         System.out.println(mid);

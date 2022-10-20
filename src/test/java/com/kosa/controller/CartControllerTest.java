@@ -35,7 +35,7 @@ public class CartControllerTest {
     public void getProductsTest() throws Exception {
         log.info(
                 mockMvc.perform(
-                MockMvcRequestBuilders.get("/cart/cart"))
+                MockMvcRequestBuilders.get("/cart"))
                 .andReturn()
                 .getModelAndView()
                 .getModelMap()
@@ -43,51 +43,51 @@ public class CartControllerTest {
         
     }
     
-    // 카트추가
-    @Test
-    public void putProductTest() throws Exception {
-        
-        String resultPage = mockMvc.perform(
-                MockMvcRequestBuilders.post("/cart/cart")
-                .param("mid", "ehfhfh1313")
-                .param("psid", "psidN123Wstock26")
-                .param("pquantity", "10")
-                ).andReturn()
-                .getModelAndView()
-                .getViewName()
-                ;
-        log.info(resultPage);
-    }
-    
-    // 수량변경
-    @Test
-    public void updateQuantityTest() throws Exception {
-        
-        String resultPage = mockMvc.perform(
-                MockMvcRequestBuilders.post("/cart/update")
-                .param("mid", "ehfhfh1313")
-                .param("psid", "psidN123Wstock26")
-                .param("pquantity", "5") // post니까? 
-                ).andReturn()
-                .getModelAndView()
-                .getViewName()
-                ;
-        log.info(resultPage);
-    }
-    
-    @Test
-    public void deleteProductTest() throws Exception {
-        
-        String resultPage = mockMvc.perform(
-                MockMvcRequestBuilders.post("/cart/delete")
-                .param("mid", "ehfhfh1313")
-                .param("psid", "psidN123Wstock26")
-                ).andReturn()
-                .getModelAndView()
-                .getViewName()
-                ;
-        log.info(resultPage);
-    }
+//    // 카트추가
+//    @Test
+//    public void putProductTest() throws Exception {
+//        
+//        String resultPage = mockMvc.perform(
+//                MockMvcRequestBuilders.post("/cart/cart")
+//                .param("mid", "ehfhfh1313")
+//                .param("psid", "psidN123Wstock26")
+//                .param("pquantity", "10")
+//                ).andReturn()
+//                .getModelAndView()
+//                .getViewName()
+//                ;
+//        log.info(resultPage);
+//    }
+//    
+//    // 수량변경
+//    @Test
+//    public void updateQuantityTest() throws Exception {
+//        
+//        String resultPage = mockMvc.perform(
+//                MockMvcRequestBuilders.post("/cart/update")
+//                .param("mid", "ehfhfh1313")
+//                .param("psid", "psidN123Wstock26")
+//                .param("pquantity", "5") // post니까? 
+//                ).andReturn()
+//                .getModelAndView()
+//                .getViewName()
+//                ;
+//        log.info(resultPage);
+//    }
+//    
+//    @Test
+//    public void deleteProductTest() throws Exception {
+//        
+//        String resultPage = mockMvc.perform(
+//                MockMvcRequestBuilders.post("/cart/delete")
+//                .param("mid", "ehfhfh1313")
+//                .param("psid", "psidN123Wstock26")
+//                ).andReturn()
+//                .getModelAndView()
+//                .getViewName()
+//                ;
+//        log.info(resultPage);
+//    }
     
 
 }
