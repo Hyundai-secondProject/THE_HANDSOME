@@ -1079,7 +1079,7 @@ function deliveryKindChange(entryNumber, type, storeInfo) {
 		   					}
 		   				});
                 	} else {
-	                	location.href = "/ko/shoppingbag";
+	                	location.href = "/cart";
                 	}
             	};
 			} else {
