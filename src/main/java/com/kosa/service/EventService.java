@@ -14,7 +14,7 @@ import java.util.List;
  * </pre>
  */
 
-import com.kosa.event.EventViewVO;
+import com.kosa.domain.event.EventViewVO;
 
 public interface EventService {
 	public List<EventViewVO> getEventList();

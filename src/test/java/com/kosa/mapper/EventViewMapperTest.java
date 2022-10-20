@@ -20,7 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.kosa.event.EventViewVO;
+import com.kosa.domain.event.EventViewVO;
 
 import lombok.extern.log4j.Log4j;
 @Log4j
