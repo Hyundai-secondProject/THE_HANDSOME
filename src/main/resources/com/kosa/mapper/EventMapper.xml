@@ -10,7 +10,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace = "com.kosa.mapper.EventMapper">
 
 
-	<select id="getEventList" resultType="com.kosa.event.EventViewVO">
+	<select id="getEventList" resultType="com.kosa.domain.event.EventViewVO">
 		select ETITLE, EISSUEDATE, EEXPIREDATE, EIMG from EVENT
 		
 	</select>
