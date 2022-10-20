@@ -6293,7 +6293,7 @@ table td .receive_choice>span label {
 	width: 65px;
 	height: 33px;
 	background:
-		url('/_ui/desktop/common/images/common/shopping_cart_tab.png')
+		url('/resources/images/common/shopping_cart_tab.png')
 		no-repeat;
 }
 

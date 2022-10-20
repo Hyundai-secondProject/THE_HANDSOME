@@ -1291,7 +1291,7 @@ function checkoutPage() {
 	$("input:checkbox[name='cartlist']:checked").each(function(){
 		entryNumber += $(this).val() + ",";
 	});
-	
+	// 체크된게없으면
 	if(entryNumber == "") {
 		layerAlert("주문하실 상품을 선택해주세요.");
 		return false;
@@ -1549,7 +1549,7 @@ function checkoutPage() {
 	}
 	
     // 상품주문 페이지로
-    //location.href="/ko/shoppingbag/checkout";
+    location.href="checkout/ordersheet";
 }
 
 function checkStoreProcess(pickDateList, entryNumber){

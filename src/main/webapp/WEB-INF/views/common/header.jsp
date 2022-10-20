@@ -40,6 +40,8 @@
 	media="all" />
 <link rel="stylesheet" type="text/css" href="/resources/css/popup.css"
 	media="all" />
+<link rel="stylesheet" type="text/css" href="/resources/css/products.css"
+	media="all" />
 <link rel="stylesheet" type="text/css"
 	href="/resources/css/jquery-ui.min.css" media="all" />
 
