@@ -708,7 +708,10 @@ function insertLike(pid, mid) {
 			let test = $('#'+ id).html();			
 			console.log(test);
 			$('#'+ id).addClass('on');
-			
+			let count = parseInt($("#wishlistCount").html());
+			let countP = count + 1;
+			console.log("위시 갯수: " + countP);
+			$("#wishlistCount").html(countP);
 			
 		} else {
 			deleteLike(pid, mid);
@@ -738,6 +741,10 @@ function deleteLike(pid, mid) {
 			let test = $('#'+ id).html();			
 			console.log(test);
 			$('#'+ id).removeClass('on');
+			let count = parseInt($("#wishlistCount").html());
+			let countP = count - 1;
+			console.log("위시 갯수: " + countP);
+			$("#wishlistCount").html(countP);
 		} else {
 			alert("오류 발생.");
 		}
