@@ -1,22 +1,68 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-xmlns:security="http://www.springframework.org/schema/security"
-xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
 http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+<!-- /**
+ * @author 신기원
+ * @since 2022.10.17
+ * @version 1.0
+ * 
+ * <pre>
+ * 수정일                    수정자               수정내용
+ * 2022.10.17   신기원              최초 생성
+ * 2022.10.18   신기원              패스워드 인코딩, logout, UserDetailsService 구현
+ * </pre>
+ */ -->
+	<bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
+	<bean id="customAccessDenied" class="com.kosa.security.CustomAccessDeniedHandler"></bean>
+	<bean id="customLoginSuccess" class="com.kosa.security.CustomLoginSuccessHandler"></bean>
+	<bean id="customUserDetailsService" class="com.kosa.security.CustomUserDetailsService"></bean>
 
-<bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
+	<security:http auto-config="true" use-expressions="true">
 
+		<security:intercept-url pattern="/" access="permitAll" />
+		<security:intercept-url pattern="/mypage" access="hasRole('ROLE_MEMBER')" />
+		<security:intercept-url pattern="/member/admin" access="hasRole('ROLE_ADMIN')" />
 
-<security:http>
-<security:form-login/>
+		<security:form-login 
+			login-page="/member/login"
+			login-processing-url="/member/login"
+			username-parameter="username"
+			password-parameter="password"
+			authentication-failure-url="/member/login"
+			authentication-success-handler-ref="customLoginSuccess" />
+		
+		<security:logout 
+			logout-url="/member/logout" 
+			logout-success-url="/"
+			invalidate-session="true"
+			delete-cookies="JSESSIONID"/>
+		
+		<security:access-denied-handler
+			ref="customAccessDenied" />
 
-			
-</security:http>
+		<security:csrf disabled="true"/>
+	</security:http>
 
- <security:authentication-manager>
-
-</security:authentication-manager>
-
+	<security:authentication-manager>
+		<security:authentication-provider user-service-ref="customUserDetailsService">
+		<!-- <security:authentication-provider> -->
+		<!-- <security:jdbc-user-service 
+			data-source-ref="dataSource"
+			users-by-username-query="select mid, mpassword, menabled from member where mid = ?"
+			authorities-by-username-query="select mid, mrole from member where mid = ?"/> -->
+		
+		<security:password-encoder ref="bcryptPasswordEncoder"/>
+			<!-- JDBC를 활용한 접근법 
+			<security:user-service>
+				<security:user name="member" password="{noop}member"
+					authorities="ROLE_MEMBER" />
+				<security:user name="admin" password="{noop}admin"
+					authorities="ROLE_MEMBER, ROLE_ADMIN" />
+			</security:user-service> -->
+		</security:authentication-provider>
+	</security:authentication-manager>
 
 </beans>
