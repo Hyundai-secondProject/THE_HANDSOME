@@ -15,5 +15,5 @@ import com.kosa.domain.member.MemberVO;
 public interface MemberService {
 
 	public String join(MemberVO membervo);
-	public MemberVO Login(String mid, String mpassword);
+	public MemberVO passwordCheck(String mid, String mpassword);
 }
