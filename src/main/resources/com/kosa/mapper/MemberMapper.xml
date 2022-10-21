@@ -8,21 +8,26 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  * @version 1.0
  * 
  * <pre>
- * 수정일              수정자                   수정내용
- * 2022.10.14     신기원              최초 생성
+ * 수정일              	수정자                   수정내용
+ * 2022.10.14 	신기원  		최초 생성
+ * 2022.10.20	신기원		회원 가입시 고정 값 지정		
  * </pre>
  */ -->
 <mapper namespace="com.kosa.mapper.MemberMapper">
 	
 	<insert id="join">
-		insert into member 
-		values(#{mid}, #{mpassword}, #{mname}, #{memail}, #{mphone}, #{mtel}, 
-		#{mzipcode}, #{maddress1}, #{maddress2}, #{mbirth}, #{mgender}, #{mrefid},
-		#{mlogintype}, #{mtosno}, #{menabled}, #{mrole}, #{mgrade}, #{mmileage})
+		insert into member(mid, mpassword, mname, memail, mphone, mbirth, mlogintype, mtosno, menabled, mrole)
+		values(#{mid}, #{mpassword}, #{mname}, #{memail}, #{mphone}, #{mbirth},'간편회원', 0, 1, 'ROLE_MEMBER')
 	</insert>
 	
 	<select id="findById" resultType="com.kosa.domain.member.MemberVO">
 		select * from member
 		where mid = #{mid}
 	</select>
+	
+	<!-- 마이페이지 회원 정보 수정시 사용 예정 
+	insert into member 
+		values(#{mid}, #{mpassword}, #{mname}, #{memail}, #{mphone}, #{mtel}, 
+		#{mzipcode}, #{maddress1}, #{maddress2}, #{mbirth}, #{mgender}, '',
+		'간편회원', #{mtosno}, 1, 'ROLE_MEMBER', 1, 0) -->
 </mapper>
