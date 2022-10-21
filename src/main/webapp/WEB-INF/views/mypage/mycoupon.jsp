@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/header.jsp"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <link rel="stylesheet" type="text/css"
 	href="/resources/css/font_443.css" media="all" />
 
@@ -257,100 +258,35 @@
 							<th scope="col">쿠폰사용일자<!-- 쿠폰사용일자 --></th>
 						</tr>
 					</thead>
+					>
 					<tbody id="listBody">
 						<!-- 	<tr>
 					<td colspan="6" class="no_data">내역이 없습니다.</td> 
 				</tr> -->
+				<c:forEach var="coupon" items="couponlist"<c:forEach var="coupon" items="couponlist">
 						<tr class="al_middle">
-							<td class="frt" style="word-break: keep-all;">쇼핑백 전용 10% 쿠폰</td>
-							<td>CPV-221-013-571-079-EZ3-NK</td>
+							<td class="frt" style="word-break: keep-all;">${coupon.ecoupontitle }</td>
+							<td>${coupon.cpid }</td>
 							<td class="al_left">
 								<ul class="bul_sty01_li">
-									<li>쇼핑백에 담긴 정상 상품 구매 시에만 적용됩니다.<br>*적용품목: 레터링 골프 양말
+									<li>${coupon.econtent}
 									</li>
 								</ul>
 							</td>
-							<td>10 %</td>
-							<td>2022-10-13 ~<br>2022-10-15
+							<td> %</td>
+							<td><fmt:formatDate value="${coupon.cpissuedate}" type="both" pattern="YYYY.MM.dd" />  ~ <fmt:formatDate value="${coupon.cpexpiredate}" type="both" pattern="YYYY.MM.dd" /> ~<br>2022-10-15
 							</td>
-							<td>미사용</td>
+							<td><fmt:formatDate value="${coupon.cpissuedate}" type="both" pattern="YYYY.MM.dd" />  ~ <fmt:formatDate value="${coupon.cpusedate}" type="both" pattern="YYYY.MM.dd" /></td>
 						</tr>
-						<tr class="al_middle">
-							<td class="frt" style="word-break: keep-all;">신규회원 무료 반품 쿠폰</td>
-							<td>RT2-022-100-4FI-L3</td>
-							<td class="al_left">
-								<ul class="bul_sty01_li">
-									<li>반품 시 배송비 무료</li>
-								</ul>
-							</td>
-							<td></td>
-							<td>2022-10-04 ~<br>2023-01-31
-							</td>
-							<td>미사용</td>
-						</tr>
-						<tr class="al_middle">
-							<td class="frt" style="word-break: keep-all;">신규회원 전용 정상 15%
-								쿠폰(앱전용)</td>
-							<td>BT2-022-100-4HB-XO8-TGS</td>
-							<td class="al_left">
-								<ul class="bul_sty01_li">
-									<li>더한섬닷컴에 신규 가입하신 회원님께 드리는 혜택이며, 앱에서 정상 상품 구매 시 15% 할인이
-										적용됩니다. <br> * 아울렛 제외 / 오프라인 매장 불가
-									</li>
-								</ul>
-							</td>
-							<td>15 %</td>
-							<td>2022-10-04 ~<br>2022-11-03
-							</td>
-							<td>미사용</td>
-						</tr>
-						<tr class="al_middle">
-							<td class="frt" style="word-break: keep-all;">신규회원 전용 아울렛 5%
-								쿠폰(앱전용)</td>
-							<td>OU2-022-100-4H4-0DL-7TG</td>
-							<td class="al_left">
-								<ul class="bul_sty01_li">
-									<li>더한섬닷컴에 신규 가입하신 회원님께 드리는 혜택이며, 앱에서 아울렛 상품 구매 시 5% 할인이
-										적용됩니다. <br> * 오프라인 매장 불가 *
-									</li>
-								</ul>
-							</td>
-							<td>5 %</td>
-							<td>2022-10-04 ~<br>2022-11-03
-							</td>
-							<td>미사용</td>
-						</tr>
-						<tr class="al_middle">
-							<td class="frt" style="word-break: keep-all;">[1만원] FRIEND
-								등급 축하 바우처</td>
-							<td>FW2-022-100-4HA-G81-67R</td>
-							<td class="al_left">
-								<ul class="bul_sty01_li">
-									<li>아울렛 및 라이프스타일/뷰티 상품군 제외 (온라인 전용, 3만원 이상 구매 시 사용 가능)</li>
-								</ul>
-							</td>
-							<td>₩ 10,000</td>
-							<td>2022-10-04 ~<br>2023-01-31
-							</td>
-							<td>미사용</td>
-						</tr>
-						<tr class="al_middle">
-							<td class="frt" style="word-break: keep-all;">[10%] FRIEND
-								등급 축하 바우처</td>
-							<td>FX2-022-100-4HN-IOX-BR2</td>
-							<td class="al_left">
-								<ul class="bul_sty01_li">
-									<li>전 상품 구매 시 사용 (온라인 전용)</li>
-								</ul>
-							</td>
-							<td>10 %</td>
-							<td>2022-10-04 ~<br>2023-01-31
-							</td>
-							<td>미사용</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
+						</c:forEach>
+						</tbody>
+						
+						</table>
+						</div>
+						
+						
+						
+						
 			<!-- //Table -->
 
 			<!--paging-->
