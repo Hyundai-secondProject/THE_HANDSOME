@@ -3528,3 +3528,24 @@ deg
 			<!-- //201803 util menu -->
 		</div>
 	</div>
+	
+<script>
+	$(document).ready(function () {
+		
+		countLikes("team5");
+		
+		function countLikes(mid) {
+			
+	   		alert("수행");
+			$.ajax({
+				url: "${pageContext.request.contextPath}/countLikes",
+				data: {
+					"mid" : mid
+					}				
+			}).done(function (data) {
+				console.log("위시리스트 갯수 : "+ data.count);
+				$("#wishlistCount").html(data.count);
+			});
+		}		
+	});	
+</script>

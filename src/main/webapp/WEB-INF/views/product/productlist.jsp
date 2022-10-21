@@ -6,7 +6,9 @@
 <link rel="stylesheet" type="text/css"
 	href="/resources/css/contents.css" media="all" />
 
-<link rel="stylesheet" type="text/css" href="/resources/css/product.css"
+<!-- <link rel="stylesheet" type="text/css" href="/resources/css/product.css"
+	media="all" /> -->
+<link rel="stylesheet" type="text/css" href="/resources/css/products.css"
 	media="all" />
 <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.12.4.min.js"></script>
 
@@ -414,7 +416,7 @@
 					function() {
 
 						// 바로 상품 띄우기
-						showList(1);
+						showList(2);
 
 						// 카테고리 띄우기
 							const url = new URL(window.location.href);
@@ -506,6 +508,13 @@
 																			/\B(?=(\d{3})+(?!\d))/g,
 																			','));
 													console.log(totalCnt);
+													console.log(product_info.pid);
+													
+													let mid = "${mid}";
+													let pid = product_info.pid;
+
+													console.log(mid);
+													console.log(pid);
 
 													if (i == 4 || i == 8
 															|| i == 12) {
@@ -562,7 +571,8 @@
 																+ "'class = 'cl wt'/></a>";
 													}
 													tmp += "</div>";
-													tmp += "<a href='javascript:addWishListClick('YN2CAWCT156W');' class='add_wishlist' id='wish_YN2CAWCT156W' onclick='GA_Category('wish', $(this));' data-value='YN2CAWCT156W_BR'>위시리스트 담기</a> ";
+													tmp += "<a onclick='insertLike(&#39;"+ pid+ "&#39;,&#39;" + mid + "&#39;)' class='add_wishlist' id='wish_"+product_info.pid+"' data-value='YN2CAWCT156W_BR'>위시리스트 담기</a> "; //onclick='insertLike('"+product_info.pid+"','"+ ${mid}+"')'
+													// href='javascript:insertLike('" + pid + "','" + mid + "')'
 													tmp += "	</div>"; // div1 종료
 													tmp += "</li>"; // list 종료
 													html_tmp += tmp;
@@ -570,14 +580,18 @@
 												}
 												$("#listBody").html(html_tmp);
 												//$("#listBody").html(html_tmp);  
+												console.log("------------------------");
 
 												// 페이징 출력
 												showProductPage(totalCnt);
 											});
 
 						}
+						
+					
+						
 						// 색상으로 변경되는거 수정해야 함------------------------------------
-						function changeColor(product_idx, color_idx) {
+/* 						function changeColor(product_idx, color_idx) {
 							product_array.at(product_idx)["state"] = color_idx;
 
 							let color_img = product_array.at(product_idx).colors
@@ -602,7 +616,7 @@
 																	.at(product_idx).state).cproductcolor);
 							$(p_color_id).html(tmp);
 						}
-
+ */
 						// 페이징 표시 자바스크립트
 						var pageNum = 1;
 						var pageNation = $(".paging")
@@ -672,4 +686,63 @@
 						}); //end replyPageFooter click
 					});
 </script>
-<%@ include file="/WEB-INF/views/common/footer.jsp"%>
+<script>
+function insertLike(pid, mid) {
+	
+ 	console.log(pid);
+	console.log(mid); 
+		
+	$.ajax({
+		url: "/product/insertLike",
+		data: {
+			"pid" : pid,
+			"mid" : mid
+		}
+	}).done(function (data) {
+		console.log("insert" + data.result);
+		if (data.result === 1) {
+			alert("위시리스트에 추가되었습니다.");
+			let id = "wish_"+pid;
+			console.log(id);
+			console.log("+");
+			let test = $('#'+ id).html();			
+			console.log(test);
+			$('#'+ id).addClass('on');
+			
+			
+		} else {
+			deleteLike(pid, mid);
+		}
+	});	 			
+}
+
+function deleteLike(pid, mid) {
+	
+	console.log("삭제 수행");
+ 	console.log(pid);
+	console.log(mid); 
+		
+	$.ajax({
+		url: "/product/deleteLike",
+		data: {
+			"pid" : pid,
+			"mid" : mid
+		}
+	}).done(function (data) {
+		console.log("delete" +data.result);
+		if (data.result === 1) {
+			alert("위시리스트에서 삭제 되었습니다.");
+			let id = "wish_"+pid;
+			console.log(id);
+			console.log("-");
+			let test = $('#'+ id).html();			
+			console.log(test);
+			$('#'+ id).removeClass('on');
+		} else {
+			alert("오류 발생.");
+		}
+	});	 			
+}
+</script>
+
+<%-- <%@ include file="/WEB-INF/views/common/footer.jsp"%> --%>
