@@ -43,14 +43,14 @@
  
  <sql id="criteria">
  <trim prefix="(" suffix=") AND " prefixOverrides="OR">
- 	<foreach item="type" collection="typeArr">
+ 	<foreach item="type" collection="cri.typeArr">
  		<trim prefix="OR">
  			<choose>
- 				<when test="type== 'P'.toString()">
- 					pname like '%' ||  #{keyword} ||  '%' 				
+ 				<when test="cri.type== 'P'.toString()">
+ 					pname like '%' ||  #{cri.keyword} ||  '%' 				
  				</when>
- 				<when test="type== 'O'.toString()">
- 					oid like '%' ||  #{keyword} ||  '%' 
+ 				<when test="cri.type== 'O'.toString()">
+ 					o.oid like '%' ||  #{cri.keyword} ||  '%' 
  				</when>			
  			</choose> <!-- end choose --> 
  		</trim><!--end trim OR  -->
@@ -58,10 +58,12 @@
  </trim> <!--end trim pre...  -->
 </sql>
 
- <select id="getTotalCount" resultType="int">
- 	select count(*) from orders where 
- 	<include refid="criteria"> </include> 	
- 	oid > '00000'
+ <select id="getCountByMid" resultType="int">
+ 	select count(*) 
+ 	from orders o
+ 	left join order_item items
+ 	on o.oid = items.oid
+ 	where mid = #{mid}
  </select>
  
  <select id="getList" resultType="com.kosa.domain.order.OrdersVO">
@@ -80,12 +82,13 @@
   		left outer join view_product_detail vpd 
   		on items.psid = vpd.psid
   	 where
+  	 mid = #{mid} and
    ]]>
  <include refid="criteria"> </include> 
   <![CDATA[
-  rownum <= #{pageNum} * #{amount}
+  rownum <= #{cri.pageNum} * #{cri.amount}
   )
-where rn > ( #{pageNum} - 1 ) *  #{amount}  
+where rn > ( #{cri.pageNum} - 1 ) *  #{cri.amount}  
  ]]>
  </select> 
  

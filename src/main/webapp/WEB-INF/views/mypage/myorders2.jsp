@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -35,20 +36,20 @@
 <link rel="stylesheet" type="text/css"
 	href="/resources/css/font_443.css" media="all" />
 <link rel="stylesheet" type="text/css"
-	href="/resources/css/common.css?20220929" media="all" />
+	href="/resources/css/common.css" media="all" />
 <link rel="stylesheet" type="text/css"
-	href="/resources/css/layout.css?20220826" media="all" />
+	href="/resources/css/layout.css" media="all" />
 <link rel="stylesheet" type="text/css"
-	href="/resources/css/popup.css?20210225" media="all" />
+	href="/resources/css/popup.css" media="all" />
 <link rel="stylesheet" type="text/css"
 	href="/resources/css/jquery-ui.min.css" media="all" />
 
 <link rel="stylesheet" type="text/css" href="/resources/css/brand.css"
 	media="all" />
 <link rel="stylesheet" type="text/css"
-	href="/resources/css/footer.css?20220406" media="all" />
+	href="/resources/css/footer.css" media="all" />
 <link rel="stylesheet" type="text/css"
-	href="/resources/css/contents.css?20220907" media="all" />
+	href="/resources/css/contents.css" media="all" />
 <style type="text/css" media="print">
 @IMPORT url("/resources/css/print.css");
 </style>
@@ -1932,7 +1933,7 @@ function hplogoutSuccess(data){
 $(function(){
     
 
-    getNotLoginMyKeyWord($("#query").val(), 10);
+    //getNotLoginMyKeyWord($("#query").val(), 10);
     
     /* 
         // 내가 찾은 검색어(로그인 상태) : set, get in cookie
@@ -3775,7 +3776,7 @@ function getExchangePrice(price) {
 </script>
 
 				<!-- search1 -->
-				<form id="orderSearchForm" action="/ko/mypage/order/myorderlist">
+				<form id="orderSearchForm" action="/mypage/myorders2">
 
 					<div class="search_wrap">
 						<!-- cnd -->
@@ -3829,6 +3830,7 @@ function getExchangePrice(price) {
 						<!-- 상품 주문목록 -->
 					</h4>
 				</div>
+
 				<!-- table -->
 				<div class="tblwrap lncl1812">
 					<!-- 클래스추가 181204 -->
@@ -3854,8 +3856,123 @@ function getExchangePrice(price) {
 								<th scope="col">구분<!-- 구분 --></th>
 							</tr>
 						</thead>
+						
+<script type="text/javascript" src="/resources/js/reply.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+
+	//리스트 처리 시작
+	var replyUL = $('#listBody');
+	console.log("showList(1) 하기전")
+	showList(1);
+	console.log("showList(1) 한 후")
+	
+	function showList(page){
+		console.log("page"+page);
+		//DB 데이터 가져오기
+		replyService.getList({mid:"seungu00",page: page|| 1 }
+		, function(cnt, list) {
+			//페이지 처리 시작
+			console.log("cnt"+cnt);
+			console.log("list"+list);
+			//page -1 일때 새로운 주문 추가시
+			if(page == -1){
+	    		pageNum = Math.ceil(cnt / 10.0);
+	    		showList(pageNum);
+	    		return ;
+	    	}//end if
+	    	//페이지 처리 끝	
+			var str="" ;
+	    	if(list == null || list.length == 0){ //주문 없을 때
+	    		replyUL.html("");
+	    		return;
+	    	}//end if
+	    	for (var i = 0, len = list.length || 0; i < len; i++) {
+	    		for (var j = 0, len1 = list[i].itemList.length || 0; j < len1; j++) {
+	    			str += "<tr class='al_middle'>";
+	    			
+	    			if (j == 0) {
+	    				str += "<td rowspan='"+list[i].itemList.length+"' class='frt'><p class='num'>"+list[i].oid+"</p>";
+	    	    		str += "<span class='sum_date'>("+list[i].odate+")</span>";
+	    	    		str += "<a href='/mypage/order/myorderdetail?code="+list[i].oid+" class='btn_view'>상세보기</a>";
+	    	    		str += "<a href='javascript:void(0);' class='btn wt_ss addrModBtn' code='"+list[i].oid+"' addr1='"+list[i].oaddress1+"' addr2='"+list[i].oaddress2+"' zip='"+list[i].zipcode+"' rcname='"+list[i].receiver+"' hp1='"+list[i].ophone+"' hp2='1234' hp3='1234' ph1='"+list[i].ophone+"' ph2='' ph3='' or='' frontdoorselectmessage='"+list[i].omemo+"' frontdoormessage='' emailid='"+list[i].oemail+"' emaildomain='naver.com'>배송정보수정</a></td>";
+	    			}
+	    			    	
+	    		str += "<td><div class='pt_list_all'>";
+	    		str += "<a href='http://newmedia.thehandsome.com/LB/2C/FW/LB2C8ACK428U_BK_S01.jpg'><img src='http://newmedia.thehandsome.com/LB/2C/FW/LB2C8ACK428U_BK_S01.jpg' alt='상품 이미지'></a>";
+	    		str += "<div class='tlt_wrap'>";
+	    		str += "<a href='http://newmedia.thehandsome.com/LB/2C/FW/LB2C8ACK428U_BK_S01.jpg' class='basket_tlt'>";
+	    		str += "<span class='tlt'>"+[list[i].itemList[j].productDetail.bname]+"</span> <span class='sb_tlt'>"+list[i].itemList[j].productDetail.pname+"</span></a>";
+	    		str += "<p class='color_op'> +color : "+list[i].itemList[j].productDetail.pccolorcode+" <span class='and_line'>/</span> +size : "+list[i].itemList[j].productDetail.psize+" </p></div></div></td>";
+	    		str += "<td>"+list[i].itemList[j].oicount+"</td>";
+	    		str += "<td>"+list[i].itemList[j].productDetail.pcprice+"</td>";
+	    		str += "<td>"+list[i].ostatus+"<span class='sum_date'>("+list[i].odate+")</span></td>";
+	    		str += "<td class='pd12_resize'><div class='btn_wrap'>";
+	    		str += "<a href='/mypage/order/cancelrequest?code=221014P15365577&amp;pcode=LB2C8ACK428U_BK_S' class='btn wt_ss'>주문취소</a></div></td>";
+	    		str += "</tr>";
+	    		}
+	    	}
+	    	replyUL.html(str);
+	    	//페이징 출력
+	    	showPage(cnt); 
+		});//end getList
+	   };//end showList				
+	 //리스트 처리 끝	
+	
+	//페이징 처리
+	var pageNum = 1;
+    var pageFooter = $(".paging");	
+    
+    function showPage(cnt){
+    	var endNum = Math.ceil(pageNum / 2.0) * 10;  
+    	var startNum = endNum - 9; 	
+    	var prev = startNum != 1;
+    	var next = false;	
+    	if(endNum * 10 >= cnt){//마지막페이지계산
+            endNum = Math.ceil(cnt/2.0);
+        }//end if	
+    	if(endNum * 10 < cnt){ //다음페이지 가능
+            next = true;
+        }//end if
+    	//페이징 화면 처리 <ul>
+        var str = "<a class='prev2' href='"+1+"'>처음 페이지로 이동</a>";      
+        if (prev) {
+        	str += "<a href='"+(startNum - 1)+"' class='prev'>이전 페이지로 이동</a>";
+        } else {
+        	str += "<a href='"+startNum+"' class='prev'>이전 페이지로 이동</a>";
+        }
+        str += "<span class='num'>";
+        //페이지 번호 <li>출력    
+        for(var i = startNum ; i <= endNum; i++){	        
+          var on = pageNum == i ? "on" : "";
+          str += "<a href='"+i+"' class='pageBtn "+on+"' pagenum='"+i+"'>"+i+"</a>";
+        }//end for
+        if(next){
+        	str += "</span><a href='"+(endNum + 1)+"' class='next'>다음 페이지로 이동</a>";    	
+        } else {
+        	str += "</span><a href='"+endNum+"' class='next'>다음 페이지로 이동</a>"; 
+        }
+        str += "<a href='"+endNum+"' class='next2'>마지막 페이지로 이동</a>";
+        console.log(str);	      
+        pageFooter.html(str);
+    }//end showPage
+	//페이징 처리끝
+	
+	//페이지 번호 클릭	
+	pageFooter.on("click","a", function(e){
+		e.preventDefault(); //<a> 동작 중지
+	    console.log("page click");	       
+	    var targetPageNum = $(this).attr("href"); //페이지넘버 가져오기	       
+	    console.log("targetPageNum: " + targetPageNum);	       
+	    pageNum = targetPageNum; //값전달
+	    showList(pageNum);  //페이지 리스트 다시 출력
+	 });//end pageFooter click
+});
+</script>
 						<tbody id="listBody">
-							<tr class="al_middle">
+							<!-- <tr class="al_middle"> -->
+							
+							<%-- <c:forEach items="${list }" var="order">
 								<td rowspan="1" class="frt"><p class="num">221014P15365577</p>
 									<span class="sum_date">(2022.10.14)</span><a
 									href="/ko/mypage/order/myorderdetail?code=221014P15365577"
@@ -3887,7 +4004,8 @@ function getExchangePrice(price) {
 											href="/ko/mypage/order/cancelrequest?code=221014P15365577&amp;pcode=LB2C8ACK428U_BK_S"
 											class="btn wt_ss">주문취소</a>
 									</div></td>
-							</tr>
+							</c:forEach> --%>
+							<!-- </tr> -->
 						</tbody>
 					</table>
 				</div>
