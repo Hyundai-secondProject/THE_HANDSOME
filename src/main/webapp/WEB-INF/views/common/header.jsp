@@ -40,6 +40,10 @@
 	media="all" />
 <link rel="stylesheet" type="text/css" href="/resources/css/popup.css"
 	media="all" />
+	
+<!-- 왜 이거를 링크안하고 하는거지ㅣㅣ 
+<link rel="stylesheet" type="text/css" href="/resources/css/products.css"
+media="all" /> -->
 <link rel="stylesheet" type="text/css"
 	href="/resources/css/jquery-ui.min.css" media="all" />
 
