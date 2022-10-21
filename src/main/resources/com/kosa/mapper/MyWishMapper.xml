@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kosa.mapper.MyWishMapper">
+
+	<!-- 좋아요 제품 삽입 -->
+	<insert id="insertProduct"
+		parameterType="String">
+		INSERT INTO
+		likes
+		VALUES(#{pid}, #{mid},1)
+	</insert>
+
+	<!-- 삭제된 수량 반환 -->
+	<delete id="deleteProduct" parameterType="String">
+		DELETE FROM likes
+		WHERE
+		pid = #{pid} and mid = #{mid}
+	</delete>
+
+  	<!-- 필요한지 모르겠음 -->
+	<!-- 제품 아이디+상품id로 상품 가져오기 -->
+	<!-- 같은 pid 다른 pcid의 경우 리스트로 출력 -->
+	<select id="selectLikeProduct" parameterType="com.kosa.domain.member.LikesVO"
+		resultType="com.kosa.domain.member.LikesVO">
+		SELECT *
+		FROM likesVO_VIEW
+		WHERE pid = #{pid} and mid = #{mid}
+	</select>
+	
+	<!-- mid로 전체 위시리스트 가져오기 -->
+	<select id="selectLikeProducts" parameterType="String"
+		resultType="com.kosa.domain.member.LikesVO">
+		SELECT *
+		FROM likesVO_VIEW
+		WHERE mid = #{mid}
+	</select>
+	
+		<!-- 중분류 갯수 세기 -->
+	<select id="countLikes" resultType="int"
+		parameterType="String">
+		SELECT
+		COUNT(pid)
+		FROM likesVO_VIEW
+		WHERE mid = #{mid}
+	</select>
+	
+</mapper>

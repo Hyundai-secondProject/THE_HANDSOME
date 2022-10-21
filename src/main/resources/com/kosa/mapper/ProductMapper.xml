@@ -162,4 +162,6 @@
 		select * from PRODUCTVO_VIEW where pid = #{pid}
 		 ]]>
 	</select>
+	
+	
 </mapper>
