@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.kosa.domain.member.CartVO;
@@ -30,7 +31,7 @@ public class CartRestController {
         return service.getProducts("ehfhfh1313");
     }
   
-    // post 방식으로 하는 대신 get 방식으로 한뒤 url에서값을가져와 사용
+    // post 방식으로 하는 대신 get 방식으로 한뒤 url에서값을가져와 사용 -> 주연도움
     @GetMapping("/{mid}")
     public List<CartVO> getCartGET(@PathVariable("mid") String mid){
         System.out.println(mid);
@@ -38,8 +39,24 @@ public class CartRestController {
     }
     
     @GetMapping("/calculation")
-    public List<CartVO> getCartGet3(CartVO cart){
+    public List<CartVO> getCartGet3(@RequestParam("entryPkList") String entryPkList, 
+                                    @RequestParam("cartDivision") String cartDivision){
+        
+        /*
+         * List<String>[] data = { {"subTotal" : 10}, {"deliveryCost" :
+         * 10},{"totalPrice":30}};
+         */ 
+        
+        
         return service.getProducts("ehfhfh1313");
+    }
+    
+    @GetMapping("checkoutCartView")
+    public String test() {
+        String data="";
+
+               
+        return data;
     }
 
 }

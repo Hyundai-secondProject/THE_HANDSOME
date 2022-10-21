@@ -301,44 +301,10 @@ $(document).ready(function ()
         	 // 기본값: 무이자할인
         	 // 기본값: 무이자할인
         
-        	
         	 // 부분무이자할인		
        	   			 // 무이자할부 진행여부    					     			   
    	   			 // 부분무이자할인		
        	   			 // 무이자할부 진행여부    					     			   
-   	   			 // 부분무이자할인		
-       	   			 // 무이자할부 진행여부    					     			   
-   	   			 // 부분무이자할인		
-       	   			 // 무이자할부 진행여부    					     			   
-   	   			 // 부분무이자할인		
-       	   			 // 무이자할부 진행여부    					     			   
-   	   			 // 부분무이자할인		
-       	   			 // 무이자할부 진행여부    					     			   
-   	   			 // 부분무이자할인		
-       	   			 // 무이자할부 진행여부    					     			   
-   	   			 // 부분무이자할인		
-       	   			 // 무이자할부 진행여부    					     			   
-   	   			 // 부분무이자할인		
-       	   			 // 무이자할부 진행여부    					     			   
-   	   			 // 부분무이자할인		
-       	   			 // 무이자할부 진행여부    					     			   
-   	   			 // 부분무이자할인		
-       	   			 // 무이자할부 진행여부    					     			   
-   	   			 // 부분무이자할인		
-       	   			 // 무이자할부 진행여부    					     			   
-   	   			 // 부분무이자할인		
-       	   			 // 무이자할부 진행여부    					     			   
-   	   			 // 부분무이자할인		
-       	   			 // 무이자할부 진행여부    					     			   
-   	   			 // 부분무이자할인		
-       	   			 // 무이자할부 진행여부    					     			   
-   	   			 // 부분무이자할인		
-       	   			 // 무이자할부 진행여부    					     			   
-   	   			 // 부분무이자할인		
-       	   			 // 무이자할부 진행여부    					     			   
-   	   			 // 부분무이자할인		
-       	   			 // 무이자할부 진행여부    					     			   
-   	   			        
         
         // 할인 정보 노출 Control
          // 기본값: 무이자할인
@@ -728,9 +694,7 @@ $(document).ready(function ()
         $("#ce_tab li:eq(0) a").click();
     });
 	
-	
-	// 20220729 그루비 스크립트 추가
-	sendGroobee();
+
 	
 });
 function cartInfomationList(){
@@ -1079,7 +1043,7 @@ function deliveryKindChange(entryNumber, type, storeInfo) {
 		   					}
 		   				});
                 	} else {
-	                	location.href = "/ko/shoppingbag";
+	                	location.href = "/cart";
                 	}
             	};
 			} else {
@@ -1106,9 +1070,11 @@ function cartListCheckPrice(entryPkList, only4pm) {
 	if($.trim(entryPkList) == "") {
 		entryPkList = ",";
 	}
+	// 대부분 받아오는게 ","이랑 false
 	
+	// 히든태그에서 오는값인데..
 	var cartDivision = $("#ordersheetCartDivision").val();
-	
+	console.log("cartDivision : "+cartDivision);
 	if(only4pm == false) {
 		$("input[name='cartlist']").each(function(){
 			if($(this).prop("checked") == true) {
@@ -1127,8 +1093,8 @@ function cartListCheckPrice(entryPkList, only4pm) {
 		dataType: "json",
 		async : false,
         cache : false,			
-		data: {"entryPkList" : entryPkList
-				,"cartDivision" : cartDivision},
+		data: {"entryPkList" : entryPkList,
+			    "cartDivision" : cartDivision},
 		success: function(data){
 			$("#cartDataSubtotal").text("₩"+addComma(data.subTotal));
 			$("#cartDataDeliveryCost").text("₩"+addComma(data.deliveryCost));
@@ -1268,11 +1234,15 @@ function slidNext(){
     return false;
 }
  
+ 
+ 
  // 선택상품 주문하기 버튼누르면 발생
 function checkoutPage() {
     var cartDivision = $("#ordersheetCartDivision").val();
     var resultReturn = true;
+     
     
+    // 가격이  잘못나온 것들 에러 처리
 	$("input[name=checkZeroPrice]").each(function(){
 		var price = $(this).val();
 		
@@ -1282,27 +1252,30 @@ function checkoutPage() {
 			return false;
 		}
 	});
-	
 	if(resultReturn == false) {
 		return false;
 	}
 	
+	// 체크된거 검사
  	var entryNumber = "";
 	$("input:checkbox[name='cartlist']:checked").each(function(){
 		entryNumber += $(this).val() + ",";
 	});
-	
+	// 체크된게없으면 (0부터시작)
 	if(entryNumber == "") {
 		layerAlert("주문하실 상품을 선택해주세요.");
 		return false;
 	}
 	
 	entryNumber = entryNumber.substring(0,entryNumber.length-1);
-	
+	console.log(entryNumber);
 	//#2610 [주문] 가상계좌 결제수단 제외 및 중복 구매 제한 처리 요청 건 20220215 hyunbae
+	
+	//개수제한이 걸려있으면...
 	var hasQtyLimitProduct = false;
 	var entryNumberArray = entryNumber.split(',');
 	entryNumberArray.forEach(function(row){
+		// updateCartForm 0부터시작
 		var productCode = $('#updateCartForm'+row).find('[name=productCode]').val();
 		var productQty = $('#updateCartForm'+row).find('[name=initialQuantity]').val();
 		if(qtyLimitProductYnMap[productCode] == 'true' && parseInt(productQty) > 2){
@@ -1317,25 +1290,14 @@ function checkoutPage() {
 	}
 	
 	
-    //start of 4pm check
+/*     //start of 4pm check
+    // 이런 태그가없는데?
     if($(".fourpm").length > 0){
     	var fourpmProcessType = "";
-    	/*
-    	if($(".pt_list_wrap").length != $(".fourpm").length){
-    		var scrollTop = $(document).scrollTop();
-			var la = new layerAlert("PM 주문과 일반배송 주문을 같이 진행 할 수 없습니다.");
-			var top = $(".popwrap.w_type_1").css("margin-top").replace("px","");
-			$(document).scrollTop(scrollTop);
-			$(".popwrap.w_type_1").css("margin-top",Number(scrollTop)+Number(top)+"px");
-			la.confirmAction = function(){
-				return;
-			};
-			return false;
-    	} */
     	
         $.ajax({
             type: "GET",
-            url: "/ko/shoppingbag/check4pmProduct",
+            url: "/cartAjax",
             dataType: "json",
             async : false,
             data : {"entryNumber" : entryNumber
@@ -1370,13 +1332,13 @@ function checkoutPage() {
             }
         }
     }
-    //end of 4pm check
+    //end of 4pm check */
     
     //start at home
     
     //end at home
     
-    //퀵배송 검증 start
+    /* //퀵배송 검증 start
     var quickProcessType = "";
     $("[class^=shopping_cart_tab]").find("[name=cartDivision]").each(function(){
         if($(this).attr("data-division") == "quick"){
@@ -1435,7 +1397,7 @@ function checkoutPage() {
     if(quickProcessType != ""){
         return false;
     }
-    //퀵배송 검증 end
+    //퀵배송 검증 end */
     
     // 매장수령일 경우 확인 로직 추가 CMB
     // 브랜드 and 수령매장이 동일할 경우만
@@ -1447,7 +1409,8 @@ function checkoutPage() {
     var isStoreDateCheck = false;
     var pickDateList = new Array;
     
-    $("[class^=shopping_cart_tab]").find("[name=cartDivision]").each(function(){
+    // 방문수령도 일단 주석
+    /* $("[class^=shopping_cart_tab]").find("[name=cartDivision]").each(function(){
         if($(this).attr("data-division") == "store"){
           if($(this).hasClass("active")){
               //체크박스 체크 된 대상만 검증, 2개 이상일 경우
@@ -1518,7 +1481,7 @@ function checkoutPage() {
      if(isStoreCheck && isStoreBrandCheck && isStorePickCheck && isStoreDateCheck){
 		checkStoreProcess(pickDateList, entryNumber);
 		return;
-     }
+     } */
 
     
 /*     
@@ -1528,28 +1491,36 @@ function checkoutPage() {
     } */
     
     
+    // 이 form 태그에 대하여
 	var form = $('#ordersheetCloneForm');
  	var ordersheetEntryNumber = form.find('input[name=ordersheetEntryNumber]');
 	ordersheetEntryNumber.val(entryNumber);
 	//checkout1(바로주문) 액션은 주문서페이지에서 일괄적으로 처리
 	//setEcommerceData(entryNumber, "Checkout1(바로주문)");
+	console.log(cartDivision);
 	if(cartDivision == "athome"){
+		console.log("test if ");
 	    GA_Event('쇼핑백','주문','앳홈_신청하기');
+	    
 	}else{
+		console.log("test if else");
 	    GA_Event('쇼핑백','주문','선택상품_주문하기');
 	}
 	
 	// 넷퍼넬 쇼핑백 -> 바로주문
+	console.log("여기도오나")
 	if("false" == "true" && "ko" == "ko"){
         NetFunnel_Action({action_id:"buy_now"},function(ev,ret){
+        	console.log("여기도오나2")
         	form.submit();
         });
 	}else{
-		form.submit();	
+		console.log("여기도오나3");
+		form.submit();
 	}
 	
-    // 상품주문 페이지로
-    //location.href="/ko/shoppingbag/checkout";
+    // 상품주문 페이지로 form.submit -> action
+    //location.href="checkout/ordersheet";
 }
 
 function checkStoreProcess(pickDateList, entryNumber){
@@ -2109,98 +2080,6 @@ function qtyLimitProductAlert(){
 }
 
 
-function sendGroobee(){
-    
-    groobee( "VC", {
-        goods : [
-        
-            {
-                name: "텍스처 블록 하프 집업 탑", // 상품명
-                code: "LB2CAWTO363M", // URL에 표시되는 상품코드
-                amt: "638000", // 상품 금액 (할인 판매가 * 수량)
-                prc: "638000", // 판매가 (또는 원가)
-                salePrc:"638000", // 할인 판매가 (실제 판매가)
-                cnt: "1", // 수량
-                cat: "GF023", // 상품의 카테고리 코드
-                cateNm: "탑", // 상품의 카테고리명
-                catL: "GF", // 상품의 대분류 카테고리 코드
-                cateLNm: "골프", // 상품의 대분류 카테고리명
-                catM: "GF02", // 상품의 중분류 카테고리 코드
-                cateMNm: "남성웨어", // 상품의 중분류 카테고리명
-                catS: "GF023", // 상품의 소분류 카테고리 코드
-                cateSNm: "탑", // 상품의 소분류 카테고리명
-                catD: "", // 상품의 세분류 카테고리 코드
-                cateDNm: "", // 상품의 세분류 카테고리명
-                brand: "BR63", // 상품의 브랜드 코드
-                brandNm: "LANVIN BLANC" // 상품의 브랜드명
-            }
-            ,
-            {
-                name: "레더 로고 캐디백", // 상품명
-                code: "LB2C8ABZ721U", // URL에 표시되는 상품코드
-                amt: "1280000", // 상품 금액 (할인 판매가 * 수량)
-                prc: "1280000", // 판매가 (또는 원가)
-                salePrc:"1280000", // 할인 판매가 (실제 판매가)
-                cnt: "1", // 수량
-                cat: "GF031", // 상품의 카테고리 코드
-                cateNm: "골프백", // 상품의 카테고리명
-                catL: "GF", // 상품의 대분류 카테고리 코드
-                cateLNm: "골프", // 상품의 대분류 카테고리명
-                catM: "GF03", // 상품의 중분류 카테고리 코드
-                cateMNm: "ACC", // 상품의 중분류 카테고리명
-                catS: "GF031", // 상품의 소분류 카테고리 코드
-                cateSNm: "골프백", // 상품의 소분류 카테고리명
-                catD: "", // 상품의 세분류 카테고리 코드
-                cateDNm: "", // 상품의 세분류 카테고리명
-                brand: "BR63", // 상품의 브랜드 코드
-                brandNm: "LANVIN BLANC" // 상품의 브랜드명
-            }
-            ,
-            {
-                name: "카미온 뮬", // 상품명
-                code: "OL2C9ASZ014U", // URL에 표시되는 상품코드
-                amt: "1770000", // 상품 금액 (할인 판매가 * 수량)
-                prc: "590000", // 판매가 (또는 원가)
-                salePrc:"590000", // 할인 판매가 (실제 판매가)
-                cnt: "3", // 수량
-                cat: "AS012", // 상품의 카테고리 코드
-                cateNm: "로퍼/블로퍼", // 상품의 카테고리명
-                catL: "AS", // 상품의 대분류 카테고리 코드
-                cateLNm: "잡화", // 상품의 대분류 카테고리명
-                catM: "AS01", // 상품의 중분류 카테고리 코드
-                cateMNm: "여성슈즈", // 상품의 중분류 카테고리명
-                catS: "AS012", // 상품의 소분류 카테고리 코드
-                cateSNm: "로퍼/블로퍼", // 상품의 소분류 카테고리명
-                catD: "", // 상품의 세분류 카테고리 코드
-                cateDNm: "", // 상품의 세분류 카테고리명
-                brand: "BR64", // 상품의 브랜드 코드
-                brandNm: "OUR LEGACY" // 상품의 브랜드명
-            }
-            ,
-            {
-                name: "[MEN] 칼라 니트 탑", // 상품명
-                code: "CM2C8KTO071M", // URL에 표시되는 상품코드
-                amt: "525000", // 상품 금액 (할인 판매가 * 수량)
-                prc: "525000", // 판매가 (또는 원가)
-                salePrc:"525000", // 할인 판매가 (실제 판매가)
-                cnt: "1", // 수량
-                cat: "ME013", // 상품의 카테고리 코드
-                cateNm: "니트", // 상품의 카테고리명
-                catL: "ME", // 상품의 대분류 카테고리 코드
-                cateLNm: "남성", // 상품의 대분류 카테고리명
-                catM: "ME01", // 상품의 중분류 카테고리 코드
-                cateMNm: "탑", // 상품의 중분류 카테고리명
-                catS: "ME013", // 상품의 소분류 카테고리 코드
-                cateSNm: "니트", // 상품의 소분류 카테고리명
-                catD: "", // 상품의 세분류 카테고리 코드
-                cateDNm: "", // 상품의 세분류 카테고리명
-                brand: "BR08", // 상품의 브랜드 코드
-                brandNm: "the CASHMERE" // 상품의 브랜드명
-            }
-            
-        ]
-    });
-}
 
 //]]>
 </script>
@@ -2233,145 +2112,9 @@ function sendGroobee(){
 
 </script>
 
-<script>
-$(document).ready(function(){
-var cartList;
-var mid = $('#testMid').val()
-$.ajax({
-	type: "GET",  
-	url: "/cartAjax/"+mid, 
-	data: {"mid" : mid}, 
-	dataType : "json",  // data타입이 없으면 알아서 추측해서 응답받음 우리는 json으로?
-	contentType: "application/json; charset=utf-8",
-	success: function(data) { 
-		console.log($("#testMid").val());
-		console.log(JSON.stringify(data));	// 콘솔에 잘뜨는지 확인
-		
-		cartList = '';
-		/* 
-		item.mid
-		item.psid
-		item.pquantity
-		item.productDetail.bname
-		item.productDetail.pname
-		item.productDetail.pccolorcode
-		item.productDetail.pcimg1
-		item.productDetail.pcprice
-		item.productDetail.psize
-		*/
-		$.each(data, function(index, item) { // 데이터 =item
-			console.log(index+"\n");
-			console.log(item);
-				cartList = '';
-				cartList+= ' <tr name="entryProductInfo" data-pk="10944579207212" data-deliverykind="" data-outofstock="false" data-category="GF031"> ';
-				cartList+= '<td class="frt">';
-				cartList+= '<input type="checkbox" name="cartlist" data-pk="10944579207212" data-division="" data-deliverykind="" value="'+ index +'">';
-				cartList+= '</td>';			 
-			    cartList+= ' <td class="pt_list_wrap">                                                              ';
-				cartList+= ' 	<div class="pt_list_all">                                                              ';
-				cartList+= '    	<a href="/ko/HANDSOME/GOLF/MEN-CLOTHING/Top/%ED%85%8D%EC%8A%A4%EC%B2%98-%EB%B8%94%EB%A1%9D-%ED%95%98%ED%94%84-%EC%A7%91%EC%97%85-%ED%83%91/p/LB2CAWTO363M_KE_L" onclick="javascript:setEcommerceData(\'0\', \'Click ADD\');GA_Event(\'쇼핑백\',\'상품\',\'텍스처 블록 하프 집업 탑\');">                ';
-				cartList+= '        	<img src="http://newmedia.thehandsome.com/LB/2C/FW/LB2CAWTO363M_KE_S01.jpg" alt="" />                                                       ';
-				cartList+= '        </a>                                                       ';
-				cartList+= '        <div class="tlt_wrap">                                                       ';
-				cartList+= '        	<a href="/ko/HANDSOME/GOLF/MEN-CLOTHING/Top/%ED%85%8D%EC%8A%A4%EC%B2%98-%EB%B8%94%EB%A1%9D-%ED%95%98%ED%94%84-%EC%A7%91%EC%97%85-%ED%83%91/p/LB2CAWTO363M_KE_L" class="basket_tlt" onclick="javascript:setEcommerceData(\'0\', \'Click ADD\');GA_Event(\'쇼핑백\',\'상품\',\'텍스처 블록 하프 집업 탑\');">              ';
-				cartList+= '            	<span class="tlt">' + item.productDetail.bname + '</span>                                                   ';
-				cartList+= '                <span class="sb_tlt">'+ item.productDetail.pname +'</span>                                               ';
-				cartList+= '            </a>                                                   ';
-				cartList+= '            <p class="color_op">                                                   ';
-				cartList+= '              color : '+ item.productDetail.pccolorcode +'<span class="and_line">/</span>                       ';
-				cartList+= '              size : '+ item.productDetail.psize +'</p>                                                 ';
-				cartList+= '            <div class="option_wrap">                                                   ';
-				cartList+= '            	<a href="#none" class="btn_option" id="optOpenLayer^3^LB2CAWTO363M_KE" onclick="GA_Event(\'쇼핑백\',\'옵션변경\',\' ' + item.productDetail.pname+ '\')">옵션변경</a>                         ';
-				cartList+= '            </div>                                                   ';
-				cartList+= '        </div>                                                       ';
-				cartList+= '    </div>                                                           ';
-				cartList+= '    <!-- //pt_list_all-->                                                           ';
-				cartList+= '    </td>                                                          ';
-				cartList+= '    <td class="al_middle">                                                          ';
-				cartList+= '    <form id="updateCartForm'+index+'" data-cart="{&quot;cartCode&quot; : &quot;424627137&quot;,&quot;productPostPrice&quot;:&quot;638000.0&quot;,&quot;productName&quot;:&quot;텍스처 블록 하프 집업 탑&quot;}" action="/ko/shoppingbag/update" method="post"><input type="hidden" name="entryNumber" value="'+ index +'" />                                ';
-				cartList+= '    	<input type="hidden" name="productCode" value="LB2CAWTO363M_KE_L" />                                                           ';
-				cartList+= '        <input type="hidden" name="initialQuantity" value="1" />                                                       ';
-				cartList+= '        <input type="hidden" name="chgProductCode" value="" />                                                       ';
-				cartList+= '        <input type="hidden" name="curSize" value="L" />                                                       ';
-				cartList+= '        <input type="hidden" name="storeId" value="" />                                                       ';
-				cartList+= '        <input type="hidden" name="storePickupDate" value="" />                                                       ';
-				cartList+= '        <input type="hidden" name="deliveryKind" value="" />                                                       ';
-				cartList+= '        <input type="hidden" name="cartDivision" value="" />                                                       ';
-				cartList+= '        <!-- qty_sel -->                                                       ';
-				cartList+= '        <span class="qty_sel num">                                                       ';
-				cartList+= '        	<a href="#none" onMouseDown="javascript:AEC_F_D(\'LB2CAWTO363M_KE_L\',\'o\',1);" class="left" onclick="GA_Event(\'쇼핑백\', \'수량\', \'-\');">이전 버튼</a>                                                       ';
-				cartList+= '            	<input id="quantity'+index+'" name="quantity" type="text" class="mr0" value="1" size="1" maxlength="3"/><a href="#none" onMouseDown="javascript:AEC_F_D(\'LB2CAWTO363M_KE_L\',\'i\',1);" class="right" onclick="GA_Event(\'쇼핑백\', \'수량\', \'+\');">다음 버튼</a>                                                   ';
-				cartList+= '            </span>                                                   ';
-				cartList+= '        <!-- //qty_sel -->                                                       ';
-				cartList+= '        <a href="#none" id="QuantityProduct_'+index+'" class="btn wt_ss qty_w mr0">변경</a>                                                       ';
-				cartList+= '        <div>                                                       ';
-				cartList+= '        <input type="hidden" name="CSRFToken" value="a2068709-377f-4a2e-9b44-9296791e4112" />                                                       ';
-				cartList+= '        </div>                                                   ';
-				cartList+= '    </form>                                                     ';
-				cartList+= '    </td>                                                       ';
-				cartList+= '        <td class="al_middle">                                                       ';
-				cartList+= '        <!-- Price -->                                                       ';
-				cartList+= '        	<div class="price_wrap">                                                       ';
-				// 가격에 조건처리 -> 3자리마다 반점찍기
-				cartList+= '        		<span>₩'+ item.productDetail.pcprice+' </span> <input type="hidden" name="checkZeroPrice" value="'+ item.productDetail.pcprice+'" />    ';
-				cartList+= '        	</div> <!-- //Price -->                                                       ';
-				cartList+= '        </td>                                                       ';
-				cartList+= '        <td class="al_middle">                                                       ';
-				cartList+= '        	<span class="earn">5% (한섬마일리지)</span>                                                       ';
-				cartList+= '            <br>                                                     ';
-				cartList+= '            <span class="earn">0.1% (H.Point)</span>                                                   ';
-				cartList+= '        </td>                                                       ';
-				cartList+= '        <td class="al_middle">                                                       ';
-				cartList+= '        	<!-- Button size -->                                                       ';
-				cartList+= '            <div class="btn_wrap">                                                   ';
-				cartList+= '            	<a href="#none" class="btn wt_ss" onclick="callWishListClick(\'텍스처 블록 하프 집업 탑\',$(this),\'LB2CAWTO363M_KE_L\');" data-value="0">위시리스트</a>                                                   ';
-				cartList+= '                <a href="#none" id="RemoveProduct_'+index+'" class="btn wt_ss" onclick="GA_Event(\'쇼핑백\',\'삭제\',\'텍스처 블록 하프 집업 탑\');">삭제</a>                                               ';
-				cartList+= '            </div> <!-- //Button size -->                                                   ';
-				cartList+= '       </td></tr>                                                        ';
-				cartList+= '       <!-- Info wrap -->                                                        ';
-			 	cartList+= '       <tr>                                                        ';
-				cartList+= '       		<td colspan="6" class="basket_wrap">                                                        ';
-				cartList+= '            <!-- Info -->                                                   ';
-				cartList+= '            	<div class="basket_info">                                                   ';
-				cartList+= '                	<span class="btn_arr">위치아이콘</span>                                               ';
-				cartList+= '                    <div class="info">                                           ';
-				cartList+= '                     	<!-- Products -->                                          ';
-				cartList+= '                        <div class="pt_list" id="pt_list_'+index+'">                         ';
-				cartList+= '                          </div>                                      ';
-				cartList+= '                        <!-- //Products -->                                       ';
-				cartList+= '                        <!-- btns -->                                       ';
-				cartList+= '                         <div class="btns">                                       ';
-				cartList+= '                         	<a href="#none" class="btn wt_ss mr0" id="UpdateCart_'+index+'">변경</a>                                      ';
-				cartList+= '                            <a href="#none" class="btn wt_ss mt10 mr0" id="optCancelLayer_'+index+'">취소</a>                                   ';
-				cartList+= '                            <a href="#none" class="btn_close" id="optCloseLayer_'+index+'">닫기</a>                                   ';
-				cartList+= '                        </div>                                       ';
-				cartList+= '                        <!-- //btns -->                                       ';
-				cartList+= '                    </div>                                           ';
-				cartList+= '                </div> <!-- //Info -->                                               ';
-				cartList+= '            </td>                                                   ';
-				cartList+= '        </tr>                                                      ';
-				cartList+= '        <tr>                                                       ';
-				cartList+= '        	<td colspan="6" class="basket_wrap">                   ';
-				cartList+= '        	</td>                   ';
-				cartList+= '        </tr>                                                       ';
-				cartList+= '         <!-- AceCounter eCommerce (Product_Detail) v7.5 Start -->                                                       ';
-				cartList+= '        <script language=\'javascript\' type="text/javascript">                                                       '; 
-				cartList+= '        _A_amt[_ace_countvar]="'+item.productDetail.pcprice+'";                                                       ';
-				cartList+= '        _A_nl[_ace_countvar]="1";                                                       ';
-				cartList+= '        _A_pl[_ace_countvar]="'+item.psid+'";                                                       ';
-				cartList+= '        _A_pn[_ace_countvar]="'+item.pname+'";                                                       ';
-				cartList+= '        _A_ct[_ace_countvar]="'+item.bname+'";                                                       ';
-				cartList+= '       _ace_countvar++;                                                         ';
-				cartList+= '       </'+'script'+'>                                                        ';
-				cartList+= '                                                               ';
-				
-			$("#msg").append(cartList);
-			});
-		}
-	});
-});
-</script>
-
+<!-- 카트 리스트 출력 -->
+<script type="text/javascript" src="/resources/js/handsome/cartlist.js"></script>
+ 
 
    <!-- bodyWrap -->
     <div id="bodyWrap">
@@ -2500,8 +2243,36 @@ $.ajax({
                     <a href="#;" onclick="checkoutPage();">
                         <input value="선택상품 주문하기" class="btn gray mr0" type="button" />
                         </a>
-                   
                      </div>
+                     
+                <!-- ordersheetCloneForm 히든태그 -->     
+               <!-- CSRF 적용하는 부분인가?! -->
+               <!-- checkPage() -> form.submit -> action -->
+               	 
+		<!-- item.mid
+		item.psid
+		item.pquantity
+		item.productDetail.bname
+		item.productDetail.pname
+		item.productDetail.pccolorcode
+		item.productDetail.pcimg1
+		item.productDetail.pcprice
+		item.productDetail.psize -->
+		
+                <form id="ordersheetCloneForm" name="orderSheetCloneForm" action="/checkout/ordersheetTest"  method="get">
+                	<input type="hidden" id="ordersheetEntryNumber" name="ordersheetEntryNumber" value="" />
+					<input type="hidden" id="ordersheetCartDivision" name="ordersheetCartDivision" value="" />
+					<!-- <input type="hidden" name="psid" value=asd />
+					<input type="hidden" name="pquantity" value="" />
+					<input type="hidden" name="bname" value="" />
+					<input type="hidden" name="pccolorcode" value="" />
+					<input type="hidden" name="pcimg1" value="" />
+					<input type="hidden" name="pcprice" value="" />
+					<input type="hidden" name="psize" value="" /> -->
+			 <!--   <div>
+					<input type="hidden" name="CSRFToken" value="ae3faaff-c181-4913-ae57-c2a4ac651d0c" />
+				</div> --></form> 
+                     
                 <!--//button wrap-->
                  <div class="promotion_wrap mt60" id="freeGiftPromotion">
                         <dl class="promotion_list" style="border-top:1px solid #ebebeb; padding:60px 20px 18px 20px">

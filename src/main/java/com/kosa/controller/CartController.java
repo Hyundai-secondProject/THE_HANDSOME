@@ -21,5 +21,17 @@ public class CartController {
         return "cart/test";
     }
     
+    @RequestMapping(value = "/checkout/ordersheetTest", method = RequestMethod.GET)
+    public String home3() {
+                
+        return "checkout/ordersheetTest";
+    }
+    
+    @RequestMapping(value = "/checkout/ordersheetTest", method = RequestMethod.POST)
+    public String home4() {
+                
+        return "checkout/ordersheetTest";
+    }
+    
     
 }
