@@ -3510,7 +3510,7 @@ deg
 					<ul class="clearfix">
 						<li><a href="javascript:void(0);"> <span class="ico_sh">search</span>
 						</a></li>
-						<li><a href="/ko/mypage/myWish"
+						<li><a href="${pageContext.request.contextPath}/mypage/mywish"
 							onclick="GA_Event('공통','유틸_메뉴','위시리스트');"> <span
 								class="ico wishlist">wish list</span> <span class="count">
 									( <span id="wishlistCount">0</span> )
@@ -3535,8 +3535,8 @@ deg
 		countLikes("team5");
 		
 		function countLikes(mid) {
-			
-	   		alert("수행");
+			console.log(mid);
+	   		//alert("수행");
 			$.ajax({
 				url: "${pageContext.request.contextPath}/countLikes",
 				data: {
