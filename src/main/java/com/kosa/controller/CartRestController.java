@@ -51,12 +51,12 @@ public class CartRestController {
         return service.getProducts("ehfhfh1313");
     }
     
-    @GetMapping("checkoutCartView")
-    public String test() {
-        String data="";
-
-               
-        return data;
+    @GetMapping("checkoutCartView/{entryNum}")
+    public List<CartVO> getCartListGET(@PathVariable("entryNum") String mid){
+        // mid 쪼개기
+        // 값으로 화면 보여주기
+        System.out.println(mid);
+        return service.getProducts("ehfhfh1313");
     }
 
 }
