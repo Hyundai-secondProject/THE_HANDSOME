@@ -1,11 +1,12 @@
 // 주문페이지에 선택된 카트목록 띄우기 checkoutCartView
 $(document).ready(function(){
 var cartList;
-var mid = $('#testMid').val()
-//entryNumber
+var mid = $('#testMid').val();
+var entryNumber = $('#testEntryNum').val();
+console.log(entryNumber);
 $.ajax({
 	type: "GET",  
-	url: "/cartAjax/checkoutCartView/"+1,
+	url: "/cartAjax/checkoutCartView/"+mid+"/"+entryNumber,
 	data: {}, 
 	dataType : "json",
 	contentType: "application/json; charset=utf-8",

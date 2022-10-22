@@ -2128,7 +2128,7 @@ function qtyLimitProductAlert(){
         <span id="shoppingbagCartView">
         
         
-<!-- <button id=testAjax">클릭테스트</button> -->
+<!-- 세션아이디를 받아보자 -->
 <input type="hidden" class="testMid" id="testMid" name="testMid" value="ehfhfh1313">
  
 
@@ -2261,16 +2261,7 @@ function qtyLimitProductAlert(){
 		
                 <form id="ordersheetCloneForm" name="orderSheetCloneForm" action="/checkout/ordersheetTest"  method="get">
                 	<input type="hidden" id="ordersheetEntryNumber" name="ordersheetEntryNumber" value="" />
-					<input type="hidden" id="ordersheetCartDivision" name="ordersheetCartDivision" value="" />
-					<!-- <input type="hidden" name="psid" value=asd />
-					<input type="hidden" name="pquantity" value="" />
-					<input type="hidden" name="bname" value="" />
-					<input type="hidden" name="pccolorcode" value="" />
-					<input type="hidden" name="pcimg1" value="" />
-					<input type="hidden" name="pcprice" value="" />
-					<input type="hidden" name="psize" value="" /> -->
-			 <!--   <div>
-					<input type="hidden" name="CSRFToken" value="ae3faaff-c181-4913-ae57-c2a4ac651d0c" />
+					<!-- <input type="hidden" id="ordersheetCartDivision" name="ordersheetCartDivision" value="" /> -->
 				</div> --></form> 
                      
                 <!--//button wrap-->

@@ -1,7 +1,7 @@
-// 주문페이지에 선택된 카트목록 띄우기
+// cart 목록 반환 
 $(document).ready(function(){
 var cartList;
-var mid = $('#testMid').val()
+var mid = $('#testMid').val() // 이후 세션아이디로 변경
 
 $.ajax({
 	type: "GET",  

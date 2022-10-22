@@ -6062,10 +6062,21 @@ function disabledHistoryBack(){
 
 
 //]]>
-
 </script>
+
+<!-- 세션아이디를 받아보자 -->
+<input type="hidden" id="testMid"  value="ehfhfh1313">
+<!-- 체크된거만 받아오자 -->
+<%    
+/* 주문에서 받아온값 */
+    String str = request.getParameter("ordersheetEntryNumber");
+%>
+<input type="hidden" id="testEntryNum"  value="<%=str%>">
 <!-- 카트리스트띄우기-->
 <script type="text/javascript" src="/resources/js/handsome/checkoutCartView.js"></script>
+
+
+ 
 
 	<form id="customerAddress" name="customerAddress"
 		action="/ko/checkout/ordersheet" method="post">

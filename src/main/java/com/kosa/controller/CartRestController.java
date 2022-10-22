@@ -1,6 +1,8 @@
 package com.kosa.controller;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.StringTokenizer;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -51,12 +53,17 @@ public class CartRestController {
         return service.getProducts("ehfhfh1313");
     }
     
-    @GetMapping("checkoutCartView/{entryNum}")
-    public List<CartVO> getCartListGET(@PathVariable("entryNum") String mid){
-        // mid 쪼개기
-        // 값으로 화면 보여주기
-        System.out.println(mid);
-        return service.getProducts("ehfhfh1313");
+    @GetMapping("checkoutCartView/{mid}/{entryNum}")
+    public List<CartVO> getCartListGET(@PathVariable("entryNum") String str){
+        //,(comma)는 URL에서 %2C로 대체되고 그 URL을 받아쓸때  다시 , 로 반환된다
+        System.out.println(str);
+        StringTokenizer st = new StringTokenizer(str,",");
+        List<Integer> entryNum= new ArrayList<>();
+        while(st.hasMoreTokens()) {
+            entryNum.add(Integer.parseInt(st.nextToken())+1); // rownum은 1부터시작
+        }
+        System.out.println(entryNum);
+        return service.getProductsWithEntryNum("ehfhfh1313", entryNum);
     }
 
 }
