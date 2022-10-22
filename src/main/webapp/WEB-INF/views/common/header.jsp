@@ -74,22 +74,31 @@ media="all" /> -->
 <!-- 검색 결과화면 색상 필터 끝 -->
 
 
-
-<!-- 검색 결과화면 색상 필터-->
-<script type="text/javascript" src="/resources/js/d3.min.js"></script>
-<script type="text/javascript" src="/resources/js/d3pie.js"></script>
-<!-- 검색 결과화면 색상 필터 끝 -->
-
-
-<script type="text/javascript">
-	
-</script>
-
-<!-- 검색 결과화면 색상 필터-->
-<script type="text/javascript" src="/resources/js/d3.min.js"></script>
-<script type="text/javascript" src="/resources/js/d3pie.js"></script>
-<!-- 검색 결과화면 색상 필터 끝 -->
-
+<!-- 쿠폰 정렬 -->
+<style media="screen">
+	.sharing {float:right;background-position:right !important}
+	.sharing a {display:none !important}
+	.sharing.on {width:90px !important}
+	.sharing.on a {display:block !important;float:left;margin-top:0}
+	.btn_list_wrap {padding:10px 0;text-align:right}
+	/* 7주년 메인 이벤트 S */
+	/* 221014 7주년 퀴즈이벤트 S */
+	.evt-7th-main .evt_floating_banner{position:fixed;left:50%;margin-left:529px;}
+	/* 221014 7주년 퀴즈이벤트 E */
+	.evt-7th-main img {display:block;}
+	.evt-7th-main .evt7th-video-wrap video {display:block;width:100%;}
+	.evt-7th-main .evt7th-main-event01 .coupon-wrap {position:relative;width:613px; margin:0 auto;}
+	.evt-7th-main .evt7th-main-event01 .coupon-wrap .coupon-list {}
+	.evt-7th-main .evt7th-main-event01 .coupon-wrap .coupon-list .coupon {position:absolute;top:0;left:0;}
+	.evt-7th-main .evt7th-main-event01 .btn-coupon-wrap {position:relative; width:360px; margin:60px auto 0;}
+	.evt-7th-main .evt7th-main-event01 .btn-coupon-wrap .btn-coupon {display:block;}		
+	.evt-7th-main .evt7th-main-notice-wrap {margin-top:30px;}
+	.evt-7th-main .evt7th-main-notice-title {position:relative;cursor:pointer;}
+	.evt-7th-main .evt7th-main-notice-icon {display:block;position:absolute;width:20px;height:20px;top:22px;left:570px;}
+	.evt-7th-main .evt7th-main-notice-title.on .evt7th-main-notice-icon {transform:rotate(45deg);}
+	/* 7주년 메인 이벤트 E */
+</style>
+<!-- 쿠폰 정렬 끝-->
 
 <script type="text/javascript">
 	
@@ -3450,7 +3459,7 @@ deg
 						<li><a href="/ko/magazine/exhibitions"
 							onclick="GA_Event('공통','GNB','기획전');"> 기획전 <!-- 기획전 -->
 						</a></li>
-						<li><a href="/ko/magazine/events"
+						<li><a href="/magazine/event"
 							onclick="GA_Event('공통','GNB','이벤트');">이벤트</a></li>
 						<!-- THE 매거진 수정 200330 -->
 						<li><a href="/ko/magazine/submain" class="magazine1803"

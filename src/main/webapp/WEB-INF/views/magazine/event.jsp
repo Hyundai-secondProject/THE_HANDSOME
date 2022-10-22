@@ -24,7 +24,7 @@
 		<div role="wrapper" style="">
 			<div class="event_list" id="contentsInProgress">
 				<div class="event_box col1" style="" data-last="11">
-					<a href="#"
+					<a href="/magazine/eventdetail?ENO=1"
 						onclick="GA_EventList($(this));goDetail('/ko/magazine/events/8804514453376');">
 						<div class="pic">
 							<img
@@ -38,7 +38,7 @@
 				</div>
 				<c:forEach var="list" items="${list}" begin="1" end="10" step="2">
 				<div class="event_box col2" style="" data-last="11">
-					<a href="#"
+					<a href="/magazine/eventdetail?ENO=${list.eno}"
 						onclick="GA_EventList($(this));goDetail('/ko/magazine/events/8804547254144');">
 						<div class="pic">
 							<img
@@ -53,7 +53,7 @@
 				</c:forEach>
 				<c:forEach var="list" items="${list}" begin="2" end="10" step="2">
 				<div class="event_box col2" style="" data-last="11">
-					<a href="#"
+					<a href="/magazine/eventdetail?ENO=${list.eno}"
 						onclick="GA_EventList($(this));goDetail('/ko/magazine/events/8804678293376');">
 						<div class="pic">
 							<img
@@ -346,9 +346,9 @@
 			</div>
 			<div class="morewrap">
 				<a style="cursor: pointer" onclick="getEvents(this, true);">더보기</a>
-			</div>
+			</div>-->
 		</div>
 	</div>
-</div>-->
+</div>
 <!-- //bodyWrap -->
 <%@ include file="../common/footer.jsp"%>

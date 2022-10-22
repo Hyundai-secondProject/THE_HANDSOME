@@ -8,13 +8,13 @@ import lombok.ToString;
 /**
  * 
  * EventViewVO
- * @author 源�誘쇨퇋
+ * @author 김민규
  * @since 2022.10.18
  * @version 1.0
  * <pre>
- * �닔�젙�씪              �닔�젙�옄                   �닔�젙�궡�슜
+ * 수정일		수정자			수정 내용
  * ----------  --------    ---------------------------
- * 2022.10.18   源�誘쇨퇋                   理쒖큹 �깮�꽦 
+ * 2022.10.18   김민규                   최초 생성 
  * </pre>
  */
 
@@ -23,8 +23,9 @@ import lombok.ToString;
 @ToString
 
 public class EventViewVO {
-	private String etitle;  // �씠踰ㅽ듃�젣紐�
-	private Timestamp eissuedate; // �씠踰ㅽ듃 �떆�옉�궇吏�
-	private Timestamp eexpiredate;  // �씠踰ㅽ듃醫낅즺�궇吏�
-	private String eimg;  // �씠踰ㅽ듃�씠誘몄�
+	private int eno;
+	private String etitle;  // 이벤트 제목
+	private Timestamp eissuedate; // 이벤트 시작일자
+	private Timestamp eexpiredate;  // 이벤트 종료일자
+	private String eimg;  // 이벤트 이미지
 }

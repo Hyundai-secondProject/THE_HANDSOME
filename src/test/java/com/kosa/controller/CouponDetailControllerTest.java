@@ -12,26 +12,25 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-
-
 import lombok.extern.log4j.Log4j;
 /**
  * EventViewControllertest
  * @author 김민규
- * @since 2022.10.18
+ * @since 2022.10.21
  * @version 1.0
- * 통과가 안됨 -> 기존 파일은 실행된다.
+ * 
  * <pre>
  * 수정일              수정자                   수정내용
  * ----------  --------    ---------------------------
- * 2022.10.18    김민규                  최초 생성
+ * 2022.10.21    김민규                  최초 생성
+ * 
  * </pre>
  */
 @WebAppConfiguration
 @Log4j
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration({"file:src/main/webapp/WEB-INF/spring/root-context.xml","file:src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml", "file:src/main/webapp/WEB-INF/spring/security-context.xml"})
-public class EventViewControllertest {
+public class CouponDetailControllerTest {
 	
 	@Autowired
 	private WebApplicationContext ctx;
@@ -43,7 +42,9 @@ public class EventViewControllertest {
 		this.mockMvc = MockMvcBuilders.webAppContextSetup(ctx).build();
 	}
 	@Test
-	public void TestEventView() throws Exception{
-		log.info(mockMvc.perform(MockMvcRequestBuilders.get("/magazine/event")).andReturn().getModelAndView().getModelMap());
+	public void TestEventdetailView() throws Exception{
+		log.info(mockMvc.perform(MockMvcRequestBuilders.get("/mypage/mycoupon").param("MID", "team5")).andReturn().getModelAndView().getModelMap());
 	}
+	
+
 }
