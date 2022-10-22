@@ -36,6 +36,7 @@ import com.kosa.domain.member.CartVO;
 public interface CartMapper {
 	
 	public List<CartVO> selectList(String mid); // select 
+	public List<CartVO> selectListWithEntryNum(@Param("mid")String mid, @Param("entryNum") List<Integer> entryNum); // select 
 	public void insert(CartVO cart); // insert 
 	// 스프링 mybatis에서는 param이 1개밖에 들어가지 않아서 여러개를 할때는 @Param을 사용한다
 	public void delete(@Param("mid") String mid, @Param("psid") String psid); 

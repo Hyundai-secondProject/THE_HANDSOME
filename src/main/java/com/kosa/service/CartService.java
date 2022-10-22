@@ -24,6 +24,9 @@ public interface CartService {
     // select
     public List<CartVO> getProducts(String mid);
     
+ // select
+    public List<CartVO> getProductsWithEntryNum(String mid, List<Integer> entryNum);
+    
     // delete
     public void deleteProduct(CartVO cart);
     
