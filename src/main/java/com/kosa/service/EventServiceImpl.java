@@ -9,6 +9,7 @@ package com.kosa.service;
  * 수정일              수정자                   수정내용
  * ----------  --------    ---------------------------
  * 2022.10.18   김민규                   최초 생성
+ * 2022.10.20	김민규	 	getEventDetail 추가
  * </pre>
  */
 
@@ -17,6 +18,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kosa.domain.event.CouponDetailViewVO;
+import com.kosa.domain.event.EventDetailViewVO;
 import com.kosa.domain.event.EventViewVO;
 import com.kosa.mapper.EventMapper;
 
@@ -31,10 +34,22 @@ public class EventServiceImpl implements EventService{
 	
 	@Autowired
 	private EventMapper mapper;
+	
 
 	@Override
 	public List<EventViewVO> getEventList() {
 		return mapper.getEventList();
 	}
 
+	@Override
+	public EventDetailViewVO getEventDetail(int ENO) {
+		
+		return mapper.getEventDetail(ENO);
+	}
+
+	@Override
+	public List<CouponDetailViewVO> getCouponDetail(String MID) {
+		return mapper.getCouponDetail(MID);
+
+}
 }
