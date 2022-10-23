@@ -69,12 +69,12 @@ $.ajax({
 			cartList+= ' 		</div> ';
 			cartList+= ' 	</div> <!-- //pt_list_all --> ';
 			cartList+= ' </td> ';
-			cartList+= ' <td>1</td> ';
+			cartList+= ' <td>'+item.pquantity+'</td> ';
 			cartList+= '  <td>';
 			cartList+= '  <!-- price_wrap -->';
 			cartList+= '  <div class="price_wrap ">';
 			cartList+= '  <span>';
-			cartList+= '  	₩638,000</span>';
+			cartList+= '  	₩ '+ addComma(item.pquantity*item.productDetail.pcprice)+'</span>';
 			cartList+= ' </div> <!-- //price_wrap --> ';
 			cartList+= ' </td> ';
 			cartList+= ' </tr> ';

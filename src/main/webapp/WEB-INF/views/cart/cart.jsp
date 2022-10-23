@@ -1167,7 +1167,7 @@ function selectRemove(entryNumber) {
 	
     $.ajax({
         type: "GET",
-        url: "/ko/shoppingbag/selectRemove",
+        url: "/ajax/selectRemove",
         dataType: "json",
         async : false,
         data : {"entryNumber" : entryNumber},

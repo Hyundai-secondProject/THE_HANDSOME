@@ -66,7 +66,7 @@ $.ajax({
 				cartList+= '        <!-- qty_sel -->                                                       ';
 				cartList+= '        <span class="qty_sel num">                                                       ';
 				cartList+= '        	<a href="#none" onMouseDown="javascript:AEC_F_D(\'LB2CAWTO363M_KE_L\',\'o\',1);" class="left" onclick="GA_Event(\'쇼핑백\', \'수량\', \'-\');">이전 버튼</a>                                                       ';
-				cartList+= '            	<input id="quantity'+index+'" name="quantity" type="text" class="mr0" value="1" size="1" maxlength="3"/><a href="#none" onMouseDown="javascript:AEC_F_D(\'LB2CAWTO363M_KE_L\',\'i\',1);" class="right" onclick="GA_Event(\'쇼핑백\', \'수량\', \'+\');">다음 버튼</a>                                                   ';
+				cartList+= '            	<input id="quantity'+index+'" name="quantity" type="text" class="mr0" value="'+item.pquantity+'" size="1" maxlength="3"/><a href="#none" onMouseDown="javascript:AEC_F_D(\'LB2CAWTO363M_KE_L\',\'i\',1);" class="right" onclick="GA_Event(\'쇼핑백\', \'수량\', \'+\');">다음 버튼</a>                                                   ';
 				cartList+= '            </span>                                                   ';
 				cartList+= '        <!-- //qty_sel -->                                                       ';
 				cartList+= '        <a href="#none" id="QuantityProduct_'+index+'" class="btn wt_ss qty_w mr0">변경</a>                                                       ';
@@ -78,7 +78,7 @@ $.ajax({
 				cartList+= '        <td class="al_middle">                                                       ';
 				cartList+= '        <!-- Price -->                                                       ';
 				cartList+= '        	<div class="price_wrap">                                                       ';
-				cartList+= '        		<span>₩'+ addComma(item.productDetail.pcprice)+' </span> <input type="hidden" name="checkZeroPrice" value="'+ item.productDetail.pcprice+'" />    ';
+				cartList+= '        		<span>₩'+ addComma(item.pquantity*item.productDetail.pcprice)+' </span> <input type="hidden" name="checkZeroPrice" value="'+ item.pquantity*item.productDetail.pcprice+'" />    ';
 				cartList+= '        	</div> <!-- //Price -->                                                       ';
 				cartList+= '        </td>                                                       ';
 				cartList+= '        <td class="al_middle">                                                       ';
