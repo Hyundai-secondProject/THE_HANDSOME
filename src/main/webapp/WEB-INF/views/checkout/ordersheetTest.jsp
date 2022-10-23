@@ -6146,7 +6146,14 @@ function disabledHistoryBack(){
 					<div class="float_left">
 						<!--table wrap1-->
 						<div id="checkoutCartView" class="tblwrap">
-							<!-- 여기 데이터 -->
+						
+							<!-- 목록 반환하는 부분!!! -->
+							<!-- 목록 반환하는 부분!!! -->
+							<!-- 목록 반환하는 부분!!! -->
+							<!-- 목록 반환하는 부분!!! -->
+							<!-- 목록 반환하는 부분!!! -->
+							<!-- 목록 반환하는 부분!!! -->
+							<!-- 목록 반환하는 부분!!! -->
 							
 							
 							<script>var checktHandsomepointUsableAmount = parseInt('345000.0');</script>
