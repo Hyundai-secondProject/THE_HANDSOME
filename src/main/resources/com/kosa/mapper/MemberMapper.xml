@@ -16,8 +16,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="com.kosa.mapper.MemberMapper">
 	
 	<insert id="join">
-		insert into member(mid, mpassword, mname, memail, mphone, mbirth, mlogintype, mtosno, menabled, mrole)
-		values(#{mid}, #{mpassword}, #{mname}, #{memail}, #{mphone}, #{mbirth},'간편회원', 0, 1, 'ROLE_MEMBER')
+		insert into member(mid, mpassword, mname, memail, mphone, mbirth, mlogintype, mtosno, menabled, mrole, mgrade)
+		values(#{mid}, #{mpassword}, #{mname}, #{memail}, #{mphone}, #{mbirth},'간편회원', 0, 1, 'ROLE_MEMBER', 1)
 	</insert>
 	
 	<select id="findById" resultType="com.kosa.domain.member.MemberVO">
