@@ -56,19 +56,6 @@ public class OrderMapperTest {
 		}
 	}
 	
-	// 페이징한 주문 조회 테스트
-	@Test
-	public void testGetListWithPaging2() {		
-		Criteria cri = new Criteria(1, 5);
-		
-		
-		  for (OrdersVO order : mapper.getListWithPaging(cri, "seungu00")) {
-		  log.info(order); }
-		 
-		//log.info(mapper.getListWithPaging(cri, "seungu00").get(1).getItemList().size());
-		
-		
-	}
 	// 주문 등록 테스트 
 	@Test
 	public void testInsert() {
