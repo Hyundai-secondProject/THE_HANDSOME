@@ -16,4 +16,5 @@ public interface MemberService {
 
 	public String join(MemberVO membervo);
 	public MemberVO passwordCheck(String mid, String mpassword);
+	public boolean isDulpId(String id);
 }
