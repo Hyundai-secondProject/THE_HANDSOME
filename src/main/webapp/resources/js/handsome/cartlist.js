@@ -25,7 +25,9 @@ $.ajax({
 		item.productDetail.pcprice
 		item.productDetail.psize
 		*/
+		var cartcnt=0;
 		$.each(data, function(index, item) { // 데이터 =item
+			cartcnt=index;
 			console.log(index+"\n");
 			console.log(item);
 				cartList = '';
@@ -137,6 +139,8 @@ $.ajax({
 				
 			$("#msg").append(cartList);
 			});
+		cartcnt=cartcnt+1;
+		$("#cartcnt").append("택배 ("+cartcnt+")");
 		}
 	});
 });

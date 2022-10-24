@@ -2174,7 +2174,7 @@ function qtyLimitProductAlert(){
                 <!-- 장바구니개편 -->
                 <ul class="tab3">
                     <li>
-                        <a href="#;" name="cartDivision" data-division="" onclick="GA_Event('쇼핑백', '탭', '택배');"><span class="delt_ico"></span>택배 ( $("#cartlist") )</a>
+                        <a id="cartcnt" href="#;" name="cartDivision" data-division="" onclick="GA_Event('쇼핑백', '탭', '택배');"><span class="delt_ico"></span></a>
                     </li>
                     <li>
                         <a href="#;" name="cartDivision" data-division="store" onclick="GA_Event('쇼핑백', '탭', '매장수령');" ><span class="spt_ico"></span>매장수령 (0)</a>
