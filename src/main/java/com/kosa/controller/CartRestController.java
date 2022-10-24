@@ -25,10 +25,21 @@ public class CartRestController {
 
     @Autowired
     private CartService service;
-
-    @PostMapping("/11")
-    public List<CartVO> getCartPost(CartVO cart) {
-        return service.getProducts("ehfhfh1313");
+    
+    // 추가
+    @GetMapping("/addtocart/{mid}/{psid}/{qty}")
+    public void addToCart(@PathVariable("mid") String mid,
+                                    @PathVariable("psid") String psid,
+                                    @PathVariable("qty") int qty) {
+        System.out.println(mid + psid + qty);
+        CartVO cart = new CartVO();
+        
+        cart.setMid(mid);
+        cart.setPsid(psid);
+        cart.setPquantity(qty);
+        
+        service.putProduct(cart);
+        
     }
 
     // post 방식으로 하는 대신 get 방식으로 한뒤 url에서값을가져와 사용 -> 주연도움
