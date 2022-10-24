@@ -2296,7 +2296,7 @@ function qtyLimitProductAlert(){
 		item.productDetail.pcprice
 		item.productDetail.psize -->
 		
-                <form id="ordersheetCloneForm" name="orderSheetCloneForm" action="/checkout/ordersheetTest"  method="get">
+                <form id="ordersheetCloneForm" name="orderSheetCloneForm" action="/checkout/ordersheet"  method="get">
                 	<input type="hidden" id="ordersheetEntryNumber" name="ordersheetEntryNumber" value="" />
 					<!-- <input type="hidden" id="ordersheetCartDivision" name="ordersheetCartDivision" value="" /> -->
 				</div> --></form> 

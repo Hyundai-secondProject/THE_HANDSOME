@@ -21,10 +21,10 @@ public class CartController {
         return "cart/test";
     }
     
-    @RequestMapping(value = "/checkout/ordersheetTest", method = RequestMethod.GET)
+    @RequestMapping(value = "/checkout/ordersheet", method = RequestMethod.GET)
     public String home3() {
                 
-        return "checkout/ordersheetTest";
+        return "checkout/ordersheet";
     }
     
     @RequestMapping(value = "/checkout/ordersheetTest", method = RequestMethod.POST)
