@@ -37,8 +37,7 @@ public class OrderServiceImpl implements OrderService {
 	public OrderPageDTO getListPage(Criteria cri, String mid) {
 		log.info("getListPage....." + mid + cri);
 		return new OrderPageDTO(
-				mapper.getCountByMid(mid),
+				mapper.getCountByMid(cri, mid),
 				mapper.getListWithPaging(cri, mid));
 	}
-
 }

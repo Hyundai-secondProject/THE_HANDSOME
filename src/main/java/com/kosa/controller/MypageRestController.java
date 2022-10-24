@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.kosa.domain.order.Criteria;
 import com.kosa.domain.order.OrderPageDTO;
 import com.kosa.domain.order.OrdersVO;
-import com.kosa.domain.order.ReplyPageDTD;
 import com.kosa.service.OrderService;
 
 import lombok.AllArgsConstructor;
@@ -28,12 +27,22 @@ public class MypageRestController {
 	@Autowired
 	private OrderService service;
 	
-	@GetMapping(value = "/{mid}/{page}")
+	@GetMapping(value = "/{mid}/{page}/{type}/{keyword}")
 	public ResponseEntity<OrderPageDTO> getList(
 			@PathVariable("mid") String mid,
-			@PathVariable("page") int page) {
+			@PathVariable("page") int page,
+			@PathVariable("type") String type,
+			@PathVariable("keyword") String keyword) {
 		log.info("getList............");
-		Criteria cri = new Criteria(page, 2);
+		Criteria cri = new Criteria(page, 5);
+
+		if (!type.equals("N") && !keyword.equals("none")) {
+			cri.setType(type);
+			cri.setKeyword(keyword);
+			log.info(cri);
+			return new ResponseEntity<>(service.getListPage(cri, mid), HttpStatus.OK);
+		} 
+		
 		log.info(cri);
 		return new ResponseEntity<>(service.getListPage(cri, mid), HttpStatus.OK);
 	}

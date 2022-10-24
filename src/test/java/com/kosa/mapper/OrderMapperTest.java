@@ -1,5 +1,6 @@
 package com.kosa.mapper;
 
+import java.util.Calendar;
 import java.util.Date;
 
 import org.junit.Test;
@@ -26,7 +27,7 @@ import lombok.extern.log4j.Log4j;
  */
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration({"file:src/main/webapp/WEB-INF/spring/root-context.xml","file:src/main/webapp/WEB-INF/spring/security-context.xml"})
+@ContextConfiguration({"file:src/main/webapp/WEB-INF/spring/root-context.xml", "file:src/main/webapp/WEB-INF/spring/security-context.xml"})
 @Log4j
 public class OrderMapperTest {
 	
@@ -36,21 +37,91 @@ public class OrderMapperTest {
 	//총 주문 갯수 테스트 
 	@Test
 	public void testGetCountByMid() {
-		log.info(mapper.getCountByMid("seungu00"));
+		Criteria cri = new Criteria();
+		log.info(mapper.getCountByMid(cri, "seungu00"));
+	}
+	
+	//총 주문 갯수 테스트 
+	@Test
+	public void testGetCountByMid2() {
+		Criteria cri = new Criteria();
+		cri.setType("O");
+		cri.setKeyword("221018P15418021");
+		log.info(mapper.getCountByMid(cri, "seungu00"));
+	}
+	
+	//총 주문 갯수 테스트 
+	@Test
+	public void testGetCountByMid3() {
+		Criteria cri = new Criteria(1, 5);
+		cri.setType("O");
+		cri.setKeyword("221018P15418021");
+		log.info(mapper.getCountByMid(cri, "seungu00"));
+	}
+	
+	// 간단한 주문 조회 테스트
+	@Test
+	public void testGetList() {
+		for (OrdersVO order : mapper.getList()) {
+			
+			Calendar cal = Calendar.getInstance(); 
+			cal.setTime(order.getOdate());
+			
+			int year = cal.get(Calendar.YEAR);
+			int month = cal.get(Calendar.MONTH) + 1; //0부터 시작하기 때문에 1더해준다
+			int day = cal.get(Calendar.DAY_OF_MONTH);
+			int hour = cal.get(Calendar.HOUR_OF_DAY);
+			int min = cal.get(Calendar.MINUTE);
+			int sec = cal.get(Calendar.SECOND);
+			
+			log.info(order.getOdate());
+			log.info(cal);
+			log.info(year + "." + month + "." + day);
+			
+			cal.add(Calendar.DATE, 7); //2일 더하기
+			log.info(cal.getTime());
+			
+			int year2 = cal.get(Calendar.YEAR);
+			int month2 = cal.get(Calendar.MONTH) + 1; //0부터 시작하기 때문에 1더해준다
+			int day2 = cal.get(Calendar.DAY_OF_MONTH);
+			
+			log.info(year2 + "." + month2 + "." + day2);
+			
+		}
 	}
 	
 	// 주문 조회 테스트
 	@Test
-	public void testGetList() {
-		for (OrdersVO order : mapper.getList()) {
+	public void testGetListWithPaging1() {		
+		for (OrdersVO order : mapper.getListWithPaging(new Criteria(), "seungu00")) {
 			log.info(order);
 		}
 	}
 	
 	// 페이징한 주문 조회 테스트
 	@Test
-	public void testGetListWithPaging() {		
-		Criteria cri = new Criteria();
+	public void testGetListWithPaging2() {		
+		Criteria cri = new Criteria(1, 5);
+		for (OrdersVO order : mapper.getListWithPaging(cri, "seungu00")) {
+			log.info(order);
+		}
+	}
+	
+	@Test
+	public void testGetListWithPaging3() {		
+		Criteria cri = new Criteria(1, 5);
+		cri.setType("O");
+		cri.setKeyword("221018P15418021");
+		for (OrdersVO order : mapper.getListWithPaging(cri, "seungu00")) {
+			log.info(order);
+		}
+	}
+	
+	@Test
+	public void testGetListWithPaging4() {		
+		Criteria cri = new Criteria(1, 5);
+		cri.setType("P");
+		cri.setKeyword("재킷");
 		for (OrdersVO order : mapper.getListWithPaging(cri, "seungu00")) {
 			log.info(order);
 		}

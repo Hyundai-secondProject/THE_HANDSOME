@@ -9,6 +9,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.kosa.domain.order.Criteria;
+import com.kosa.domain.order.OrderItemVO;
+import com.kosa.domain.order.OrderPageDTO;
 import com.kosa.domain.order.OrdersVO;
 
 import lombok.extern.log4j.Log4j;
@@ -25,7 +27,7 @@ import lombok.extern.log4j.Log4j;
  * </pre>
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration("file:src/main/webapp/WEB-INF/spring/root-context.xml")
+@ContextConfiguration({"file:src/main/webapp/WEB-INF/spring/root-context.xml", "file:src/main/webapp/WEB-INF/spring/security-context.xml"})
 @Log4j
 public class OrderServiceImplTest {
 
@@ -34,8 +36,35 @@ public class OrderServiceImplTest {
 	
 	@Test
 	public void getListTest() {
-		for (OrdersVO order : orderService.getList(new Criteria(1, 10), "seungu00")) {
+		for (OrdersVO order : orderService.getList(new Criteria(1, 10), "asdf")) {
 			log.info(order);
 		}
+	}
+	
+	@Test
+	public void getListPageTest() {
+		log.info("getListPageTest.....");
+		Criteria cri = new Criteria(1, 5);
+		OrderPageDTO orders = orderService.getListPage(cri, "seungu00");
+		List<OrdersVO> orderList = orders.getList();
+		log.info(orderList.get(1).getItemList().size());
+		for (OrderItemVO item : orderList.get(1).getItemList()) {
+			log.info(item);
+		}
+	}
+	
+	@Test
+	public void getListPageTest2() {
+		log.info("getListPageTest.....");
+		Criteria cri = new Criteria(1, 5);
+		cri.setType("O");
+		cri.setKeyword("221018P15412353");
+		
+		OrderPageDTO orderPage = orderService.getListPage(cri, "seungu00");
+		log.info(orderPage);
+		
+//		for (OrdersVO orders : orderService.getListPage(cri, "seungu00").getList()) {
+//			log.info(orders);
+//		}
 	}
 }

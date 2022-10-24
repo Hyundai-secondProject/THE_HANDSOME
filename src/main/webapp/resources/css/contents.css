@@ -801,7 +801,7 @@
     height: 28px;
     border: 1px solid #ccc;
     border-left: 0;
-    background: #fff url("/_ui/desktop/common/images/common/ico_calendar.png") 50% 50% no-repeat;
+    background: #fff url("https://www.thehandsome.com/_ui/desktop/common/images/common/ico_calendar.png") 50% 50% no-repeat;
     text-indent: -999em;
     vertical-align: top
 }
