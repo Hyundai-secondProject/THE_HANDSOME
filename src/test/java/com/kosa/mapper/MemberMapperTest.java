@@ -44,12 +44,12 @@ public class MemberMapperTest {
 	@Test
 	public void joinTest() {
 		MemberVO vo  = new MemberVO();
-		vo.setMid("qwer");
-		vo.setMpassword(encoder.encode("qwer"));
+		vo.setMid("qwer1");
+		vo.setMpassword(encoder.encode("qwe1r"));
 		vo.setMname("기원");
 		vo.setMemail("giwon@naver.com");
-		vo.setMphone("01011111");
-		vo.setMbirth(new Date());
+		vo.setMphone("0101111111");
+		vo.setMbirth(LocalDate.now());
 		memberMapper.join(vo);
 	}
 	
