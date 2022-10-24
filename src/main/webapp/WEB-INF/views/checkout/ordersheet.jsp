@@ -1928,7 +1928,7 @@ function hplogoutSuccess(data){
 $(function(){
     
 
-    getNotLoginMyKeyWord($("#query").val(), 10);
+    //getNotLoginMyKeyWord($("#query").val(), 10);
     
     /* 
         // 내가 찾은 검색어(로그인 상태) : set, get in cookie
@@ -2740,7 +2740,7 @@ $(document).ready(function ()
   	}
 	
     //원클릭 결제
-    drawCardList(setOneClick);
+    //drawCardList(setOneClick);
     
     window.addEventListener('message',function(e){
         if(e.data.loadingShow != null){
@@ -6118,6 +6118,18 @@ function sendGroobee(){
 
 </script>
 
+<!-- 세션아이디를 받아보자 -->
+<input type="hidden" id="testMid"  value="ehfhfh1313">
+<!-- 체크된거만 받아오자 -->
+<%    
+/* 주문에서 받아온값 */
+    String str = request.getParameter("ordersheetEntryNumber");
+%>
+<input type="hidden" id="testEntryNum"  value="<%=str%>">
+<!-- 카트리스트띄우기-->
+<script type="text/javascript" src="/resources/js/handsome/checkoutCartView.js"></script>
+
+
 	<form id="customerAddress" name="customerAddress"
 		action="/ko/checkout/ordersheet" method="post">
 		<input type="hidden" name="sel_lastName" value="신기원" /> <input
@@ -6186,56 +6198,16 @@ function sendGroobee(){
 					<div class="float_left">
 						<!--table wrap1-->
 						<div id="checkoutCartView" class="tblwrap">
-							<table class="tbl_ltype ">
-
-								<caption>배송&amp;결제정보 입력</caption>
-								<colgroup>
-									<col />
-									<col style="width: 66px" />
-									<col style="width: 158px" />
-								</colgroup>
-								<thead>
-									<tr>
-										<th scope="col">상품정보</th>
-										<th scope="col">수량</th>
-
-										<th scope="col">판매가/쿠폰 적용가</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr class="al_middle">
-										<td class="frt">
-											<!-- pt_list_all -->
-											<div class="pt_list_all">
-												<a
-													href="/ko/HANDSOME/FASHION-ACC-/MEN-SHOES/Sneakers/%EB%A0%88%EB%8D%94-%EB%AF%B9%EC%8A%A4%EB%93%9C-%EC%8A%A4%EB%8B%88%EC%BB%A4%EC%A6%88/p/SH2C7ASZ075M_BG_275">
-													<img
-													src="http://newmedia.thehandsome.com/SH/2C/FW/SH2C7ASZ075M_BG_S01.jpg"
-													alt="" />
-												</a>
-												<div class="tlt_wrap">
-													<a
-														href="/ko/HANDSOME/FASHION-ACC-/MEN-SHOES/Sneakers/%EB%A0%88%EB%8D%94-%EB%AF%B9%EC%8A%A4%EB%93%9C-%EC%8A%A4%EB%8B%88%EC%BB%A4%EC%A6%88/p/SH2C7ASZ075M_BG_275"
-														class="basket_tlt"> <span class="tlt">SYSTEM
-															HOMME</span> <span class="sb_tlt">레더 믹스드 스니커즈</span>
-													</a>
-													<p class="color_op">
-
-														color : BEIGE<span class="and_line">/</span> size : 275
-													</p>
-												</div>
-											</div> <!-- //pt_list_all -->
-										</td>
-										<td>1</td>
-										<td>
-											<!-- price_wrap -->
-											<div class="price_wrap ">
-												<span> ₩345,000</span>
-											</div> <!-- //price_wrap -->
-										</td>
-									</tr>
-								</tbody>
-							</table>
+							
+							<!-- 목록 반환하는 부분!!! -->
+							<!-- 목록 반환하는 부분!!! -->
+							<!-- 목록 반환하는 부분!!! -->
+							<!-- 목록 반환하는 부분!!! -->
+							<!-- 목록 반환하는 부분!!! -->
+							<!-- 목록 반환하는 부분!!! -->
+							<!-- 목록 반환하는 부분!!! -->
+							
+							
 							<script>var checktHandsomepointUsableAmount = parseInt('345000.0');</script>
 						</div>
 						<!--//table wrap1-->
