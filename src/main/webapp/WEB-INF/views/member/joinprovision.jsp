@@ -303,6 +303,7 @@ rotate
 				});
 		//]]>
 	</script>
+	<%@ include file="/WEB-INF/views/common/header.jsp"%>
 	<div id="bodyWrap">
 		<!--title-->
 		<h3 class="cnts_title">

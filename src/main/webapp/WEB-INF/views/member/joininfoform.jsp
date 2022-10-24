@@ -225,12 +225,12 @@ deg
 
 </head>
 <body>
-	<form id="CSRFForm" action="/ko/member/joininfoform" method="post">
+<!-- 	<form id="CSRFForm" action="/ko/member/joininfoform" method="post">
 		<div>
 			<input type="hidden" name="CSRFToken"
 				value="bb3009c6-58a4-40fd-ac1d-b2fee6de282a" />
 		</div>
-	</form>
+	</form> -->
 	<div id="headerWrap">
 		<div class="header header_fixed header_main1903">
 			<script type="text/javascript" src="/resources/js/SsoAjax.js"></script>
