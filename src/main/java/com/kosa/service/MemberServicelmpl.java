@@ -18,8 +18,9 @@ import org.springframework.stereotype.Service;
  * <pre>
  * 수정일                    수정자                   수정내용
  * ----------  --------    ---------------------------
- * 2022.10.14    신기원                 최초 생성
- * 2022.10.18    신기원                 패스워드 암호화, 입력 값과 DB 값 일치 확인
+ * 2022.10.14    신기원                	 최초 생성
+ * 2022.10.18    신기원                 	패스워드 암호화, 입력 값과 DB 값 일치 확인
+ * 2022.10.21	  신기원			이메일 중복확인
  * </pre>
  */
 @Service
@@ -52,5 +53,19 @@ public class MemberServicelmpl implements MemberService {
 		if(encoder.matches(mpassword, memberVO.getMpassword())) return memberVO;
 		else return null;
 	}
+
+	//가입하려는 이메일 중복확인
+	@Override
+	public boolean isDulpId(String mid) {
+		
+		MemberVO uniqueMember = memberMapper.findById(mid);
+		if(uniqueMember != null) {
+			return true;
+		}else {
+			return false;	
+		}
+	}
+	
+	
 
 }
