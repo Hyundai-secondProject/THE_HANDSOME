@@ -75,7 +75,7 @@ public class CartRestController {
     }
 
     
-
+    // 선택항목 반환
     @GetMapping("checkoutCartView/{mid}/{entryNum}")
     public List<CartVO> getCartListGET(@PathVariable("entryNum") String str) {
         // ,(comma)는 URL에서 %2C로 대체되고 그 URL을 받아쓸때 다시 , 로 반환된다
@@ -90,5 +90,8 @@ public class CartRestController {
         System.out.println(entryNum);
         return service.getProductsWithEntryNum("ehfhfh1313", entryNum);
     }
+    
+//    // 수량변경
+//    @GetMapping("")
 
 }
