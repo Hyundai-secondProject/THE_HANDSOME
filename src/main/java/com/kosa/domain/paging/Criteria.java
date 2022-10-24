@@ -8,11 +8,13 @@ import lombok.ToString;
 @Setter
 @ToString
 public class Criteria {
-	private int pageNum;
-	private int amount;
+	// 페이지 처리를 위한 변수
+	private int pageNum; // 현재 페이지
+	private int amount; // 한 페이지에 표시되는 데이터의 개수
 
-	private String type;
-	private String keyword;
+	// 검색을 위한 변수
+	private String type; // 검색할 항목을 저장 - key
+	private String keyword; 
 
 	public String[] getTypeArr() {
 		// 삼항식[Condition Operator] ? TURE : FALSE

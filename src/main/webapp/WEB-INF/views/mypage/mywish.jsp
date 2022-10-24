@@ -2,9 +2,15 @@
 	pageEncoding="UTF-8"%>
 
 <%@ include file="/WEB-INF/views/common/header.jsp"%>
+<link rel="stylesheet" type="text/css"
+	href="/resources/css/contents.css" media="all" />
+<link rel="stylesheet" type="text/css" href="/resources/css/product.css"
+	media="all" />
+<link rel="stylesheet" type="text/css"
+	href="/resources/css/products.css" media="all" />
 <div id="bodyWrap">
 	<h3 class="cnts_title">
-		<span id="menuTitle">위시리스</span>
+		<span id="menuTitle">위시리스트</span>
 	</h3>
 	<div class="sub_container">
 		<!-- lnb -->
@@ -1084,120 +1090,8 @@
 						</tr>
 					</thead>
 					<tbody id="listBody">
-						<tr>
-							<td class="frt"><input type="checkbox" title="선택"
-								value="9605989106366" name="checkpd" data-value="TG2C9ACK002WDI"></td>
-							<td class="pt_list_wrap">
-								<div class="pt_list_all">
-									<a href="/ko/p/TG2C9ACK002WDI"
-										onclick="javascript:setEcommerceData('0','Click');GA_Event('위시리스트', '상품', '[ADIDAS] 미드 컷 크루 양말 세트');"><img
-										src="http://newmedia.thehandsome.com/TG/2C/FW/TG2C9ACK002WDI_ML_S01.jpg"
-										alt="상품 이미지"></a>
-									<div class="tlt_wrap">
-										<a href="/ko/p/TG2C9ACK002WDI" class="basket_tlt"
-											onclick="javascript:setEcommerceData('0','Click');GA_Event('위시리스트', '상품', '[ADIDAS] 미드 컷 크루 양말 세트');">
-											<span class="tlt">TOM GREYHOUND</span> <span class="sb_tlt">[ADIDAS]
-												미드 컷 크루 양말 세트 </span>
-										</a>
-									</div>
-								</div>
-							</td>
-							<td class="al_middle">
-								<div class="price_wrap">
-									<span> ￦22,000 </span>
-								</div>
-							</td>
-							<td class="al_middle"><span class="earn">0 %</span></td>
-							<td class="al_middle">
-								<div class="btn_wrap">
-									<a href="javascript:void(0)"
-										class="btn wt_ss add_bag parent_add_bag"
-										product="8864709541889" index="0" productcode="TG2C9ACK002WDI"
-										onclick="GA_Event(&quot;위시리스트&quot;, &quot;쇼핑백담기&quot;, &quot;[ADIDAS] 미드 컷 크루 양말 세트&quot;);">쇼핑백담기
-										<!-- 쇼핑백담기 -->
-									</a> <a href="javascript:void(0)" class="btn wt_ss wishDel"
-										wishcode="9605989106366"
-										onclick="GA_Event(&quot;위시리스트&quot;, &quot;삭제&quot;, &quot;[ADIDAS] 미드 컷 크루 양말 세트&quot;);"
-										data-value="TG2C9ACK002WDI">삭제 <!-- 삭제 --></a>
-								</div>
-							</td>
-						</tr>
-						<tr class="hid">
-							<td colspan="5" class="basket_wrap">
-								<div class="basket_info" id="cart0">
-									<span class="btn_arr">위치아이콘</span>
-									<div class="info">
-										<div class="pt_list" id="pt_list_0"></div>
-										<div class="btns">
-											<a href="javascript:void(0)" class="btn wt_ss bag"
-												id="addToCart_0">쇼핑백담기 <!-- 쇼핑백담기 --></a> <a
-												href="javascript:void(0)" class="btn wt_ss mt10 bag"
-												id="cancle_0">취소 <!-- 취소 --></a> <a
-												href="javascript:void(0)" class="btn_close bag" id="close_0">닫기
-												<!-- 닫기 -->
-											</a>
-										</div>
-									</div>
-								</div>
-							</td>
-						</tr>
-						<tr>
-							<td class="frt"><input type="checkbox" title="선택"
-								value="9602194277054" name="checkpd" data-value="TH2CAWJM336M"></td>
-							<td class="pt_list_wrap">
-								<div class="pt_list_all">
-									<a href="/ko/p/TH2CAWJM336M"
-										onclick="javascript:setEcommerceData('1','Click');GA_Event('위시리스트', '상품', '크링클 드로우스트링 점퍼');"><img
-										src="http://newmedia.thehandsome.com/TH/2C/FW/TH2CAWJM336M_BK_S01.jpg"
-										alt="상품 이미지"></a>
-									<div class="tlt_wrap">
-										<a href="/ko/p/TH2CAWJM336M" class="basket_tlt"
-											onclick="javascript:setEcommerceData('1','Click');GA_Event('위시리스트', '상품', '크링클 드로우스트링 점퍼');">
-											<span class="tlt">TIME HOMME</span> <span class="sb_tlt">크링클
-												드로우스트링 점퍼 </span>
-										</a>
-									</div>
-								</div>
-							</td>
-							<td class="al_middle">
-								<div class="price_wrap">
-									<span> ￦930,000 </span>
-								</div>
-							</td>
-							<td class="al_middle"><span class="earn">0 %</span></td>
-							<td class="al_middle">
-								<div class="btn_wrap">
-									<a href="javascript:void(0)"
-										class="btn wt_ss add_bag parent_add_bag"
-										product="8863936708609" index="1" productcode="TH2CAWJM336M"
-										onclick="GA_Event(&quot;위시리스트&quot;, &quot;쇼핑백담기&quot;, &quot;크링클 드로우스트링 점퍼&quot;);">쇼핑백담기
-										<!-- 쇼핑백담기 -->
-									</a> <a href="javascript:void(0)" class="btn wt_ss wishDel"
-										wishcode="9602194277054"
-										onclick="GA_Event(&quot;위시리스트&quot;, &quot;삭제&quot;, &quot;크링클 드로우스트링 점퍼&quot;);"
-										data-value="TH2CAWJM336M">삭제 <!-- 삭제 --></a>
-								</div>
-							</td>
-						</tr>
-						<tr class="hid">
-							<td colspan="5" class="basket_wrap">
-								<div class="basket_info" id="cart1">
-									<span class="btn_arr">위치아이콘</span>
-									<div class="info">
-										<div class="pt_list" id="pt_list_1"></div>
-										<div class="btns">
-											<a href="javascript:void(0)" class="btn wt_ss bag"
-												id="addToCart_1">쇼핑백담기 <!-- 쇼핑백담기 --></a> <a
-												href="javascript:void(0)" class="btn wt_ss mt10 bag"
-												id="cancle_1">취소 <!-- 취소 --></a> <a
-												href="javascript:void(0)" class="btn_close bag" id="close_1">닫기
-												<!-- 닫기 -->
-											</a>
-										</div>
-									</div>
-								</div>
-							</td>
-						</tr>
+					<!-- 위시리스트 내역 들어가는 곳 -->
+					
 					</tbody>
 				</table>
 			</div>
@@ -1209,7 +1103,9 @@
 				<a href="javascript:void(0);" class="btn wt_ss chooseDel">선택삭제 <!-- 선택삭제 --></a>
 			</div>
 			<!-- paging -->
-			<div class="paging"></div>
+			<div class="paging">
+			<!-- paging 처리!!!!!!!!!!!!!!!! -->
+			</div>
 			<!-- //paging -->
 
 		</div>
@@ -2629,5 +2525,301 @@
         }
 
         //]]>
+    </script>
+    
+    <!-- 위시리스트 ajax처리 -->
+    <script type="text/javascript">
+    $(document).ready(function () {
+    	console.log("11111111111");
+		const url = new URL(window.location.href);
+		const urlParams = url.searchParams;	
+		    	
+		showWish(1);
+    	
+    	function showWish(page) {
+    		console.log("위시리스트 불러오기");
+    		console.log("page: " + page);
+			let wish_array;
+			let totalCnt;
+			
+			let url2;
+			url2 = "/mypage/getLikeList?page="+page;
+			
+/* 			if (!urlParams.get("page")) {
+				url2 = "/mypage/getLikeList";
+			} else {
+				console.log("2실행");
+				url2 = "/mypage/getLikeList?page="+page;
+			}  */
+			
+ 			 $.ajax({
+				url: url2
+			}).done(function(data) {
+				console.log(data);
+				wish_array = data.likes;
+				totalCnt = data.totalCnt;
+				console.log("1");
+				console.log(data.likes);
+				console.log(data.likes.at(0).sizes);
+				let mid = "team5";
+				
+				let html_tmp = "";
+				for (let i = 0; i < wish_array.length; i++) {
+					let like = wish_array.at(i);
+					let product_color = like.colors;
+					let product_size = like.sizes;
+					
+					let product_info = like.product;
+					let tmp = "";
+					tmp += "<tr>";
+					tmp += "	<td class='frt'><input type='checkbox' title='선택' value='9613624279742' name='checkpd' data-value='TM2CBWJC284W'></td>";
+					tmp += "	<td class='pt_list_wrap'>"
+					tmp += "		<div class='pt_list_all'> <a href='${pageContext.request.contextPath}/product/productdetail?pid="+wish_array.at(i).product.pid + "&pcid=" + wish_array.at(i).colors.at(0).pcid 
+									+ "'><img src='" + like.pcimg3 +"' alt='상품 이미지'></a>";
+					tmp += "			<div class = 'tlt_wrap'>"
+					
+					tmp += "					<a href='${pageContext.request.contextPath}/product/productdetail?pid="+wish_array.at(i).product.pid + "&pcid=" + wish_array.at(i).colors.at(0).pcid 
+												+ "' class='basket_tlt'>";
+					tmp += "						<span class='tlt' style='display:block'>"+product_info.bname+"</span> <span class='sb_tl'>"+ product_info.pname +"</span> ";												
+					tmp += "					</a>";
+					
+					tmp += "			</div>"	;
+					tmp += "		</div>";
+					tmp += "	</td>";
+					tmp += "	<td class='al_middle'>";
+					tmp += "		<div class='price_wrap'><sapn>￦ "+like.pcprice.toString().replace(/\B(?=(\d{3})+(?!\d))/g,',') +"</sapn></div>";						
+					tmp += "	</td>";	
+					tmp += "	<td class='al_middle'><span class='earn'>0 %</span> </td>";
+					tmp += "	<td class='al_middle'>";
+					tmp += "		<div class='btn_wrap'>";
+					tmp += "			<a href='javascript:void(0)' class='btn wt_ss add_bag parent_add_bag' onclik= 'showCart(&#39;"+ product_info.pid+ "&#39;,&#39;" + product_color.at(0).pcid + "&#39;)'>쇼핑백 담기 </a>";
+					tmp += "			<a href='javascript:void(0)' class='btn wt_ss wishDel' onclik= 'deleteLike(&#39;"+ product_info.pid+ "&#39;,&#39;" + mid + "&#39;)'>삭제</a>";
+					tmp += "		</div>";
+					tmp += "	</td>";
+					tmp += "</tr>";
+					
+					tmp += "<tr class = 'hid'>";					
+					tmp += "	<td colspan='5' class='basket_wrap'>";					
+					tmp += "		<div class='basket_info' style='display: block;' id = 'cart_"+product_info.pid+"'>";
+					tmp += "			<span class='btn_arr'>위치아이콘</span>";
+					tmp += "			<div class='info'>";
+					tmp += "				<div class='pt_list'>";
+					tmp += "					<a href='${pageContext.request.contextPath}/product/productdetail?pid="+wish_array.at(i).product.pid + "&pcid=" + wish_array.at(i).colors.at(0).pcid + "'>";
+					tmp += "						<img src='" + like.pcimg3 +"' alt='상품 이미지'>";
+					tmp += "					</a>";
+					tmp += "					<div class='tlt_wrap wish'>";
+					
+					tmp += "					<a class = 'basket_tlt' href='${pageContext.request.contextPath}/product/productdetail?pid="+wish_array.at(i).product.pid + "&pcid=" + wish_array.at(i).colors.at(0).pcid + "'>";
+					tmp += "					<span class='tlt'>"+product_info.bname+"</span>";
+					tmp += "					<span class='sb_tlt'>";
+					tmp += "						<span class='reserveProdNmChild'></span>"+product_info.pname+"</span>";
+			//		tmp += "					</span>";
+					tmp += "					</a>";
+					tmp += "					<dl  class='cs_wrap'>";
+					tmp += "						<dt>COLOR</dt>";
+					tmp += "						<dd>";
+					tmp += "							<div class='cl_select'>";
+					for (let j = 0; j < product_color.length; j++) {
+					if (j == 0) {
+							// 클릭시 input - hidden tag에 pcid지정
+							tmp += "<a href='javascript:void(0)' onclick = 'selectColor(&#39;"+ product_color.at(j).pcid+ "&#39;)' class='beige on' style =' background-image : url(" + product_color.at(j).pcchipimg + ")'>"+product_color.at(j).pccolorcode+"</a>";
+						} else {
+							tmp += "<a href='javascript:void(0)' onclick = 'selectColor(&#39;"+ product_color.at(j).pcid+ "&#39;)' class='beige' style =' background-image : url(" + product_color.at(j).pcchipimg + ")'>"+product_color.at(j).pccolorcode+"</a>";
+						}					
+					} 
+					
+
+					tmp += "							</div>";
+					tmp += "						</dd>";
+					tmp += "						<dt>SIZE</dt>";	
+					tmp += "						<dd>";
+					tmp += "							<div class='sz_select'>";
+					for (let j = 0; j < product_size.length; j++) {
+					if (j == 0) {
+							// 클릭시 input - hidden tag에 pcid지정
+							//tmp += "<a href='javascript:void(0)' onclick = 'selectSize(&#39;"+ pcid+ "&#39;,&#39;" + psize + "&#39;)' class='on')>"+product_size.at(j).psize+"</a>";
+						tmp += "<a href='javascript:void(0)' class='on')>"+product_size.at(j).psize+"</a>";
+						} else {
+							//tmp += "<a href='javascript:void(0)' onclick = 'selectSize(&#39;"+ pcid+ "&#39;,&#39;" + psize + "&#39;)')>"+product_size.at(j).psize+"</a>";
+							tmp += "<a href='javascript:void(0)')>"+product_size.at(j).psize+"</a>";
+						}					
+					} 
+
+					tmp += "							</div>";
+					tmp += "						</dd>";
+					
+					tmp += "						<dt>수량</dt>";
+					tmp += "						<dd>";
+					tmp += "							<div class='qty_sel num'>";
+					
+					tmp += "							<a href='javascript:leftClick(0)' class='left'>이전 버튼</a>";
+					tmp += "							<input type='text' title='수량' value='1' id='quantity0' class='mr0' readonly='readonly'>";
+					tmp += "							<a href='javascript:leftClick(0)' class='right'>다음 버튼</a>";
+
+					tmp += "							</div>";
+					tmp += "						</dd>";
+					tmp += "					</dl>";
+					
+					// form tag 여기다가 사이즈 + 색깔 선택 -> 장바구니로 넘기기
+					tmp += "					<form id='addToCartForm0' name='addToCartForm'";
+					tmp += "						<input type='hidden' maxlength='3' size='1' name='qty' class='qty'>";
+					tmp += "						<input type='hidden' name='pcid' value='SY2CBRJC445WP_LY_82'>";
+					tmp += "						<input type='hidden' name='psize' value='ApparelSizeVariantProduct'>";
+					tmp += "						<input type='hidden' id='stockCnt0' value='16'>";
+					tmp += "					</form>";
+					tmp += "				</div>";
+					tmp += "			</div>";
+					
+					tmp += "			<div class='btns'>";
+					tmp += "				<a href='javascript:void(0)' class='btn wt_ss bag' id='addToCart_0'>쇼핑백담기</a>";
+				//	tmp += "				<a href='javascript:void(0)' class='btn wt_ss mt10 bag' id='cancle_0'>취소</a>";
+					tmp += "				<a href='javascript:void(0)' class='btn_close bag' id='close_0'>닫기</a>";
+					
+					tmp += "			</div>";
+					tmp += "		</div>";
+					tmp += "	</td>";	
+					tmp += "</tr>";
+					
+/*  					tmp += "<li class='cell'><a id='product_link" + i + "' href='productdetail?pcode=" + product_array.at(i).product.pcode + "&cproductcolor=" + product_array.at(i).colors.at(product_array.at(i).state).cproductcolor + "'>";
+					tmp += "	<div id='product_img" + i + "' class='img-box imgswap'>";
+					tmp += "		<img src='" + product_color.at(product_array.at(i)["state"])["cimageproduct1"] + "' alt='' />";
+					tmp += "		<img src='" + product_color.at(product_array.at(i)["state"])["cimageproduct2"] + "' alt='' />";
+					tmp += "	</div>";
+					tmp += "	<div class='brand-name'>" + product_info.bname + "</div>";
+					tmp += "	<div class='product-name'>" + product_info.pname + "</div>";
+					tmp += "	<div class='product-price'>" + product_info.pprice.toLocaleString() + "원</div></a>";
+					tmp += "	<div class='product-color'>";
+					for (let j = 0; j < product_color.length; j++) {
+						tmp += "<a href='javascript:changeColor(" + i + ", " + j + ")'><img src='" + product_color.at(j)["ccolorchipimage"] + "'/></a>";
+					}
+					tmp += "	</div>";
+					tmp += "</li>";  */
+					html_tmp += tmp;
+				}
+				$("#listBody").html(html_tmp);
+				 showProductPage(totalCnt);				
+			});  
+    	}
+
+		var pageNum = 1;
+		var pageNation = $(".paging")
+		
+		
+		  
+		
+		 	function showProductPage(totalCnt) {
+
+    		console.log("totalCn" + totalCnt);
+ 			// 시작 페이지, 마지막 페이지, 이전페이지, 다음 페이지 구현
+ 			// 3은 화면에 표현해주는 페이지 네이션의 갯수
+			var endNum = Math.ceil(pageNum / 3.0) * 3;
+			console.log("endNum" + endNum);
+			var startNum = endNum - 2;
+			console.log("startNum" + startNum);
+			var prev = startNum != 1;
+			var next = false; // 기본 값은 false 
+			// 현재 보이는 pagenation의 마지막 숫자의 *10은 현재 까지의 데이터 갯수인데
+			// 이것보다 total 갯수가 더 적다면 -> 페이지 조정이 필요
+			if (endNum * 2 >= totalCnt) { //마지막페이지계산// 이때 2는 한 페이지에 표현되는 갯수
+				endNum = Math.ceil(totalCnt / 2.0);
+			} //end if	      
+			if (endNum * 2 < totalCnt) { //다음페이지 가능
+				next = true;
+			} //end if	 
+
+			console.log("pageNum" + pageNum);
+			console.log("endNum" + endNum);
+			console.log("startNum" + startNum);
+			
+			// *************페이지 표시******************
+			
+			 // 페이지 네이션 표시
+			 // "/mypage/getLikeList?page=" + urlParams.get("page")
+			var str = "";
+			str += "<a class='prev2' href='1'> 처음 페이지 </a>";
+			if (pageNum <= 0) {
+				str += "<a class='prev' href='1'> 이전 페이지 </a>";
+			} else {
+				str += "<a class='prev' href='" + (pageNum - 1)+ "'> 이전 페이지 </a>";
+			}
+			str += "<span class = 'num'>";
+			for (var i = startNum; i <= endNum; i++) {
+				// 현재 페이지 active
+				var active = pageNum == i ? "on" : "";
+				str += "<a href='" + i + "'class='pageBtn " + active + "'>" + i + "</a>";
+			}
+			str += "</span>";
+			if (pageNum >= endNum) {
+				str += "<a class='next' href='" + endNum + "'> 다음 페이지 </a>";
+			} else {
+				str += "<a class='next' href='" + (pageNum + 1)+ "'> 다음 페이지 </a>";
+			}
+			str += "<a class='next2' href='" + endNum + "'> 마지막 페이지 </a>";
+			// console.log(str);
+			pageNation.html(str); 
+    	} 
+		 	
+			//페이지 번호 클릭	
+			//반드시 on함수 사용해야 한다. - js에 의해 새로 생긴 태그에는 이벤트가 주어지지 않기 때문에 찾아서 이벤트를 넣어줘야 한다.
+			pageNation.on("click", "a", function(e) {
+				// 링크 이동 행동 무시
+				e.preventDefault(); //<a> 동작 중지
+				console.log("page click");
+				var targetPageNum = $(this).attr("href"); //페이지넘버 가져오기	       
+				console.log("targetPageNum: " + targetPageNum);
+				if (targetPageNum <= 0) {
+					targetPageNum = 1;
+				}
+				console.log("targetPageNum: " + targetPageNum);
+				// 전역 변수에 값 전달
+				pageNum = targetPageNum; //값전달
+				showWish(pageNum); //페이지 리스트 다시 출력
+			}); //end replyPageFooter click 
+    	   	
+    });
+    
+/*      function showCart(String pid, String pcid) {
+    	
+    }
+    function deleteLike(String pid, String mid) {
+    	
+    } */
+    // input hidden태그에 pcid값 지정
+/*     function selectColor(String pcid) {
+    	
+    }  */
+    // function selectSize(String pcid) // input tag에 담긴 값 가져와서 value가 "" 이면 색깔 선택하라고 하고, 아니면 pcid랑 현재 사이즈 넘기기, input tag에 값 저장 -> 재고 처리 
+function deleteLike(pid, mid) {
+	
+	console.log("삭제 수행");
+ 	console.log(pid);
+	console.log(mid); 
+		
+	$.ajax({
+		url: "/product/deleteLike",
+		data: {
+			"pid" : pid,
+			"mid" : mid
+		}
+	}).done(function (data) {
+		console.log("delete" +data.result);
+		if (data.result === 1) {
+			showWish(1);
+			alert("위시리스트에서 삭제 되었습니다.");
+			let id = "wish_"+pid;
+			console.log(id);
+			console.log("-");
+			let test = $('#'+ id).html();			
+			console.log(test);
+			$('#'+ id).removeClass('on');
+			//let count = parseInt($("#wishlistCount").html());
+			//let countP = count - 1;
+			console.log("위시 갯수: " + data.wishCnt);
+			$("#wishlistCount").html(data.wishCnt);
+		} else {
+			alert("오류 발생.");
+		}
+	});	 			
+}
     </script>
 <%@ include file="/WEB-INF/views/common/footer.jsp"%>

@@ -52,12 +52,6 @@ public class HomeController {
 		return json;
 	}
 	
-	@RequestMapping("/mypage/mywish")
-	public String productList(Model model) {
-		log.info("위시 리스트 출력");
-		// 세션에서 mid가져오기!!!!!!!!!!!!!!!!!!!!!!!!111
-		//model.addAttribute("mid", "team5");
-		return "mypage/mywish";
-	}
+
 	
 }

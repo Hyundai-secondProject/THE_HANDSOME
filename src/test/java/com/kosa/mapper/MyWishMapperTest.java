@@ -13,7 +13,7 @@ import com.kosa.domain.member.LikesVO;
 import lombok.extern.log4j.Log4j;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration("file:src/main/webapp/WEB-INF/spring/root-context.xml")
+@ContextConfiguration({"file:src/main/webapp/WEB-INF/spring/root-context.xml","file:src/main/webapp/WEB-INF/spring/security-context.xml"})
 @Log4j
 public class MyWishMapperTest {
 	
@@ -23,8 +23,8 @@ public class MyWishMapperTest {
 	
 	@Test
 	public void selectTest() {
-		List<LikesVO> list = mapper.selectLikeProducts("team5");
-		log.info(list.get(0));
+		List<LikesVO> list = mapper.selectLikeProducts(null, "team5");
+		//log.info(list.get(0));
 	}
 	
 	@Test
