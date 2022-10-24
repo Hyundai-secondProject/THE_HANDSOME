@@ -1176,14 +1176,16 @@ function selectRemove(entryNumber) {
 	entryNumber = entryNumber.substring(0,entryNumber.length-1);
 	var entryArray = entryNumber.split(",");
 	
+	var mid = "ehfhfh1313";
     $.ajax({
         type: "GET",
-        url: "/ajax/selectRemove",
-        dataType: "json",
+        url: "/cartAjax/selectRemove/"+mid+"/"+entryNumber,
         async : false,
-        data : {"entryNumber" : entryNumber},
+        data : {},
         success: function(data){
-			if(data == "") {
+        	console.log("성공!");
+            location.reload();
+			/* if(data == "") {
         		var lc = "";
         		if(type == "outOfStock") {
         			lc = new layerAlert("품절상품을 삭제하였습니다.");
@@ -1213,7 +1215,7 @@ function selectRemove(entryNumber) {
                 lc.confirmAction = function(){
                 	window.location.reload();
             	};
-			}
+			} */
         },
         error: function(xhr,  Status, error) {
             alert('sendRequest error : ' + xhr.status + " ( " + error + " ) " );

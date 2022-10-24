@@ -53,6 +53,11 @@ public class CartServiceImpl implements CartService {
     }
     
     @Override
+    public void deleteProducts(String mid, List<String> psidList) {
+        cartMapper.deleteProducts(mid, psidList);
+    }
+    
+    @Override
     public void updateQuantity(CartVO cart) {
         cartMapper.update(cart.getMid(), cart.getPsid(), cart.getPquantity());
     }

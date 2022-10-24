@@ -53,8 +53,6 @@
 			close=")" separator=",">
 	 #{entryNum}
 	</foreach>
-	
-	
 	</select>
 	
 	<!-- insert시에 mid와 psid는 fk이므로 부모데이터가 존재해야한다 -->
@@ -65,6 +63,17 @@
 
 	<delete id = "delete">
 		delete from cart where mid = #{mid} and psid = #{psid}	
+	</delete>
+	
+	<!-- 선택항목삭제 -->
+	<delete id = "deleteProducts">
+		delete from cart 
+		where mid = #{mid} 
+		and psid in
+		<foreach item="psidList" index="index" collection="psidList" open="("
+			close=")" separator=",">
+		  #{psidList}
+		</foreach>
 	</delete>
 	
 	<update id="update">

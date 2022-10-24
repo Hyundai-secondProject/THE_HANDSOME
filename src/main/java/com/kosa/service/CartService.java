@@ -29,6 +29,8 @@ public interface CartService {
     
     // delete
     public void deleteProduct(CartVO cart);
+    // delete
+    public void deleteProducts(String mid, List<String> psidList);
     
     // update
     public void updateQuantity(CartVO cart);
