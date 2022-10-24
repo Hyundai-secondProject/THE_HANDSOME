@@ -25,7 +25,9 @@ $.ajax({
 		item.productDetail.pcprice
 		item.productDetail.psize
 		*/
+		var cartcnt=0;
 		$.each(data, function(index, item) { // 데이터 =item
+			cartcnt=index;
 			console.log(index+"\n");
 			console.log(item);
 				cartList = '';
@@ -69,7 +71,8 @@ $.ajax({
 				cartList+= '        <!-- qty_sel -->                                                       ';
 				cartList+= '        <span class="qty_sel num">                                                       ';
 				cartList+= '        	<a href="#none" onMouseDown="javascript:AEC_F_D(\'LB2CAWTO363M_KE_L\',\'o\',1);" class="left" onclick="GA_Event(\'쇼핑백\', \'수량\', \'-\');">이전 버튼</a>                                                       ';
-				cartList+= '            	<input id="quantity'+index+'" name="quantity" type="text" class="mr0" value="'+item.pquantity+'" size="1" maxlength="3"/>                                                        ';
+				cartList+= '            	<input id="quantity'+index+'" name="quantity" type="text" class="mr0" value="'+item.pquantity+'" size="1" maxlength="3"/>                      ';
+				cartList+= '            	<input id="initialQuantity'+index+'" name="initialQuantity" type="hidden" value="'+item.pquantity+'"/>                      ';
 				cartList+= '            <a href="#none" onMouseDown="javascript:AEC_F_D(\'LB2CAWTO363M_KE_L\',\'i\',1);" class="right" onclick="GA_Event(\'쇼핑백\', \'수량\', \'+\');">다음 버튼</a>                                                   ';
 				cartList+= '            </span>                                                   ';
 				cartList+= '        <!-- //qty_sel -->                                                       ';
@@ -136,6 +139,8 @@ $.ajax({
 				
 			$("#msg").append(cartList);
 			});
+		cartcnt=cartcnt+1;
+		$("#cartcnt").append("택배 ("+cartcnt+")");
 		}
 	});
 });

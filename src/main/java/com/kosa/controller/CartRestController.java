@@ -102,7 +102,18 @@ public class CartRestController {
         return service.getProductsWithEntryNum("ehfhfh1313", entryNum);
     }
     
-//    // 수량변경
-//    @GetMapping("")
-
+    // 수량변경
+    @GetMapping("updateQuantity/{mid}/{psid}/{newCartQuantity}")
+    public void updateQuantity(@PathVariable("mid") String mid,
+                                @PathVariable("psid") String psid,
+                                @PathVariable("newCartQuantity") int qty) {
+        System.out.println(mid + psid + qty);
+        CartVO cart = new CartVO();
+        
+        cart.setMid(mid);
+        cart.setPsid(psid);
+        cart.setPquantity(qty);
+        
+        service.updateQuantity(cart);  
+    }   
 }
