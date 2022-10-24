@@ -224,18 +224,29 @@ $(document).ready(function ()
         }
         
         if(prodid[0] == 'RemoveProduct'){
+        	var mid ="ehfhfh1313";
             var form = $('#updateCartForm' + prodid[1]);
-            var productCode = form.find('input[name=productCode]').val(); 
-            var initialCartQuantity = form.find('input[name=initialQuantity]');
-            var cartQuantity = form.find('input[name=quantity]');
+            var psid = form.find('input[name=psid]').val(); 
+            var pquantity = form.find('input[name=pquantity]');
             var cartData = form.data("cart");
             
-            AEC_F_D(productCode,'o',initialCartQuantity.val());
-            
-            cartQuantity.val(0);
-            initialCartQuantity.val(0);
-            setEcommerceData(prodid[1], "Remove From Cart");
-            form.submit();
+          
+             $.ajax({
+                type: "GET",
+                url: "/cartAjax/RemoveProduct/"+mid+"/"+psid,
+                dataType: "json",
+                async : false,
+                cache : false,			
+                data: {},
+                success: function(data){
+                    console.log("성공!");
+                    location.reload();
+   
+                },
+                error: function(xhr,  Status, error) {
+                    alert('sendRequest error : ' + xhr.status + " ( " + error + " ) " );
+                }
+            });	 
         }
         
         if(prodid[0] == 'UpdateCart'){

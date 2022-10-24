@@ -63,6 +63,9 @@ $.ajax({
 				cartList+= '        <input type="hidden" name="storePickupDate" value="" />                                                       ';
 				cartList+= '        <input type="hidden" name="deliveryKind" value="" />                                                       ';
 				cartList+= '        <input type="hidden" name="cartDivision" value="" />                                                       ';
+				
+				cartList+= '        <input type="hidden" name="psid" value="'+item.psid+'" />                                                       ';
+				cartList+= '        <input type="hidden" name="pquantity" value="'+item.pquantity+'" />   '; 
 				cartList+= '        <!-- qty_sel -->                                                       ';
 				cartList+= '        <span class="qty_sel num">                                                       ';
 				cartList+= '        	<a href="#none" onMouseDown="javascript:AEC_F_D(\'LB2CAWTO363M_KE_L\',\'o\',1);" class="left" onclick="GA_Event(\'쇼핑백\', \'수량\', \'-\');">이전 버튼</a>                                                       ';
