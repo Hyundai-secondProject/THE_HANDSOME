@@ -1,9 +1,8 @@
 package com.kosa.service;
-
 /**
  * EventViewServiceTest
  * @author 김민규
- * @since 2022.10.19
+ * @since 2022.10.24
  * @version 1.0
  * 
  * <pre>
@@ -12,7 +11,6 @@ package com.kosa.service;
  * 2022.10.24   김민규                   최초 생성
  * </pre>
  */
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,15 +23,13 @@ import lombok.extern.log4j.Log4j;
 @Log4j
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration({"file:src/main/webapp/WEB-INF/spring/root-context.xml", "file:src/main/webapp/WEB-INF/spring/security-context.xml"})
-public class EventViewServiceTest {
-	
+public class InsertCouponServiceTest {
 	@Autowired
 	private EventService service;
 	
 	@Test
 	public void servicetest() {
-		log.info(service.getEventList());
+		service.insertCoupon(1, "team5");
 		
 	}
-	
 }
