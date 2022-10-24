@@ -48,7 +48,7 @@ public class EventController {
 	@GetMapping(value = "/makecoupon")
 	public String makeCoupon(@RequestParam("ENO") int ENO, @RequestParam("MID") String MID) {
 		eventservice.insertCoupon(ENO, MID);
-		return"redirect:/mypage/mycoupon?MID="+MID;
+		return"redirect:/mypage/mycouponUnused?MID="+MID;
 	}
 	
 	

@@ -14,15 +14,15 @@ import org.springframework.web.context.WebApplicationContext;
 
 import lombok.extern.log4j.Log4j;
 /**
- * EventViewControllertest
+ * CouponDetailUnusedControllerTest
  * @author 김민규
- * @since 2022.10.21
+ * @since 2022.10.25
  * @version 1.0
  * 
  * <pre>
  * 수정일              수정자                   수정내용
  * ----------  --------    ---------------------------
- * 2022.10.21    김민규                  최초 생성
+ * 2022.10.25    김민규                  최초 생성
  * 
  * </pre>
  */
@@ -30,7 +30,7 @@ import lombok.extern.log4j.Log4j;
 @Log4j
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration({"file:src/main/webapp/WEB-INF/spring/root-context.xml","file:src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml", "file:src/main/webapp/WEB-INF/spring/security-context.xml"})
-public class CouponDetailControllerTest {
+public class CouponDetailUnusedControllerTest {
 	
 	@Autowired
 	private WebApplicationContext ctx;
@@ -43,7 +43,7 @@ public class CouponDetailControllerTest {
 	}
 	@Test
 	public void TestEventdetailView() throws Exception{
-		log.info(mockMvc.perform(MockMvcRequestBuilders.get("/mypage/mycoupon").param("MID", "team5")).andReturn().getModelAndView().getModelMap());
+		log.info(mockMvc.perform(MockMvcRequestBuilders.get("/mypage/mycouponUnused").param("MID", "team5")).andReturn().getModelAndView().getModelMap());
 	}
 	
 
