@@ -20,18 +20,19 @@ import lombok.extern.log4j.Log4j;
  * @author 김민규
  * @since 2022.10.18
  * @version 1.0
- * 통과가 안됨 -> 기존 파일은 실행된다.
+ * 
  * <pre>
  * 수정일              수정자                   수정내용
  * ----------  --------    ---------------------------
  * 2022.10.18    김민규                  최초 생성
+ * 
  * </pre>
  */
 @WebAppConfiguration
 @Log4j
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration({"file:src/main/webapp/WEB-INF/spring/root-context.xml","file:src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml", "file:src/main/webapp/WEB-INF/spring/security-context.xml"})
-public class EventViewControllertest {
+@ContextConfiguration({"file:src/main/webapp/WEB-INF/spring/root-context.xml", "file:src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml","file:src/main/webapp/WEB-INF/spring/security-context.xml"})
+public class EventDetailControllertest {
 	
 	@Autowired
 	private WebApplicationContext ctx;
@@ -43,7 +44,7 @@ public class EventViewControllertest {
 		this.mockMvc = MockMvcBuilders.webAppContextSetup(ctx).build();
 	}
 	@Test
-	public void TestEventView() throws Exception{
-		log.info(mockMvc.perform(MockMvcRequestBuilders.get("/magazine/event")).andReturn().getModelAndView().getModelMap());
+	public void TestEventdetailView() throws Exception{
+		log.info(mockMvc.perform(MockMvcRequestBuilders.get("/magazine/eventdetail").param("ENO", "1")).andReturn().getModelAndView().getModelMap());
 	}
 }

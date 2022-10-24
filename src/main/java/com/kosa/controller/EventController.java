@@ -4,6 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kosa.service.EventService;
 
@@ -19,23 +20,35 @@ import lombok.extern.log4j.Log4j;
  * 수정일              수정자                   수정내용
  * ----------  --------    ---------------------------
  * 2022.10.19    김민규               최초 생성
+ * 2022.10.20	김민규		eventdetail 추가
+ * 
  * </pre>
  */
 
 
 @Controller
-@RequestMapping("/magazine/*")
+@RequestMapping(value = "/magazine/*")
 @Log4j
 public class EventController {
 	
 	@Autowired
 	EventService eventservice;
 	
-	@GetMapping("/event*")
+	@GetMapping(value = "/event")
 	public void event(Model model){
 		model.addAttribute("list",eventservice.getEventList());
 		log.info(eventservice.getEventList());
 	}
+	
+	@GetMapping(value = "/eventdetail")
+	public void eventdetail(@RequestParam("ENO") int ENO, Model model) {
+		model.addAttribute("detaillist",eventservice.getEventDetail(ENO));
+		log.info(eventservice.getEventDetail(ENO));
+	}
+	
+	
+	
+	
 
 	
 	
