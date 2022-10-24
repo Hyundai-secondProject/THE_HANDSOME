@@ -2,6 +2,7 @@ package com.kosa.service;
 
 import static org.junit.Assert.*;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 import org.junit.Test;
@@ -48,7 +49,7 @@ public class MemberServicelpmlTest {
 		vo.setMname("기원");
 		vo.setMemail("giwon@naver.com");
 		vo.setMphone("01011122");
-		vo.setMbirth(new Date());
+		vo.setMbirth(LocalDate.now());
 		log.info(memberService.join(vo));
 	}
 
@@ -56,6 +57,11 @@ public class MemberServicelpmlTest {
 	public void passwordCheckTest() {
 		MemberVO vo = memberService.passwordCheck("as", "as");
 		log.info("결과확인 : " + vo);
+	}
+	
+	@Test
+	public void isDupl() {
+		log.info(memberService.isDulpId("shingk0323@naver.com"));
 	}
 //	MemberVO vo  = new MemberVO();
 //	vo.setMid("11231");

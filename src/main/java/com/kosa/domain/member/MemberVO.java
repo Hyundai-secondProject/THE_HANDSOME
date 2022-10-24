@@ -1,5 +1,6 @@
 package com.kosa.domain.member;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -39,7 +40,7 @@ public class MemberVO{
 	private String mzipcode;  // 우편번호
 	private String maddress1;  // 주소1
 	private String maddress2;  // 주소2
-	private Date mbirth;   // 생년월일
+	private LocalDate mbirth;   // 생년월일
 	private int mgender;   // 성별
 	private String mrefid;  // 추천인
 	private String mlogintype;  // 로그인 유형
