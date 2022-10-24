@@ -1408,11 +1408,27 @@
 									<ul class="color_chip clearfix">
 										<input type="hidden" id="colorName" value="GREY KHAKI">
 										<c:forEach var="color" items="${colors}">
-
-											<li><a
+										<c:set var ="a" value="${color.pcid}"/>
+										<c:set var ="b" value="${pcid}"/>
+											<c:choose>
+											    <c:when test="${a == b}">
+      												<li>
+											        	<a href="productdetail?pid=${product.pid}&pcid=${color.pcid}" class="beige on"
+															style="background-image: url(${color.pcchipimg})"> </a>
+													</li>
+   												</c:when>
+											    <c:otherwise>
+											        <li>
+											        	<a href="productdetail?pid=${product.pid}&pcid=${color.pcid}" class="beige"
+															style="background-image: url(${color.pcchipimg})"> </a>
+													</li>
+											    </c:otherwise>
+											</c:choose>
+											
+<%-- 											<li><a
 												href="productdetail?pid=${product.pid}&pcid=${color.pcid}"
 												class="beige"
-												style="background-image: url(${color.pcchipimg})"> </a></li>
+												style="background-image: url(${color.pcchipimg})"> </a></li> --%>
 										</c:forEach>
 									</ul>
 								</div> <span class="cl_name" id="colorNameContent"></span></li>
@@ -2091,10 +2107,22 @@
 					<!-- //st_store_wrap -->
 					<div class="btnwrap clearfix"
 						style="position: absolute; width: 473px; margin-top: 0px; margin-bottom: 0px;">
-						<input type="button" value=""
-							class="btn wishlist1803 float_left ml0  "
-							id = 'wish_${product.pid}';
-							onclick="insertLike('${product.pid}','team5')"> <!-- 좋아요 버튼!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+						
+						<c:set var ="checkLike" value="${checkLike }"/>
+											<c:choose>
+											    <c:when test="${checkLike}">
+													<input type="button" value=""
+														class="btn wishlist1803 float_left ml0 on "
+														id = 'wish_${product.pid}';
+														onclick="insertLike('${product.pid}','team5')"> <!-- 좋아요 버튼!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+   												</c:when>
+											    <c:otherwise>
+													<input type="button" value=""
+														class="btn wishlist1803 float_left ml0"
+														id = 'wish_${product.pid}';
+														onclick="insertLike('${product.pid}','team5')"> <!-- 좋아요 버튼!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+											    </c:otherwise>
+											</c:choose>
 
 						<div class="toast_popup">
 							<p style="display: none; top: -4.12381px; opacity: 0.031172;">위시리스트에서
@@ -3164,10 +3192,10 @@ function insertLike(pid, mid) {
 			let test = $('#'+ id).html();			
 			console.log(test);
 			$('#'+ id).addClass('on');
-			let count = parseInt($("#wishlistCount").html());
-			let countP = count + 1;
-			console.log("위시 갯수: " + countP);
-			$("#wishlistCount").html(countP);
+			//let count = parseInt($("#wishlistCount").html());
+			//let countP = count + 1;
+			console.log("위시 갯수: " + data.wishCnt);
+			$("#wishlistCount").html(data.wishCnt);
 			
 		} else {
 			deleteLike(pid, mid);
@@ -3197,10 +3225,10 @@ function deleteLike(pid, mid) {
 			let test = $('#'+ id).html();			
 			console.log(test);
 			$('#'+ id).removeClass('on');
-			let count = parseInt($("#wishlistCount").html());
-			let countP = count - 1;
-			console.log("위시 갯수: " + countP);
-			$("#wishlistCount").html(countP);
+			//let count = parseInt($("#wishlistCount").html());
+			//let countP = count - 1;
+			console.log("위시 갯수: " + data.wishCnt);
+			$("#wishlistCount").html(data.wishCnt);
 		} else {
 			alert("오류 발생.");
 		}

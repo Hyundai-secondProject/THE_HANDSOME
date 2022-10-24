@@ -32,13 +32,14 @@ import lombok.extern.log4j.Log4j;
 @Log4j
 @Controller
 @RequestMapping("/product/*")
+@RequiredArgsConstructor
 public class ProductController {
 
-	@Autowired
-	private ProductService service;
-	
-	@Autowired
-	private MyWishService mywishservice;
+
+	private final ProductService service;
+	private final MyWishService mywishservice;
+	String mid = "team5";
+
 
 	@GetMapping(value = "/getProductList", produces = "application/json; charset=UTF-8")
 	@ResponseBody
@@ -73,6 +74,10 @@ public class ProductController {
 			List<ProductColorVO> colors = service.getProductColor(p);
 			tmpObject.put("colors", colors);
 			tmpObject.put("state", 0);
+			
+			// 좋아요 체크 상태 가져오기
+			
+			tmpObject.put("checkLike", mywishservice.checkLike(p.getPid(), mid));
 			// 제품 가격 가져오기
 			tmpObject.put("pprice", colors.get(0).getPcprice());
 			jsonArray.put(tmpObject);
@@ -90,7 +95,10 @@ public class ProductController {
 	public String productList(Model model) {
 		log.info("제품 리스트 출력");
 		// 세션에서 mid가져오기!!!!!!!!!!!!!!!!!!!!!!!!111
-		model.addAttribute("mid", "team5");
+		int count = mywishservice.countLikes("team5");
+		
+		model.addAttribute("wishCnt",count);
+		model.addAttribute("mid", mid);
 		return "product/productlist";
 	}
 
@@ -103,6 +111,8 @@ public class ProductController {
 		// product로 색상, 사이즈 가져오기
 		List<ProductColorVO> colors = service.getProductColor(product);
 		List<ProductSizeVO> sizes = service.getProductSize(product);
+		boolean checkLike = mywishservice.checkLike(pid,mid);
+		
 		log.info("가격 : " + colors.get(0).getPcprice());
 		log.info("color : " + colors);
 		
@@ -114,8 +124,12 @@ public class ProductController {
 				break;
 			}
 		}
-
-		model.addAttribute("mid", "team5");
+		
+		int count = mywishservice.countLikes("team5");
+		log.info("checkLike11111111111 : " + checkLike);
+		model.addAttribute("checkLike",checkLike);
+		model.addAttribute("wishCnt",count);
+		model.addAttribute("mid", mid);
 		// model.addAttribute("mid2", 1);
 		model.addAttribute("pcprice", colors.get(0).getPcprice());
 		model.addAttribute("pcid", pcid);
@@ -155,9 +169,13 @@ public class ProductController {
 		
 		try {
 			int result = mywishservice.insertLike(pid, mid);
+			int wishCnt = mywishservice.countLikes(mid);
+			log.info(wishCnt);
 			jsonObject.put("result", result);
+			jsonObject.put("wishCnt", wishCnt);
 		} catch (Exception e) {
 			jsonObject.put("result", -1);
+			jsonObject.put("wishCnt", -1);
 		} finally {
 			json = jsonObject.toString();
 		}
@@ -174,9 +192,12 @@ public class ProductController {
 		
 		try {
 			int result = mywishservice.deleteLike(pid, mid);
+			int wishCnt = mywishservice.countLikes(mid);
 			jsonObject.put("result", result);
+			jsonObject.put("wishCnt",wishCnt);
 		} catch (Exception e) {
 			jsonObject.put("result", -1);
+			jsonObject.put("wishCnt", -1);
 		} finally {
 			json = jsonObject.toString();
 		}

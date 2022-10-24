@@ -27,6 +27,6 @@ public class LikesVO {
 	private int ltime; // 누른시간
 	private String pname; // 상품 이름
 	private String bname; // 상품 브랜드
-	private int pcprice; // 상품 가격
-	private String pcimg3; // 상품 사진
+	//private int pcprice; // 상품 가격
+	//private String pcimg3; // 상품 사진
 }

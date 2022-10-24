@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.kosa.domain.member.LikesVO;
+import com.kosa.domain.paging.Criteria;
+import com.kosa.domain.paging.WishPageDTO;
 import com.kosa.mapper.MemberMapper;
 import com.kosa.mapper.MyWishMapper;
 
@@ -27,13 +29,27 @@ public class MyWishServiceImpl implements MyWishService {
 	}
 
 	@Override
-	public List<LikesVO> getLikeProducts(String mid) {
-		return mapper.selectLikeProducts(mid);
-	}
-
-	@Override
 	public int countLikes(String mid) {
 		return mapper.countLikes(mid);
 	}
+
+	@Override
+	public WishPageDTO getLikeProducts(Criteria cri, String mid) {
+		// TODO Auto-generated method stub
+		return new WishPageDTO(
+				mapper.countLikes(mid) ,
+				mapper.selectLikeProducts(cri, mid)
+				);
+	}
+
+	@Override
+	public boolean checkLike(String pid, String mid) {
+		if (mapper.checkLike(pid, mid) >= 1) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 
 }

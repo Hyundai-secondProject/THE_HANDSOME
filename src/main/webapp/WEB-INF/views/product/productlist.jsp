@@ -414,13 +414,12 @@
 	$(window)
 			.ready(
 					function() {
-
+						// 카테고리 띄우기
+						const url = new URL(window.location.href);
+						const urlParams = url.searchParams;	
+						
 						// 바로 상품 띄우기
 						showList(2);
-
-						// 카테고리 띄우기
-							const url = new URL(window.location.href);
-							const urlParams = url.searchParams;	
 	
 							let CatTmp = "";
 							let arr = new Array();
@@ -490,7 +489,9 @@
 													let product_color = product.colors;
 													let product_info = product.product;
 													let product_price = product.pprice;
-
+													let checkLike = product.checkLike;
+													console.log("checkLike : " + checkLike);
+													
 													let tmp = "";
 													//console.log(product_info);
 													console.log(product_color
@@ -571,8 +572,12 @@
 																+ "'class = 'cl wt'/></a>";
 													}
 													tmp += "</div>";
-													tmp += "<a onclick='insertLike(&#39;"+ pid+ "&#39;,&#39;" + mid + "&#39;)' class='add_wishlist' id='wish_"+product_info.pid+"' data-value='YN2CAWCT156W_BR'>위시리스트 담기</a> "; //onclick='insertLike('"+product_info.pid+"','"+ ${mid}+"')'
-													// href='javascript:insertLike('" + pid + "','" + mid + "')'
+													if (checkLike) {
+														tmp += "<a onclick='insertLike(&#39;"+ pid+ "&#39;,&#39;" + mid + "&#39;)' class='add_wishlist on' id='wish_"+product_info.pid+"' data-value='YN2CAWCT156W_BR'>위시리스트 담기</a> "; 
+													} else {
+														tmp += "<a onclick='insertLike(&#39;"+ pid+ "&#39;,&#39;" + mid + "&#39;)' class='add_wishlist' id='wish_"+product_info.pid+"' data-value='YN2CAWCT156W_BR'>위시리스트 담기</a> "; 
+			
+													}											
 													tmp += "	</div>"; // div1 종료
 													tmp += "</li>"; // list 종료
 													html_tmp += tmp;
@@ -708,10 +713,10 @@ function insertLike(pid, mid) {
 			let test = $('#'+ id).html();			
 			console.log(test);
 			$('#'+ id).addClass('on');
-			let count = parseInt($("#wishlistCount").html());
-			let countP = count + 1;
-			console.log("위시 갯수: " + countP);
-			$("#wishlistCount").html(countP);
+			//let count = parseInt($("#wishlistCount").html());
+			//let countP = count + 1;
+			console.log("위시 갯수: " + data.wishCnt);
+			$("#wishlistCount").html(data.wishCnt);
 			
 		} else {
 			deleteLike(pid, mid);
@@ -741,10 +746,10 @@ function deleteLike(pid, mid) {
 			let test = $('#'+ id).html();			
 			console.log(test);
 			$('#'+ id).removeClass('on');
-			let count = parseInt($("#wishlistCount").html());
-			let countP = count - 1;
-			console.log("위시 갯수: " + countP);
-			$("#wishlistCount").html(countP);
+			//let count = parseInt($("#wishlistCount").html());
+			//let countP = count - 1;
+			console.log("위시 갯수: " + data.wishCnt);
+			$("#wishlistCount").html(data.wishCnt);
 		} else {
 			alert("오류 발생.");
 		}
