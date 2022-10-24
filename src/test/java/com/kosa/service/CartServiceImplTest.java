@@ -1,5 +1,8 @@
 package com.kosa.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +26,7 @@ import lombok.extern.log4j.Log4j;
  */
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration("file:src/main/webapp/WEB-INF/spring/root-context.xml")
+@ContextConfiguration({"file:src/main/webapp/WEB-INF/spring/root-context.xml", "file:src/main/webapp/WEB-INF/spring/security-context.xml"})
 @Log4j
 public class CartServiceImplTest {
     
@@ -34,8 +37,17 @@ public class CartServiceImplTest {
     public void selectTest() {
         // 아이디 받기
         cartService.getProducts("ehfhfh1313");
-        
     }
+    
+    @Test
+    public void selectWithEntryNumTest() {
+        // 아이디 받기
+        List<Integer> entryNum = new ArrayList<>();
+        entryNum.add(1);
+        entryNum.add(3);
+        cartService.getProductsWithEntryNum("ehfhfh1313", entryNum);
+    }
+    
     
     @Test
     public void putTest() {

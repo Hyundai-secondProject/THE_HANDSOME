@@ -1,7 +1,7 @@
-// 주문페이지에 선택된 카트목록 띄우기
+// cart 목록 반환 
 $(document).ready(function(){
 var cartList;
-var mid = $('#testMid').val()
+var mid = $('#testMid').val() // 이후 세션아이디로 변경
 
 $.ajax({
 	type: "GET",  
@@ -29,14 +29,14 @@ $.ajax({
 			console.log(index+"\n");
 			console.log(item);
 				cartList = '';
-				cartList+= ' <tr name="entryProductInfo" data-pk="10944579207212" data-deliverykind="" data-outofstock="false" data-category="GF031"> ';
+				cartList+= ' <tr name="entryProductInfo" data-pk="'+ index +'" data-deliverykind="" data-outofstock="false" data-category="GF031"> ';
 				cartList+= '<td class="frt">';
-				cartList+= '<input type="checkbox" name="cartlist" data-pk="10944579207212" data-division="" data-deliverykind="" value="'+ index +'">';
+				cartList+= '<input type="checkbox" name="cartlist" data-pk="'+index+'" data-division="" data-deliverykind="" value="'+ index +'">';
 				cartList+= '</td>';			 
 			    cartList+= ' <td class="pt_list_wrap">                                                              ';
 				cartList+= ' 	<div class="pt_list_all">                                                              ';
 				cartList+= '    	<a href="/ko/HANDSOME/GOLF/MEN-CLOTHING/Top/%ED%85%8D%EC%8A%A4%EC%B2%98-%EB%B8%94%EB%A1%9D-%ED%95%98%ED%94%84-%EC%A7%91%EC%97%85-%ED%83%91/p/LB2CAWTO363M_KE_L" onclick="javascript:setEcommerceData(\'0\', \'Click ADD\');GA_Event(\'쇼핑백\',\'상품\',\'텍스처 블록 하프 집업 탑\');">                ';
-				cartList+= '        	<img src="http://newmedia.thehandsome.com/LB/2C/FW/LB2CAWTO363M_KE_S01.jpg" alt="" />                                                       ';
+				cartList+= '        	<img src="'+ item.productDetail.pcimg1 +'" alt="" />                                                       ';
 				cartList+= '        </a>                                                       ';
 				cartList+= '        <div class="tlt_wrap">                                                       ';
 				cartList+= '        	<a href="/ko/HANDSOME/GOLF/MEN-CLOTHING/Top/%ED%85%8D%EC%8A%A4%EC%B2%98-%EB%B8%94%EB%A1%9D-%ED%95%98%ED%94%84-%EC%A7%91%EC%97%85-%ED%83%91/p/LB2CAWTO363M_KE_L" class="basket_tlt" onclick="javascript:setEcommerceData(\'0\', \'Click ADD\');GA_Event(\'쇼핑백\',\'상품\',\'텍스처 블록 하프 집업 탑\');">              ';
@@ -63,10 +63,13 @@ $.ajax({
 				cartList+= '        <input type="hidden" name="storePickupDate" value="" />                                                       ';
 				cartList+= '        <input type="hidden" name="deliveryKind" value="" />                                                       ';
 				cartList+= '        <input type="hidden" name="cartDivision" value="" />                                                       ';
+				
+				cartList+= '        <input type="hidden" name="psid" value="'+item.psid+'" />                                                       ';
+				cartList+= '        <input type="hidden" name="pquantity" value="'+item.pquantity+'" />   '; 
 				cartList+= '        <!-- qty_sel -->                                                       ';
 				cartList+= '        <span class="qty_sel num">                                                       ';
 				cartList+= '        	<a href="#none" onMouseDown="javascript:AEC_F_D(\'LB2CAWTO363M_KE_L\',\'o\',1);" class="left" onclick="GA_Event(\'쇼핑백\', \'수량\', \'-\');">이전 버튼</a>                                                       ';
-				cartList+= '            	<input id="quantity'+index+'" name="quantity" type="text" class="mr0" value="1" size="1" maxlength="3"/><a href="#none" onMouseDown="javascript:AEC_F_D(\'LB2CAWTO363M_KE_L\',\'i\',1);" class="right" onclick="GA_Event(\'쇼핑백\', \'수량\', \'+\');">다음 버튼</a>                                                   ';
+				cartList+= '            	<input id="quantity'+index+'" name="quantity" type="text" class="mr0" value="'+item.pquantity+'" size="1" maxlength="3"/><a href="#none" onMouseDown="javascript:AEC_F_D(\'LB2CAWTO363M_KE_L\',\'i\',1);" class="right" onclick="GA_Event(\'쇼핑백\', \'수량\', \'+\');">다음 버튼</a>                                                   ';
 				cartList+= '            </span>                                                   ';
 				cartList+= '        <!-- //qty_sel -->                                                       ';
 				cartList+= '        <a href="#none" id="QuantityProduct_'+index+'" class="btn wt_ss qty_w mr0">변경</a>                                                       ';
@@ -78,8 +81,7 @@ $.ajax({
 				cartList+= '        <td class="al_middle">                                                       ';
 				cartList+= '        <!-- Price -->                                                       ';
 				cartList+= '        	<div class="price_wrap">                                                       ';
-				// 가격에 조건처리 -> 3자리마다 반점찍기
-				cartList+= '        		<span>₩'+ item.productDetail.pcprice+' </span> <input type="hidden" name="checkZeroPrice" value="'+ item.productDetail.pcprice+'" />    ';
+				cartList+= '        		<span>₩'+ addComma(item.pquantity*item.productDetail.pcprice)+' </span> <input type="hidden" name="checkZeroPrice" value="'+ item.pquantity*item.productDetail.pcprice+'" />    ';
 				cartList+= '        	</div> <!-- //Price -->                                                       ';
 				cartList+= '        </td>                                                       ';
 				cartList+= '        <td class="al_middle">                                                       ';

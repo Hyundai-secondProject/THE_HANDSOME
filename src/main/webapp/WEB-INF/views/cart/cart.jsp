@@ -63,6 +63,7 @@ $(document).ready(function ()
     $("#emailDomain").val(emailArr[1]);
     
     //GA 이벤트 태깅 
+    // 체크박스이벤트
     $(document).on('click','input:checkbox', function(){
         var isChecked = $(this).is(":checked");
         
@@ -72,6 +73,7 @@ $(document).ready(function ()
             } else {
                 GA_Event('쇼핑백','선택','전체해제');
             }
+
         } else if ($(this).attr('name') == 'cartlist') { // 개별 선택시
             var label = $(this).parent().next().find('.sb_tlt').text();
             var selYN = "";
@@ -222,18 +224,29 @@ $(document).ready(function ()
         }
         
         if(prodid[0] == 'RemoveProduct'){
+        	var mid ="ehfhfh1313";
             var form = $('#updateCartForm' + prodid[1]);
-            var productCode = form.find('input[name=productCode]').val(); 
-            var initialCartQuantity = form.find('input[name=initialQuantity]');
-            var cartQuantity = form.find('input[name=quantity]');
+            var psid = form.find('input[name=psid]').val(); 
+            var pquantity = form.find('input[name=pquantity]');
             var cartData = form.data("cart");
             
-            AEC_F_D(productCode,'o',initialCartQuantity.val());
-            
-            cartQuantity.val(0);
-            initialCartQuantity.val(0);
-            setEcommerceData(prodid[1], "Remove From Cart");
-            form.submit();
+          
+             $.ajax({
+                type: "GET",
+                url: "/cartAjax/RemoveProduct/"+mid+"/"+psid,
+                dataType: "json",
+                async : false,
+                cache : false,			
+                data: {},
+                success: function(data){
+                    console.log("성공!");
+                    location.reload();
+   
+                },
+                error: function(xhr,  Status, error) {
+                    alert('sendRequest error : ' + xhr.status + " ( " + error + " ) " );
+                }
+            });	 
         }
         
         if(prodid[0] == 'UpdateCart'){
@@ -291,23 +304,7 @@ $(document).ready(function ()
         
     });
 
-	
-    	// 즉시할인 포커스
-       	// 2017.11.17 노출순서 변경
-       	// 데이터가 있을 경우: 청구할인 > 무이자할부 > 즉시할인
-       	// 데이터가 없을 경우: 무이자 할부 노출
-       	    
-         // 기본값: 무이자할인
-        	 // 기본값: 무이자할인
-        	 // 기본값: 무이자할인
-        
-        	 // 부분무이자할인		
-       	   			 // 무이자할부 진행여부    					     			   
-   	   			 // 부분무이자할인		
-       	   			 // 무이자할부 진행여부    					     			   
-        
-        // 할인 정보 노출 Control
-         // 기본값: 무이자할인
+
         
     
 		$("#ce_tab li:eq(0) a").click();
@@ -408,9 +405,9 @@ $(document).ready(function ()
 			prevSelectEntry = ","; // 초기화
 		}
 		
-		//if(entryPkList != ",") {
+		console.log(entryPkList+"이거맞나")
 			cartListCheckPrice(entryPkList, true);
-		//}
+
     });
 	
 	
@@ -1067,14 +1064,15 @@ function deliveryKindChange(entryNumber, type, storeInfo) {
 
 // 체크된거 계산하는 함수
 function cartListCheckPrice(entryPkList, only4pm) {
-	if($.trim(entryPkList) == "") {
+	/* 이건뭐지?  */
+	/* if($.trim(entryPkList) == "") {
 		entryPkList = ",";
-	}
+	} */
 	// 대부분 받아오는게 ","이랑 false
 	
 	// 히든태그에서 오는값인데..
 	var cartDivision = $("#ordersheetCartDivision").val();
-	console.log("cartDivision : "+cartDivision);
+	console.log("cartDivision 이거는 왜자꾸 빵꾸나 cartListCheckPrice : "+cartDivision);
 	if(only4pm == false) {
 		$("input[name='cartlist']").each(function(){
 			if($(this).prop("checked") == true) {
@@ -1087,23 +1085,57 @@ function cartListCheckPrice(entryPkList, only4pm) {
 	var selectProductCount = entryPkList.split(",").length -2; // ,로 시작해서 , 로 끝나므로 -2
 	$("#selectProductCount").text(selectProductCount);
 	
-	$.ajax({
-		type: "GET",
-		url: "/cartAjax/calculation",
-		dataType: "json",
-		async : false,
-        cache : false,			
-		data: {"entryPkList" : entryPkList,
-			    "cartDivision" : cartDivision},
-		success: function(data){
-			$("#cartDataSubtotal").text("₩"+addComma(data.subTotal));
-			$("#cartDataDeliveryCost").text("₩"+addComma(data.deliveryCost));
-			$("#cartDataTotalPrice").text("₩"+addComma(data.totalPrice));
-		},
-		error: function(xhr,  Status, error) {
-			alert('sendRequest error : ' + xhr.status + " ( " + error + " ) " );
-	    }
-	});	
+	var mid = $('#testMid').val();
+	entryPkList=entryPkList.substr(1);
+	entryPkList=entryPkList.slice(0,-1);
+	console.log(entryPkList);
+	if($("input:checkbox[name='cartlist']:checked").length == 0){
+		console.log("체크된것이 없습니다");
+		$("#cartDataSubtotal").text("₩ 0");
+		$("#cartDataDeliveryCost").text("₩ 0");
+		$("#cartDataTotalPrice").text("₩ 0");
+	}else{
+
+    	//값들의 갯수 -> 배열 길이를 지정
+		var cost = $("input[name=checkZeroPrice]").length;
+		//배열 생성
+		var costarr = new Array(cost);
+		var subtotal = 0;
+		//배열에 값 주입
+		for(var i=0; i<cost; i++){                          
+			costarr[i] = $("input[name=checkZeroPrice]").eq(i).val();
+	        console.log(Number(costarr[i]));
+		} 
+	    $("input:checkbox[name='cartlist']:checked").each(function(){
+	    	subtotal+=Number(costarr[$(this).val()]);
+	    });
+	    var deliveryCost=2500;
+	    if(subtotal>=30000)deliveryCost=0;
+	    var totalprice=deliveryCost+subtotal;
+		$("#cartDataSubtotal").text("₩"+addComma(subtotal));
+        $("#cartDataDeliveryCost").text("₩"+addComma(deliveryCost));
+        $("#cartDataTotalPrice").text("₩"+addComma(totalprice)); 
+	 	
+        /* ajax 주석 */
+        /* $.ajax({
+            type: "GET",
+            url: "/cartAjax/calculation/"+mid+"/"+entryPkList,
+            dataType: "json",
+            async : false,
+            cache : false,			
+            data: {},
+            success: function(data){
+                console.log(entryPkList);
+                $("#cartDataSubtotal").text("₩"+addComma(data.subTotal));
+                $("#cartDataDeliveryCost").text("₩"+addComma(data.deliveryCost));
+                $("#cartDataTotalPrice").text("₩"+addComma(data.totalPrice));
+            },
+            error: function(xhr,  Status, error) {
+                alert('sendRequest error : ' + xhr.status + " ( " + error + " ) " );
+            }
+        });	 */ 
+         
+	}
 }
 
 function outOfStockRemove() {
@@ -1144,14 +1176,16 @@ function selectRemove(entryNumber) {
 	entryNumber = entryNumber.substring(0,entryNumber.length-1);
 	var entryArray = entryNumber.split(",");
 	
+	var mid = "ehfhfh1313";
     $.ajax({
         type: "GET",
-        url: "/ko/shoppingbag/selectRemove",
-        dataType: "json",
+        url: "/cartAjax/selectRemove/"+mid+"/"+entryNumber,
         async : false,
-        data : {"entryNumber" : entryNumber},
+        data : {},
         success: function(data){
-			if(data == "") {
+        	console.log("성공!");
+            location.reload();
+			/* if(data == "") {
         		var lc = "";
         		if(type == "outOfStock") {
         			lc = new layerAlert("품절상품을 삭제하였습니다.");
@@ -1181,7 +1215,7 @@ function selectRemove(entryNumber) {
                 lc.confirmAction = function(){
                 	window.location.reload();
             	};
-			}
+			} */
         },
         error: function(xhr,  Status, error) {
             alert('sendRequest error : ' + xhr.status + " ( " + error + " ) " );
@@ -2128,7 +2162,7 @@ function qtyLimitProductAlert(){
         <span id="shoppingbagCartView">
         
         
-<!-- <button id=testAjax">클릭테스트</button> -->
+<!-- 세션아이디를 받아보자 -->
 <input type="hidden" class="testMid" id="testMid" name="testMid" value="ehfhfh1313">
  
 
@@ -2140,7 +2174,7 @@ function qtyLimitProductAlert(){
                 <!-- 장바구니개편 -->
                 <ul class="tab3">
                     <li>
-                        <a href="#;" name="cartDivision" data-division="" onclick="GA_Event('쇼핑백', '탭', '택배');"><span class="delt_ico"></span>택배 (0)</a>
+                        <a href="#;" name="cartDivision" data-division="" onclick="GA_Event('쇼핑백', '탭', '택배');"><span class="delt_ico"></span>택배 ( $("#cartlist") )</a>
                     </li>
                     <li>
                         <a href="#;" name="cartDivision" data-division="store" onclick="GA_Event('쇼핑백', '탭', '매장수령');" ><span class="spt_ico"></span>매장수령 (0)</a>
@@ -2188,10 +2222,16 @@ function qtyLimitProductAlert(){
                             </tr>
                         </thead>
                         <tbody id="msg">
-
-                        	<!-- <div id="msg">
-                      			여기에 데이터 추가
-                        	</div>> -->
+                        
+                        <!-- 여기에 데이터 추가 -->
+                        <!-- 여기에 데이터 추가 -->
+                        <!-- 여기에 데이터 추가 -->
+                        <!-- 여기에 데이터 추가 -->
+                        <!-- 여기에 데이터 추가 -->
+                        <!-- 여기에 데이터 추가 -->
+                        <!-- 여기에 데이터 추가 -->
+                        <!-- 여기에 데이터 추가 -->
+                        <!-- 여기에 데이터 추가 -->	
                             
                         </tbody>
                     </table>
@@ -2204,7 +2244,7 @@ function qtyLimitProductAlert(){
                         <dl>
                                 <dt>상품 합계</dt>
                                 <dd>
-                                    <span id="cartDataSubtotal">₩0</span>
+                                    <span id="cartDataSubtotal">₩ 0</span>
 								</dd>
                                 <dt class="delch_wrap">
                                     <p class="tlt_ship">배송비</p>
@@ -2227,7 +2267,7 @@ function qtyLimitProductAlert(){
                             <dt>
                                 합계</dt>
                             <dd>
-                                <span id="cartDataTotalPrice">₩0</span>
+                                <span id="cartDataTotalPrice">₩ 0</span>
 				</dd>
                         </dl>
                     </div>
@@ -2261,16 +2301,7 @@ function qtyLimitProductAlert(){
 		
                 <form id="ordersheetCloneForm" name="orderSheetCloneForm" action="/checkout/ordersheetTest"  method="get">
                 	<input type="hidden" id="ordersheetEntryNumber" name="ordersheetEntryNumber" value="" />
-					<input type="hidden" id="ordersheetCartDivision" name="ordersheetCartDivision" value="" />
-					<!-- <input type="hidden" name="psid" value=asd />
-					<input type="hidden" name="pquantity" value="" />
-					<input type="hidden" name="bname" value="" />
-					<input type="hidden" name="pccolorcode" value="" />
-					<input type="hidden" name="pcimg1" value="" />
-					<input type="hidden" name="pcprice" value="" />
-					<input type="hidden" name="psize" value="" /> -->
-			 <!--   <div>
-					<input type="hidden" name="CSRFToken" value="ae3faaff-c181-4913-ae57-c2a4ac651d0c" />
+					<!-- <input type="hidden" id="ordersheetCartDivision" name="ordersheetCartDivision" value="" /> -->
 				</div> --></form> 
                      
                 <!--//button wrap-->
