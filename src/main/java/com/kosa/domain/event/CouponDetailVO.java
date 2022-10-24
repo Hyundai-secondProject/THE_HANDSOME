@@ -1,7 +1,5 @@
 package com.kosa.domain.event;
 
-import java.sql.Timestamp;
-
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -15,7 +13,8 @@ import lombok.ToString;
  * <pre>
  * 수정일              수정자                   수정내용
  * ----------  --------    ---------------------------
- * 2022.10.13     공통              최초 생성
+ * 2022.10.13      공통              	최초 생성
+ * 2022.10.24	김민규		쿠폰발급에 필요한 내용만 남도록 수정
  * </pre>
  */
 
@@ -24,12 +23,9 @@ import lombok.ToString;
 @ToString
 public class CouponDetailVO {
 	
-	private String cpid;  //쿠폰아이디
+	
 	private int eno;  // 이벤트번호
 	private String mid;  // 회원아이디
-	private Timestamp issuedate;  // 쿠폰발행날짜
-	private Timestamp cpexpiredate;  // 쿠폰만료날짜
-	private Timestamp cpusedate;  // 쿠폰사용잘짜
-	private int cpstatus;  // 쿠폰상태
+	
 
 }

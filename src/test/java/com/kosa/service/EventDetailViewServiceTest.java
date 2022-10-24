@@ -9,7 +9,7 @@ package com.kosa.service;
  * <pre>
  * 수정일              수정자                   수정내용
  * ----------  --------    ---------------------------
- * 2022.10.24   김민규                   최초 생성
+ * 2022.10.19   김민규                   최초 생성
  * </pre>
  */
 
@@ -22,18 +22,20 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.kosa.service.EventService;
 
 import lombok.extern.log4j.Log4j;
+
 @Log4j
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration({"file:src/main/webapp/WEB-INF/spring/root-context.xml", "file:src/main/webapp/WEB-INF/spring/security-context.xml"})
-public class EventViewServiceTest {
-	
+
+public class EventDetailViewServiceTest {
 	@Autowired
 	private EventService service;
 	
+	private int ENO =1;
+	
 	@Test
 	public void servicetest() {
-		log.info(service.getEventList());
+		log.info(service.getEventDetail(ENO));
 		
 	}
-	
 }
