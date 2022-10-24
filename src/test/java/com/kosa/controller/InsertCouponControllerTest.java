@@ -12,11 +12,10 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-
-
 import lombok.extern.log4j.Log4j;
+
 /**
- * EventViewControllertest
+ * InsertCouponControllerTest
  * @author 김민규
  * @since 2022.10.18
  * @version 1.0
@@ -27,12 +26,13 @@ import lombok.extern.log4j.Log4j;
  * 2022.10.24    김민규                  최초 생성
  * </pre>
  */
+
 @WebAppConfiguration
 @Log4j
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration({"file:src/main/webapp/WEB-INF/spring/root-context.xml","file:src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml", "file:src/main/webapp/WEB-INF/spring/security-context.xml"})
-public class EventViewControllertest {
-	
+@ContextConfiguration({"file:src/main/webapp/WEB-INF/spring/root-context.xml", "file:src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml","file:src/main/webapp/WEB-INF/spring/security-context.xml"})
+
+public class InsertCouponControllerTest {
 	@Autowired
 	private WebApplicationContext ctx;
 	
@@ -44,6 +44,7 @@ public class EventViewControllertest {
 	}
 	@Test
 	public void TestEventView() throws Exception{
-		log.info(mockMvc.perform(MockMvcRequestBuilders.get("/magazine/eventpast")).andReturn().getModelAndView().getModelMap());
+		log.info(mockMvc.perform(MockMvcRequestBuilders.get("/magazine/makecoupon").param("ENO", "1").param("MID", "team5")).andReturn().getModelAndView().getModelMap());
 	}
+
 }

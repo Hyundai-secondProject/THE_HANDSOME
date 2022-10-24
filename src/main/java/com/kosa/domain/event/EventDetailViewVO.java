@@ -23,6 +23,7 @@ import lombok.ToString;
 @Setter
 @ToString
 public class EventDetailViewVO {
+	private int eno;
 	private String etitle;  
 	private Timestamp eissuedate; 
 	private Timestamp eexpiredate;
