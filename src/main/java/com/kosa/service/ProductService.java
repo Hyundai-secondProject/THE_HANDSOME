@@ -35,19 +35,20 @@ public class ProductService {
 		categoryPager.put("category", category);
 		categoryPager.put("cri", cri);
 		categoryPager.put("brand", bname);
+	
 
 		// 소분류까지 하지 않을 때는 brand로 상품 띄우기
 		if (category.getDepth3name().equals("none")) {
-			return new ProductPageDTO(mapper.countDepth1(category), mapper.selectProductsDepth1(categoryPager)); // 브랜드 별 갯수로 바꿔야 함-----------------------------
+			return new ProductPageDTO(mapper.countDepth1(categoryPager), mapper.selectProductsDepth1(categoryPager)); // 브랜드 별 갯수로 바꿔야 함-----------------------------
 		} else if (category.getDepth2name().equals("none")) {
 			// 대분류
-			return new ProductPageDTO(mapper.countDepth1(category), mapper.selectProductsDepth1(categoryPager));
+			return new ProductPageDTO(mapper.countDepth1(categoryPager), mapper.selectProductsDepth1(categoryPager));
 		} else if (category.getDepth1name().equals("none")) {
 			// 대분류 + 중분류
-			return new ProductPageDTO(mapper.countDepth2(category), mapper.selectProductsDepth2(categoryPager));
+			return new ProductPageDTO(mapper.countDepth2(categoryPager), mapper.selectProductsDepth2(categoryPager));
 		}
 		// 대분류 + 중분류 + 소분류
-		return new ProductPageDTO(mapper.countDepth3(category), mapper.selectProductsDepth3(categoryPager));
+		return new ProductPageDTO(mapper.countDepth3(categoryPager), mapper.selectProductsDepth3(categoryPager));
 	}
 	
 	

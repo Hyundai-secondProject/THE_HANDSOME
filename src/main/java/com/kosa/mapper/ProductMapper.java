@@ -19,9 +19,9 @@ public interface ProductMapper {
 	public List<ProductVO> selectProductsDepth2(HashMap<String, Object> categoryPager);
 	public List<ProductVO> selectProductsDepth3(HashMap<String, Object> categoryPager);
 
-	public int countDepth1(CategoryVO category);
-	public int countDepth2(CategoryVO category);
-	public int countDepth3(CategoryVO category);
+	public int countDepth1(HashMap<String, Object> categoryPager);
+	public int countDepth2(HashMap<String, Object> categoryPager);
+	public int countDepth3(HashMap<String, Object> categoryPager);
 
 	public List<ProductColorVO> selectProductColor(ProductVO pid); // 제품 id로 색깔 가져오기
 	public List<ProductSizeVO> selectProductSize(ProductVO pid); // 제품 id로 사이즈 가져오기

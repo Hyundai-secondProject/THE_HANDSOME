@@ -4,6 +4,24 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.kosa.mapper.ProductMapper">
 
+<!-- 키워드는 무조건 대문자 소문자 구분!!!! -->
+	<sql id="criteria">
+		<trim prefix=" AND (" suffix=")" prefixOverrides="AND">
+			<foreach item="type" collection="cri.typeArr"> <!-- 여기서 cri.type 해야할지,,,? -->
+				<trim prefix="AND">
+					<choose>
+						<when test="type== 'B'.toString()">
+							bname like '%' || #{cri.bkeyword} || '%'
+						</when>
+						<when test="type== 'C'.toString()">
+							pccolorcode like '%' || #{cri.ckeyword} || '%'
+						</when>
+					</choose> <!-- end choose -->
+				</trim><!--end trim OR -->
+			</foreach> <!--foreach -->
+		</trim> <!--end trim pre... -->
+	</sql>
+
 	<!-- 테스트용 -->
 	<!-- <select id="selectProduct" resultType="com.kosa.domain.product.ProductCommonVO"> 
 		<![CDATA[ select * from product_common where pid = #{pid} ]]> </select> -->
@@ -12,103 +30,135 @@
 	<!-- paging처리 코드 수정 필요 -->
 	<select id="selectProductsDepth1"
 		resultType="com.kosa.domain.product.ProductVO" parameterType="HashMap">
-		<![CDATA[
-	select pid, pname, pnote, bno, pstatus, depth1name, depth2name,depth3name, bname
+       <![CDATA[     
+        select pid, pname, pnote, bno, pstatus, depth1name, depth2name,depth3name, bname
 			from (
 				select rownum as rnum, pid, pname, pnote, bno, pstatus, depth1name, depth2name,depth3name, bname
 				from (
-	  				select pid, pname, pnote, bno, pstatus, depth1name, depth2name,depth3name, bname
-  					from productVO_view pv
-  					WHERE depth1name = #{category.depth1name}
-  					AND depth2name LIKE '%'
-  					AND depth3name LIKE '%'
-				)
-				where ROWNUM <= #{cri.pageNum} * #{cri.amount}
-		)
-		where rnum > (#{cri.pageNum} - 1) * #{cri.amount}
+                    select distinct pid, pname, pnote, bno, pstatus, depth1name, depth2name,depth3name, bname
+                        from (
+                        	select PV.pid, pname, pnote, bno, pstatus, depth1name, depth2name,depth3name, bname, pc.pccolorcode, pc.pcid
+                        	from productVO_view pv, product_color pc
+                        	WHERE pv.pid = pc.pid
+                            AND depth1name = #{category.depth1name}
+                            AND depth2name LIKE '%'
+                            AND depth3name LIKE '%'
+                            ]]>
+                            <include refid="criteria"/> 
 
-		]]>
+                    <![CDATA[
+                    		)
+                    )
+                    where 
+                    ROWNUM <= #{cri.pageNum} * #{cri.amount}
+                )
+            where rnum > (#{cri.pageNum} - 1) * #{cri.amount}
+            ]]> 
 	</select>
 
 	<!-- 중분류 -->
 	<!-- paging처리 코드 수정 필요 -->
 	<select id="selectProductsDepth2"
 		resultType="com.kosa.domain.product.ProductVO" parameterType="HashMap">
-		<![CDATA[
-	select pid, pname, pnote, bno, pstatus, depth1name, depth2name,depth3name, bname
+       <![CDATA[     
+        select pid, pname, pnote, bno, pstatus, depth1name, depth2name,depth3name, bname
 			from (
 				select rownum as rnum, pid, pname, pnote, bno, pstatus, depth1name, depth2name,depth3name, bname
 				from (
-	  				select pid, pname, pnote, bno, pstatus, depth1name, depth2name,depth3name, bname
-  					from productVO_view pv
-  					WHERE depth1name = #{category.depth1name}
-  					AND depth2name = #{category.depth2name}
-  					AND depth3name LIKE '%'
-				)
-				where ROWNUM <= #{cri.pageNum} * #{cri.amount}
-		)
-		where rnum > (#{cri.pageNum} - 1) * #{cri.amount}
+                    select distinct pid, pname, pnote, bno, pstatus, depth1name, depth2name,depth3name, bname
+                        from (
+                        	select PV.pid, pname, pnote, bno, pstatus, depth1name, depth2name,depth3name, bname, pc.pccolorcode, pc.pcid
+                        	from productVO_view pv, product_color pc
+                        	WHERE pv.pid = pc.pid
+                            AND depth1name = #{category.depth1name}
+                            AND depth2name = #{category.depth2name}
+                            AND depth3name LIKE '%'
+                            ]]>
+                            <include refid="criteria"/> 
 
-		]]>
+                    <![CDATA[
+                    		)
+                    )
+                    where 
+                    ROWNUM <= #{cri.pageNum} * #{cri.amount}
+                )
+            where rnum > (#{cri.pageNum} - 1) * #{cri.amount}
+            ]]> 
 	</select>
 
 	<!-- 소분류 -->
 	<!-- paging처리 코드 수정 필요 -->
 	<select id="selectProductsDepth3"
 		resultType="com.kosa.domain.product.ProductVO" parameterType="HashMap">
-		<![CDATA[
-	select pid, pname, pnote, bno, pstatus, depth1name, depth2name,depth3name, bname
+       <![CDATA[     
+        select pid, pname, pnote, bno, pstatus, depth1name, depth2name,depth3name, bname
 			from (
 				select rownum as rnum, pid, pname, pnote, bno, pstatus, depth1name, depth2name,depth3name, bname
 				from (
-	  				select pid, pname, pnote, bno, pstatus, depth1name, depth2name,depth3name, bname
-  					from productVO_view pv
-  					WHERE depth1name = #{category.depth1name}
-  					AND depth2name = #{category.depth2name}
-  					AND depth3name = #{category.depth3name}
-				)
-				where ROWNUM <= #{cri.pageNum} * #{cri.amount}
-		)
-		where rnum > (#{cri.pageNum} - 1) * #{cri.amount}
+                    select distinct pid, pname, pnote, bno, pstatus, depth1name, depth2name,depth3name, bname
+                        from (
+                        	select PV.pid, pname, pnote, bno, pstatus, depth1name, depth2name,depth3name, bname, pc.pccolorcode, pc.pcid
+                        	from productVO_view pv, product_color pc
+                        	WHERE pv.pid = pc.pid
+                            AND depth1name = #{category.depth1name}
+                            AND depth2name = #{category.depth2name}
+                            AND depth3name = #{category.depth3name}
+                            ]]>
+                            <include refid="criteria"/> 
 
-		]]>
+                    <![CDATA[
+                    		)
+                    )
+                    where 
+                    ROWNUM <= #{cri.pageNum} * #{cri.amount}
+                )
+            where rnum > (#{cri.pageNum} - 1) * #{cri.amount}
+            ]]> 
 	</select>
 
 	<!-- 대분류 갯수 세기 -->
 	<select id="countDepth1" resultType="int"
-		parameterType="com.kosa.domain.product.CategoryVO">
-		SELECT
-		COUNT(pid)
-		FROM productVO_view
-		WHERE depth1name =
-		#{depth1name}
-		AND depth2name LIKE '%'
-		AND depth3name LIKE '%'
+		parameterType="HashMap">
+        select count(distinct pid)
+            from (
+            	select pv.pid
+            	from productVO_view pv, product_color pc
+            	WHERE pv.pid = pc.pid
+                AND depth1name = #{category.depth1name}
+                AND depth2name LIKE '%'
+                AND depth3name LIKE '%'
+                <include refid="criteria"> </include>
+                )
 	</select>
 
 	<!-- 중분류 갯수 세기 -->
 	<select id="countDepth2" resultType="int"
-		parameterType="com.kosa.domain.product.CategoryVO">
-		SELECT
-		COUNT(pid)
-		FROM productVO_view
-		WHERE depth1name =
-		#{depth1name}
-		AND depth2name = #{depth2name}
-		AND depth3name LIKE '%'
+		parameterType="HashMap">
+        select count(distinct pid)
+            from (
+            	select pv.pid
+            	from productVO_view pv, product_color pc
+            	WHERE pv.pid = pc.pid
+                AND depth1name = #{category.depth1name}
+                AND depth2name = #{category.depth2name}
+                AND depth3name LIKE '%'
+                <include refid="criteria"> </include>
+                )
 	</select>
 
 	<!-- 소분류 갯수 세기 -->
 	<select id="countDepth3" resultType="int"
-		parameterType="com.kosa.domain.product.CategoryVO">
-		SELECT
-		COUNT(pid)
-		FROM productVO_view
-		WHERE depth1name =
-		#{depth1name}
-		AND depth2name = #{depth2name}
-		AND depth3name =
-		#{depth3name}
+		parameterType="HashMap">
+        select count(distinct pid)
+            from (
+            	select pv.pid
+            	from productVO_view pv, product_color pc
+            	WHERE pv.pid = pc.pid
+                AND depth1name = #{category.depth1name}
+                AND depth2name = #{category.depth2name}
+                AND depth3name = #{category.depth3name}
+                <include refid="criteria"> </include>
+                )
 	</select>
 
 	<!-- 제품 코드로 색상 정보 가녀오기 -->
@@ -162,6 +212,6 @@
 		select * from PRODUCTVO_VIEW where pid = #{pid}
 		 ]]>
 	</select>
-	
-	
+
+
 </mapper>
