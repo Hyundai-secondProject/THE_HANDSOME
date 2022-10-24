@@ -3,20 +3,16 @@ package com.kosa.controller;
 import java.util.Random;
 
 import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpSession;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
-import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.kosa.domain.member.MemberVO;
+import com.kosa.service.MemberService;
 
 import lombok.RequiredArgsConstructor;
 /**
@@ -27,29 +23,32 @@ import lombok.RequiredArgsConstructor;
  * <pre>
  * 수정일                    수정자               수정내용
  * 2022.10.20   신기원              최초 생성
- * 2022.10.21   신기원              회원 가입 PostMapping 생성
+ * 2022.10.21   신기원              회원 가입 PostMapping 생성, 이메일 중복 확인
  * </pre>
  */ 
 @RestController
 @RequestMapping("/member/join/*")
 @RequiredArgsConstructor
 public class MemberRestController {
+	
+	private final MemberService service;
 
 	//java 메일 전송 관련 객체 스프링 빈으로 등록되어 있음
 	private final JavaMailSender mailSender;
 
 	//이메일 인증 완료
 	@PostMapping("/ok")
-	public String memberjoin(String email) {
+	public String memberjoin(String email,HttpSession session) {
 		String data = null;
-		System.out.println(email);
 		if(email != null) {
 			data = "Y";
+			System.out.println(email);
+			session.setAttribute("uidEmail", email);
 			
 		} else {
 			data = "N";
+			
 		}
-		System.out.println(data);
 		return data;
 		
 	}
@@ -87,18 +86,15 @@ public class MemberRestController {
  
 	}
 	
-	//회원 가입을 위한 데이터 삽입
-	@PostMapping("complete")
-	public void joinComplete(String name) {
-		System.out.println(name);
-	}
-	
 	//이메일 중복 확인
-	@PostMapping("isduplemail")
-	public boolean duplemail(String email) {
-		 
+	@GetMapping("isdupluid")
+	public boolean duplId(String uid) {
 		
-		return true;
+		//이미 존재하면 true 값 반환
+		boolean result = service.isDulpId(uid);
+		System.out.println(uid);
+		System.out.println(result);
+		return result;
 	}
 	
 }

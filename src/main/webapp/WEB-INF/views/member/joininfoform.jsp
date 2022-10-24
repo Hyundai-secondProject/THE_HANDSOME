@@ -103,12 +103,24 @@ transform
 
 
 
+
+
+
+
+
+
 :
 
 
 
 
+
+
+
  
+
+
+
 
 
 
@@ -122,8 +134,20 @@ rotate
 
 
 
+
+
+
+
+
+
 (9
 deg
+
+
+
+
+
+
 
 
 
@@ -143,7 +167,16 @@ transform
 
 
 
+
+
+
+
+
+
 :
+
+
+
 
 
 
@@ -153,7 +186,16 @@ transform
 
 
 
+
+
+
 rotate
+
+
+
+
+
+
 
 
 
@@ -170,6 +212,12 @@ deg
 
 
 
+
+
+
+
+
+
 );
 }
 }
@@ -177,12 +225,12 @@ deg
 
 </head>
 <body>
-	<form id="CSRFForm" action="/ko/member/joininfoform" method="post">
+<!-- 	<form id="CSRFForm" action="/ko/member/joininfoform" method="post">
 		<div>
 			<input type="hidden" name="CSRFToken"
 				value="bb3009c6-58a4-40fd-ac1d-b2fee6de282a" />
 		</div>
-	</form>
+	</form> -->
 	<div id="headerWrap">
 		<div class="header header_fixed header_main1903">
 			<script type="text/javascript" src="/resources/js/SsoAjax.js"></script>
@@ -1925,7 +1973,9 @@ deg
 								}
 							});
 
-							$('#emailDubChkBtn').click(function() {
+							$('#emailDubChkBtn')
+									.click(
+											function() {
 												var vc = new ValidationCheck();
 												vc.checkIdList = [ 'email',
 														'emailDomain' ];
@@ -1937,15 +1987,23 @@ deg
 															.ajax({
 																type : "GET",
 																url : "/member/join/isduplemail?email="
-																		+ $("#email").val()
+																		+ $(
+																				"#email")
+																				.val()
 																		+ "@"
-																		+ $("#emailDomain").val(),
+																		+ $(
+																				"#emailDomain")
+																				.val(),
 																success : function(
 																		response) {
 																	if (response == true) {
-																		$("#emailMsg").text('이미 사용중인 이메일입니다.');
+																		$(
+																				"#emailMsg")
+																				.text(
+																						'이미 사용중인 이메일입니다.');
 																	} else {
-																		$("#emailMsg")
+																		$(
+																				"#emailMsg")
 																				.text(
 																						'사용 가능한 이메일입니다.');
 																		$(
@@ -1993,9 +2051,10 @@ deg
 											function() {
 
 												var vc = new ValidationCheck();
-												vc.checkIdList = [ 'pw', 'pwc',
-														'name', 'phone', 'selYear',
-														'selMonth', 'selDay' ];
+												vc.checkIdList = [ 'id', 'pw',
+														'pwc', 'name', 'phone',
+														'selYear', 'selMonth',
+														'selDay' ];
 
 												if (!vc.isValid()) {
 													return;
@@ -2017,8 +2076,12 @@ deg
 													layerAlert("비밀번호가 일치하지 않습니다 ");
 													return;
 												}
+												var email = $("#email").val()
+														+ "@"
+														+ $("#emailDomain")
+																.val();
 
-												if ($("#email").val() != "") {
+												/* if ($("#email").val() != "") {
 													if (emailDuplChk !== "Y") {
 														layerAlert("E-mail 중복확인이 되지 않았습니다.");
 														return;
@@ -2044,7 +2107,7 @@ deg
 														layerAlert("E-mail (정보수신용) 을 입력해 주세요.");
 														return;
 													}
-												}
+												} */
 
 												$("#cancleBtn").attr(
 														"disabled", true);
@@ -2077,7 +2140,7 @@ deg
 																				.val());
 												$("#memberJoinForm").attr(
 														"action",
-														"/member/join/complete");
+														"/member/joininfoform");
 												$("#memberJoinForm").submit();
 											});
 
@@ -2269,8 +2332,10 @@ deg
 								</colgroup>
 								<tbody>
 									<tr>
-										<th scope="row">이메일 아이디</th>
-										<td>shingk0323@naver.com</td>
+										<th scope="row"><strong class="reqd">*</strong><label
+											for="pw">아이디</label></th>
+										<td><input type="text" id="id" name="id"
+											style="width: 150px" title="아이디" value="${uidEmail}"></td>
 									</tr>
 									<tr>
 										<th scope="row"><strong class="reqd">*</strong><label
@@ -2561,8 +2626,8 @@ deg
 			</div>
 		</div>
 		<div>
-			<input type="hidden" name="CSRFToken"
-				value="bb3009c6-58a4-40fd-ac1d-b2fee6de282a">
+			<input type="hidden" name="${_csrf.parameterName}"
+				value="${_csrf.token}" />
 		</div>
 	</form>
 

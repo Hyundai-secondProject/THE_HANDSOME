@@ -1,14 +1,15 @@
 package com.kosa.controller;
 
-import org.springframework.security.core.Authentication;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.stereotype.Controller;
+
+import com.kosa.domain.member.MemberVO;
 import com.kosa.service.MemberService;
 
 import lombok.RequiredArgsConstructor;
@@ -69,6 +70,27 @@ public class MemberController {
 	@GetMapping("joininfoform")
 	public String createForm() {
 		return "member/joininfoform";
+	}
+
+	//회원 가입시 회원 데이터 저장
+	@PostMapping("/joininfoform")
+	public String createComplete(String id, String passwd, String name, String phone, String emailAddress,
+			String sBirthday) {
+		System.out.println(id + passwd + name + emailAddress + sBirthday);
+		MemberVO vo = new MemberVO();
+		vo.setMid(id);
+		vo.setMpassword(passwd);
+		vo.setMname(name);
+		vo.setMphone(phone);
+		vo.setMemail(emailAddress);
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+		LocalDate date = LocalDate.parse(sBirthday, formatter);
+
+		vo.setMbirth(date);
+		System.out.println("date " + date);
+
+		service.join(vo);
+		return "redirect:/member/login";
 	}
 
 }

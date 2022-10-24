@@ -152,7 +152,7 @@ public class ProductController {
 	public String getProductStock(String pcid, String psize, Model model) {
 		String psid = pcid + "_" + psize;
 		// psid를 이용해서 재고 테이블에서 StockVO를 가져온다.
-
+		 
 		JSONObject jsonObject = new JSONObject();
 		String json;
 
@@ -162,7 +162,9 @@ public class ProductController {
 		} catch (Exception e) {
 			jsonObject.put("amount", 0);
 		} finally {
-			json = jsonObject.toString();
+		    jsonObject.put("psid", psid);
+		    json = jsonObject.toString();
+			
 		}
 		return json;
 	}

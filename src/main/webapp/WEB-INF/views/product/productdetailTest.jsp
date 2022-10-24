@@ -11,9 +11,11 @@
 	media="all" />
 <link rel="stylesheet" type="text/css"
 	href="/resources/css/products.css" media="all" />
-	
-	<script type="text/javascript" src="/resources/js/handsome/addToCart.js"></script>
 
+
+	<!-- 카트리스트띄우기-->
+    <script type="text/javascript" src="/resources/js/handsome/putproduct.js"></script>
+    
 <div id="bodyWrap" class="item_detail">
 	<div id="oneEventLayer"></div>
 
@@ -1410,27 +1412,11 @@
 									<ul class="color_chip clearfix">
 										<input type="hidden" id="colorName" value="GREY KHAKI">
 										<c:forEach var="color" items="${colors}">
-										<c:set var ="a" value="${color.pcid}"/>
-										<c:set var ="b" value="${pcid}"/>
-											<c:choose>
-											    <c:when test="${a == b}">
-      												<li>
-											        	<a href="productdetail?pid=${product.pid}&pcid=${color.pcid}" class="beige on"
-															style="background-image: url(${color.pcchipimg})"> </a>
-													</li>
-   												</c:when>
-											    <c:otherwise>
-											        <li>
-											        	<a href="productdetail?pid=${product.pid}&pcid=${color.pcid}" class="beige"
-															style="background-image: url(${color.pcchipimg})"> </a>
-													</li>
-											    </c:otherwise>
-											</c:choose>
-											
-<%-- 											<li><a
+
+											<li><a
 												href="productdetail?pid=${product.pid}&pcid=${color.pcid}"
 												class="beige"
-												style="background-image: url(${color.pcchipimg})"> </a></li> --%>
+												style="background-image: url(${color.pcchipimg})"> </a></li>
 										</c:forEach>
 									</ul>
 								</div> <span class="cl_name" id="colorNameContent"></span></li>
@@ -2109,22 +2095,10 @@
 					<!-- //st_store_wrap -->
 					<div class="btnwrap clearfix"
 						style="position: absolute; width: 473px; margin-top: 0px; margin-bottom: 0px;">
-						
-						<c:set var ="checkLike" value="${checkLike }"/>
-											<c:choose>
-											    <c:when test="${checkLike}">
-													<input type="button" value=""
-														class="btn wishlist1803 float_left ml0 on "
-														id = 'wish_${product.pid}';
-														onclick="insertLike('${product.pid}','team5')"> <!-- 좋아요 버튼!!!!!!!!!!!!!!!!!!!!!!!!!! -->
-   												</c:when>
-											    <c:otherwise>
-													<input type="button" value=""
-														class="btn wishlist1803 float_left ml0"
-														id = 'wish_${product.pid}';
-														onclick="insertLike('${product.pid}','team5')"> <!-- 좋아요 버튼!!!!!!!!!!!!!!!!!!!!!!!!!! -->
-											    </c:otherwise>
-											</c:choose>
+						<input type="button" value=""
+							class="btn wishlist1803 float_left ml0  "
+							id = 'wish_${product.pid}';
+							onclick="insertLike('${product.pid}','team5')"> <!-- 좋아요 버튼!!!!!!!!!!!!!!!!!!!!!!!!!! -->
 
 						<div class="toast_popup">
 							<p style="display: none; top: -4.12381px; opacity: 0.031172;">위시리스트에서
@@ -2144,32 +2118,34 @@
 						<form id="addToCartForm" name="addToCartForm"
 							action="/ko/HANDSOME/WOMEN/OUTER/Cardigan-Vest/%EC%BA%90%EC%8B%9C%EB%AF%B8%EC%96%B4-%ED%81%AC%EB%A1%AD-%EA%B0%80%EB%94%94%EA%B1%B4/p/CM2CAKCD131W_GK?categoryCode=we05"
 							method="post">
-							<input type="hidden" maxlength="3" size="1" name="qty"class="qty"> 
-							<input type="hidden" name="productCodePost"value="CM2CAKCD131W_GK"> 
-							<input type="hidden"id="productCodeType" name="productCodeType" value="ApparelStyleVariantProduct"> 
-							<input type="hidden" id="stockCnt" value="0"> 
-							<input type="hidden" name="storeId" id="storeId" value=""> 
-							<input type="hidden" name="storePickupDate" id="storePickupDate"value="">
-							<input type="hidden" name="workOrder" id="workOrder" value=""> 
-							<input type="hidden" name="recommendProduct" id="recommendProduct" value="">
-							<input type="hidden" name="deliveryKind" id="deliveryKind" value=""> 
-							<input type="hidden" name="streetname" id="streetname" value=""> 
-							<input type="hidden" name="streetnumber" id="streetnumber" value="">
-							<input type="hidden" name="postalcode" id="postalcode" value="">
-							<input type="hidden" name="quickStreetname" id="quickStreetname" value="">
-							<input type="hidden" name="quickStreetnumber" id="quickStreetnumber" value=""> 
-							<input type="hidden" name="quickPostalcode" id="quickPostalcode" value=""> 
-							<input type="hidden" name="fourpmList" id="fourpmList"> 
-							<input type="hidden" name="athomeList" id="athomeList"> 
-							<input type="hidden" name="pickupList" id="pickupList"> 
-							<input type="hidden" name="quickList" id="quickList"> 
-							<input type="hidden" name="buyNowYn" id="buyNowYn" value="false">
-							
-							<input type="hidden" name="mid" id="mid" value="${mid}"> 
-							<input type="hidden" name="psid" id="psid" value=""> 
-							
-							<input type="button" value="쇼핑백 담기" class="btn cart1803 float_left ml0" id="addToCartButton" 
-									onclick="addToCart2();GA_Event('상품_상세','하단 고정 버튼','쇼핑백담기');">
+							<input type="hidden" maxlength="3" size="1" name="qty"
+								class="qty"> <input type="hidden" name="productCodePost"
+								value="CM2CAKCD131W_GK"> <input type="hidden"
+								id="productCodeType" name="productCodeType"
+								value="ApparelStyleVariantProduct"> <input type="hidden"
+								id="stockCnt" value="0"> <input type="hidden"
+								name="storeId" id="storeId" value=""> <input
+								type="hidden" name="storePickupDate" id="storePickupDate"
+								value=""> <input type="hidden" name="workOrder"
+								id="workOrder" value=""> <input type="hidden"
+								name="recommendProduct" id="recommendProduct" value="">
+							<input type="hidden" name="deliveryKind" id="deliveryKind"
+								value=""> <input type="hidden" name="streetname"
+								id="streetname" value=""> <input type="hidden"
+								name="streetnumber" id="streetnumber" value=""> <input
+								type="hidden" name="postalcode" id="postalcode" value="">
+							<input type="hidden" name="quickStreetname" id="quickStreetname"
+								value=""> <input type="hidden" name="quickStreetnumber"
+								id="quickStreetnumber" value=""> <input type="hidden"
+								name="quickPostalcode" id="quickPostalcode" value=""> <input
+								type="hidden" name="fourpmList" id="fourpmList"> <input
+								type="hidden" name="athomeList" id="athomeList"> <input
+								type="hidden" name="pickupList" id="pickupList"> <input
+								type="hidden" name="quickList" id="quickList"> <input
+								type="hidden" name="buyNowYn" id="buyNowYn" value="false">
+							<input type="button" value="쇼핑백 담기"
+								class="btn cart1803 float_left ml0" id="addToCartButton"
+								onclick="addToCart();GA_Event('상품_상세','하단 고정 버튼','쇼핑백담기');">
 							<div>
 								<input type="hidden" name="CSRFToken"
 									value="418c2329-3174-4d51-952c-2b3eb3333468">
@@ -2177,7 +2153,7 @@
 						</form>
 						<input type="button" value="바로주문"
 							class="btn order float_right mr0" id="addToCartBuyNowButton"
-							onclick="GA_Event('상품_상세','하단 고정 버튼','바로주문');addToCart2(true);">
+							onclick="GA_Event('상품_상세','하단 고정 버튼','바로주문');addToCart(true);">
 					</div>
 
 					<dl class="toggle_type1" style="margin-top: 80px;">
@@ -3103,8 +3079,6 @@
 						const urlParams = url.searchParams;
 						
 						function checkStock(psize) {
-							
-							
 							$.ajax({
 								url: "/product/getProductStock",
 								data: {
@@ -3118,8 +3092,6 @@
 								$("#product-amount-input").attr("max", data.amount); */
 								console.log(data.amount);
 								$("#stockCnt").html(data.amount);
-								
-								$('input[name=psid]').attr('value',data.psid);
 							});				
 						}
 						
@@ -3196,10 +3168,10 @@ function insertLike(pid, mid) {
 			let test = $('#'+ id).html();			
 			console.log(test);
 			$('#'+ id).addClass('on');
-			//let count = parseInt($("#wishlistCount").html());
-			//let countP = count + 1;
-			console.log("위시 갯수: " + data.wishCnt);
-			$("#wishlistCount").html(data.wishCnt);
+			let count = parseInt($("#wishlistCount").html());
+			let countP = count + 1;
+			console.log("위시 갯수: " + countP);
+			$("#wishlistCount").html(countP);
 			
 		} else {
 			deleteLike(pid, mid);
@@ -3229,10 +3201,10 @@ function deleteLike(pid, mid) {
 			let test = $('#'+ id).html();			
 			console.log(test);
 			$('#'+ id).removeClass('on');
-			//let count = parseInt($("#wishlistCount").html());
-			//let countP = count - 1;
-			console.log("위시 갯수: " + data.wishCnt);
-			$("#wishlistCount").html(data.wishCnt);
+			let count = parseInt($("#wishlistCount").html());
+			let countP = count - 1;
+			console.log("위시 갯수: " + countP);
+			$("#wishlistCount").html(countP);
 		} else {
 			alert("오류 발생.");
 		}

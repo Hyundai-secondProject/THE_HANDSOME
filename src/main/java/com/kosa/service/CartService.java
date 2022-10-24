@@ -24,8 +24,13 @@ public interface CartService {
     // select
     public List<CartVO> getProducts(String mid);
     
+ // select
+    public List<CartVO> getProductsWithEntryNum(String mid, List<Integer> entryNum);
+    
     // delete
     public void deleteProduct(CartVO cart);
+    // delete
+    public void deleteProducts(String mid, List<String> psidList);
     
     // update
     public void updateQuantity(CartVO cart);

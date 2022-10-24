@@ -23,7 +23,7 @@ public interface OrderMapper {
 
 	public void insert(OrdersVO orders); // 주문 등록
 	
-	public int getCountByMid(String mid); // 총 주문 갯수
+	public int getCountByMid(@Param("cri") Criteria cri, @Param("mid") String mid); // 총 주문 갯수
 	
 	public List<OrdersVO> getList(); // 주문 조회
 	

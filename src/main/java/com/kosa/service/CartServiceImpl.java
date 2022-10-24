@@ -40,9 +40,21 @@ public class CartServiceImpl implements CartService {
     public List<CartVO> getProducts(String mid) {
         return cartMapper.selectList(mid);
     }
+    
+    @Override
+    public List<CartVO> getProductsWithEntryNum(String mid, List<Integer> entryNum) {
+        return cartMapper.selectListWithEntryNum(mid, entryNum);
+    }
+    
+    
     @Override
     public void deleteProduct(CartVO cart) {
         cartMapper.delete(cart.getMid(), cart.getPsid());
+    }
+    
+    @Override
+    public void deleteProducts(String mid, List<String> psidList) {
+        cartMapper.deleteProducts(mid, psidList);
     }
     
     @Override
