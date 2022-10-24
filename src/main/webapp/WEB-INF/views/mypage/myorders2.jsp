@@ -3776,7 +3776,7 @@ function getExchangePrice(price) {
 </script>
 
 				<!-- search1 -->
-				<form id="orderSearchForm" action="/mypage/myorders2">
+				<form id="orderSearchForm" method="post" action="/mypage/myorders2">
 
 					<div class="search_wrap">
 						<!-- cnd -->
@@ -3807,18 +3807,19 @@ function getExchangePrice(price) {
 							<li class="space">
 								<p class="bul_sty01">
 									<label for="id_sel">검색구분<!-- 검색구분 --></label>
-								</p> <select name="searchType" title="검색구분" class="select">
-									<option value="productName">상품명
+								</p> <select name="searchType" title="검색구분" class="select" id="select">
+									<option value="P">상품명
 										<!-- 상품명 --></option>
-									<option value="orderNumber">주문번호
+									<option value="O">주문번호
 										<!-- 주문번호 --></option>
-							</select> <input type="text" name="searchWord" class="input_all"
+							</select> <input type="text" name="searchWord" class="input_all" id="searchWord"
 								title="검색어 입력" /> <!-- 검색어 입력 -->
 							</li>
 						</ul>
 						<!-- //cnd -->
-						<input type="button" id="searchBtn" class="btn_search"
-							value="조회하기">
+						<!-- <input type="button" id="searchBtn" class="btn_search" name="searchBtn"
+							value="조회하기"> -->
+						<button id="searchBtn" class="btn_search" name="searchBtn" value="조회하기">조회하기</button>
 						<!-- 조회하기 -->
 					</div>
 
@@ -3857,27 +3858,35 @@ function getExchangePrice(price) {
 							</tr>
 						</thead>
 						
+						<div id="type" style="display:none">${type}</div>						
+						<div id="keyword" style="display:none">${keyword}</div>
+						
 <script type="text/javascript" src="/resources/js/reply.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
 
 	//리스트 처리 시작
 	var replyUL = $('#listBody');
-	console.log("showList(1) 하기전")
+	console.log("showList(1) 하기전");
 	showList(1);
-	console.log("showList(1) 한 후")
-	
+	console.log("showList(1) 한 후");
+ 	
 	function showList(page){
+		var type = document.getElementById("type").innerHTML || "N";
+		var keyword = document.getElementById("keyword").innerHTML || "none";
+	
 		console.log("page"+page);
+		console.log("type은 "+type);
+		console.log("keyword는 "+keyword);
 		//DB 데이터 가져오기
-		replyService.getList({mid:"seungu00",page: page|| 1 }
+		replyService.getList({mid:"seungu00",page: page|| 1, type: type || "N", keyword: keyword}
 		, function(cnt, list) {
 			//페이지 처리 시작
 			console.log("cnt"+cnt);
 			console.log("list"+list);
 			//page -1 일때 새로운 주문 추가시
 			if(page == -1){
-	    		pageNum = Math.ceil(cnt / 10.0);
+	    		pageNum = Math.ceil(cnt / 5.0);
 	    		showList(pageNum);
 	    		return ;
 	    	}//end if
@@ -3888,14 +3897,19 @@ $(document).ready(function(){
 	    		return;
 	    	}//end if
 	    	for (var i = 0, len = list.length || 0; i < len; i++) {
+	    		console.log(list[0]);
 	    		for (var j = 0, len1 = list[i].itemList.length || 0; j < len1; j++) {
+	    			console.log(list[i].itemList.length);
+	    	
 	    			str += "<tr class='al_middle'>";
-	    			
 	    			if (j == 0) {
 	    				str += "<td rowspan='"+list[i].itemList.length+"' class='frt'><p class='num'>"+list[i].oid+"</p>";
-	    	    		str += "<span class='sum_date'>("+list[i].odate+")</span>";
+	    	    		str += "<span class='sum_date'>("+new Date(list[i].odate).getFullYear()+"."+(new Date(list[i].odate).getMonth() + 1) +"."+new Date(list[i].odate).getDate()+")</span>";
 	    	    		str += "<a href='/mypage/order/myorderdetail?code="+list[i].oid+" class='btn_view'>상세보기</a>";
-	    	    		str += "<a href='javascript:void(0);' class='btn wt_ss addrModBtn' code='"+list[i].oid+"' addr1='"+list[i].oaddress1+"' addr2='"+list[i].oaddress2+"' zip='"+list[i].zipcode+"' rcname='"+list[i].receiver+"' hp1='"+list[i].ophone+"' hp2='1234' hp3='1234' ph1='"+list[i].ophone+"' ph2='' ph3='' or='' frontdoorselectmessage='"+list[i].omemo+"' frontdoormessage='' emailid='"+list[i].oemail+"' emaildomain='naver.com'>배송정보수정</a></td>";
+	    	    		
+	    	    		if (list[i].ostatus == "입금대기중" || list[i].ostatus == "주문완료") {
+	    	    			str += "<a href='javascript:void(0);' class='btn wt_ss addrModBtn' code='"+list[i].oid+"' addr1='"+list[i].oaddress1+"' addr2='"+list[i].oaddress2+"' zip='"+list[i].zipcode+"' rcname='"+list[i].receiver+"' hp1='"+list[i].ophone+"' hp2='1234' hp3='1234' ph1='"+list[i].ophone+"' ph2='' ph3='' or='' frontdoorselectmessage='"+list[i].omemo+"' frontdoormessage='' emailid='"+list[i].oemail+"' emaildomain='naver.com'>배송정보수정</a></td>";
+	    	    		}
 	    			}
 	    			    	
 	    		str += "<td><div class='pt_list_all'>";
@@ -3906,10 +3920,22 @@ $(document).ready(function(){
 	    		str += "<p class='color_op'> +color : "+list[i].itemList[j].productDetail.pccolorcode+" <span class='and_line'>/</span> +size : "+list[i].itemList[j].productDetail.psize+" </p></div></div></td>";
 	    		str += "<td>"+list[i].itemList[j].oicount+"</td>";
 	    		str += "<td>"+list[i].itemList[j].productDetail.pcprice+"</td>";
-	    		str += "<td>"+list[i].ostatus+"<span class='sum_date'>("+list[i].odate+")</span></td>";
-	    		str += "<td class='pd12_resize'><div class='btn_wrap'>";
-	    		str += "<a href='/mypage/order/cancelrequest?code=221014P15365577&amp;pcode=LB2C8ACK428U_BK_S' class='btn wt_ss'>주문취소</a></div></td>";
-	    		str += "</tr>";
+
+	    		str += "<td>"+list[i].ostatus+"<span class='sum_date'>("+new Date(list[i].odate).getFullYear()+"."+(new Date(list[i].odate).getMonth() + 1) +"."+new Date(list[i].odate).getDate()+")</span>";
+	    		
+	    		if (list[i].ostatus == "배송준비중" || list[i].ostatus == "배송중" || list[i].ostatus == "배송완료") {
+	    			str += "<br><a href='#' class='btn wt_ss shippingInfoBtn' ocode='"+list[i].oid+"' pcode='"+list[i].itemList[j].psid+"'>배송조회</a>";
+	    		}
+	    		
+	    		str += "</td><td class='pd12_resize'><div class='btn_wrap'>";
+	    		
+	    		if (list[i].ostatus == "입금대기중" || list[i].ostatus == "주문완료") {
+	    			str += "<a href='/mypage/order/cancelrequest?code=221014P15365577&amp;pcode=LB2C8ACK428U_BK_S' class='btn wt_ss'>주문취소</a>";
+	    		} 
+	    		if (list[i].ostatus == "배송완료") {
+	    			str += "<a href='javascript:openPopupReview('FL2D1HSY006LTL_YL_FR', '221018P15418217', 'YELLOW', '5000', 'http://newmedia.thehandsome.com/FL/2D/SS/FL2D1HSY006LTL_YL_S01.jpg', 'the%20CASHMERE', '[TROLLS PAPER] 축하 메시지 카드', 'SZ12', 'order')' class='btn wt_ss'>상품평 작성</a>";
+	    		}
+	    		str += "</div></td></tr>";
 	    		}
 	    	}
 	    	replyUL.html(str);
@@ -3924,22 +3950,27 @@ $(document).ready(function(){
     var pageFooter = $(".paging");	
     
     function showPage(cnt){
-    	var endNum = Math.ceil(pageNum / 2.0) * 10;  
-    	var startNum = endNum - 9; 	
+    	var endPage = Math.ceil(cnt / 5.0);
+    	var startPage = 1;
+    	
+    	//시작페이지, 마지막 페이지, 이전페이지, 다음페이지
+    	var endNum = Math.ceil(pageNum / 5.0) * 5;  
+    	var startNum = endNum - 4; 	
     	var prev = startNum != 1;
     	var next = false;	
-    	if(endNum * 10 >= cnt){//마지막페이지계산
-            endNum = Math.ceil(cnt/2.0);
+    	if(endNum * 5 >= cnt){//마지막페이지계산
+            endNum = Math.ceil(cnt/5.0);
         }//end if	
-    	if(endNum * 10 < cnt){ //다음페이지 가능
+    	if(endNum * 5 < cnt){ //다음페이지 가능
             next = true;
         }//end if
+        
     	//페이징 화면 처리 <ul>
-        var str = "<a class='prev2' href='"+1+"'>처음 페이지로 이동</a>";      
+        var str = "<a class='prev2' href='"+startPage+"'>처음 페이지로 이동</a>";      
         if (prev) {
         	str += "<a href='"+(startNum - 1)+"' class='prev'>이전 페이지로 이동</a>";
         } else {
-        	str += "<a href='"+startNum+"' class='prev'>이전 페이지로 이동</a>";
+        	str += "<a href='javascript:void(0);' class='prev'>이전 페이지로 이동</a>";
         }
         str += "<span class='num'>";
         //페이지 번호 <li>출력    
@@ -3947,12 +3978,13 @@ $(document).ready(function(){
           var on = pageNum == i ? "on" : "";
           str += "<a href='"+i+"' class='pageBtn "+on+"' pagenum='"+i+"'>"+i+"</a>";
         }//end for
+        str += "</span>";
         if(next){
-        	str += "</span><a href='"+(endNum + 1)+"' class='next'>다음 페이지로 이동</a>";    	
+        	str += "<a href='"+(endNum + 1)+"' class='next'>다음 페이지로 이동</a>";    	
         } else {
-        	str += "</span><a href='"+endNum+"' class='next'>다음 페이지로 이동</a>"; 
+        	str += "<a href='javascript:void(0);' class='next'>다음 페이지로 이동</a>";
         }
-        str += "<a href='"+endNum+"' class='next2'>마지막 페이지로 이동</a>";
+        str += "<a href='"+endPage+"' class='next2'>마지막 페이지로 이동</a>";
         console.log(str);	      
         pageFooter.html(str);
     }//end showPage
