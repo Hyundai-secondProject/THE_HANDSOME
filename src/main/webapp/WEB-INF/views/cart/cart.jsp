@@ -4,6 +4,8 @@
 
 <%@ include file="../common/header.jsp" %>
 
+<link rel="stylesheet" type="text/css" href="/resources/css/products.css" media="all" />
+
     <!-- Function and Variables Definition Block Start -->
     <script language='javascript' type="text/javascript">
 var _JV="AMZ2013010701";//script Version
@@ -27,7 +29,7 @@ if(!_IDV(_A_ct)) var _A_ct = Array(1) ;
 if(!_IDV(_A_pn)) var _A_pn = Array(1) ;
 if(!_IDV(_A_amt)) var _A_amt = Array(1) ;
 </script>
-    <!-- Function and Variables Definition Block End-->
+    <!-- Function and Variables Definition Block End--> 
        <script type="text/javascript">
 //<![CDATA[
 var qtyLimitProductYnMap = {};
@@ -86,6 +88,7 @@ $(document).ready(function ()
         }
     });
     
+    // 물품개수 감소
     $(document).on("click", '.left', function(){
     	
     	var soldout = $(this).data("soldout");
@@ -113,10 +116,10 @@ $(document).ready(function ()
             //layerAlert("'[브랜드명]상품명'의 \n재고수량은 n개 입니다.\n다시 입력해 주시기 바랍니다.");
             //return ;
         //}
-        var productCode = $(this).parents('form').find('input[name="productCode"]').val();
+        var psid = $(this).parents('form').find('input[name="psid"]').val();
         
-        var promotionFlag = promotionProductCartAddCheck(productCode);
-        if(promotionFlag){
+        /* var promotionFlag = promotionProductCartAddCheck(productCode); */
+        if(false){
             layerAlert("동일 옵션(컬러/사이즈)으로 최대 1개 구매 가능합니다.");
         }else{
             qty.val(Number(qty.val()) + 1);
@@ -181,27 +184,21 @@ $(document).ready(function ()
         
         if(prodid[0] == 'QuantityProduct'){
             var form = $('#updateCartForm' + prodid[1]);
-            var productCode = form.find('input[name=productCode]').val(); 
+            var psid = form.find('input[name=psid]').val(); 
             var initialCartQuantity = form.find('input[name=initialQuantity]').val();
             var newCartQuantity = form.find('input[name=quantity]').val();
             var cartData = form.data("cart");
             
             
 			//#2610 [주문] 가상계좌 결제수단 제외 및 중복 구매 제한 처리 요청 건 20220215 hyunbae
-            if(qtyLimitProductYnMap[productCode] == 'true' && parseInt(newCartQuantity) > 2){
+            if(qtyLimitProductYnMap[psid] == 'true' && parseInt(newCartQuantity) > 2){
             	layerAlert('동일 상품(사이즈/컬러)은<br/>최대 2개까지 선택 가능합니다.');
                 return;
             }
-            
-/*             if($(".fourpm").length > 0){
-            	form.find('input[name=deliveryKind]').val("4PM");
-            }else{
-            	form.find('input[name=deliveryKind]').val("");
-            } */
-            
+
             //퀵배송 수량 3개 최대 확인
             var checkQuickQty = false;
-            $("[class^=shopping_cart_tab]").find("[name=cartDivision]").each(function(){
+            /* $("[class^=shopping_cart_tab]").find("[name=cartDivision]").each(function(){
                 if($(this).attr("data-division") == "quick" && $(this).hasClass("active")){
 		            if(Number(newCartQuantity) > 3){
 		                layerAlert('퀵배송은 3개 상품까지만 주문이 가능합니다.');
@@ -210,7 +207,7 @@ $(document).ready(function ()
 		            }
 		            
                 }
-            });
+            }); */
             
             if(checkQuickQty){
                 return false;
@@ -218,7 +215,7 @@ $(document).ready(function ()
             
             if(initialCartQuantity != newCartQuantity)
             {
-                AEC_U_V(productCode, newCartQuantity);
+                AEC_U_V(psid, newCartQuantity);
                 form.submit();
             }
         }
@@ -2054,7 +2051,7 @@ var checkoutPaymentAuthCallback = function (resultCode, resultMsg, result) {
 }
 
 
-function promotionProductCartAddCheck(productCode) {
+/* function promotionProductCartAddCheck(productCode) {
     //var productCode = pd.substring(0, pd.indexOf("_"));
     var promotionid = "BTSPRODUCT20200401"; 
     var promotionFlag = false;
@@ -2093,7 +2090,7 @@ function promotionProductCartAddCheck(productCode) {
     });
     
     return promotionFlag;
-}
+} */
 
 function callWishListClick(prodNm, ele, prodCd){
     GA_Event('쇼핑백','위시리스트', prodNm);
