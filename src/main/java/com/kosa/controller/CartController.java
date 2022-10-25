@@ -15,23 +15,4 @@ public class CartController {
                 
         return "cart/cart";
     }
-    @RequestMapping(value = "/cartt", method = RequestMethod.GET)
-    public String home2() {
-                
-        return "cart/test";
-    }
-    
-    @RequestMapping(value = "/checkout/ordersheet", method = RequestMethod.GET)
-    public String home3() {
-                
-        return "checkout/ordersheet";
-    }
-    
-    @RequestMapping(value = "/checkout/ordersheetTest", method = RequestMethod.POST)
-    public String home4() {
-                
-        return "checkout/ordersheetTest";
-    }
-    
-    
 }
