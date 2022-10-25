@@ -48,6 +48,12 @@ public class ProductController {
 			, @RequestParam(defaultValue = " ") String ckeyword, Model model) {
 
 		log.info("getListController...................................");
+		log.info("t");
+		log.info(page);
+		log.info(type);
+		log.info(bkeyword);
+		log.info(ckeyword);
+		
 		CategoryVO category = new CategoryVO(depth1, depth2, depth3);
 		model.addAttribute("category", category);
 
@@ -152,7 +158,7 @@ public class ProductController {
 	public String getProductStock(String pcid, String psize, Model model) {
 		String psid = pcid + "_" + psize;
 		// psid를 이용해서 재고 테이블에서 StockVO를 가져온다.
-		 
+
 		JSONObject jsonObject = new JSONObject();
 		String json;
 
@@ -162,9 +168,7 @@ public class ProductController {
 		} catch (Exception e) {
 			jsonObject.put("amount", 0);
 		} finally {
-		    jsonObject.put("psid", psid);
-		    json = jsonObject.toString();
-			
+			json = jsonObject.toString();
 		}
 		return json;
 	}

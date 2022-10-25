@@ -51,7 +51,7 @@ public class ProductMapperTests {
 		Criteria cri = new Criteria();
 		cri.setCkeyword("BLACK");
 		cri.setBkeyword("time");
-		cri.setType("CB");
+		cri.setType("BC");
 		cri.setAmount(3);
 		cri.setPageNum(1);
 		HashMap<String, Object> categoryPager = new HashMap<String, Object>();
@@ -59,7 +59,7 @@ public class ProductMapperTests {
 		categoryPager.put("brand",new BrandVO());
 		categoryPager.put("category",new CategoryVO("여성","none","none"));
 		
-		List<ProductVO> list = mapper.selectProductsDepth2(categoryPager);
+		List<ProductVO> list = mapper.selectProductsDepth1(categoryPager);
 		list.forEach( i -> log.info( i));
 	}//end test
 	

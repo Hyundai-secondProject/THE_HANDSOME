@@ -283,10 +283,14 @@
 							</ul>
 						</div></li>
 
-					<li class="btn"><a href="javascript:reset();"
-						onclick="GA_Event('카테고리_리스트','정렬','초기화');">초기화</a><a
-						href="javascript:gubunSearch(1);"
-						onclick="filter()">적용</a></li>
+					<li class="btn">
+						<a id = "filter" href="javascript:gubunSearch(1);"
+						onclick="filter()">적용</a>
+					</li>
+					<li class="btn">
+						<a id = "reset" href="javascript:reset();"
+						onclick="GA_Event('카테고리_리스트','정렬','초기화');">초기화</a>
+					</li>
 				</ul>
 				<div class="items_count float_right">
 					<!-- 상품 갯수 표기!!!!!!!!!!!!!!!!!!!!! -->
@@ -338,8 +342,15 @@
 						const url = new URL(window.location.href);
 						const urlParams = url.searchParams;	
 						
+						let brand = $("#brandCurrent").html();
+						let color = $("#colorCurrent").html();
+						let type = "";
+						
+						console.log("brand: " + brand);
+						console.log("color: " + color);
+						
 						// 바로 상품 띄우기
-						showList(2);
+						showList(1,type,brand,color);
 	
 							let CatTmp = "";
 							let arr = new Array();
@@ -361,24 +372,15 @@
 							$("#cnts_title").html(CatTmp);
 						
 						// ajax로 제품 띄우기
-						function showList(page) {
+						function showList(page,type,brand,color) {
 
+							$("#brandCurrent").html(brand);
+							$("#colorCurrent").html(color);
+							
+							console.log("제품 띄우기 실행");
 							let product_array;
 							let totalCnt;
 							
-							let type = " ";
-							let brand = $("#brandCurrent").html();
-							let color = $("#colorCurrent").html();
-							
-							if (brand == " " && color == " ") {
-								type = " ";
-							} else if (brand != " " && color == " ") {
-								type = "B";
-							} else if (brand == " " && color != " ") {
-								type = "C";
-							} else {
-								type = "CB";
-							}
 							
 							const urlParams = new URL(location.href).searchParams;
 
@@ -389,13 +391,20 @@
 														+ urlParams.get("depth1")
 														+ "&depth2=" + urlParams .get("depth2")
 														+ "&depth3=" + urlParams .get("depth3")
-														+ "&type=" + type
+/* 														+ "&type=" + type
 														+ "&bkeyword=" + brand
-														+ "&ckeyword=" + color
+														+ "&ckeyword=" + color */
+														+ "&page=" + page,
+												data : {
+													"type" : type,
+													"bkeyword" : brand,
+													"ckeyword" : color
+												}		
 											})
 									.done(
 											function(data) {
 
+												console.log("data :" + data);
 												product_array = data.products;
 												totalCnt = data.totalCnt;
 
@@ -558,25 +567,26 @@
 						// 페이징 표시 자바스크립트
 						var pageNum = 1;
 						var pageNation = $(".paging")
+						
 
 						function showProductPage(totalCnt) {
 							// 시작 페이지, 마지막 페이지, 이전페이지, 다음 페이지 구현
 							var endNum = Math.ceil(pageNum / 10.0) * 10;
 							var startNum = endNum - 9;
-							//var prev = startNum != 1;
-							//var next = false; // 기본 값은 false 
+							var prev = startNum != 1;
+							var next = false; // 기본 값은 false 
 							// 현재 보이는 pagenation의 마지막 숫자의 *10은 현재 까지의 데이터 갯수인데
 							// 이것보다 total 갯수가 더 적다면 -> 페이지 조정이 필요
-							if (endNum * 10 >= totalCnt) { //마지막페이지계산
-								endNum = Math.ceil(totalCnt / 10.0);
+							if (endNum * 12 >= totalCnt) { //마지막페이지계산
+								endNum = Math.ceil(totalCnt / 12.0);
 							} //end if	      
-							if (endNum * 10 < totalCnt) { //다음페이지 가능
+							if (endNum * 12 < totalCnt) { //다음페이지 가능
 								next = true;
 							} //end if	 
 
-							console.log("pageNum" + pageNum);
-							console.log("endNum" + endNum);
-							console.log("startNum" + startNum);
+							console.log("PpageNum" + pageNum);
+							console.log("PendNum" + endNum);
+							console.log("PstartNum" + startNum);
 							// 페이지 네이션 표시
 							var str = "";
 							str += "<a class='prev2' href='1'> 처음 페이지 </a>";
@@ -620,9 +630,82 @@
 							console.log("targetPageNum: " + targetPageNum);
 							// 전역 변수에 값 전달
 							pageNum = targetPageNum; //값전달
-							showList(pageNum); //페이지 리스트 다시 출력
+							
+							let type = "";
+							let brand = $("#brandCurrent").html();
+							let color = $("#colorCurrent").html();
+							
+							if (brand == "" && color === "") {
+								type = " ";
+								console.log("null 실행");
+							} else if (brand != "" && color == "") {
+								type = "B";
+								console.log("b 실행");
+							} else if (brand == "" && color != "") {
+								type = "C";
+								console.log("c 실행");
+							} else {
+								type = "CB";
+								console.log("cb 실행");
+							}
+							
+							showList(pageNum,type,brand,color); //페이지 리스트 다시 출력
 						}); //end replyPageFooter click
 						
+						// ajax으로 삭제 처리 
+						// 필터 처리
+				/*         modalRemoveBtn.on("click", function (e) {
+				            var rno = modal.data("rno"); //데이터 가져오기
+				            //DB 삭제 처리
+				            replyService.remove(rno, function (result) {
+				                alert(result); //경고창
+				                modal.modal("hide"); //모달 숨기기
+				                //showList(1); //댓글 리스트 새로 가져오기
+				                showList(pageNum); //댓글 리스트 새로 가져오기
+				            }); //end replyService.remove
+				        }); //modalRemoveBtn click" */
+				        
+				        let filterBtn = $("#filter");
+				        
+				        filterBtn.on("click", function (e) {
+								let type = "";
+								let brand = $("#brandCurrent").html();
+								let color = $("#colorCurrent").html();
+								
+								if (brand == "" && color === "") {
+									type = " ";
+									console.log("null 실행");
+								} else if (brand != "" && color == "") {
+									type = "B";
+									console.log("b 실행");
+								} else if (brand == "" && color != "") {
+									type = "C";
+									console.log("c 실행");
+								} else {
+									type = "CB";
+									console.log("cb 실행");
+								}
+								
+								console.log(type);
+								console.log(brand);
+								console.log(color); 
+				                showList(1,type,brand,color); 
+				            });
+				        
+				        let resetBtn = $("#reset");
+				        
+				        resetBtn.on("click", function (e) {
+							let type = "";
+							$("#brandCurrent").html("");
+							$("#colorCurrent").html("");
+							
+							console.log("r실행 : " + type);
+							console.log("r실행 : " + brand);
+							console.log("r실행 : " + color); 
+			                showList(1,type,brand,color); 
+			            });
+				   });
+/* 				        
 						function filter() {
 							console.log($("#brandCurrent").html());
 							console.log($("#colorCurrent").html());
@@ -636,8 +719,10 @@
 								console.log("c빈 문자열");
 							}
 							showList(1);
-						}
-					});
+						} */
+					
+	
+
 </script>
 <script>
 function insertLike(pid, mid) {
