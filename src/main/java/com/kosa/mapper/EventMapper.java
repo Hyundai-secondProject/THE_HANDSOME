@@ -13,13 +13,14 @@ package com.kosa.mapper;
  * 2022.10.18   김민규                    최초 생성\
  * 2022.10.21	김민규			getEventDetail,getCouponDetail추가
  * 2022.10.24	김민규			insertCoupon추가
- * 2022.10.25	김민규			getCouponDetailUnused,Used,Expiry추가
+ * 2022.10.25	김민규			getCouponDetailUnused,Used,Expiry추가 getCouponCount추가
  * </pre>
  */
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.kosa.domain.event.CouponCountVO;
 import com.kosa.domain.event.CouponDetailVO;
 import com.kosa.domain.event.CouponDetailViewVO;
 import com.kosa.domain.event.EventDetailViewVO;
@@ -37,5 +38,10 @@ public interface EventMapper {
 	List<CouponDetailViewVO> getCouponDetailUsed(String MID);
 	List<CouponDetailViewVO> getCouponDetailExpiry(String MID);
 	public int insertCoupon(@Param("eno") int eno, @Param("mid") String mid);
+	
+	List<CouponCountVO> getCouponCount(int ENO);
+	
+	public int updateCouponCount(int ENO);
+	
 	
 }

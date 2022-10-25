@@ -1,12 +1,14 @@
 package com.kosa.controller;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.kosa.domain.event.CouponCountVO;
 import com.kosa.service.EventService;
 
 import lombok.extern.log4j.Log4j;
@@ -21,8 +23,9 @@ import lombok.extern.log4j.Log4j;
  * 수정일              수정자                   수정내용
  * ----------  --------    ---------------------------
  * 2022.10.19   김민규                    최초 생성
- * 2022.10.20	김민규		eventdetail 추가
+ * 2022.10.20	김민규			eventdetail 추가
  * 2022.10.24	김민규			makecoupon,eventpast 추가
+ * 2022.10.25	김민규			쿠폰 전체갯수 적용
  * </pre>
  */
 
@@ -47,8 +50,17 @@ public class EventController {
 	
 	@GetMapping(value = "/makecoupon")
 	public String makeCoupon(@RequestParam("ENO") int ENO, @RequestParam("MID") String MID) {
-		eventservice.insertCoupon(ENO, MID);
-		return"redirect:/mypage/mycouponUnused?MID="+MID;
+		List<CouponCountVO> list = eventservice.getCouponCount(ENO);
+		int count = list.get(0).getEcount();
+		int Limit = list.get(0).getElimitcount();
+		if(count<Limit) {
+			eventservice.updateCouponCount(ENO);
+			eventservice.insertCoupon(ENO, MID);
+			return"redirect:/mypage/mycouponUnused?MID="+MID;
+		}
+		else {
+			return "common/error";
+		}
 	}
 	
 	

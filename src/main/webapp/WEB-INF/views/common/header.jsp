@@ -73,6 +73,8 @@ media="all" /> -->
 <script type="text/javascript" src="/resources/js/d3pie.js"></script>
 <!-- 검색 결과화면 색상 필터 끝 -->
 
+<!-- 이벤트 AJAX -->
+<script type="text/javascript" src="/resources/js/handsome/event.js"></script>
 
 <!-- 쿠폰 정렬 -->
 <style media="screen">
