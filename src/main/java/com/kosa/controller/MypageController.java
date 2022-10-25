@@ -14,7 +14,18 @@ import com.kosa.service.OrderService;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
-
+/**
+ * @author 장주연, 신기원
+ * @since 2022.10.14
+ * @version 1.0
+ * 
+ * <pre>
+ * 수정일              	수정자                   수정내용
+ * ----------  --------    ---------------------------
+ * 2022.10.14       장주연              	최초 생성
+ * 2022.10.24	신기원		패스워드확인 url 추가
+ * </pre>
+ */
 @Log4j
 @Controller
 @RequestMapping("/mypage/*")
@@ -22,6 +33,11 @@ import lombok.extern.log4j.Log4j;
 public class MypageController {
 
 	private OrderService service;
+	
+	@GetMapping("member")
+	public String doMember() {
+		return "mypage/member";
+	}
 	
 	@GetMapping("/myorders2")
 	public void list(Criteria cri) {
@@ -37,5 +53,10 @@ public class MypageController {
 		
 		model.addAttribute("type", type);
 		model.addAttribute("keyword", keyword);
+	}
+	
+	@GetMapping("/PwCheck")
+	public String memberPwCheck() {
+		return "mypage/pwCheck";
 	}
 }
