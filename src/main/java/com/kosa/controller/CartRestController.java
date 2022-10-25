@@ -28,18 +28,19 @@ public class CartRestController {
     
     // 추가
     @GetMapping("/addtocart/{mid}/{psid}/{qty}")
-    public void addToCart(@PathVariable("mid") String mid,
+    public String addToCart(@PathVariable("mid") String mid,
                                     @PathVariable("psid") String psid,
                                     @PathVariable("qty") int qty) {
         System.out.println(mid + psid + qty);
         CartVO cart = new CartVO();
-        
         cart.setMid(mid);
         cart.setPsid(psid);
         cart.setPquantity(qty);
-        
+        if(service.checkCart(cart)>0) {
+            return "invalid";
+        }
         service.putProduct(cart);
-        
+        return "valid";
     }
 
     // post 방식으로 하는 대신 get 방식으로 한뒤 url에서값을가져와 사용 -> 주연도움

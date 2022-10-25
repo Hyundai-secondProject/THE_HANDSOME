@@ -36,19 +36,17 @@ function addToCart2(buyNow)
             type: "GET",            
             data: {},
             async : false,
+            datatype : "text",
             success: function(data){
-                console.log("성공");
-                alert("장바구니에 추가되었습니다");
+            	if(data=="valid"){
+            		console.log("성공");
+                    alert("장바구니에 추가되었습니다");
+            	}
+            	else{
+            		console.log("실패");
+                    alert("이미 장바구니에 있습니다.");
+            	}
                 
-                /*if(data) { //기존 cart에 존재하면
-                    if(data) {
-                        var la = new layerAlert('동일 옵션(컬러/사이즈)으로 최대 1개 구매 가능합니다.'); //"이미 프로모션 상품이 담겨있습니다."
-                        addToCartProcess = true;
-                        return;                        
-                    }
-                }else {
-                    addtoCartProcessFunction(); //기존로직
-                }*/
             },
             error: function(xhr, Status, error) {
                 //

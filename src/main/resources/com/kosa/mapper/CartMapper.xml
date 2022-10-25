@@ -85,5 +85,12 @@
 		where mid = #{mid} and psid = #{psid}
 	</update>
 
+	<!-- 카트중복체크 -->
+	<select id="checkCart" resultType="int">
+		select count(*)
+		from cart
+		where mid = #{mid} and psid = #{psid}
+	</select>
+
 	
 </mapper>  
