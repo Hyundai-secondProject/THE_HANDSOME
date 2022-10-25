@@ -12,26 +12,25 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-
-
 import lombok.extern.log4j.Log4j;
 /**
- * EventViewControllertest
+ * CouponDetailExpiryControllerTest
  * @author 김민규
- * @since 2022.10.18
+ * @since 2022.10.25
  * @version 1.0
- *
+ * 
  * <pre>
  * 수정일              수정자                   수정내용
  * ----------  --------    ---------------------------
- * 2022.10.24    김민규                  최초 생성
+ * 2022.10.25    김민규                  최초 생성
+ * 
  * </pre>
  */
 @WebAppConfiguration
 @Log4j
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration({"file:src/main/webapp/WEB-INF/spring/root-context.xml","file:src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml", "file:src/main/webapp/WEB-INF/spring/security-context.xml"})
-public class EventViewControllertest {
+public class CouponDetailExpiryControllerTest {
 	
 	@Autowired
 	private WebApplicationContext ctx;
@@ -43,7 +42,9 @@ public class EventViewControllertest {
 		this.mockMvc = MockMvcBuilders.webAppContextSetup(ctx).build();
 	}
 	@Test
-	public void TestEventView() throws Exception{
-		log.info(mockMvc.perform(MockMvcRequestBuilders.get("/magazine/eventpast")).andReturn().getModelAndView().getModelMap());
+	public void TestEventdetailView() throws Exception{
+		log.info(mockMvc.perform(MockMvcRequestBuilders.get("/mypage/mycouponExpiry").param("MID", "team5")).andReturn().getModelAndView().getModelMap());
 	}
+	
+
 }

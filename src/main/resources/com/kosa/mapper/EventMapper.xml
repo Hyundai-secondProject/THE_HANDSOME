@@ -4,9 +4,20 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<!-- /** * @author 김민규 * @since 2022.10.18 * @version 1.0 * * <pre> * 수정일 
-	수정자 수정내용 * * 2022.10.18 김민규 최초 생성 * 2022.10.20 김민규 지난 이벤트 리스트 페이지,이벤트 상세 
-	페이지 추가 * 2022.10.21 김민규 마이페이지 쿠폰 조회 추가 * </pre> */ -->
+<!-- /** 
+* @author 김민규 
+* @since 2022.10.18 
+* @version 1.0 
+* 
+* <pre> 
+* 	수정일 		수정자 		수정내용 
+* 2022.10.18 	김민규 		최초 생성
+* 2022.10.20 	김민규	 지난 이벤트 리스트 페이지,이벤트 상세 페이지 추가 
+* 2022.10.21 	김민규	 마이페이지 쿠폰 조회 추가 
+* 2022.10.24 	김민규 		쿠폰발급 추가
+* 2022.10.25	김민규		쿠폰 조회 구분 추가
+* </pre> 
+*/ -->
 
 <mapper namespace="com.kosa.mapper.EventMapper">
 
@@ -23,19 +34,61 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select ENO, ETITLE, EISSUEDATE, EEXPIREDATE, EIMG from
 		EVENT where ESTATUS =0
 	</select>
+
 	<!-- 이벤트 상세 페이지 -->
 	<select id="getEventDetail"
 		resultType="com.kosa.domain.event.EventDetailViewVO">
-		select ETITLE, EISSUEDATE, EEXPIREDATE, EDETAILIMG from
+		select ENO, ETITLE, EISSUEDATE, EEXPIREDATE, EDETAILIMG
+		from
 		EVENT where ENO = #{ENO}
 	</select>
 
-	<!-- 마이페이지 쿠폰 조회 -->
-	<select id= "getCouponDetail"  resultType="com.kosa.domain.event.CouponDetailViewVO">
-		select (select ECOUPONTITLE from event where event.eno = coupon_detail.eno) as ECOUPONTITLE ,
-CPID,(select ECONTENT from event where event.eno = coupon_detail.eno) as ECONTENT,
-(select EDISCOUNT from event where event.eno = coupon_detail.eno) as EDISCOUNT ,CPISSUEDATE,CPEXPIREDATE,CPUSEDATE from coupon_detail
-where mid= #{MID}
+	<!-- 마이페이지 쿠폰 조회 (미사용)-->
+	<select id="getCouponDetailUnused" resultType="com.kosa.domain.event.CouponDetailViewVO">
+	<![CDATA[
+	select (select ECOUPONTITLE from event where event.eno =
+		coupon_detail.eno) as ECOUPONTITLE ,
+		CPID,(select ECONTENT from event where event.eno = coupon_detail.eno) as ECONTENT,
+		(select EDISCOUNT from event where event.eno = coupon_detail.eno) as
+		EDISCOUNT ,CPISSUEDATE,CPEXPIREDATE,CPUSEDATE from coupon_detail
+		where mid= #{MID} and CPEXPIREDATE>sysdate and cpusedate is null 
+		]]>
 	</select>
+	
+	<!-- 마이페이지 쿠폰 조회 (사용)-->
+	<select id="getCouponDetailUsed" resultType="com.kosa.domain.event.CouponDetailViewVO">
+	<![CDATA[
+	select (select ECOUPONTITLE from event where event.eno =
+		coupon_detail.eno) as ECOUPONTITLE ,
+		CPID,(select ECONTENT from event where event.eno = coupon_detail.eno) as ECONTENT,
+		(select EDISCOUNT from event where event.eno = coupon_detail.eno) as
+		EDISCOUNT ,CPISSUEDATE,CPEXPIREDATE,CPUSEDATE from coupon_detail
+		where mid= #{MID} and cpusedate is not null
+		]]>
+	</select>
+	
+	<!-- 마이페이지 쿠폰 조회 (기간 만료)-->
+	
+	<select id="getCouponDetailExpiry" resultType="com.kosa.domain.event.CouponDetailViewVO">
+	<![CDATA[
+	select (select ECOUPONTITLE from event where event.eno =
+		coupon_detail.eno) as ECOUPONTITLE ,
+		CPID,(select ECONTENT from event where event.eno = coupon_detail.eno) as ECONTENT,
+		(select EDISCOUNT from event where event.eno = coupon_detail.eno) as
+		EDISCOUNT ,CPISSUEDATE,CPEXPIREDATE,CPUSEDATE from coupon_detail
+		where mid= #{MID} and CPEXPIREDATE<sysdate and cpusedate is null 
+		]]>
+	</select>
+		
+	<!-- 쿠폰 발급 -->
+	<insert id="insertCoupon">
+
+		insert into COUPON_DETAIL values ((select CONCAT('COU-PON-TEST',#{eno}) from
+		event where ENO=#{eno}),#{eno},#{mid},(select EISSUEDATE from event
+		where ENO =#{eno}),(select EEXPIREDATE from event where ENO
+		=#{eno}),null,1)
+
+
+	</insert>
 
 </mapper>

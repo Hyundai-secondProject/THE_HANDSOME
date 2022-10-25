@@ -87,8 +87,8 @@
 							</div>
 						</div>
 						<div class="btn-coupon-wrap ready">
-							<a href="javascript:;" onclick="alert('쿠폰 줬다.')" class="btn-coupon">
-								<img src=${detaillist.edetailimg} >
+							<a href="/magazine/makecoupon?ENO=${detaillist.eno}&MID=team5" onclick="alert('쿠폰 줬다.')" class="btn-coupon">
+								<img src= ${detaillist.edetailimg} >
 							</a>
 						</div>
 						<div class="btn-coupon-wrap already" style="display: none">

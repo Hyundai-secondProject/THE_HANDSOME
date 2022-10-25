@@ -109,6 +109,8 @@ transform
 
 
 
+
+
 :
 
 
@@ -117,7 +119,9 @@ transform
 
 
 
+
  
+
 
 
 
@@ -140,8 +144,12 @@ rotate
 
 
 
+
+
 (9
 deg
+
+
 
 
 
@@ -173,7 +181,10 @@ transform
 
 
 
+
+
 :
+
 
 
 
@@ -189,7 +200,10 @@ transform
 
 
 
+
 rotate
+
+
 
 
 
@@ -218,6 +232,8 @@ deg
 
 
 
+
+
 );
 }
 }
@@ -225,7 +241,7 @@ deg
 
 </head>
 <body>
-<!-- 	<form id="CSRFForm" action="/ko/member/joininfoform" method="post">
+	<!-- 	<form id="CSRFForm" action="/ko/member/joininfoform" method="post">
 		<div>
 			<input type="hidden" name="CSRFToken"
 				value="bb3009c6-58a4-40fd-ac1d-b2fee6de282a" />
@@ -2630,6 +2646,6 @@ deg
 				value="${_csrf.token}" />
 		</div>
 	</form>
-
+	<%@ include file="/WEB-INF/views/common/footer.jsp"%>
 </body>
 </html>

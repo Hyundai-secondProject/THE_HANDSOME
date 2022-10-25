@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <%@ include file="../common/header.jsp" %>
-
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <link rel="stylesheet" type="text/css" href="/resources/css/products.css" media="all" />
 
     <!-- Function and Variables Definition Block Start -->
@@ -182,44 +182,47 @@ $(document).ready(function ()
             $(this).parents('.basket_info').slideUp('fast');
         }
         
+        
+        // 개수변경
         if(prodid[0] == 'QuantityProduct'){
             var form = $('#updateCartForm' + prodid[1]);
             var psid = form.find('input[name=psid]').val(); 
-            var initialCartQuantity = form.find('input[name=initialQuantity]').val();
+            //var initialCartQuantity = form.find('input[name=initialQuantity]').val();
             var newCartQuantity = form.find('input[name=quantity]').val();
             var cartData = form.data("cart");
-            
-            
-			//#2610 [주문] 가상계좌 결제수단 제외 및 중복 구매 제한 처리 요청 건 20220215 hyunbae
-            if(qtyLimitProductYnMap[psid] == 'true' && parseInt(newCartQuantity) > 2){
-            	layerAlert('동일 상품(사이즈/컬러)은<br/>최대 2개까지 선택 가능합니다.');
-                return;
-            }
-
-            //퀵배송 수량 3개 최대 확인
-            var checkQuickQty = false;
-            /* $("[class^=shopping_cart_tab]").find("[name=cartDivision]").each(function(){
-                if($(this).attr("data-division") == "quick" && $(this).hasClass("active")){
-		            if(Number(newCartQuantity) > 3){
-		                layerAlert('퀵배송은 3개 상품까지만 주문이 가능합니다.');
-		                checkQuickQty = true;    
-		                return;
-		            }
-		            
-                }
-            }); */
-            
-            if(checkQuickQty){
-                return false;
-            }
-            
-            if(initialCartQuantity != newCartQuantity)
+            var mid = "team5";
+            console.log("개수변경중입니다");
+            console.log(psid);
+            console.log(initialCartQuantity);
+            console.log(newCartQuantity);
+     
+            // 초기값과 다르면
+            //if(initialCartQuantity != newCartQuantity)
+            if(true)	
             {
-                AEC_U_V(psid, newCartQuantity);
-                form.submit();
+            	
+            	$.ajax({
+                    type: "GET",
+                    url: "cartAjax/updateQuantity/"+ mid +"/"+ psid +"/"+ newCartQuantity,
+                    async : false,
+                    cache : false,			
+                    data: {},
+                    success: function(){
+                        console.log("성공!");
+                        location.reload();
+                        
+                    },
+                    error: function(xhr,  Status, error) {
+                        alert('sendRequest error : ' + xhr.status + " ( " + error + " ) " );
+                    }
+                });	 
+            	
+                /* AEC_U_V(psid, newCartQuantity);
+                form.submit(); */
             }
         }
         
+        // 물품 하나 삭제
         if(prodid[0] == 'RemoveProduct'){
         	var mid ="ehfhfh1313";
             var form = $('#updateCartForm' + prodid[1]);
@@ -2171,10 +2174,11 @@ function qtyLimitProductAlert(){
                 <!-- 장바구니개편 -->
                 <ul class="tab3">
                     <li>
-                        <a href="#;" name="cartDivision" data-division="" onclick="GA_Event('쇼핑백', '탭', '택배');"><span class="delt_ico"></span>택배 ( $("#cartlist") )</a>
+                        <a id="cartcnt" href="#;" name="cartDivision" data-division="" onclick="GA_Event('쇼핑백', '탭', '택배');"><span class="delt_ico"></span></a>
                     </li>
                     <li>
                         <a href="#;" name="cartDivision" data-division="store" onclick="GA_Event('쇼핑백', '탭', '매장수령');" ><span class="spt_ico"></span>매장수령 (0)</a>
+                        <p>principal : <sec:authentication property="principal.username"/> </p>
                     </li>
                     <li>
                         <a href="#;" name="cartDivision" data-division="quick" onclick="GA_Event('쇼핑백', '탭', '퀵배송 ');" ><span class="quk_ico"></span>퀵배송         (0)</a>

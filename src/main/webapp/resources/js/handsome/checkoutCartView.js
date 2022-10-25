@@ -3,10 +3,10 @@ $(document).ready(function(){
 var cartList;
 var mid = $('#testMid').val();
 var entryNumber = $('#testEntryNum').val();
-console.log(entryNumber);
+console.log("entryNumber is " + entryNumber);
 $.ajax({
 	type: "GET",  
-	url: "/cartAjax/checkoutCartView/"+mid+"/"+entryNumber,
+	url: "/order/orderView/"+mid+"/"+entryNumber,
 	data: {}, 
 	dataType : "json",
 	contentType: "application/json; charset=utf-8",
@@ -56,7 +56,7 @@ $.ajax({
 			cartList+= ' 	<!-- pt_list_all --> ';
 			cartList+= ' 		<div class="pt_list_all"> ';
 			cartList+= '  			<a href="/ko/HANDSOME/GOLF/MEN-CLOTHING/Top/%ED%85%8D%EC%8A%A4%EC%B2%98-%EB%B8%94%EB%A1%9D-%ED%95%98%ED%94%84-%EC%A7%91%EC%97%85-%ED%83%91/p/LB2CAWTO363M_KE_L"> ';
-			cartList+= ' 			<img src="http://newmedia.thehandsome.com/LB/2C/FW/LB2CAWTO363M_KE_S01.jpg" alt="" /> ';
+			cartList+= ' 			<img src="'+item.productDetail.pcimg1+'" alt="" /> ';
 			cartList+= '  			</a>';
 			cartList+= '  			<div class="tlt_wrap"> ';
 			cartList+= '  			<a href="/ko/HANDSOME/GOLF/MEN-CLOTHING/Top/%ED%85%8D%EC%8A%A4%EC%B2%98-%EB%B8%94%EB%A1%9D-%ED%95%98%ED%94%84-%EC%A7%91%EC%97%85-%ED%83%91/p/LB2CAWTO363M_KE_L" class="basket_tlt">';
