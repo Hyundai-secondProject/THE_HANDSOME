@@ -18,10 +18,25 @@ public class MypageController2 {
 	@Autowired
 	EventService eventservice;
 	
-	@GetMapping(value = "/mycoupon")
-	public void event(@RequestParam("MID") String MID,Model model) {
-		model.addAttribute("couponlist", eventservice.getCouponDetail(MID));
-		log.info(eventservice.getCouponDetail(MID));
+	@GetMapping(value = "/mycouponUnused")
+	public void eventUnused(@RequestParam("MID") String MID,Model model) {
+		model.addAttribute("couponlist", eventservice.getCouponDetailUnused(MID));
+		log.info(eventservice.getCouponDetailUnused(MID));
+		
+		
+	}
+	
+	@GetMapping(value = "/mycouponUsed")
+	public void eventUsed(@RequestParam("MID") String MID, Model model) {
+		model.addAttribute("couponlist", eventservice.getCouponDetailUsed(MID));
+		log.info(eventservice.getCouponDetailUsed(MID));
+		
+		
+	}
+	@GetMapping(value = "/mycouponExpiry")
+	public void eventExpiry(@RequestParam("MID") String MID, Model model) {
+		model.addAttribute("couponlist", eventservice.getCouponDetailExpiry(MID));
+		log.info(eventservice.getCouponDetailExpiry(MID));
 		
 		
 	}

@@ -13,6 +13,7 @@ package com.kosa.service;
  * 2022.10.21	김민규		getCouponDetail 추가
  * 2022.10.23	김민규		getEventpast 추가
  * 2022.10.24	김민규		insertCoupon 추가
+ * 2022.10.25	김민규		getCouponDetailExpiry,Used,Unused 추가
  * </pre>
  */
 
@@ -51,8 +52,18 @@ public class EventServiceImpl implements EventService{
 	}
 
 	@Override
-	public List<CouponDetailViewVO> getCouponDetail(String MID) {
-		return mapper.getCouponDetail(MID);
+	public List<CouponDetailViewVO> getCouponDetailUnused(String MID) {
+		return mapper.getCouponDetailUnused(MID);
+
+}
+	@Override
+	public List<CouponDetailViewVO> getCouponDetailUsed(String MID) {
+		return mapper.getCouponDetailUsed(MID);
+
+}
+	@Override
+	public List<CouponDetailViewVO> getCouponDetailExpiry(String MID) {
+		return mapper.getCouponDetailExpiry(MID);
 
 }
 

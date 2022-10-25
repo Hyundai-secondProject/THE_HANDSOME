@@ -224,12 +224,12 @@
 					</h4>
 					<p class="txt_line"></p>
 					<div class="btn_wrap">
-						<select id="id_sel" name="id_sel" style="width: 150px">
-							<option value="N" selected>미사용
+						<select id="id_sel" name="id_sel" onchange="location = this.value" style="width: 150px">
+							<option value="/mypage/mycouponUnused?MID=team5" >미사용
 								<!-- 미사용 --></option>
-							<option value="Y">사용
+							<option value="/mypage/mycouponUsed?MID=team5">사용
 								<!-- 사용 --></option>
-							<option value="P">기간만료
+							<option value="/mypage/mycouponExpiry?MID=team5" selected>기간만료
 								<!-- 기간만료 --></option>
 						</select>
 					</div>

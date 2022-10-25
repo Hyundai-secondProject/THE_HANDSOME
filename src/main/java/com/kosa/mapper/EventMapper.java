@@ -12,7 +12,8 @@ package com.kosa.mapper;
  * ----------  --------    ---------------------------
  * 2022.10.18   김민규                    최초 생성\
  * 2022.10.21	김민규			getEventDetail,getCouponDetail추가
- * 2022 10.24	김민규			insertCoupon추가
+ * 2022.10.24	김민규			insertCoupon추가
+ * 2022.10.25	김민규			getCouponDetailUnused,Used,Expiry추가
  * </pre>
  */
 import java.util.List;
@@ -32,8 +33,9 @@ public interface EventMapper {
 	
 	List<EventViewVO> getEventListpast();
 	
-	List<CouponDetailViewVO> getCouponDetail(String MID);
-	
+	List<CouponDetailViewVO> getCouponDetailUnused(String MID);
+	List<CouponDetailViewVO> getCouponDetailUsed(String MID);
+	List<CouponDetailViewVO> getCouponDetailExpiry(String MID);
 	public int insertCoupon(@Param("eno") int eno, @Param("mid") String mid);
 	
 }
