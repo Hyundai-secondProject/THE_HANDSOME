@@ -14,8 +14,10 @@ public class Criteria {
 
 	// 검색을 위한 변수
 	private String type; // 검색할 항목을 저장 - key
-	private String keyword; 
+	private String bkeyword; 
+	private String ckeyword;
 
+	// type이 없을 경우 빈 배열을 전송
 	public String[] getTypeArr() {
 		// 삼항식[Condition Operator] ? TURE : FALSE
 		return (type == null) ? new String[] {} : type.split("");

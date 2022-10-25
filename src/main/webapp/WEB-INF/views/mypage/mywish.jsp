@@ -2593,7 +2593,7 @@
 					tmp += "	<td class='al_middle'>";
 					tmp += "		<div class='btn_wrap'>";
 					tmp += "			<a href='javascript:void(0)' class='btn wt_ss add_bag parent_add_bag' onclik= 'showCart(&#39;"+ product_info.pid+ "&#39;,&#39;" + product_color.at(0).pcid + "&#39;)'>쇼핑백 담기 </a>";
-					tmp += "			<a href='javascript:void(0)' class='btn wt_ss wishDel' onclik= 'deleteLike(&#39;"+ product_info.pid+ "&#39;,&#39;" + mid + "&#39;)'>삭제</a>";
+					tmp += "			<a href='javascript:void(0)' id = 'deleteOne' class='btn wt_ss wishDel' onclik= 'deleteLike(&#39;"+ product_info.pid+ "&#39;,&#39;" + mid + "&#39;)'>삭제</a>";
 					tmp += "		</div>";
 					tmp += "	</td>";
 					tmp += "</tr>";
@@ -2775,6 +2775,19 @@
 				pageNum = targetPageNum; //값전달
 				showWish(pageNum); //페이지 리스트 다시 출력
 			}); //end replyPageFooter click 
+			
+	        let deleteOneBtn = $("#deleteOne");
+	        
+	        resetBtn.on("click", function (e) {
+				let type = "";
+				$("#brandCurrent").html("");
+				$("#colorCurrent").html("");
+				
+				console.log("r실행 : " + type);
+				console.log("r실행 : " + brand);
+				console.log("r실행 : " + color); 
+                showList(1,type,brand,color); 
+            });
     	   	
     });
     

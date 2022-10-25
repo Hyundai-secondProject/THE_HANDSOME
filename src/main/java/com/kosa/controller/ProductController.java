@@ -44,13 +44,26 @@ public class ProductController {
 	@GetMapping(value = "/getProductList", produces = "application/json; charset=UTF-8")
 	@ResponseBody
 	public String getProductList(@RequestParam(defaultValue = "1") int page, String depth1, String depth2,
-			String depth3, Model model) {
+			String depth3, @RequestParam(defaultValue = " ")String type, @RequestParam(defaultValue = " ") String bkeyword
+			, @RequestParam(defaultValue = " ") String ckeyword, Model model) {
 
 		log.info("getListController...................................");
+		log.info("t");
+		log.info(page);
+		log.info(type);
+		log.info(bkeyword);
+		log.info(ckeyword);
+		
 		CategoryVO category = new CategoryVO(depth1, depth2, depth3);
 		model.addAttribute("category", category);
 
-		Criteria cri = new Criteria(page, 12);
+		Criteria cri = new Criteria();
+		cri.setAmount(12);
+		cri.setPageNum(page);
+		cri.setType(type);
+		cri.setBkeyword(bkeyword);
+		cri.setCkeyword(ckeyword);
+		
 		model.addAttribute("cri", cri);
 		BrandVO brand = new BrandVO();
 		// (카테고리, criteria)를 통해 12개의 상품 표시
@@ -145,7 +158,7 @@ public class ProductController {
 	public String getProductStock(String pcid, String psize, Model model) {
 		String psid = pcid + "_" + psize;
 		// psid를 이용해서 재고 테이블에서 StockVO를 가져온다.
-		 
+
 		JSONObject jsonObject = new JSONObject();
 		String json;
 
@@ -155,9 +168,7 @@ public class ProductController {
 		} catch (Exception e) {
 			jsonObject.put("amount", 0);
 		} finally {
-		    jsonObject.put("psid", psid);
-		    json = jsonObject.toString();
-			
+			json = jsonObject.toString();
 		}
 		return json;
 	}
