@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
 <!-- /**
  * @author 신기원
  * @since 2022.10.17
@@ -21,7 +22,7 @@
 <link rel="stylesheet" type="text/css"
 	href="/resources/css/font_443.css" media="all" />
 <link rel="stylesheet" type="text/css"
-	href="/resources/css/common.css?20220929" media="all" />	
+	href="/resources/css/common.css?20220929" media="all" />
 <link rel="stylesheet" type="text/css"
 	href="/resources/css/layout.css?20220826" media="all" />
 <link rel="stylesheet" type="text/css"
@@ -68,12 +69,7 @@
 </head>
 <body>
 
-	<h2>
-		<c:out value="${error}" />
-	</h2>
-	<h2>
-		<c:out value="${logout}" />
-	</h2>
+	<%@ include file="/WEB-INF/views/common/header.jsp"%>
 
 
 	<div id="bodyWrap" class="login">
@@ -108,8 +104,8 @@
 													placeholder="비밀번호를 입력하세요." title="비밀번호">
 											</div>
 										</div>
-										<button type='submit' class="btn_login" id="login_btn" >로그인</button>
-										
+										<button type='submit' class="btn_login" id="login_btn">로그인</button>
+
 										<input type="hidden" name="${_csrf.parameterName}"
 											value="${_csrf.token}" />
 										<div class="id_save">
@@ -118,7 +114,7 @@
 										</div>
 									</div>
 								</fieldset>
-		
+
 								<div class="login1905">
 									<div>
 										<a href="#;" id="otpShow" class="otp"
@@ -204,15 +200,15 @@
 								본인인증 절차 없이, 더한섬닷컴에서 제공하는 서비스만 제한적으로<br>이용할 수 있는 ID를 만듭니다.
 							</p>
 							<p class="join_txt2 mt10">
-								더한섬닷컴에서 사용 가능하며, 오프라인 매장에서는 사용할 수 없습니다.<br>
-								<span>한섬마일리지와 현대백화점그룹 H.Point 혜택, 한섬의 온라인 멤버십 서비스<br>‘THE
-									클럽’의 혜택은 제공되지 않습니다.
+								더한섬닷컴에서 사용 가능하며, 오프라인 매장에서는 사용할 수 없습니다.<br> <span>한섬마일리지와
+									현대백화점그룹 H.Point 혜택, 한섬의 온라인 멤버십 서비스<br>‘THE 클럽’의 혜택은 제공되지
+									않습니다.
 								</span>
 							</p>
 						</div>
 						<div class="title_wrap hide" id="eg_block">
-							<a href="/member/joinstart"
-								class="btn add_ss join" style="width: 366px">간편회원 가입</a>
+							<a href="/member/joinstart" class="btn add_ss join"
+								style="width: 366px">간편회원 가입</a>
 							<p class="join_txt2 mt20">
 								<span>※ 간편회원은 e-Gift Card 구매 및 등록이 불가능합니다.<br>통합회원
 									가입 후 이용해 주세요.
@@ -226,7 +222,7 @@
 		</div>
 		<!--//sub_container-->
 	</div>
-
+	<%@ include file="/WEB-INF/views/common/footer.jsp"%>
 </body>
 </html>
 
