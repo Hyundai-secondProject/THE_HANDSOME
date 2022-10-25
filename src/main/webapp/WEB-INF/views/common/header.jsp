@@ -73,8 +73,10 @@ media="all" /> -->
 <script type="text/javascript" src="/resources/js/d3pie.js"></script>
 <!-- 검색 결과화면 색상 필터 끝 -->
 
-<!-- 이벤트 AJAX -->
-<script type="text/javascript" src="/resources/js/handsome/event.js"></script>
+
+<!-- cart개수 ajax -->
+<script type="text/javascript" src="/resources/js/handsome/cartCount.js">cartCount()</script>
+
 
 <!-- 쿠폰 정렬 -->
 <style media="screen">
@@ -3532,7 +3534,7 @@ deg
 									( <span id="wishlistCount">0</span> )
 							</span>
 						</a></li>
-						<li><a href="/ko/shoppingbag"
+						<li><a href="/shoppingbag"
 							onclick="GA_Event('공통','유틸_메뉴','쇼핑백');"> <span
 								class="ico cart">장바구니</span> <span class="count"> ( <span
 									id="cartCount">0</span> )
@@ -3549,7 +3551,6 @@ deg
 	$(document).ready(function () {
 		
 		countLikes("team5");
-		
 		function countLikes(mid) {
 			console.log(mid);
 	   		//alert("수행");
@@ -3562,6 +3563,7 @@ deg
 				console.log("위시리스트 갯수 : "+ data.count);
 				$("#wishlistCount").html(data.count);
 			});
-		}		
+		}
 	});	
+	
 </script>

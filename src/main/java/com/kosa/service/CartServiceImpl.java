@@ -61,5 +61,11 @@ public class CartServiceImpl implements CartService {
     public void updateQuantity(CartVO cart) {
         cartMapper.update(cart.getMid(), cart.getPsid(), cart.getPquantity());
     }
+    
+    @Override
+    public int checkCart(CartVO cart) {
+        return cartMapper.checkCart(cart.getMid(), cart.getPsid());
+        
+    }
 
 }

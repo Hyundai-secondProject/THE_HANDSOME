@@ -36,7 +36,7 @@
 	SELECT member.mid, cart.psid, bname, pname, pccolorcode, pcimg1, pcprice, psize, pquantity  
 	FROM cart, member, view_product_detail vpd
 	WHERE cart.psid=vpd.psid
-	AND member.mid like  '%'||#{mid}||'%'
+	AND member.mid = #{mid}
 	order by cart.psid
 	</select>
 	
@@ -84,6 +84,13 @@
 		pquantity = #{pquantity}
 		where mid = #{mid} and psid = #{psid}
 	</update>
+
+	<!-- 카트중복체크 -->
+	<select id="checkCart" resultType="int">
+		select count(*)
+		from cart
+		where mid = #{mid} and psid = #{psid}
+	</select>
 
 	
 </mapper>  
