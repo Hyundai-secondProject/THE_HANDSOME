@@ -88,7 +88,7 @@
 					</span>
 				</div>
 				<div class="btnwrap">
-					<a href="/main" class="btn wt_ss">더한섬닷컴 메인으로</a>
+					<a href="/" class="btn wt_ss">더한섬닷컴 메인으로</a>
 				</div>
 
 			</div>

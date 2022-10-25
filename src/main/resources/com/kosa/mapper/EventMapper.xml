@@ -83,7 +83,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 쿠폰 발급 -->
 	<insert id="insertCoupon">
 
-		insert into COUPON_DETAIL values ((select CONCAT('COU-PON-TEST',#{eno}) from
+		insert into COUPON_DETAIL values ((select CONCAT(CONCAT('COU-PON-TEST-',#{mid}),#{eno}) from
 		event where ENO=#{eno}),#{eno},#{mid},(select EISSUEDATE from event
 		where ENO =#{eno}),(select EEXPIREDATE from event where ENO
 		=#{eno}),null,1)

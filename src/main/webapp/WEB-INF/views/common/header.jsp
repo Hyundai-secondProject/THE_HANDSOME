@@ -2529,7 +2529,7 @@ deg
 					<div class="brand_menu brand_menu1903">
 						<ul class="clearfix">
 							<!-- 선호 브랜드 없음 -->
-							<li><span class="on"> <a href="/ko/main"
+							<li><span class="on"> <a href="/"
 									onclick="GA_Event('공통','탑_네비게이션','HOME')">HOME</a>
 							</span></li>
 							<!-- 로그인 상태 -->
@@ -2752,7 +2752,7 @@ deg
 					<!--// 201705 search_box_wrap -->
 					<div class="util_menu" style="display: block;">
 						<ul class="clearfix">
-							<li><a href="/ko/member/login"
+							<li><a href="/member/login"
 								onclick="GA_Event('공통','헤더_메뉴','로그인')"> 로그인 <!-- 로그인 -->
 							</a></li>
 							<li class="header_dropmemu mypage"><a href="/ko/mypage"

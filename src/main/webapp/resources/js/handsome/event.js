@@ -1,4 +1,6 @@
 $(document).ready(function(){
+
+	
 getprogress();
 
 $("#progress").on("click", getprogress);

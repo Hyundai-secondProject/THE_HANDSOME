@@ -5,6 +5,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+
 <link rel="stylesheet" type="text/css"
 	href="/resources/css/font_443.css" media="all" />
 
@@ -225,11 +227,12 @@
 					<p class="txt_line"></p>
 					<div class="btn_wrap">
 						<select id="id_sel" name="id_sel" onchange="location = this.value" style="width: 150px">
-							<option value="/mypage/mycouponUnused?MID=team5">미사용
+						<sec:authentication property="principal.username" var="MID"/>
+							<option value="/mypage/mycouponUnused?MID=${MID}">미사용
 								<!-- 미사용 --></option>
-							<option value="/mypage/mycouponUsed?MID=team5" selected>사용
+							<option value="/mypage/mycouponUsed?MID=${MID}" selected>사용
 								<!-- 사용 --></option>
-							<option value="/mypage/mycouponExpiry?MID=team5">기간만료
+							<option value="/mypage/mycouponExpiry?MID=${MID}">기간만료
 								<!-- 기간만료 --></option>
 						</select>
 					</div>
