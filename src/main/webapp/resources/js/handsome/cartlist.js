@@ -1,16 +1,18 @@
 // cart 목록 반환 
 $(document).ready(function(){
 var cartList;
-var mid = $('#testMid').val() // 이후 세션아이디로 변경
-
+var mid = $('#mid').val() // 이후 세션아이디로 변경
+// 여기 처리필요! 기원이가 코드주면 아래꺼 주석처리하기 + xml에서 like 수정하기
+mid=mid.substr(0,mid.indexOf('@')) //골뱅이 뒤에 없애버리기 mid가 이메일형식이아니면 무관
 $.ajax({
 	type: "GET",  
 	url: "/cartAjax/"+mid, 
-	data: {"mid" : mid}, 
+	data: {}, 
 	dataType : "json",  // data타입이 없으면 알아서 추측해서 응답받음 우리는 json으로?
 	contentType: "application/json; charset=utf-8",
 	success: function(data) { 
-		console.log($("#testMid").val());
+		console.log($("#Mid").val());
+		console.log(mid);
 		console.log(JSON.stringify(data));	// 콘솔에 잘뜨는지 확인
 		
 		cartList = '';
