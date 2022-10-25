@@ -14,6 +14,7 @@ import java.util.List;
  * 2022.10.21	김민규		getCouponDetail 추가
  * 2022.10.23	김민규		getEventpast 추가
  * 2022.10.24	김민규		insertCoupon 추가
+ * 2022.10.25	김민규		getCouponDetailExpiry,Used,Unused 추가
  * </pre>
  */
 
@@ -30,8 +31,13 @@ public interface EventService {
 	
 	public EventDetailViewVO getEventDetail(int ENO);
 	
-	public List<CouponDetailViewVO> getCouponDetail(String MID);
 	
 	public int insertCoupon(int ENO ,String MID);
+
+	List<CouponDetailViewVO> getCouponDetailExpiry(String MID);
+
+	List<CouponDetailViewVO> getCouponDetailUsed(String MID);
+
+	List<CouponDetailViewVO> getCouponDetailUnused(String MID);
 	
 }
