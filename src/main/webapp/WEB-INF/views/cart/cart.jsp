@@ -181,6 +181,8 @@ $(document).ready(function ()
     });
 
     $(document).on("click", '.btn', function(){
+
+    	
         var prodid = $(this).prop('id').split("_");
         
         if(prodid[0] == 'optCancelLayer'){
@@ -246,6 +248,7 @@ $(document).ready(function ()
                 success: function(data){
                     console.log("성공!");
                     location.reload();
+                    cartCount();
    
                 },
                 error: function(xhr,  Status, error) {
@@ -1120,25 +1123,6 @@ function cartListCheckPrice(entryPkList, only4pm) {
 		$("#cartDataSubtotal").text("₩"+addComma(subtotal));
         $("#cartDataDeliveryCost").text("₩"+addComma(deliveryCost));
         $("#cartDataTotalPrice").text("₩"+addComma(totalprice)); 
-	 	
-        /* ajax 주석 */
-        /* $.ajax({
-            type: "GET",
-            url: "/cartAjax/calculation/"+mid+"/"+entryPkList,
-            dataType: "json",
-            async : false,
-            cache : false,			
-            data: {},
-            success: function(data){
-                console.log(entryPkList);
-                $("#cartDataSubtotal").text("₩"+addComma(data.subTotal));
-                $("#cartDataDeliveryCost").text("₩"+addComma(data.deliveryCost));
-                $("#cartDataTotalPrice").text("₩"+addComma(data.totalPrice));
-            },
-            error: function(xhr,  Status, error) {
-                alert('sendRequest error : ' + xhr.status + " ( " + error + " ) " );
-            }
-        });	 */ 
          
 	}
 }
@@ -1190,37 +1174,7 @@ function selectRemove(entryNumber) {
         success: function(data){
         	console.log("성공!");
             location.reload();
-			/* if(data == "") {
-        		var lc = "";
-        		if(type == "outOfStock") {
-        			lc = new layerAlert("품절상품을 삭제하였습니다.");
-        		} else {
-        			lc = new layerAlert("선택상품을 삭제하였습니다.");
-        		}
-        		GA_Event('쇼핑백','주문','선택상품삭제');
-        		setEcommerceData(entryNumber, "Remove From Cart");
-                lc.confirmAction = function(){
-                	
-	    				$("a[name='cartDivision']").each(function() {
-	    					if($(this).data('division') == $("#ordersheetCartDivision").val()){
-	    						$(this).click();
-	    						$("#cartCount").html(Number($("#cartCount").text()) - entryArray.length);
-	    					}
-	    				});
-                	
-            	};
-			} else {
-        		var lc = "";
-        		if(type == "outOfStock") {
-					lc = new layerAlert("품절상품 삭제에 실패하였습니다.");
-        		} else {
-        			lc = new layerAlert("선택상품 삭제에 실패하였습니다.");
-        		}
-				
-                lc.confirmAction = function(){
-                	window.location.reload();
-            	};
-			} */
+			
         },
         error: function(xhr,  Status, error) {
             alert('sendRequest error : ' + xhr.status + " ( " + error + " ) " );

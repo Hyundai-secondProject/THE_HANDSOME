@@ -7,7 +7,7 @@ var tmp1=mid.substr(0,mid.indexOf('.')) //골뱅이 뒤에 없애버리기 mid�
 var tmp2=mid.substr(mid.indexOf('.')+1, mid.length);
 mid= tmp1+","+tmp2;
 console.log(mid);
-
+cartCount();
 $.ajax({
 	type: "GET",  
 	url: "/cartAjax/"+mid, 

@@ -1,5 +1,6 @@
 function addToCart2(buyNow)
 {	
+	cartCount();
 	var mid = $("#mid").val();
     var psid = $("#psid").val();
     var qty = $("#txtqty").val();
