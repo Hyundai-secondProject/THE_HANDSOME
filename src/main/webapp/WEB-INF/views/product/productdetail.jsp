@@ -2,8 +2,14 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 
 <%@ include file="/WEB-INF/views/common/header.jsp"%>
+
+<sec:authorize access="hasRole('ROLE_MEMBER')">
+                <sec:authentication property="principal.username" var="MID"/>
+</sec:authorize>
+
 
 <link rel="stylesheet" type="text/css"
 	href="/resources/css/contents.css" media="all" />
@@ -2165,10 +2171,10 @@
 							<input type="hidden" name="quickList" id="quickList"> 
 							<input type="hidden" name="buyNowYn" id="buyNowYn" value="false">
 							
-							<input type="hidden" name="mid" id="mid" value="${mid}"> 
+							<input type="hidden" name="mid" id="mid" value="${MID}">  
 							<input type="hidden" name="psid" id="psid" value=""> 
 							
-							<input type="button" value="쇼핑백 담기" class="btn cart1803 float_left ml0" id="addToCartButton" 
+							<input type="button" value="쇼핑백담기 " class="btn cart1803 float_left ml0" id="addToCartButton" 
 									onclick="addToCart2();GA_Event('상품_상세','하단 고정 버튼','쇼핑백담기');">
 							<div>
 								<input type="hidden" name="CSRFToken"
@@ -3119,6 +3125,8 @@
 								console.log(data.amount);
 								$("#stockCnt").html(data.amount);
 								
+								// psid 값추가
+								console.log(data.psid);
 								$('input[name=psid]').attr('value',data.psid);
 							});				
 						}

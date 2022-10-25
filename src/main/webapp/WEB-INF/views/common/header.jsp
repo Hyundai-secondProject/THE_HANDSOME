@@ -114,7 +114,7 @@ media="all" /> -->
 </script>
 
 <script type="text/javascript" src="/resources/js/handsome/common.js"></script>
-<script type="text/javascript" src="/resources/js/handsome/event.js"></script>
+<!-- <script type="text/javascript" src="/resources/js/handsome/event.js"></script> -->
 <script type="text/javascript"
 	src="/resources/js/handsome/html5shiv-printshiv.js"></script>
 <script type="text/javascript"
