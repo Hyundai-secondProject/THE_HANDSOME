@@ -84,24 +84,6 @@ public class CartRestController {
         System.out.println(psidList);
         service.deleteProducts(mid, psidList);
     }
-
-    
-    // 선택항목 반환
-    @GetMapping("checkoutCartView/{mid}/{entryNum}")
-    public List<CartVO> getCartListGET(@PathVariable("mid") String mid,
-                                        @PathVariable("entryNum") String str) {
-        // ,(comma)는 URL에서 %2C로 대체되고 그 URL을 받아쓸때 다시 , 로 반환된다
-        System.out.println(str);
-        if (str == "")
-            return service.getProducts("ehfhfh1313");
-        StringTokenizer st = new StringTokenizer(str, ",");
-        List<Integer> entryNum = new ArrayList<>();
-        while (st.hasMoreTokens()) {
-            entryNum.add(Integer.parseInt(st.nextToken()) + 1); // rownum은 1부터시작
-        }
-        System.out.println(entryNum);
-        return service.getProductsWithEntryNum("ehfhfh1313", entryNum);
-    }
     
     // 수량변경
     @GetMapping("updateQuantity/{mid}/{psid}/{newCartQuantity}")
