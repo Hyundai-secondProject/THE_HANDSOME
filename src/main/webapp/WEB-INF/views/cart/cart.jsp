@@ -2059,46 +2059,7 @@ var checkoutPaymentAuthCallback = function (resultCode, resultMsg, result) {
 }
 
 
-/* function promotionProductCartAddCheck(productCode) {
-    //var productCode = pd.substring(0, pd.indexOf("_"));
-    var promotionid = "BTSPRODUCT20200401"; 
-    var promotionFlag = false;
-    
-    $.ajax({
-        type: "POST",
-        url: '/ko/rest/promotion/product/check'+'/'+promotionid+'?CSRFToken=ae3faaff-c181-4913-ae57-c2a4ac651d0c',
-        dataType: "json",
-        async:false,
-        data:JSON.stringify({promotion:promotionid,productcode:productCode}),
-        contentType : "application/json; charset=UTF-8",
-        success: function(data){
-			if( data ){
-				switch(data){
-					case 0 :
-					    //msg = "BTS상품 아닙니다.";
-						break;
-					case 1 : 
-					    promotionFlag = true;
-					    //msg = "BTS상품 맞습니다.";
-						break;
-					case 2 : 
-					    //msg = "확인 실패했습니다.";
-						break;
-					case 3 : 
-					    //msg = "확인 중 예외가 발생했습니다.";
-						break;
-					default :
-					    break;
-				}
-			}
-        },
-        error: function(xhr,  Status, error) {
-            alert('sendRequest error : ' + xhr.status + " ( " + error + " ) " );
-        }
-    });
-    
-    return promotionFlag;
-} */
+
 
 function callWishListClick(prodNm, ele, prodCd){
     GA_Event('쇼핑백','위시리스트', prodNm);
@@ -2123,33 +2084,6 @@ function qtyLimitProductAlert(){
 //]]>
 </script>
 
- <script>
- /* 참고 */
-/*  $(function(){
-	 //jquery를 이용 keyup할때마다 이벤트 발생
-    $("#testAjax").on("click", function(){
-    	
-       var $testMid = $("#testMid").val();
-       var $msg = $("#msg");
-       console.log($testMid+"테스트중");
-	
-       // 비동기 방식으로 URL을 타고들어간다
-       $.ajax({
-          type : "POST",
-          url: "/cartAjax",
-          data : data,
-          // dataType : "html",  // data타입이 없으면 알아서 추측해서 응답받음 우리는 json으로?
-          async : true,     //비동기 유무
-          //data로 결과 값을 받아온다
-          success : function(data){
-             console.log("data : "+data);
-             $msg.html("<h4 style=\"color:red\"> ※ 아이디가 이미 존재합니다 ※</h4>");
-          }
-		})
-    })
- }) */
-
-</script>
 
 <!-- 카트 리스트 출력 -->
 <script type="text/javascript" src="/resources/js/handsome/cartlist.js"></script>

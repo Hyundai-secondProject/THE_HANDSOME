@@ -28,29 +28,31 @@ public class CartRestController {
     
     // 추가
     @GetMapping("/addtocart/{mid}/{psid}/{qty}")
-    public void addToCart(@PathVariable("mid") String mid,
+    public String addToCart(@PathVariable("mid") String mid,
                                     @PathVariable("psid") String psid,
                                     @PathVariable("qty") int qty) {
         System.out.println(mid + psid + qty);
         CartVO cart = new CartVO();
-        
         cart.setMid(mid);
         cart.setPsid(psid);
         cart.setPquantity(qty);
-        
+        if(service.checkCart(cart)>0) {
+            return "invalid";
+        }
         service.putProduct(cart);
-        
+        return "valid";
     }
-
+    
+    // 카트목록
     // post 방식으로 하는 대신 get 방식으로 한뒤 url에서값을가져와 사용 -> 주연도움
     @GetMapping("/{mid}")
     public List<CartVO> getCartGET(@PathVariable("mid") String mid) {
-        /*
-         * //url에 .(dot)이 있는경우 받아오지 못해서 뒤에 .com 을 붙여준다
-         * System.out.println(mid);
-         * mid+=".com";
-         */
-         
+        
+        
+         //url에 .(dot)이 있는경우 받아오지 못한다
+        System.out.println(mid);
+        mid=mid.replace(',', '.');
+
         System.out.println(mid);
         return service.getProducts(mid);
     }
@@ -59,7 +61,7 @@ public class CartRestController {
     @GetMapping("/RemoveProduct/{mid}/{psid}")
     public List<CartVO> RemoveProduct(@PathVariable("mid") String mid,
                                         @PathVariable("psid") String psid) {
-        System.out.println("여기오는지 테스느");
+        System.out.println("삭제 테스트");
         System.out.println(psid);
         CartVO cart = new CartVO();
         cart.setMid(mid);

@@ -2,18 +2,21 @@
 $(document).ready(function(){
 var cartList;
 var mid = $('#mid').val() // 이후 세션아이디로 변경
-// 여기 처리필요! 기원이가 코드주면 아래꺼 주석처리하기 + xml에서 like 수정하기
-mid=mid.substr(0,mid.indexOf('@')) //골뱅이 뒤에 없애버리기 mid가 이메일형식이아니면 무관
+// url에 .(dot)이 다른거로 쓰여서 변경
+var tmp1=mid.substr(0,mid.indexOf('.')) //골뱅이 뒤에 없애버리기 mid가 이메일형식이아니면 무관
+var tmp2=mid.substr(mid.indexOf('.')+1, mid.length);
+mid= tmp1+","+tmp2;
+console.log(mid);
+
 $.ajax({
 	type: "GET",  
 	url: "/cartAjax/"+mid, 
 	data: {}, 
-	dataType : "json",  // data타입이 없으면 알아서 추측해서 응답받음 우리는 json으로?
+	dataType : "json",  // data타입이 없으면 알아서 추측해서 응답받음
 	contentType: "application/json; charset=utf-8",
 	success: function(data) { 
-		console.log($("#Mid").val());
 		console.log(mid);
-		console.log(JSON.stringify(data));	// 콘솔에 잘뜨는지 확인
+		console.log(JSON.stringify(data));
 		
 		cartList = '';
 		/* 
@@ -142,7 +145,7 @@ $.ajax({
 			$("#msg").append(cartList);
 			});
 		cartcnt=cartcnt+1;
-		$("#cartcnt").append("택배 ("+cartcnt+")");
+		$("#cartcnt").html("택배 ("+cartcnt+")");
 		}
 	});
 });
