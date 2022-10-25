@@ -24,6 +24,7 @@ http://www.springframework.org/schema/beans http://www.springframework.org/schem
 
 		<security:intercept-url pattern="/" access="permitAll" />
 		<security:intercept-url pattern="/mypage/**" access="hasRole('ROLE_MEMBER')" />
+		<security:intercept-url pattern="/cartAjax/**" access="hasRole('ROLE_MEMBER')" />
 		<security:intercept-url pattern="/member/admin" access="hasRole('ROLE_ADMIN')" />
 
 		<security:form-login 
