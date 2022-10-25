@@ -168,6 +168,7 @@ public class ProductController {
 		} catch (Exception e) {
 			jsonObject.put("amount", 0);
 		} finally {
+		    jsonObject.put("psid", psid);   // psid 값 넘기기
 			json = jsonObject.toString();
 		}
 		return json;
