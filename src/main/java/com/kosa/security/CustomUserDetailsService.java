@@ -50,7 +50,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         if(memberDTO.getMrole().equals("ROLE_ADMIN")){
             authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
         }else{
-            authorities.add(new SimpleGrantedAuthority("ROLE_MEMEBER"));
+            authorities.add(new SimpleGrantedAuthority("ROLE_MEMBER"));
         }
         return authorities;
     }

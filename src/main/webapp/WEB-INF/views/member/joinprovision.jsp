@@ -954,5 +954,6 @@ rotate
 	</form> --%>
 	<form id="resultSend" action="/member/joinprovision" method="GET">
 	</form>
+	<%@ include file="/WEB-INF/views/common/footer.jsp"%>
 </body>
 </html>

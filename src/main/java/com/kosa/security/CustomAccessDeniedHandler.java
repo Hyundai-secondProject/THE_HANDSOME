@@ -32,7 +32,7 @@ public class CustomAccessDeniedHandler implements AccessDeniedHandler{@Override
 		
 		log.error("Redirect");
 		
-		response.sendRedirect("/member/login");
+		response.sendRedirect("/member/accessError");
 	}
 	
 }
