@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <%@ include file="../common/header.jsp" %>
-
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <link rel="stylesheet" type="text/css" href="/resources/css/products.css" media="all" />
 
     <!-- Function and Variables Definition Block Start -->
@@ -2178,6 +2178,7 @@ function qtyLimitProductAlert(){
                     </li>
                     <li>
                         <a href="#;" name="cartDivision" data-division="store" onclick="GA_Event('쇼핑백', '탭', '매장수령');" ><span class="spt_ico"></span>매장수령 (0)</a>
+                        <p>principal : <sec:authentication property="principal.username"/> </p>
                     </li>
                     <li>
                         <a href="#;" name="cartDivision" data-division="quick" onclick="GA_Event('쇼핑백', '탭', '퀵배송 ');" ><span class="quk_ico"></span>퀵배송         (0)</a>
