@@ -25,6 +25,6 @@
   관리자 페이지
 </sec:authorize>
 
-<p>principal : <sec:authentication property="principal"/> </p>
+<p>principal : <sec:authentication property="principal.Username"/> </p>
 </body>
 </html>
