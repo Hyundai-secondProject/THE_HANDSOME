@@ -4,6 +4,11 @@
 
 <%@ include file="../common/header.jsp" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+
+<sec:authorize access="hasRole('ROLE_MEMBER')">
+                <sec:authentication property="principal.username" var="MID"/>
+</sec:authorize>
+
 <link rel="stylesheet" type="text/css" href="/resources/css/products.css" media="all" />
 
     <!-- Function and Variables Definition Block Start -->
@@ -190,7 +195,7 @@ $(document).ready(function ()
             //var initialCartQuantity = form.find('input[name=initialQuantity]').val();
             var newCartQuantity = form.find('input[name=quantity]').val();
             var cartData = form.data("cart");
-            var mid = "team5";
+            var mid = $("#mid").val();
             console.log("개수변경중입니다");
             console.log(psid);
             console.log(initialCartQuantity);
@@ -224,7 +229,7 @@ $(document).ready(function ()
         
         // 물품 하나 삭제
         if(prodid[0] == 'RemoveProduct'){
-        	var mid ="ehfhfh1313";
+        	var mid =$("#mid").val();
             var form = $('#updateCartForm' + prodid[1]);
             var psid = form.find('input[name=psid]').val(); 
             var pquantity = form.find('input[name=pquantity]');
@@ -1085,7 +1090,7 @@ function cartListCheckPrice(entryPkList, only4pm) {
 	var selectProductCount = entryPkList.split(",").length -2; // ,로 시작해서 , 로 끝나므로 -2
 	$("#selectProductCount").text(selectProductCount);
 	
-	var mid = $('#testMid').val();
+	var mid = $("#mid").val();
 	entryPkList=entryPkList.substr(1);
 	entryPkList=entryPkList.slice(0,-1);
 	console.log(entryPkList);
@@ -1176,7 +1181,7 @@ function selectRemove(entryNumber) {
 	entryNumber = entryNumber.substring(0,entryNumber.length-1);
 	var entryArray = entryNumber.split(",");
 	
-	var mid = "ehfhfh1313";
+	var mid = $("#mid").val();
     $.ajax({
         type: "GET",
         url: "/cartAjax/selectRemove/"+mid+"/"+entryNumber,
@@ -2162,8 +2167,8 @@ function qtyLimitProductAlert(){
         <span id="shoppingbagCartView">
         
         
-<!-- 세션아이디를 받아보자 -->
-<input type="hidden" class="testMid" id="testMid" name="testMid" value="ehfhfh1313">
+<!-- 세션아이디를 받아보자  @뒤에없음-->
+<input type="hidden" class="mid" id="mid" name="mid" value="${MID}">
  
 
 
@@ -2174,11 +2179,11 @@ function qtyLimitProductAlert(){
                 <!-- 장바구니개편 -->
                 <ul class="tab3">
                     <li>
-                        <a id="cartcnt" href="#;" name="cartDivision" data-division="" onclick="GA_Event('쇼핑백', '탭', '택배');"><span class="delt_ico"></span></a>
+                        <a id="cartcnt" href="#;" name="cartDivision" data-division="" onclick="GA_Event('쇼핑백', '탭', '택배');"><span class="delt_ico"></span>택배 (0)</a>
                     </li>
                     <li>
                         <a href="#;" name="cartDivision" data-division="store" onclick="GA_Event('쇼핑백', '탭', '매장수령');" ><span class="spt_ico"></span>매장수령 (0)</a>
-                        <p>principal : <sec:authentication property="principal.username"/> </p>
+                         
                     </li>
                     <li>
                         <a href="#;" name="cartDivision" data-division="quick" onclick="GA_Event('쇼핑백', '탭', '퀵배송 ');" ><span class="quk_ico"></span>퀵배송         (0)</a>

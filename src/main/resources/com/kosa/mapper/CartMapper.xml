@@ -36,7 +36,7 @@
 	SELECT member.mid, cart.psid, bname, pname, pccolorcode, pcimg1, pcprice, psize, pquantity  
 	FROM cart, member, view_product_detail vpd
 	WHERE cart.psid=vpd.psid
-	AND member.mid = #{mid}
+	AND member.mid like  '%'||#{mid}||'%'
 	order by cart.psid
 	</select>
 	
