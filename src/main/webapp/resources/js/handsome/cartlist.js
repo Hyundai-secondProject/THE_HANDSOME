@@ -142,7 +142,7 @@ $.ajax({
 			$("#msg").append(cartList);
 			});
 		cartcnt=cartcnt+1;
-		$("#cartcnt").append("택배 ("+cartcnt+")");
+		$("#cartcnt").html("택배 ("+cartcnt+")");
 		}
 	});
 });
