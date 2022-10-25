@@ -26,6 +26,22 @@ public class CartRestController {
     @Autowired
     private CartService service;
     
+    
+    // 카트목록
+    // post 방식으로 하는 대신 get 방식으로 한뒤 url에서값을가져와 사용 -> 주연도움
+    @GetMapping("/{mid}")
+    public List<CartVO> getCartGET(@PathVariable("mid") String mid) {
+        
+        
+         //url에 .(dot)이 있는경우 받아오지 못한다
+        System.out.println(mid);
+        mid=mid.replace(',', '.');
+
+        System.out.println(mid);
+        return service.getProducts(mid);
+    }
+
+    
     // 추가
     @GetMapping("/addtocart/{mid}/{psid}/{qty}")
     public String addToCart(@PathVariable("mid") String mid,
@@ -41,20 +57,6 @@ public class CartRestController {
         }
         service.putProduct(cart);
         return "valid";
-    }
-    
-    // 카트목록
-    // post 방식으로 하는 대신 get 방식으로 한뒤 url에서값을가져와 사용 -> 주연도움
-    @GetMapping("/{mid}")
-    public List<CartVO> getCartGET(@PathVariable("mid") String mid) {
-        
-        
-         //url에 .(dot)이 있는경우 받아오지 못한다
-        System.out.println(mid);
-        mid=mid.replace(',', '.');
-
-        System.out.println(mid);
-        return service.getProducts(mid);
     }
 
     // 삭제
@@ -106,5 +108,16 @@ public class CartRestController {
         cart.setPquantity(qty);
         
         service.updateQuantity(cart);  
+    }   
+    
+    
+    @GetMapping("cartCount/{mid}")
+    public String cartCount(@PathVariable("mid") String mid) {
+
+         //url에 .(dot)이 있는경우 받아오지 못한다
+        System.out.println(mid);
+        mid=mid.replace(',', '.');
+        List<CartVO> list = service.getProducts(mid);
+        return ""+list.size();
     }   
 }
