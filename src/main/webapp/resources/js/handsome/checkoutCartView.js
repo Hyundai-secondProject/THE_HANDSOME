@@ -3,10 +3,10 @@ $(document).ready(function(){
 var cartList;
 var mid = $('#testMid').val();
 var entryNumber = $('#testEntryNum').val();
-console.log(entryNumber);
+console.log("entryNumber is " + entryNumber);
 $.ajax({
 	type: "GET",  
-	url: "/cartAjax/checkoutCartView/"+mid+"/"+entryNumber,
+	url: "/order/orderView/"+mid+"/"+entryNumber,
 	data: {}, 
 	dataType : "json",
 	contentType: "application/json; charset=utf-8",

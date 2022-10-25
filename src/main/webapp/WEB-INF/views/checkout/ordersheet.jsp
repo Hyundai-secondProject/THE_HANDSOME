@@ -6124,6 +6124,7 @@ function sendGroobee(){
 <%    
 /* 주문에서 받아온값 */
     String str = request.getParameter("ordersheetEntryNumber");
+	System.out.println("entry Number is " + str);
 %>
 <input type="hidden" id="testEntryNum"  value="<%=str%>">
 <!-- 카트리스트띄우기-->
@@ -6131,7 +6132,7 @@ function sendGroobee(){
 
 
 	<form id="customerAddress" name="customerAddress"
-		action="/ko/checkout/ordersheet" method="post">
+		action="/ko/checkout/ ordersheet" method="post">
 		<input type="hidden" name="sel_lastName" value="신기원" /> <input
 			type="hidden" name="sel_postcode" value="" /> <input type="hidden"
 			name="sel_line1" value="" /> <input type="hidden" name="sel_line2"
