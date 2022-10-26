@@ -1,7 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <%@ include file="/WEB-INF/views/common/header.jsp"%>
+
+
+
+
 <link rel="stylesheet" type="text/css"
 	href="/resources/css/contents.css" media="all" />
 <link rel="stylesheet" type="text/css" href="/resources/css/product.css"
@@ -258,9 +262,7 @@
                                                 } else {
                                                     var v_productCode = this.productCode;
                                                     var v_styleProductCode = this.styleProductCode;
-                                                    var checkNewBrand = true; <
-                                                    !--(오브제(5 W), 클럽모나코(MM, MF) 일때, 신품번만 세일가격 노출여부 판별(
-                                                            3 번째 자리가 숫자) -- >
+                                                    var checkNewBrand = true; 
                                                         if (v_productCode.indexOf('5W') == 0 || v_productCode
                                                             .indexOf('MM') == 0 || v_productCode.indexOf(
                                                             'MF') == 0) {
@@ -488,15 +490,7 @@
                                                     listTag += '			<div class="info">';
                                                     listTag += '				<div class="pt_list" id="pt_list_' + index +
                                                         '">';
-                                                    // 				listTag +=	'					<a href="javascript:void(0);"><img src="'+ this.productImage +'" alt="상품 이미지" /></a>';	
-                                                    // 				listTag +=	'					<div class="tlt_wrap">';	
-                                                    // 				listTag +=	'						<a href="javascript:void(0);" class="basket_tlt">';	
-                                                    // 				listTag +=	'							<span class="tlt">' + this.brandName + '</span>';	
-                                                    // 				listTag +=	'							<span class="sb_tlt"> ' + this.productName + ' </span>';	
-                                                    // 				listTag +=	'						</a>';	
-                                                    // 				listTag +=	'						<dl class="cs_wrap">';
-                                                    // 				listTag +=	'						</dl>';	
-                                                    // 				listTag +=	'					</div>';	
+    
                                                     listTag += '				</div>';
                                                     listTag += '				<div class="btns">';
                                                     listTag +=
@@ -535,64 +529,6 @@
 
                                             var paramDatas = 'productCode=' + $(this).attr(
                                                 'productCode') + '&index=' + $(this).attr('index');
-
-                                            $.ajax({
-                                                type: "get",
-                                                url: "/ko/mypage/wishlistaddcart",
-                                                data: paramDatas,
-                                                dataType: "json",
-                                                error: function (request, status, error) {
-
-                                                    alert("error:" + error);
-                                                },
-                                                success: function (result) {
-
-                                                    $('#pt_list_' + idx).html(result
-                                                        .shoppingbagOptions);
-                                                    addreservenm(reserveProdNm, idx);
-                                                    var defaultSize;
-                                                    var findClass;
-                                                    var length = $('#pt_list_' + idx).find(
-                                                        ".cl_select").find("a").length;
-                                                    for (var i = 0; i <= length; i++) {
-                                                        var defaultProduct = $(
-                                                                '#addToCartForm' + idx)
-                                                            .find(
-                                                                'input[name=productCodePost]'
-                                                                ).val();
-                                                        defaultSize = $('#pt_list_' + idx)
-                                                            .find('.sz_select').find(
-                                                                'a:eq(' + i + ')').html();
-                                                        findClass = $('#pt_list_' + idx)
-                                                            .find('.sz_select').find(
-                                                                'a:eq(' + i + ')').attr(
-                                                                'class');
-
-                                                        if (defaultSize != undefined &&
-                                                            findClass != "not_stock") {
-                                                            $('#addToCartForm' + idx).find(
-                                                                'input[name=productCodePost]'
-                                                                ).val(defaultProduct +
-                                                                "_" + defaultSize);
-                                                            $('#addToCartForm' + idx).find(
-                                                                'input[name=productCodeType]'
-                                                                ).val(
-                                                                "ApparelSizeVariantProduct"
-                                                                );
-                                                            $('#pt_list_' + idx).find(
-                                                                '.sz_select').find(
-                                                                'a:eq(' + i + ')').attr(
-                                                                'class', 'on');
-                                                            wishlistProductStock($(
-                                                                '#addToCartForm' +
-                                                                idx).find(
-                                                                'input[name=productCodePost]'
-                                                                ).val(), idx);
-                                                            return;
-                                                        }
-                                                    }
-                                                }
-                                            });
 
                                         });
 
@@ -648,7 +584,8 @@
                                             }
 
                                             if (prodid[0] == 'addToCart') {
-                                                addToCart(prodid[1]);
+                                                //addToCart(prodid[1]);
+                                                addToCartWish(prodid[1]);
                                             }
 
                                         });
@@ -779,7 +716,7 @@
                             }
 
                             function addToCart(index) {
-                                var form = $('#addToCartForm' + index);
+                                var form = $('#addToCartForm' + index);	
                                 var qty = $("#quantity" + index).val();
                                 form.find('input[name=qty]').val(qty);
                                 var stock = $("#stockCnt" + index).val();
@@ -2526,16 +2463,21 @@
 
         //]]>
     </script>
-    
+
+<sec:authorize access="hasRole('ROLE_MEMBER')">
+                <sec:authentication property="principal.username" var="MID"/>
+</sec:authorize>
+
+    <script type="text/javascript" src="/resources/js/handsome/addToCart.js"></script>
+    <input type="hidden" name="mid" id="mid" value="${MID}"> 
     <!-- 위시리스트 ajax처리 -->
     <script type="text/javascript">
     $(window).ready(function () {
-    	console.log("11111111111");
 		const url = new URL(window.location.href);
 		const urlParams = url.searchParams;	
 		showWish(1);
-		let mid = "team5";
-    	
+		var mid = $("#mid").val();
+    	console.log(mid);
     	function showWish(page) {
     		console.log("위시리스트 불러오기");
     		console.log("page: " + page);
@@ -2545,23 +2487,17 @@
 			let url2;
 			url2 = "/mypage/getLikeList?page="+page;
 			
-/* 			if (!urlParams.get("page")) {
-				url2 = "/mypage/getLikeList";
-			} else {
-				console.log("2실행");
-				url2 = "/mypage/getLikeList?page="+page;
-			}  */
 			
  			 $.ajax({
 				url: url2
 			}).done(function(data) {
-				console.log(data);
+				console.log("d여기입니다");
 				wish_array = data.likes;
 				totalCnt = data.totalCnt;
-				console.log("1");
 				console.log(data.likes);
 				
-				let mid = "team5";
+				var mid = $("#mid").val();
+				console.log(mid);
 				
 				let html_tmp = "";
 				for (let i = 0; i < wish_array.length; i++) {
@@ -2662,20 +2598,22 @@
 					tmp += "					</dl>";
 					
 												// form tag 여기다가 사이즈 + 색깔 선택 -> 장바구니로 넘기기
-					tmp += "					<form id = 'cartFrom"+i+"' name='addToCartForm'>";
+					tmp += "					<form id = 'cartForm"+i+"' name='addToCartForm'>";
 					// tmp += "						<input type='hidden' maxlength='3' size='1' name='qty' class='qty'>";
 					tmp += "						<input id = 'cart_pcid_"+ i +"' type='hidden' name='pcid' value='"+ product_color.at(0).pcid+"'>";
 					tmp += "						<input id = 'cart_psize_"+ i +"' type='hidden' name='psize' value='-1'>";
 					tmp += "						<input id = 'cart_stockCnt_"+ i +"' type='hidden' name='stockCnt' id='stockCnt' value='-1'>"; // 재고 저장 -> 수정 필요!!!!!!!!!!!!!!!
-					tmp += "						<input id = 'cart_count_"+ i +"' type='hidden' name='count' value='-1'>";					
+					tmp += "						<input id = 'cart_count_"+ i +"' type='hidden' name='count' value='-1'>";
+					
+					
 					tmp += "					</form>";
 					tmp += "				</div>";
 					tmp += "			</div>";
 					
 					tmp += "			<div class='btns'>";
-					tmp += "				<a href='javascript:void(0)' class='btn wt_ss bag' id='addToCart_0'>쇼핑백담기</a>";
-				//	tmp += "				<a href='javascript:void(0)' class='btn wt_ss mt10 bag' id='cancle_0'>취소</a>";
-					tmp += "				<a href='javascript:void(0)' class='btn_close bag' id='close_0'>닫기</a>";
+					tmp += "				<a href='javascript:void(0)' class='btn wt_ss bag' id='addToCart_"+i+"' onclick='addToCartWish("+i+")'>쇼핑백담기</a>";
+				//	tmp += "				<a href='javascript:void(0)' class='btn wt_ss mt10 bag' id='cancle_"+i+"'>취소</a>";
+					tmp += "				<a href='javascript:void(0)' class='btn_close bag' id='close_"+i+"'>닫기</a>";
 					
 					tmp += "			</div>";
 					tmp += "		</div>";

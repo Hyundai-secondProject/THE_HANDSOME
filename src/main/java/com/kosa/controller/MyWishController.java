@@ -51,7 +51,7 @@ public class MyWishController {
 		Criteria cri = new Criteria(page,2); // 한 화면에 표현할 갯수
 		// (카테고리, criteria)를 통해 12개의 상품 표시
 		// dto를 통해 제품 리스트 + 해당 카테고리/브랜드의 전체 제품 갯수 가져오기
-		WishPageDTO likes = mywishservice.getLikeProducts(cri,"team5"); // mid 어떻게 가져올지 정해야 함!!!!!!!!!!!!
+		WishPageDTO likes = mywishservice.getLikeProducts(cri,"ehfhfh1313@naver.com"); // mid 어떻게 가져올지 정해야 함!!!!!!!!!!!!
 
 		log.info(likes);
 		log.info("t");
