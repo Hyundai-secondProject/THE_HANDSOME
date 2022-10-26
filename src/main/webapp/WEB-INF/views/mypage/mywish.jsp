@@ -2475,21 +2475,23 @@
     $(window).ready(function () {
 		const url = new URL(window.location.href);
 		const urlParams = url.searchParams;	
-		showWish(1);
 		var mid = $("#mid").val();
+		showWish(1);
     	console.log(mid);
     	function showWish(page) {
-    		console.log("위시리스트 불러오기");
-    		console.log("page: " + page);
-			let wish_array;
-			let totalCnt;
-			
-			let url2;
-			url2 = "/mypage/getLikeList?page="+page;
+	    		console.log("위시리스트 불러오기");
+	    		console.log("page: " + page);
+				let wish_array;
+				let totalCnt;
+				
+				let url2;
+			url2 = "/mypage/getLikeList";
 			
 			
  			 $.ajax({
-				url: url2
+				url: url2,
+				data : {'mid' : mid, 'page' : page},
+				type : 'get'
 			}).done(function(data) {
 				console.log("d여기입니다");
 				wish_array = data.likes;
