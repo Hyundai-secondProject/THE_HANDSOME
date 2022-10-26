@@ -2122,13 +2122,13 @@
 													<input type="button" value=""
 														class="btn wishlist1803 float_left ml0 on "
 														id = 'wish_${product.pid}';
-														onclick="insertLike('${product.pid}','team5')"> <!-- 좋아요 버튼!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+														onclick="insertLike('${product.pid}', '${MID}')"> 
    												</c:when>
 											    <c:otherwise>
 													<input type="button" value=""
 														class="btn wishlist1803 float_left ml0"
 														id = 'wish_${product.pid}';
-														onclick="insertLike('${product.pid}','team5')"> <!-- 좋아요 버튼!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+														onclick="insertLike('${product.pid}','${MID}')"> 
 											    </c:otherwise>
 											</c:choose>
 

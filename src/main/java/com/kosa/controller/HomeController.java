@@ -30,7 +30,7 @@ public class HomeController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home() {
 				
-		return "product/productlist";
+		return "index";
 	}
 	
 	// mid를 통해 위리리스트 갯수 가져온다
@@ -51,6 +51,11 @@ public class HomeController {
 		}
 		return json;
 	}
+	
+//	@GetMapping("/error")
+//	public String error() {
+//		return "common/error";
+//	}
 	
 
 	

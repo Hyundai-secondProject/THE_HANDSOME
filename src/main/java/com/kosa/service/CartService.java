@@ -35,6 +35,8 @@ public interface CartService {
     // update
     public void updateQuantity(CartVO cart);
     
+    // 카트중복체크 select
+    public int checkCart(CartVO cart);
     
     
     

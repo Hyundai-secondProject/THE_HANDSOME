@@ -566,7 +566,7 @@
  */
 						// 페이징 표시 자바스크립트
 						var pageNum = 1;
-						var pageNation = $(".paging")
+						var pageNation = $(".paging");
 						
 
 						function showProductPage(totalCnt) {

@@ -22,15 +22,14 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kosa.domain.event.CouponCountVO;
 import com.kosa.domain.event.CouponDetailViewVO;
 import com.kosa.domain.event.EventDetailViewVO;
 import com.kosa.domain.event.EventViewVO;
 import com.kosa.mapper.EventMapper;
 
 import lombok.AllArgsConstructor;
-import lombok.extern.log4j.Log4j;
 
-@Log4j
 @Service
 @AllArgsConstructor
 
@@ -76,5 +75,16 @@ public class EventServiceImpl implements EventService{
 	public int insertCoupon(int ENO, String MID) {
 		return mapper.insertCoupon(ENO, MID);
 		
+	}
+
+	@Override
+	public List<CouponCountVO> getCouponCount(int ENO) {
+		return mapper.getCouponCount(ENO);
+	}
+
+	@Override
+	public int updateCouponCount(int ENO) {
+		
+		return mapper.updateCouponCount(ENO);
 	}
 }

@@ -181,6 +181,8 @@ $(document).ready(function ()
     });
 
     $(document).on("click", '.btn', function(){
+
+    	
         var prodid = $(this).prop('id').split("_");
         
         if(prodid[0] == 'optCancelLayer'){
@@ -246,6 +248,7 @@ $(document).ready(function ()
                 success: function(data){
                     console.log("성공!");
                     location.reload();
+                    cartCount();
    
                 },
                 error: function(xhr,  Status, error) {
@@ -1120,25 +1123,6 @@ function cartListCheckPrice(entryPkList, only4pm) {
 		$("#cartDataSubtotal").text("₩"+addComma(subtotal));
         $("#cartDataDeliveryCost").text("₩"+addComma(deliveryCost));
         $("#cartDataTotalPrice").text("₩"+addComma(totalprice)); 
-	 	
-        /* ajax 주석 */
-        /* $.ajax({
-            type: "GET",
-            url: "/cartAjax/calculation/"+mid+"/"+entryPkList,
-            dataType: "json",
-            async : false,
-            cache : false,			
-            data: {},
-            success: function(data){
-                console.log(entryPkList);
-                $("#cartDataSubtotal").text("₩"+addComma(data.subTotal));
-                $("#cartDataDeliveryCost").text("₩"+addComma(data.deliveryCost));
-                $("#cartDataTotalPrice").text("₩"+addComma(data.totalPrice));
-            },
-            error: function(xhr,  Status, error) {
-                alert('sendRequest error : ' + xhr.status + " ( " + error + " ) " );
-            }
-        });	 */ 
          
 	}
 }
@@ -1190,37 +1174,7 @@ function selectRemove(entryNumber) {
         success: function(data){
         	console.log("성공!");
             location.reload();
-			/* if(data == "") {
-        		var lc = "";
-        		if(type == "outOfStock") {
-        			lc = new layerAlert("품절상품을 삭제하였습니다.");
-        		} else {
-        			lc = new layerAlert("선택상품을 삭제하였습니다.");
-        		}
-        		GA_Event('쇼핑백','주문','선택상품삭제');
-        		setEcommerceData(entryNumber, "Remove From Cart");
-                lc.confirmAction = function(){
-                	
-	    				$("a[name='cartDivision']").each(function() {
-	    					if($(this).data('division') == $("#ordersheetCartDivision").val()){
-	    						$(this).click();
-	    						$("#cartCount").html(Number($("#cartCount").text()) - entryArray.length);
-	    					}
-	    				});
-                	
-            	};
-			} else {
-        		var lc = "";
-        		if(type == "outOfStock") {
-					lc = new layerAlert("품절상품 삭제에 실패하였습니다.");
-        		} else {
-        			lc = new layerAlert("선택상품 삭제에 실패하였습니다.");
-        		}
-				
-                lc.confirmAction = function(){
-                	window.location.reload();
-            	};
-			} */
+			
         },
         error: function(xhr,  Status, error) {
             alert('sendRequest error : ' + xhr.status + " ( " + error + " ) " );
@@ -2059,46 +2013,7 @@ var checkoutPaymentAuthCallback = function (resultCode, resultMsg, result) {
 }
 
 
-/* function promotionProductCartAddCheck(productCode) {
-    //var productCode = pd.substring(0, pd.indexOf("_"));
-    var promotionid = "BTSPRODUCT20200401"; 
-    var promotionFlag = false;
-    
-    $.ajax({
-        type: "POST",
-        url: '/ko/rest/promotion/product/check'+'/'+promotionid+'?CSRFToken=ae3faaff-c181-4913-ae57-c2a4ac651d0c',
-        dataType: "json",
-        async:false,
-        data:JSON.stringify({promotion:promotionid,productcode:productCode}),
-        contentType : "application/json; charset=UTF-8",
-        success: function(data){
-			if( data ){
-				switch(data){
-					case 0 :
-					    //msg = "BTS상품 아닙니다.";
-						break;
-					case 1 : 
-					    promotionFlag = true;
-					    //msg = "BTS상품 맞습니다.";
-						break;
-					case 2 : 
-					    //msg = "확인 실패했습니다.";
-						break;
-					case 3 : 
-					    //msg = "확인 중 예외가 발생했습니다.";
-						break;
-					default :
-					    break;
-				}
-			}
-        },
-        error: function(xhr,  Status, error) {
-            alert('sendRequest error : ' + xhr.status + " ( " + error + " ) " );
-        }
-    });
-    
-    return promotionFlag;
-} */
+
 
 function callWishListClick(prodNm, ele, prodCd){
     GA_Event('쇼핑백','위시리스트', prodNm);
@@ -2123,33 +2038,6 @@ function qtyLimitProductAlert(){
 //]]>
 </script>
 
- <script>
- /* 참고 */
-/*  $(function(){
-	 //jquery를 이용 keyup할때마다 이벤트 발생
-    $("#testAjax").on("click", function(){
-    	
-       var $testMid = $("#testMid").val();
-       var $msg = $("#msg");
-       console.log($testMid+"테스트중");
-	
-       // 비동기 방식으로 URL을 타고들어간다
-       $.ajax({
-          type : "POST",
-          url: "/cartAjax",
-          data : data,
-          // dataType : "html",  // data타입이 없으면 알아서 추측해서 응답받음 우리는 json으로?
-          async : true,     //비동기 유무
-          //data로 결과 값을 받아온다
-          success : function(data){
-             console.log("data : "+data);
-             $msg.html("<h4 style=\"color:red\"> ※ 아이디가 이미 존재합니다 ※</h4>");
-          }
-		})
-    })
- }) */
-
-</script>
 
 <!-- 카트 리스트 출력 -->
 <script type="text/javascript" src="/resources/js/handsome/cartlist.js"></script>

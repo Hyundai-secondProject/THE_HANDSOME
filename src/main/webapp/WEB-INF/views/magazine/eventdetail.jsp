@@ -3,7 +3,11 @@
 <%@ include file="../common/header.jsp"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+
+
 <div id="bodyWrap" class="products">
+
 	<!--title-->
 	<h3 class="cnts_title">
 		<span> 이벤트 </span>
@@ -87,12 +91,15 @@
 							</div>
 						</div>
 						<div class="btn-coupon-wrap ready">
-							<a href="/magazine/makecoupon?ENO=${detaillist.eno}&MID=team5" onclick="alert('쿠폰 줬다.')" class="btn-coupon">
+						<sec:authorize access="hasRole('ROLE_MEMBER')">
+						<sec:authentication property="principal.username" var="MID"/>
+						</sec:authorize>
+							<a href="/magazine/makecoupon?ENO=${detaillist.eno}&MID=${MID}" onclick="" class="btn-coupon">
 								<img src= ${detaillist.edetailimg} >
 							</a>
 						</div>
 						<div class="btn-coupon-wrap already" style="display: none">
-							<a href="/mypage/voucher" class="btn-mycoupon"> <img
+							<a href="" class="btn-mycoupon"> <img
 								src="http://cdn.thehandsome.com/_ui/desktop/common/images/event/event_7th/evt_main/img_btn_coupon_1.jpg"
 								alt="나의쿠폰함">
 							</a>

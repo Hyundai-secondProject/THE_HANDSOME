@@ -74,6 +74,10 @@ media="all" /> -->
 <!-- 검색 결과화면 색상 필터 끝 -->
 
 
+<!-- cart개수 ajax -->
+<script type="text/javascript" src="/resources/js/handsome/cartCount.js">cartCount()</script>
+
+
 <!-- 쿠폰 정렬 -->
 <style media="screen">
 	.sharing {float:right;background-position:right !important}
@@ -2529,7 +2533,7 @@ deg
 					<div class="brand_menu brand_menu1903">
 						<ul class="clearfix">
 							<!-- 선호 브랜드 없음 -->
-							<li><span class="on"> <a href="/ko/main"
+							<li><span class="on"> <a href="/"
 									onclick="GA_Event('공통','탑_네비게이션','HOME')">HOME</a>
 							</span></li>
 							<!-- 로그인 상태 -->
@@ -2752,7 +2756,7 @@ deg
 					<!--// 201705 search_box_wrap -->
 					<div class="util_menu" style="display: block;">
 						<ul class="clearfix">
-							<li><a href="/ko/member/login"
+							<li><a href="/member/login"
 								onclick="GA_Event('공통','헤더_메뉴','로그인')"> 로그인 <!-- 로그인 -->
 							</a></li>
 							<li class="header_dropmemu mypage"><a href="/ko/mypage"
@@ -3530,7 +3534,7 @@ deg
 									( <span id="wishlistCount">0</span> )
 							</span>
 						</a></li>
-						<li><a href="/ko/shoppingbag"
+						<li><a href="/shoppingbag"
 							onclick="GA_Event('공통','유틸_메뉴','쇼핑백');"> <span
 								class="ico cart">장바구니</span> <span class="count"> ( <span
 									id="cartCount">0</span> )
@@ -3547,7 +3551,6 @@ deg
 	$(document).ready(function () {
 		
 		countLikes("team5");
-		
 		function countLikes(mid) {
 			console.log(mid);
 	   		//alert("수행");
@@ -3560,6 +3563,7 @@ deg
 				console.log("위시리스트 갯수 : "+ data.count);
 				$("#wishlistCount").html(data.count);
 			});
-		}		
+		}
 	});	
+	
 </script>

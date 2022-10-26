@@ -20,6 +20,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.kosa.domain.event.CouponCountVO;
 import com.kosa.domain.event.CouponDetailViewVO;
 import com.kosa.domain.event.EventDetailViewVO;
 import com.kosa.domain.event.EventViewVO;
@@ -40,4 +41,7 @@ public interface EventService {
 
 	List<CouponDetailViewVO> getCouponDetailUnused(String MID);
 	
+	List<CouponCountVO> getCouponCount(int ENO);
+	
+	public int updateCouponCount(int ENO);
 }

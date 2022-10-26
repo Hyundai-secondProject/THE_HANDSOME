@@ -15,7 +15,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 * 2022.10.20 	김민규	 지난 이벤트 리스트 페이지,이벤트 상세 페이지 추가 
 * 2022.10.21 	김민규	 마이페이지 쿠폰 조회 추가 
 * 2022.10.24 	김민규 		쿠폰발급 추가
-* 2022.10.25	김민규		쿠폰 조회 구분 추가
+* 2022.10.25	김민규		쿠폰 조회 구분 추가, 쿠폰 갯수
 * </pre> 
 */ -->
 
@@ -83,12 +83,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 쿠폰 발급 -->
 	<insert id="insertCoupon">
 
-		insert into COUPON_DETAIL values ((select CONCAT('COU-PON-TEST',#{eno}) from
+		insert into COUPON_DETAIL values ((select CONCAT(CONCAT('COU-PON-TEST-',#{mid}),#{eno}) from
 		event where ENO=#{eno}),#{eno},#{mid},(select EISSUEDATE from event
 		where ENO =#{eno}),(select EEXPIREDATE from event where ENO
 		=#{eno}),null,1)
-
-
+		
 	</insert>
+	
+	<!-- 쿠폰 갯수 -->
+	<select id="getCouponCount" resultType="com.kosa.domain.event.CouponCountVO">
+		select  elimitcount, ecount from
+		EVENT where eno = #{ENO}
+	</select>
+
+	<!-- Ecount++ -->
+	<update id ="updateCouponCount">
+	update event set ecount = ecount+1
+	where eno = #{ENO}
+	</update>
 
 </mapper>
