@@ -44,5 +44,6 @@ public interface CartMapper {
 	public void update(@Param("mid") String mid, @Param("psid") String psid, @Param("pquantity") long pquantity);
 	// 중복체크
 	public int checkCart(@Param("mid") String mid, @Param("psid") String psid); 
-
+	// 재고확인
+	public int checkStock(@Param("mid") String mid, @Param("psid") String psid); 
 }

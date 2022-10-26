@@ -95,6 +95,25 @@ public class CartRestController {
         service.deleteProducts(mid, psidList);
     }
     
+ // 수량체크
+    @GetMapping("checkStock/{mid}/{psid}/{qty}")
+    public String checkStock(@PathVariable("mid") String mid,
+                                @PathVariable("psid") String psid,
+                                @PathVariable("qty") int qty) {
+        System.out.println(mid + psid + qty);
+        CartVO cart = new CartVO();
+        cart.setMid(mid);
+        cart.setPsid(psid);
+        System.out.println(service.checkStock(cart));
+        // 재고보다 장바구니 양이 많으면
+        if(qty< service.checkStock(cart)) {
+            return "valid";
+        }else {
+            return "invalid";
+        }
+        //스턱테이블가기
+    }   
+    
     // 수량변경
     @GetMapping("updateQuantity/{mid}/{psid}/{newCartQuantity}")
     public void updateQuantity(@PathVariable("mid") String mid,
@@ -111,6 +130,7 @@ public class CartRestController {
     }   
     
     
+    // 헤더의 카트 개수 출력
     @GetMapping("cartCount/{mid}")
     public String cartCount(@PathVariable("mid") String mid) {
 

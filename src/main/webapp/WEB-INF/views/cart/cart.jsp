@@ -55,14 +55,7 @@ $(document).ready(function ()
     //2017. 01. 17 이현승 - 상품판매금액이 변경된 사항을 Alert메시지로 노출함.
     showChangeProductPriceLayoutAlert();
     
-    //매장수령의 경우
-    
-    
-    //앳홈의 경우
-    
 
-    //퀵배송의 경우
-    
     
     var emailAddress = "";
     emailArr = emailAddress.split("@");
@@ -107,6 +100,7 @@ $(document).ready(function ()
             return ;
         }
         qty.val(Number(qty.val()) - 1);
+       
     });
 
     $(document).on("click", '.right', function(){
@@ -116,19 +110,28 @@ $(document).ready(function ()
     	}
     	
         var qty = $(this).parents('.qty_sel').find('.mr0');
-        
-        //if (qty.val() > 99) {
-            //layerAlert("'[브랜드명]상품명'의 \n재고수량은 n개 입니다.\n다시 입력해 주시기 바랍니다.");
-            //return ;
-        //}
         var psid = $(this).parents('form').find('input[name="psid"]').val();
+        var mid = $("#mid").val();
+        $.ajax({
+            type: "GET",
+            url: "cartAjax/checkStock/"+ mid +"/"+ psid +"/"+ qty.val(),	
+            dataType : "text",
+            success: function(data){
+            	if(data=="valid"){
+            		console.log("성공");
+            		qty.val(Number(qty.val()) + 1);
+            	}
+            	else{
+            		console.log("실패");
+                    alert("재고가 부족합니다");
+            	}
+
+            },
+            error: function(xhr,  Status, error) {
+                alert('sendRequest error : ' + xhr.status + " ( " + error + " ) " );
+            }
+        });	 
         
-        /* var promotionFlag = promotionProductCartAddCheck(productCode); */
-        if(false){
-            layerAlert("동일 옵션(컬러/사이즈)으로 최대 1개 구매 가능합니다.");
-        }else{
-            qty.val(Number(qty.val()) + 1);
-        }
     });
     
     $(document).on("click", '.btn_option', function(){
@@ -155,29 +158,6 @@ $(document).ready(function ()
         var deliveryPlanDate = "{0}년 {1}월{2}일부터 순차적으로 배송됩니다."+ "(옵션 별로 배송 일자를 확인해 주세요.)";
         deliveryPlanDate = deliveryPlanDate.replace("{0}", reserveSaleyyyy).replace("{1}", reserveSalemm).replace("{2}", reserveSaledd);
         
-        $.ajax({
-            type: "GET",
-            url: "/ko/shoppingbag/options",
-            dataType: "json",
-            data: {"productCode": prodid[2], "prodid":prodid[1], "curSize":curSize},
-            success: function(data){
-                $('#pt_list_'+prodid[1]).html(data.options);
-                $('#pt_list_'+prodid[1]).find(".sz_select > a").each(function(){
-                    if($(this).hasClass("on")){
-                        $(this).css("line-height","15px");                        
-                    }
-                });
-                
-                var form = $('#updateCartForm' + prodid[1]);
-                var productCode = form.find('input[name=productCode]'); 
-                form.find('input[name=chgProductCode]').val(productCode.val());
-                
-                $('#pt_list_'+prodid[1]).find('.reserveDeliveryWrap').html(deliveryPlanDate);
-            },
-            error: function(xhr,  Status, error) {
-                alert('sendRequest error : ' + xhr.status + " ( " + error + " ) " );
-            }
-        });
     });
 
     $(document).on("click", '.btn', function(){
@@ -223,9 +203,7 @@ $(document).ready(function ()
                         alert('sendRequest error : ' + xhr.status + " ( " + error + " ) " );
                     }
                 });	 
-            	
-                /* AEC_U_V(psid, newCartQuantity);
-                form.submit(); */
+
             }
         }
         
@@ -2196,10 +2174,10 @@ function qtyLimitProductAlert(){
                 <form id="ordersheetCloneForm" name="orderSheetCloneForm" action="/checkout/ordersheet"  method="get">
                 	<input type="hidden" id="ordersheetEntryNumber" name="ordersheetEntryNumber" value="" />
 					<!-- <input type="hidden" id="ordersheetCartDivision" name="ordersheetCartDivision" value="" /> -->
-				</div> --></form> 
+				</div> </form> 
                      
                 <!--//button wrap-->
-                 <div class="promotion_wrap mt60" id="freeGiftPromotion">
+                 <!-- <div class="promotion_wrap mt60" id="freeGiftPromotion">
                         <dl class="promotion_list" style="border-top:1px solid #ebebeb; padding:60px 20px 18px 20px">
                             <dt class="promotion_tit">PROMOTION 혜택</dt>
                             <dd class="promotion_con1">
@@ -2298,7 +2276,7 @@ function qtyLimitProductAlert(){
                             </dd>
                             </dl>
                     </div>
-                    </div>
+                    </div> -->
             <!--//order wrap-->
         </div>
         <!--//sub_container-->
