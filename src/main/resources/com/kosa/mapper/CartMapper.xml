@@ -78,6 +78,14 @@
 		</foreach>
 	</delete>
 	
+	<select id="checkStock" resultType="int">
+		select psstock 
+		from product_stock, member
+		where member.mid = #{mid} and product_stock.psid = #{psid}
+	
+	</select>
+	
+	<!-- 수량변경 -->
 	<update id="update">
 		UPDATE cart
 		SET
