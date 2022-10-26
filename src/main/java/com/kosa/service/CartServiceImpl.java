@@ -65,7 +65,11 @@ public class CartServiceImpl implements CartService {
     @Override
     public int checkCart(CartVO cart) {
         return cartMapper.checkCart(cart.getMid(), cart.getPsid());
-        
+    }
+    
+    @Override
+    public int checkStock(CartVO cart) {
+        return cartMapper.checkStock(cart.getMid(), cart.getPsid());
     }
 
 }

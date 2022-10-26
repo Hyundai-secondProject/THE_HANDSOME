@@ -38,6 +38,9 @@ public interface CartService {
     // 카트중복체크 select
     public int checkCart(CartVO cart);
     
+    // 카트중복체크 select
+    public int checkStock(CartVO cart);
+    
     
     
 }
