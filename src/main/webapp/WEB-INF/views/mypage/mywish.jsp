@@ -1100,7 +1100,7 @@
 			<!--  <p class="mt10 ml10">* 세일/가격인하/아울렛 일부 할인 상품은 한섬마일리지 적립이 불가합니다. 정확한 적립율은 쇼핑백과 상품상세페이지에서 확인하세요.</p>-->
 			<p class="mt10 ml10">* 정확한 적립율은 상품상세페이지에서 확인하세요.</p>
 			<div class="btn_btwrap">
-				<a href="javascript:void(0);" class="btn wt_ss chooseDel">선택삭제 <!-- 선택삭제 --></a>
+				<a href="javascript:void(0);" class="btn wt_ss chooseDel" id="deleteChoose">선택삭제 <!-- 선택삭제 --></a>
 			</div>
 			<!-- paging -->
 			<div class="paging">
@@ -2529,12 +2529,12 @@
     
     <!-- 위시리스트 ajax처리 -->
     <script type="text/javascript">
-    $(document).ready(function () {
+    $(window).ready(function () {
     	console.log("11111111111");
 		const url = new URL(window.location.href);
 		const urlParams = url.searchParams;	
-		    	
 		showWish(1);
+		let mid = "team5";
     	
     	function showWish(page) {
     		console.log("위시리스트 불러오기");
@@ -2560,7 +2560,7 @@
 				totalCnt = data.totalCnt;
 				console.log("1");
 				console.log(data.likes);
-				console.log(data.likes.at(0).sizes);
+				
 				let mid = "team5";
 				
 				let html_tmp = "";
@@ -2572,7 +2572,7 @@
 					let product_info = like.product;
 					let tmp = "";
 					tmp += "<tr>";
-					tmp += "	<td class='frt'><input type='checkbox' title='선택' value='9613624279742' name='checkpd' data-value='TM2CBWJC284W'></td>";
+					tmp += "	<td class='frt'><input type='checkbox' title='선택' value='9613624279742' name='checkpd' data-id='"+product_info.pid+"'></td>";
 					tmp += "	<td class='pt_list_wrap'>"
 					tmp += "		<div class='pt_list_all'> <a href='${pageContext.request.contextPath}/product/productdetail?pid="+wish_array.at(i).product.pid + "&pcid=" + wish_array.at(i).colors.at(0).pcid 
 									+ "'><img src='" + like.pcimg3 +"' alt='상품 이미지'></a>";
@@ -2593,14 +2593,15 @@
 					tmp += "	<td class='al_middle'>";
 					tmp += "		<div class='btn_wrap'>";
 					tmp += "			<a href='javascript:void(0)' class='btn wt_ss add_bag parent_add_bag' onclik= 'showCart(&#39;"+ product_info.pid+ "&#39;,&#39;" + product_color.at(0).pcid + "&#39;)'>쇼핑백 담기 </a>";
-					tmp += "			<a href='javascript:void(0)' id = 'deleteOne' class='btn wt_ss wishDel' onclik= 'deleteLike(&#39;"+ product_info.pid+ "&#39;,&#39;" + mid + "&#39;)'>삭제</a>";
+					tmp += "			<a class='btn wt_ss wishDel deleteOne' data-id='"+ product_info.pid+"'>삭제</a>";
+					// onclick= 'deleteLike(&#39;"+ product_info.pid+ "&#39;,&#39;" + mid + "&#39;)'
 					tmp += "		</div>";
 					tmp += "	</td>";
 					tmp += "</tr>";
 					
 					tmp += "<tr class = 'hid'>";					
 					tmp += "	<td colspan='5' class='basket_wrap'>";					
-					tmp += "		<div class='basket_info' style='display: block;' id = 'cart_"+product_info.pid+"'>";
+					tmp += "		<div class='basket_info' style='display: none;' id = 'cart_"+product_info.pid+"'>";
 					tmp += "			<span class='btn_arr'>위치아이콘</span>";
 					tmp += "			<div class='info'>";
 					tmp += "				<div class='pt_list'>";
@@ -2622,9 +2623,9 @@
 					for (let j = 0; j < product_color.length; j++) {
 					if (j == 0) {
 							// 클릭시 input - hidden tag에 pcid지정
-							tmp += "<a href='javascript:void(0)' onclick = 'selectColor(&#39;"+ product_color.at(j).pcid+ "&#39;)' class='beige on' style =' background-image : url(" + product_color.at(j).pcchipimg + ")'>"+product_color.at(j).pccolorcode+"</a>";
+							tmp += "<a href='javascript:void(0)' onclick = 'selectColor(&#39;"+ product_color.at(j).pcid+ "&#39;)' data-pcid='"+product_color.at(j).pcid+"' data-seq='"+i+"' class='beige on' style =' background-image : url(" + product_color.at(j).pcchipimg + ")'>"+product_color.at(j).pccolorcode+"</a>";
 						} else {
-							tmp += "<a href='javascript:void(0)' onclick = 'selectColor(&#39;"+ product_color.at(j).pcid+ "&#39;)' class='beige' style =' background-image : url(" + product_color.at(j).pcchipimg + ")'>"+product_color.at(j).pccolorcode+"</a>";
+							tmp += "<a href='javascript:void(0)' onclick = 'selectColor(&#39;"+ product_color.at(j).pcid+ "&#39;)' data-pcid='"+product_color.at(j).pcid+"' data-seq='"+i+"' class='beige' style =' background-image : url(" + product_color.at(j).pcchipimg + ")'>"+product_color.at(j).pccolorcode+"</a>";
 						}					
 					} 
 					
@@ -2638,10 +2639,10 @@
 					if (j == 0) {
 							// 클릭시 input - hidden tag에 pcid지정
 							//tmp += "<a href='javascript:void(0)' onclick = 'selectSize(&#39;"+ pcid+ "&#39;,&#39;" + psize + "&#39;)' class='on')>"+product_size.at(j).psize+"</a>";
-						tmp += "<a href='javascript:void(0)' class='on')>"+product_size.at(j).psize+"</a>";
+						tmp += "<a href='javascript:void(0)' data-psize='"+product_size.at(j).psize+"' data-seq='"+i+"')>"+product_size.at(j).psize+"</a>";
 						} else {
 							//tmp += "<a href='javascript:void(0)' onclick = 'selectSize(&#39;"+ pcid+ "&#39;,&#39;" + psize + "&#39;)')>"+product_size.at(j).psize+"</a>";
-							tmp += "<a href='javascript:void(0)')>"+product_size.at(j).psize+"</a>";
+							tmp += "<a href='javascript:void(0)' data-psize='"+product_size.at(j).psize+"' data-seq='"+i+"')>"+product_size.at(j).psize+"</a>";
 						}					
 					} 
 
@@ -2652,20 +2653,21 @@
 					tmp += "						<dd>";
 					tmp += "							<div class='qty_sel num'>";
 					
-					tmp += "							<a href='javascript:leftClick(0)' class='left'>이전 버튼</a>";
-					tmp += "							<input type='text' title='수량' value='1' id='quantity0' class='mr0' readonly='readonly'>";
-					tmp += "							<a href='javascript:leftClick(0)' class='right'>다음 버튼</a>";
+					tmp += "							<a data-type='m' class='left' data-seq='"+i+"' >이전 버튼</a>";
+					tmp += "							<input id = 'qty_"+ i +"' type='text' title='수량' value='1' class='mr0' readonly='readonly'>";
+					tmp += "							<a data-type='p' class='right' data-seq='"+i+"' >다음 버튼</a>";
 
 					tmp += "							</div>";
 					tmp += "						</dd>";
 					tmp += "					</dl>";
 					
-					// form tag 여기다가 사이즈 + 색깔 선택 -> 장바구니로 넘기기
-					tmp += "					<form id='addToCartForm0' name='addToCartForm'";
-					tmp += "						<input type='hidden' maxlength='3' size='1' name='qty' class='qty'>";
-					tmp += "						<input type='hidden' name='pcid' value='SY2CBRJC445WP_LY_82'>";
-					tmp += "						<input type='hidden' name='psize' value='ApparelSizeVariantProduct'>";
-					tmp += "						<input type='hidden' id='stockCnt0' value='16'>";
+												// form tag 여기다가 사이즈 + 색깔 선택 -> 장바구니로 넘기기
+					tmp += "					<form id = 'cartFrom"+i+"' name='addToCartForm'>";
+					// tmp += "						<input type='hidden' maxlength='3' size='1' name='qty' class='qty'>";
+					tmp += "						<input id = 'cart_pcid_"+ i +"' type='hidden' name='pcid' value='"+ product_color.at(0).pcid+"'>";
+					tmp += "						<input id = 'cart_psize_"+ i +"' type='hidden' name='psize' value='-1'>";
+					tmp += "						<input id = 'cart_stockCnt_"+ i +"' type='hidden' name='stockCnt' id='stockCnt' value='-1'>"; // 재고 저장 -> 수정 필요!!!!!!!!!!!!!!!
+					tmp += "						<input id = 'cart_count_"+ i +"' type='hidden' name='count' value='-1'>";					
 					tmp += "					</form>";
 					tmp += "				</div>";
 					tmp += "			</div>";
@@ -2679,34 +2681,17 @@
 					tmp += "		</div>";
 					tmp += "	</td>";	
 					tmp += "</tr>";
-					
-/*  					tmp += "<li class='cell'><a id='product_link" + i + "' href='productdetail?pcode=" + product_array.at(i).product.pcode + "&cproductcolor=" + product_array.at(i).colors.at(product_array.at(i).state).cproductcolor + "'>";
-					tmp += "	<div id='product_img" + i + "' class='img-box imgswap'>";
-					tmp += "		<img src='" + product_color.at(product_array.at(i)["state"])["cimageproduct1"] + "' alt='' />";
-					tmp += "		<img src='" + product_color.at(product_array.at(i)["state"])["cimageproduct2"] + "' alt='' />";
-					tmp += "	</div>";
-					tmp += "	<div class='brand-name'>" + product_info.bname + "</div>";
-					tmp += "	<div class='product-name'>" + product_info.pname + "</div>";
-					tmp += "	<div class='product-price'>" + product_info.pprice.toLocaleString() + "원</div></a>";
-					tmp += "	<div class='product-color'>";
-					for (let j = 0; j < product_color.length; j++) {
-						tmp += "<a href='javascript:changeColor(" + i + ", " + j + ")'><img src='" + product_color.at(j)["ccolorchipimage"] + "'/></a>";
-					}
-					tmp += "	</div>";
-					tmp += "</li>";  */
 					html_tmp += tmp;
 				}
 				$("#listBody").html(html_tmp);
 				 showProductPage(totalCnt);				
 			});  
-    	}
-
-		var pageNum = 1;
-		var pageNation = $(".paging")
+    	}; // showlist 종료
 		
+			var pageNum = 1;
+			var pageNation = $(".paging");
 		
-		  
-		
+			
 		 	function showProductPage(totalCnt) {
 
     		console.log("totalCn" + totalCnt);
@@ -2757,7 +2742,7 @@
 			str += "<a class='next2' href='" + endNum + "'> 마지막 페이지 </a>";
 			// console.log(str);
 			pageNation.html(str); 
-    	} 
+    	} // 페이징 화면 끝 
 		 	
 			//페이지 번호 클릭	
 			//반드시 on함수 사용해야 한다. - js에 의해 새로 생긴 태그에는 이벤트가 주어지지 않기 때문에 찾아서 이벤트를 넣어줘야 한다.
@@ -2774,65 +2759,195 @@
 				// 전역 변수에 값 전달
 				pageNum = targetPageNum; //값전달
 				showWish(pageNum); //페이지 리스트 다시 출력
-			}); //end replyPageFooter click 
+			}); //end replyPageFooter click 	
 			
-	        let deleteOneBtn = $("#deleteOne");
+			
+	       	//var deleteOneBtn = $(".deleteOne");
 	        
-	        resetBtn.on("click", function (e) {
-				let type = "";
-				$("#brandCurrent").html("");
-				$("#colorCurrent").html("");
+	        $(document).on("click",".deleteOne", function (e) {
 				
-				console.log("r실행 : " + type);
-				console.log("r실행 : " + brand);
-				console.log("r실행 : " + color); 
-                showList(1,type,brand,color); 
-            });
-    	   	
-    });
+	        	console.log("삭제 수행");
+				console.log($(this).data("id"));
+				
+				var pid = $(this).data("id");
+				
+				
+	 				$.ajax({
+					url: "/product/deleteLike",
+					data: {
+						"pid" : pid,
+						"mid" : mid
+					}
+				}).done(function (data) {
+					console.log("delete" +data.result);
+					if (data.result === 1) {
+						showWish(1);
+						alert("위시리스트에서 삭제 되었습니다.");
+						console.log("위시 갯수: " + data.wishCnt);
+						$("#wishlistCount").html(data.wishCnt);
+					} else {
+						alert("오류 발생.");
+					}
+				});	 
+	      	});  
+	        
+	     let deleteChoose = $("#deleteChoose");
+	        
+	   	 //선택삭제 수행
+	   	 deleteChoose.on("click", function(e){	    	
+	   	    	console.log("선택삭제 실행");
+	   	    	if($("input:checkbox[name='checkpd']:checked").length == 0) {
+	   	    		alert("선택된 상품이 없습니다.");
+	   	    	} else {
+		   	 		$("input[name='checkpd']").each(function(){
+		   				if($(this).prop("checked") == true) {
+		   					console.log($(this).data("id"));
+		   					let pid = $(this).data("id");
+		   					
+			 				$.ajax({
+								url: "/product/deleteLike",
+								data: {
+									"pid" : pid,
+									"mid" : mid
+								}
+							}).done(function (data) {
+								console.log("delete" +data.result);
+								if (data.result === 1) {
+									showWish(1);
+									console.log("위시 갯수: " + data.wishCnt);
+									$("#wishlistCount").html(data.wishCnt);
+								} else {
+									alert("오류 발생.");
+								}
+							});
+			 				
+		   				}
+		   			});
+		   	 		alert("선택 삭제가 수행되었습니다");
+	   	    	}
+	   	  });//end modalCloseBtn click
+
+	     //let cl_select = $(".cl_select");
+
+	     $(document).on("click", ".cl_select a", function(e) {
+	         console.log("색깔 선택 버튼");
+	         console.log("수정전 : " +$(this).data("pcid"));
+	         console.log("위시 순서 : " +$(this).data("seq"));
+	         let nowColor = $(this).data("pcid");
+	         
+	         let cart_cid = "cart_pcid_" + $(this).data("seq");
+	         console.log(cart_cid);
+	         
+	         let cid = "#"+cart_cid;
+	         
+	         console.log("수정전 input 값 : " + $(cid).val());
+	         $(cid).val($(this).data("pcid"));
+	         console.log("수정후 : " + $(cid).val());
+	         
+	         let colors = $(".cl_select").children();
+	         
+	         colors.each(function(){
+	        	 if ($(this).data("pcid") == nowColor) {
+	        		 $(this).addClass('on');
+	        	 } else {
+	        		 $(this).removeClass('on');
+	        	 }
+	         });
+	         
+	     });
+	     
+	     //let sz_select = $(".sz_select");
+	     
+	     $(document).on("click", ".sz_select a", function(e) {
+	         console.log("사이즈 선택 버튼");
+	         console.log("수정전 : " +$(this).data("psize"));
+	         console.log("위시 순서 : " +$(this).data("seq"));
+	         let nowSize = $(this).data("psize");
+	         let nowSeq = $(this).data("seq");
+	         
+	         let cart_sid = "cart_psize_" + $(this).data("seq");
+	         console.log(cart_sid);
+	         
+	         let sid = "#"+cart_sid;
+	         
+	         console.log("수정전 input 값 : " + $(sid).val());
+	         $(sid).val($(this).data("psize"));
+	         console.log("수정휴 : " + $(sid).val());
+	         
+	         let sizes = $(".sz_select").children();
+	         
+	         sizes.each(function(){
+	        	 if ($(this).data("psize") == nowSize && $(this).data("seq") == nowSeq) {
+	        		 $(this).addClass('on');
+	        	 } else {
+	        		 $(this).removeClass('on');
+	        	 }
+	         });
+	         
+	         let pcid = $("#cart_pcid_"+nowSeq).val();
+	         let psize = nowSize;
+	         
+	         console.log("val1"+ pcid);
+	         console.log("val2"+psize);
+	         
+				$.ajax({
+					url: "/product/getProductStock",
+					data: {
+						"pcid" : pcid,
+						"psize" : psize
+					}
+				}).done(function (data) {
+					console.log(data.amount);
+					$("#cart_stockCnt_"+nowSeq).val(data.amount);
+					console.log("변경후 재고 수량 : " + $("#cart_stockCnt_"+nowSeq).val());
+				});	         
+	     });
+	     
+	     //let qty_sel = $(".qty_sel");
+	     
+	     $(document).on("click", ".qty_sel a", function(e) {
+	    	 console.log("수량선택 버튼");
+	    	 let nowSeq = $(this).data("seq");
+	    	 console.log("위시 순서: " + nowSeq);
+	    	 
+	    	 let stockCnt = parseInt ($("#cart_stockCnt_"+nowSeq).val());
+	    	 console.log("재고수량: " + stockCnt);
+
+	    	 let count = parseInt ($("#qty_"+ nowSeq).val());
+	    	 console.log("현재 수량: " + count);
+	    	 
+	    	 if ($(this).data("type") == 'p') {
+	    		 console.log("+");
+	    		
+	    		 if (stockCnt == -1) {
+	    			 alert("사이즈를 선택하세요"); 
+	    		 } else {
+			         if(count >= stockCnt) {
+				      //console.log("재고 부족");
+				      alert("재고 부족");
+	    		 	  } else {
+	    		 		 $("#qty_"+ nowSeq).val(count+1);
+	    		 		 $("#cart_count_"+nowSeq).val(count+1);
+	    		 		 console.log($("#cart_count_"+nowSeq).val());
+	    		 		 }
+	    		 	  }
+	    		 
+	    	 } else {
+	    		 console.log("-");
+	    		 let nowSeq = $(this).data("seq");
+	    		 if (stockCnt == -1) {
+	    			 alert("사이즈를 선택하세요"); 
+	    		 } else {
+		        	if(count > 0) {
+			        	$("#qty_"+ nowSeq).val(count-1);
+			        	$("#cart_count_"+nowSeq).val(count+1);
+			        	console.log($("#cart_count_"+nowSeq).val());
+			        } 
+	    		 }
+	    	 }
+	     });
+    });//end ready
     
-/*      function showCart(String pid, String pcid) {
-    	
-    }
-    function deleteLike(String pid, String mid) {
-    	
-    } */
-    // input hidden태그에 pcid값 지정
-/*     function selectColor(String pcid) {
-    	
-    }  */
-    // function selectSize(String pcid) // input tag에 담긴 값 가져와서 value가 "" 이면 색깔 선택하라고 하고, 아니면 pcid랑 현재 사이즈 넘기기, input tag에 값 저장 -> 재고 처리 
-function deleteLike(pid, mid) {
-	
-	console.log("삭제 수행");
- 	console.log(pid);
-	console.log(mid); 
-		
-	$.ajax({
-		url: "/product/deleteLike",
-		data: {
-			"pid" : pid,
-			"mid" : mid
-		}
-	}).done(function (data) {
-		console.log("delete" +data.result);
-		if (data.result === 1) {
-			showWish(1);
-			alert("위시리스트에서 삭제 되었습니다.");
-			let id = "wish_"+pid;
-			console.log(id);
-			console.log("-");
-			let test = $('#'+ id).html();			
-			console.log(test);
-			$('#'+ id).removeClass('on');
-			//let count = parseInt($("#wishlistCount").html());
-			//let countP = count - 1;
-			console.log("위시 갯수: " + data.wishCnt);
-			$("#wishlistCount").html(data.wishCnt);
-		} else {
-			alert("오류 발생.");
-		}
-	});	 			
-}
     </script>
+  
 <%@ include file="/WEB-INF/views/common/footer.jsp"%>
