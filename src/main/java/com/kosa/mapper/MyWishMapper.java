@@ -14,7 +14,7 @@ import com.kosa.domain.paging.Criteria;
 public interface MyWishMapper {
 	public List<LikesVO> selectLikeProducts(
 			@Param("cri") Criteria cri,
-			@Param("mid") String bno
+			@Param("mid") String mid
 			); // 멤버 id 로 위시리스트 가져오기
 	
 	public int insertProduct(
