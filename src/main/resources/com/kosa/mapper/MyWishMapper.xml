@@ -38,7 +38,7 @@
   select /* +INDEX(tbl_reply idx_reply) */ 
   rownum rn ,pid,mid,ltime,pname,bname
   from likesVO_VIEW
-  where mid = 'team5'
+  where mid = #{mid}
   
   and rownum <= #{cri.pageNum} * #{cri.amount}
   )
