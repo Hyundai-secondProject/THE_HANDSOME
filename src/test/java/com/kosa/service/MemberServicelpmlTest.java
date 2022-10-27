@@ -14,6 +14,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.kosa.domain.event.CouponDetailViewVO;
 import com.kosa.domain.member.MemberVO;
 import com.kosa.mapper.MemberMapper;
 import com.kosa.mapper.MemberMapperTest;
@@ -97,4 +98,11 @@ public class MemberServicelpmlTest {
 //	vo.setMgrade(1);
 //	vo.setMmileage(3000);
 //	log.info(memberService.join(vo));
+	
+	@Test
+	public void getMemberTest() {
+		for (CouponDetailViewVO coupon : memberService.getMember("ehfhfh1313@naver.com").getCouponList()) {
+			log.info(coupon);
+		}
+	}
 }

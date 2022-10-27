@@ -22,5 +22,5 @@ import lombok.ToString;
 public class CouponCountVO {
 	
 	private int elimitcount;  // 이벤트한정수량
-	private int ecount;  // 이벤트 재고 수량
+	private int ecount;  // 현재 발급한 쿠폰 수량
 }

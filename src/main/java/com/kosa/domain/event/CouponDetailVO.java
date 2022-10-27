@@ -1,9 +1,4 @@
 package com.kosa.domain.event;
-
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
-
 /**
  * CouponDetailVO
  * @author 공통
@@ -17,6 +12,11 @@ import lombok.ToString;
  * 2022.10.24	김민규		쿠폰발급에 필요한 내용만 남도록 수정
  * </pre>
  */
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+
 
 @Getter
 @Setter

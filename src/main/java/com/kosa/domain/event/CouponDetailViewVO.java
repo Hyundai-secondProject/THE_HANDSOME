@@ -1,17 +1,8 @@
 package com.kosa.domain.event;
-
-import java.sql.Timestamp;
-
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
-@Getter
-@Setter
-@ToString
 /**
- * CouponDetailVO
+ * CouponDetailViewVO
  * @author 공통
- * @since 2022.10.13
+ * @since 2022.10.25
  * @version 1.0
  * 
  * <pre>
@@ -21,6 +12,15 @@ import lombok.ToString;
  *
  * </pre>
  */
+import java.sql.Timestamp;
+
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+@Getter
+@Setter
+@ToString
+
 public class CouponDetailViewVO {
 	
 	private String ecoupontitle;

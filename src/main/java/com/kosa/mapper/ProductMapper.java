@@ -1,11 +1,25 @@
 package com.kosa.mapper;
+/**
+ * ProductMapper
+ * @author 박서은 , 김민규
+ * @since 2022.10.17
+ * @version 1.0
+ * 
+ * <pre>
+ * 수정일              수정자                   수정내용
+ * ----------  --------    ---------------------------
+ * 
+ * 
+ *
+ * 2022.10.27	김민규			검색 결과, 검색 총 갯수 추가
+ * </pre>
+ */
 
 import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.kosa.domain.product.CategoryVO;
 import com.kosa.domain.product.ProductColorVO;
 import com.kosa.domain.product.ProductSizeVO;
 import com.kosa.domain.product.ProductStockVO;
@@ -30,4 +44,8 @@ public interface ProductMapper {
 	public ProductVO selectProduct(String pid); // pid로 제품 하나 가져오기
 	
 	public void updateProductStock(ProductStockVO stock); // 재고 변경
+	
+	
+	public List<ProductVO> Search(HashMap<String, Object> SearchPager); // 검색결과
+	public int SearchCount(HashMap<String, Object> SearchPager);// 검색 갯수
 }

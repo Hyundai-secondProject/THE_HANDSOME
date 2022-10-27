@@ -2862,4 +2862,32 @@
         //]]>
     </script>
 
+var use_point = $('#pointpay').val();
+    var use_gift_amount = $('#giftpay').val(); 
+    var deliveryCost = $('#cartDeliveryCost').val();
+    var saleCheck = "0";
+    var voucherRateCheck = $("#voucherRateCheck").val();
+    var totalPrice = $('#total').val();
+    console.log(totalPrice);
+
+
+    var HmileageUL = $("#Hmileage");
+    var fixTotal = $("#totalPriceHidden").val();
+    
+    console.log("sum + deliveryCost" + $('#totalPriceHidden').val());
+    var clicked = HmileageUL.val();
+    
+	if (use_point != "") {
+		 var str = "";
+		 str += "<dt>한섬마일리지 결제</dt>";
+		 str += "<dd>- ₩ "+addComma(use_point)+"</dd>";
+		 HmileageUL.html(str);
+		 
+		 totalPrice = fixTotal - use_point;
+		 console.log(totalPrice);
+		 $("#total").val(totalPrice);
+		 $("#totalPrice").html('₩ ' + addComma(totalPrice));
+	}
+    
+
 	<%@ include file="/WEB-INF/views/common/footer.jsp"%>

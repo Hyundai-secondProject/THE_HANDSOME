@@ -30,11 +30,11 @@ public class CouponDetailExpiryServiceTest {
 	@Autowired
 	private EventService service;
 	
-	private String MID = "team5";
+	private String MID = "team5"; // 회원 아이디 임시값
 	
 	@Test
 	public void servicetest() {
-		log.info(service.getCouponDetailExpiry(MID));
+		log.info(service.getCouponDetailExpiry(MID)); //기간만료된 쿠폰
 		
 	}
 	

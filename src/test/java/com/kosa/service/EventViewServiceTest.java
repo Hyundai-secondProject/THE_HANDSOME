@@ -3,7 +3,7 @@ package com.kosa.service;
 /**
  * EventViewServiceTest
  * @author 김민규
- * @since 2022.10.19
+ * @since 2022.10.24
  * @version 1.0
  * 
  * <pre>
@@ -32,7 +32,7 @@ public class EventViewServiceTest {
 	
 	@Test
 	public void servicetest() {
-		log.info(service.getEventList());
+		log.info(service.getEventList()); // 이벤트
 		
 	}
 	

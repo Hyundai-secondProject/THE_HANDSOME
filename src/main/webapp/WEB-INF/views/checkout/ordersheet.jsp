@@ -3294,14 +3294,14 @@ function selectDeliveryAddress(){
 }
 
 function redeemVoucher(self){
-	
+	      
+	/* 
 	if($('#voucherCode').val() != ''){
 		var tmpCode = $('#voucherCode').val(); 
 		$('#voucherCode').val(tmpCode.toUpperCase())
 	}
 	
     var code = ($("#selectVoucher option:selected").val() == '') ? $('#voucherCode').val() : $("#selectVoucher option:selected").val();
-    
     if($(self).prop('class') == 'btn dis_s min_auto'){
         return;
     }
@@ -3342,156 +3342,28 @@ function redeemVoucher(self){
         return;
     }
     
-    $(self).addClass('on');
+    $(self).addClass('on'); */
     
-    $.ajax({
-        type: "GET",
-        url: "/ko/checkout/redeemVoucher",
-        contentType:"application/json; charset=utf-8",
-        dataType: "json",
-        data: {"voucherCode": code},
-        success: function(data){
-            if(data == "NEED_LOGIN"){
-                alert("need login");
-                location.href = "/ko/member/login";
-            }
-            
-            if(data.errorMsg != ''){
-                if(data.errorMsg == "globalOnlyVoucher") {
-                    $('#voucherCode').val('');
-                    layerAlert('입력하신 쿠폰 코드는 글로벌 전용입니다.</br>영문/중문 한섬통합몰에서 사용가능합니다.');
-                    return;
-                } else if(data.errorMsg == "koreaOnlyVoucher") {
-                	layerAlert('정확한 쿠폰 코드를 다시 입력해 주시기 바랍니다.');
-                    return;
-                } else if(data.errorMsg == "dateNotAvailable") {
-                	layerAlert('해당 쿠폰 코드는 적용이 불가능합니다.');
-                    return;
-                } else if(data.errorMsg == "orderOver") {
-                	layerAlert('선착순 200명 마감되었습니다.');
-                    return;
-                } else if(data.errorMsg == 'brandCoupon'){
-                	// 2017.04,26, 이현승, 브랜드쿠폰제한 안내 메시지 변경
-                	var positiveErrMsg = '<p style="text-align:left">? (브랜드/카테고리)에만 해당.<br />다른 브랜드/카테고리와 함께 결제 시 사용하실 수 없습니다.</p>';
-                	var negativeErrMsg = '<p style="text-align:left">? (브랜드/카테고리)는(은) 제외.<br />해당 브랜드/카테고리와 함께 결제 시 사용하실 수 없습니다.</p>';
-                	var brandCategoryName = data.brandCategoryName;
-                	var positiveYn = data.positiveYn;
-                	
-                	var brandCouponErrorMessage = "";
-                	if(positiveYn=='true'){
-                		brandCouponErrorMessage = positiveErrMsg.replace("?",brandCategoryName);
-                	}else {
-                		brandCouponErrorMessage = negativeErrMsg.replace("?",brandCategoryName);
-                	}
-                	layerAlert(brandCouponErrorMessage);
-                	return;
-                } else if(data.errorMsg == "alreadyVoucherUsed") {
-                    layerAlert('쿠폰을 사용하신 주문입니다.<br />주문 당 쿠폰은 1번만 사용가능합니다.');
-                    return;
-                } else {
-                    layerAlert('정확한 쿠폰 코드를 다시 입력해 주시기 바랍니다.\n' + data.errorMsg);
-                    return;
-                }
-            }else{
-            	
-            	checkoutCartView();
-            	
-            	
-                $('.sum_box').html(data.totalPricePage);
-                
-                if(typeof fn_updateDiscInfo === "function"){
-                    fn_updateDiscInfo();
-                }
-                /* 글로벌 사이트일경우 배송비 및 관세 업데이트 20191113 남일희 */
-                
-                checkRedVoucher();
-                $('input[name=voucherCode]').val(code);
-                $('#voucherCode').prop('disabled',true);
-                $('#selectVoucher').prop('disabled',true);
-                $(self).prop('class','btn dis_s min_auto');
-                $('#accumulationPoint').val(data.accumulationPoint);
-                $('#txtAccumulationPoint').text("한섬마일리지 "+numberFormatComma(data.accumulationPoint)+'M');
-                $('#txtAccumulationHPoint').text("H.Point "+numberFormatComma(data.accumulationHPoint)+'P');
-                
-                //$('#pointpay').val('');
-                //$('#pointpay').prop('readonly',false);
-                $('#btnCancelUsePoint').prop('class','btn dis_s min_auto');
-                $('#btnCancelUsePoint').prop('disabled',false);
-                $('#btnUsePoint').prop('disabled',false);
-                $('#btnUsePoint').prop('class','btn add_s min_auto');
-                $('#point_useall').prop("checked", false);
-                $('#point_useall').prop('disabled',false);
-                
-                if(self.id == "btnRedeemVoucher"){
-                    $('#btnReleaseVoucher').show();
-                    $('#btnRedeemVoucher').hide();
-	                $('#btnReleaseVoucher').prop('class','btn add_s min_auto');
-	                $('#btnReleaseVoucher').prop('disabled',false);
-	                $('#btnRedeemVoucher').prop('disabled',true);
-	                $('#btnRedeemVoucher').prop('class','btn dis_s min_auto');
-                }
-                
-                if($("#pvoucherCode").prop('disabled') == true) {
-                    $('#pvoucherCode').val('');
-                    $('#pvoucherCode').prop('disabled',false);
-                    $('#selectPVoucher').prop('disabled',false);
-                    $('#selectPVoucher').val('').prop('selected', true);
-                    
-                	$('#btnReleasePVoucher').prop('class','btn dis_s min_auto');
-                    $('#btnReleasePVoucher').prop('disabled',true);
-                    $('#btnRedeemPVoucher').prop('disabled',false);
-                    $('#btnRedeemPVoucher').prop('class','btn add_s min_auto');
-                }
+    
+    
+	
+	var cpid = $("#selectVoucher option:selected").val();
+	var couponCase = cpid.substr(-2,1);
+	//var point = str.indexOf($("#testMid"));
+	console.log(cpid);
+	console.log(couponCase);
+	var couponPrice =  $("#total").val()-($("#total").val()*0.1*Number(couponCase));
+	console.log(couponPrice); 
+	//console.log($("#total").val());
+	//console.log($("#totalPrice").val());
+	//console.log($("#subTotal").val());
+	$("#total").val(couponPrice);
+	$("#totalPrice").val(couponPrice);
+	$("#totalPriceHidden").val(couponPrice);
+	$("#totalPrice").html('₩ ' + addComma(couponPrice));
 
-                // H.Point ********************************************************
-                $('#hpointpay').val('');
-                $('#hpointpay').prop('readonly',false);
-                $('#btnCancelUseHPoint').prop('class','btn dis_s min_auto');
-                $('#btnCancelUseHPoint').prop('disabled',false);
-                $('#btnUseHPoint').prop('disabled',false);
-                $('#btnUseHPoint').prop('class','btn add_s min_auto');
-                $('#hpoint_useall').prop("checked", false);
-                $('#hpoint_useall').prop('disabled',false);
-                // H.Point ********************************************************
-                $('#giftpay').val('');
-                $('#giftpay').prop('readonly',false);
-                $('#btnCancelUseGiftAmount').prop('class','btn dis_s min_auto');
-                $('#btnCancelUseGiftAmount').prop('disabled',false);
-                $('#btnUseGiftAmount').prop('disabled',false);
-                $('#btnUseGiftAmount').prop('class','btn add_s min_auto');
-                $('#gc_useall').prop("checked", false);
-                $('#gc_useall').prop('disabled',false);
-                // EGIFT ********************************************************
-                $('#egiftpay').val('');
-                $('#egiftpay').prop('readonly',false);
-                $('#btnCancelUseEGiftAmount').prop('class','btn dis_s min_auto');
-                $('#btnCancelUseEGiftAmount').prop('disabled',false);
-                $('#btnUseEGiftAmount').prop('disabled',false);
-                $('#btnUseEGiftAmount').prop('class','btn add_s min_auto');
-                $('#gc_egift_useall').prop("checked", false);
-                $('#gc_egift_useall').prop('disabled',false);
-                
-                if($('#btnRedeemVipDiscount').prop('disabled')){
-                    //우수고객할인 초기화
-                    $('#btnReleaseVipDiscount').prop('class','btn dis_s min_auto');
-                    $('#btnReleaseVipDiscount').prop('disabled',true);
-                    $('#btnRedeemVipDiscount').prop('disabled',false);
-                    $('#btnRedeemVipDiscount').prop('class','btn add_s min_auto');
-                    
-                    $("#vipDiscountAmountText").val("");
-                    $("#vipDiscountAmount").val("");
-                    $("#vipDiscountCheck").prop("checked",false);
-                    $("#btnRedeemVipDiscount").show();
-                    $("#btnReleaseVipDiscount").hide();
-                }
-            }
-        }//,
-        //error: function(xhr,  Status, error) {
-            //alert('sendRequest error : ' + xhr.status + " ( " + error + " ) " );
-        //}
-    }).always(function(){
-        $(self).removeClass('on');
-    });
+    
+	
 }
 
 function redeemPVoucher(self){
@@ -6265,7 +6137,9 @@ $(document).ready(function(){
 	
 	function showOrder() {
 		// 주문자정보 가져오기
-		orderService.getMemberInfo({mid:"ehfhfh1313@naver.com"}
+
+		orderService.getMemberInfo({mid:$("#testMid").val()}
+
 		, function(data) {
 			console.log("showOrder 하는중5");
 			console.log(data);
@@ -6304,10 +6178,12 @@ $(document).ready(function(){
 			
 			var cstr = "";
 			cstr += "<option value=''>쿠폰을 선택해 주세요.</option>";
-			console.log()
+			console.log("data.couponList.cpid + " + data.couponList.cpid);
 			
-			cstr += "<option value='FW2-022-092-8H8-PVA-GHB'>[1만원]FRIEND 등급 축하 바우처 / ₩ 10,000</option>";
-			
+			for (var i = 0; i < data.couponList.length; i++) {
+				cstr += "<option value=&#39"+data.couponList[i].cpid+"&#39>"+data.couponList[i].ecoupontitle+"/"+data.couponList[i].ediscount+"%</option>";
+			}
+			couponVoucher.html(cstr);	
 			
 			// 우편번호 정보
 			$('.post').val(data.mzipcode);

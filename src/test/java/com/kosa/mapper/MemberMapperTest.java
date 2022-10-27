@@ -69,5 +69,10 @@ public class MemberMapperTest {
 		log.info(memberMapper.infoChange(memberVO));
 	}
 	
+	// 쿠폰 리스트까지 포함한 회원 정보 가져오기
+	@Test
+	public void getMemberInfoTest() {
+		log.info(memberMapper.getMemberInfo("ehfhfh1313@naver.com"));
+	}
 
 }

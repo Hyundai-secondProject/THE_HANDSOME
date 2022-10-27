@@ -236,6 +236,48 @@
 		select * from PRODUCTVO_VIEW where pid = #{pid}
 		 ]]>
 	</select>
+	
+	<!-- 검색 결과 -->
+	<select id="Search" resultType = "com.kosa.domain.product.ProductVO" parameterType="HashMap"> 
 
+ <![CDATA[      
+         select pid, pname, pnote, bno, pstatus, depth1name, depth2name,depth3name, bname 
+ 			from ( 
+ 				select rownum as rnum, pid, pname, pnote, bno, pstatus, depth1name, depth2name,depth3name, bname 
+ 				from ( 
+                     select distinct pid, pname, pnote, bno, pstatus, depth1name, depth2name,depth3name, bname 
+                         from ( 
+                         	select PV.pid, pname, pnote, bno, pstatus, depth1name, depth2name,depth3name, bname, pc.pccolorcode, pc.pcid 
+                         	from productVO_view pv, product_color pc 
+                         	WHERE pv.pid = pc.pid 
+                        	
+                         	and (pv.pid like '%' || #{SearchWord} || '%' or pv.bname like '%' || #{SearchWord} || '%' or pv.pname like '%' || #{SearchWord} || '%') order by bname 
+                            
+                             ]]> 
+                             <include refid="criteria"/>  
+
+                     <![CDATA[ 
+                     		) 
+                     ) 
+                     where  
+                     ROWNUM <= #{cri.pageNum} * #{cri.amount} 
+                 ) 
+             where rnum > (#{cri.pageNum} - 1) * #{cri.amount} 
+             ]]>  
+ </select>
+	
+	
+	<!-- 검색된 결과 갯수 -->
+	<select id="SearchCount" resultType="int" 
+ 		parameterType="String"> 
+         select count(distinct pid) 
+             from ( 
+             	select pv.pid 
+             	from productVO_view pv, product_color pc 
+             	WHERE pv.pid = pc.pid 
+                 and (pv.pid like '%' || #{SearchWord} || '%' or pv.bname like '%' || #{SearchWord} || '%' or pv.pname like '%' || #{SearchWord} || '%') 
+                 <include refid="criteria"> </include> 
+                 ) 
+ 	</select> 
 
 </mapper>

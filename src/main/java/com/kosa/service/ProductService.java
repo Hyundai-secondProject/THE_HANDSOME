@@ -1,9 +1,25 @@
 package com.kosa.service;
+/**
+ * EventService
+ * @author 김민규
+ * @since 2022.10.18
+ * @version 1.0
+ * 
+ * <pre>
+ * 수정일              수정자                   수정내용
+ * ----------  --------    ---------------------------
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 2022.10.27	김민규		제품 검색, 검색된 제품 갯수 추가
+ * </pre>
+ */
 
 import java.util.HashMap;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kosa.domain.paging.Criteria;
@@ -16,9 +32,7 @@ import com.kosa.domain.product.ProductStockVO;
 import com.kosa.domain.product.ProductVO;
 import com.kosa.mapper.ProductMapper;
 
-
 import lombok.AllArgsConstructor;
-import lombok.Setter;
 import lombok.extern.log4j.Log4j;
 
 @Log4j
@@ -71,5 +85,36 @@ public class ProductService {
 	// 제폼 코드로 제품 가져오기
 	public ProductVO getProduct(String pid) {
 		return mapper.selectProduct(pid);
+	}
+	
+	
+	//제품 검색 
+	public ProductPageDTO Search(String SearchWord, Criteria cri) {
+		char checkword = SearchWord.charAt(0);
+		int checknum = (int) checkword;
+		if (SearchWord.contains("O'2nd")) {
+			SearchWord = "O'2nd";
+		} else if (SearchWord.contains("the")) {
+			SearchWord = "the CASHMERE";
+		} else if (checknum > 48 && checknum < 57) {
+			System.out.println(checknum);
+			System.out.println("SearchWord");
+		} else {
+			SearchWord = SearchWord.toUpperCase();
+		}
+		HashMap<String, Object> SearchPager = new HashMap<String, Object>();
+		SearchPager.put("SearchWord", SearchWord);
+		SearchPager.put("cri", cri);
+
+		return new ProductPageDTO(mapper.SearchCount(SearchPager), mapper.Search(SearchPager));
+	}
+	
+	// 검색된 제품 갯수
+	public int SearchCount(String SearchWord, Criteria cri) {
+		HashMap<String, Object> SearchPager = new HashMap<String, Object>();
+		SearchPager.put("SearchWord", SearchWord);
+		SearchPager.put("cri", cri);
+		int count = mapper.SearchCount(SearchPager);
+		return count;
 	}
 }
