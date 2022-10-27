@@ -1,5 +1,4 @@
 package com.kosa.service;
-import java.util.List;
 /**
  * EventService
  * @author 김민규
@@ -17,8 +16,7 @@ import java.util.List;
  * 2022.10.25	김민규		getCouponDetailExpiry,Used,Unused 추가
  * </pre>
  */
-
-import org.apache.ibatis.annotations.Param;
+import java.util.List;
 
 import com.kosa.domain.event.CouponCountVO;
 import com.kosa.domain.event.CouponDetailViewVO;

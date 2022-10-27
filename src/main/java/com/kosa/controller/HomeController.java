@@ -30,7 +30,7 @@ public class HomeController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home() {
 				
-		return "index";
+		return "search/search";
 	}
 	
 	// mid를 통해 위리리스트 갯수 가져온다

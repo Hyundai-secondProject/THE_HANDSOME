@@ -3432,24 +3432,7 @@
 			</div>
 		</div>
 
-		<!-- new & best -->
-		<div class="product_list1903">
-			<div class="nbe_cnt new">
-				<div class="product_left_menu">
-					<h4 class="tit">신상품</h4>
-					<ul></ul>
-				</div>
-				<div class="nbe_cnt_inner_wrap"></div>
-			</div>
-			<div class="nbe_cnt best">
-				<div class="product_left_menu">
-					<h4 class="tit">베스트</h4>
-					<ul></ul>
-				</div>
-				<div class="nbe_cnt_inner_wrap"></div>
-			</div>
-		</div>
-		<!-- new & best -->
+		
 	</div>
 	<!-- //main_container-->
 	<!-- video_main_wrap-->
@@ -3483,52 +3466,6 @@
 		</div>
 	</div>
 	<!--// video_main_wrap-->
-	<!-- main_container-->
-	<div class="main_container">
-		<!-- the_magazine_wrap1903-->
-		<div class="the_magazine_wrap1903">
-			<h4 class="tit">THE 매거진</h4>
-			<div class="magazine_slider1903 swiper-container"
-				id="magazinSlider1903">
-				<ul class="swiper-wrapper"></ul>
-			</div>
-			<!--add arrow -->
-			<div class="themagazine_arrow next">다음</div>
-			<div class="themagazine_arrow prev">이전</div>
-		</div>
-		<!-- //the_magazine_wrap1903-->
-		<!--배너영역 -->
-		<!--//배너영역 -->
-
-		<!-- pick_for-->
-		<div class="pickfor_wrap1903">
-			<h4 class="tit">
-				<span>당신</span> 만을 위한 특별한 추천
-			</h4>
-			<div class="pick_for" id="pickForSlider1903">
-				<ul class="slides"></ul>
-			</div>
-			<div class="controls" id="pickforControls">
-				<a href="#;" class="prev"></a> <a href="#;" class="next"></a>
-			</div>
-		</div>
-		<!--// pick_for-->
-	</div>
-	<!-- //main_container-->
-	<!-- instagram -->
-	<div class="instagram_wrap1903" style="display: none">
-		<div class="txt_wrap">
-			<h4 class="tit"># THE HANDSOME MOMENT</h4>
-			<p class="s_title">한섬 브랜드 공식 인스타그램 속 사진을 감상하세요.</p>
-		</div>
-		<div class="pic_wrap swiper-container" id="instaContents">
-			<ul class="swiper-wrapper"></ul>
-			<div class="instagram_arrow next">다음</div>
-			<div class="instagram_arrow prev">이전</div>
-		</div>
-		<a href="/ko/magazine/instagram" class="insta_view_more">전체보기</a>
-	</div>
-	<!-- //instagram -->
 </div>
 
 <!-- //bodyWrap -->

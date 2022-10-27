@@ -96,7 +96,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		EVENT where eno = #{ENO}
 	</select>
 
-	<!-- Ecount++ -->
+	<!-- 쿠폰 발급 성공시 Ecount 증가 -->
 	<update id ="updateCouponCount">
 	update event set ecount = ecount+1
 	where eno = #{ENO}
