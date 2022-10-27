@@ -61,11 +61,13 @@ public class MypageController {
 		model.addAttribute("keyword", keyword);
 	}
 	
+	//정보 수정시 패스워드 검증을 위한 폼 URL
 	@GetMapping("/PwCheck")
 	public String memberPwCheck() {
 		return "mypage/pwCheck";
 	}
 	
+	//패스워드 체크 
 	@ResponseBody
 	@PostMapping("/passwordrecheck")
 	public String PasswordRecheck(String uid, String pw, HttpSession session) {
@@ -79,13 +81,14 @@ public class MypageController {
 	}
 	
 	
-	
+	//회원 정보 수정 폼
 	@GetMapping("/memberInfomationChange")
 	public String MemberInfo() {
 		
 		return "mypage/memberInfoChange";
 	}
 	
+	//회원 정보 수정 버튼 클릭시 처리 URL
 	@ResponseBody
 	@PostMapping("updatecomplete")
 	public String InfoChange(MemberVO vo) {

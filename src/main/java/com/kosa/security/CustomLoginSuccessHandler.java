@@ -22,6 +22,7 @@ import lombok.extern.log4j.Log4j;
  * 수정일              수정자                   수정내용
  * ----------  --------    ---------------------------
  * 2022.10.18   신기원              최초 생성
+ * 2022.10.25	신기원	   USER_MEMBER 리다이렉트 위치 지정
  * </pre>
  */
 
@@ -46,7 +47,7 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
 			response.sendRedirect("/member/admin");
 			return;
 		} else if(roleNames.contains("ROLE_MEMBER")) {
-			response.sendRedirect("/mypage/myorders2");
+			response.sendRedirect("/");
 			return;
 		}
 		

@@ -74,9 +74,9 @@
 			fn_join();
 		});
 
-		$(".email_auth_btn").click(function() {
-			
-			var email = $('#email').val();
+		$(".email_auth_btn").click(function() {	    
+			    
+			var email = $('#uid').val() + "@" + $('#uidDomain').val();
 
 			if (email == '') {
 				alert("이메일을 입력해주세요.");
