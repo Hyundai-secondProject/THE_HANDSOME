@@ -4,10 +4,14 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
+
+import com.kosa.domain.event.CouponDetailViewVO;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -50,6 +54,6 @@ public class MemberVO{
 	private int mgrade;   // 회원등급
 	private int mmileage;   // 마일리지
 	
-	
+	private List<CouponDetailViewVO> couponList; // 쿠폰 리스트
 	
 }
