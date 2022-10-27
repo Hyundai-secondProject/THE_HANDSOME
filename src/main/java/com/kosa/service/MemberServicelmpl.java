@@ -79,8 +79,7 @@ public class MemberServicelmpl implements MemberService {
 	// 멤버 데이터 가져오기
 	@Override
 	public MemberVO getMember(String mid) {
-		return memberMapper.findById(mid);
+		return memberMapper.getMemberInfo(mid);
 	}
-	
 
 }

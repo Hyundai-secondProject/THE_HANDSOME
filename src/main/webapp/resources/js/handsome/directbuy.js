@@ -52,9 +52,13 @@ function directbuy(){
 			cartList+= '  </thead>  ';
 			cartList+= ' <tbody> ';
 
+			var sum=0;
+			var deliveryCost = 0;
+			
 			$.each(data, function(index, item) { // 데이터 =item
 				console.log(index+"\n");
 				console.log(item);
+				sum+= qty*item.productDetail.pcprice;
 
 				cartList+= ' <tr class="al_middle"> ';
 				cartList+= ' 	<td class="frt"> ';
@@ -87,6 +91,24 @@ function directbuy(){
 
 			cartList+=' </tbody> ';
 			cartList+=' </table> ';
+			
+			console.log("합은 " + sum);
+			$("#checkoutCartView").html(cartList);
+			$("#subTotal").html('₩ ' + addComma(sum));
+			$("#subTotalHidden").html(sum);
+			
+			if (sum < 30000) {
+				deliveryCost = 2500;
+			}
+			
+			$("#deliveryCost").html('₩ ' + addComma(deliveryCost));
+			$("#cartDeliveryCost").html(deliveryCost);
+			
+			$("#totalPrice").html('₩ ' + addComma(sum + deliveryCost));
+			$("#total").val(sum + deliveryCost);
+			$("#totalPriceHidden").val(sum + deliveryCost);
+			
+			$('#txtAccumulationPoint').html('한섬마일리지 ' + addComma(sum*0.05) + ' M');
 			$("#checkoutCartView").html(cartList);
 			}
 		});
