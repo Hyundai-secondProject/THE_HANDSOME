@@ -4092,7 +4092,7 @@ function doOrder(){
 			        	
 			        };
 			    	
-		    		return;
+		    		return false;
 		    	}
 	        }
 	    }
@@ -4106,7 +4106,7 @@ function doOrder(){
 			        	
 			        };
 			    	
-		    		return;	            
+		    		return false;	            
 		        }
 	        }
 	    }
@@ -4426,6 +4426,8 @@ function doOrder(){
         }
    }); */
     
+   var form = $("#orderForm");
+   
 	 $.ajax({
 	        url: "/order/orderPay",
 	        type: "GET",            
@@ -4445,13 +4447,15 @@ function doOrder(){
 	        	mid : $("#mid").val(),
 	        	pmcode : $("#pmcode").val(),
 //	        	odate : $("#odate").val(),
-	        	cpid : $("#selectVoucher").val(),
+	        	cpid : $("#selectVoucher").val().replaceAll("'", ""),
 	        	oaddress2 : $("#line2").val() 
 
 	        },
 	        async : false,
-	        success: function(){
+	        success: function(){ 
 	            alert("주문완료");
+	            form.prop("action", "/checkout/orderConfirmation");
+	            form.submit();
 	        },
 	        error: function(xhr, Status, error) {
 	            //
@@ -6185,7 +6189,12 @@ $(document).ready(function(){
 			ostr += "<tr><th scope='row' class='th_space'>휴대폰</th><td>"+data.mphone.substr(0, 3)+"-"+data.mphone.substr(3, 4)+"-"+data.mphone.substr(7, 4)+"</td></tr>";
 			ostr += "<tr><th scope='row' class='th_space'>E-mail</th><td>"+data.memail+"</td></tr></tbody>";
 			orderer.html(ostr);
+			
+			$("#ordererName").val(data.mname);
 			//주문자 정보 끝
+			
+			var totalPriceHidden = $("totalPriceHidden").val();
+			$("#oafterprice").val(totalPriceHidden);
 			
 			var mstr = "";
 			mstr += "<input type='hidden' name='sel_lastName' value='"+data.mname+"' /> <input type='hidden' name='sel_postcode' value='' />";
@@ -6317,7 +6326,7 @@ $(document).ready(function(){
 		<input type="hidden" id="chk_giftAmount" value="" /> <input
 			type="hidden" id="chk_pointAmount" value="" />
 
-		<form id="orderForm" action="/checkout/orderConfirmation" method="post">
+		<form id="orderForm" action="/checkout/orderConfirmation" method="get">
 			<script language="javascript" src="https://stdpay.inicis.com/stdjs/INIStdPay.js" type="text/javascript" charset="UTF-8"></script>
 			<input type="hidden" id="paytype" name="paytype" value="Inicis" /> 
 			<input type="hidden" id="globalPayment" name="globalPayment" value="" />
@@ -7163,8 +7172,8 @@ $(document).ready(function(){
 							<div class="total">
 								<dl class="clearfix">
 									<dt>합계</dt>
-									<dd id="totalPrice">₩ 0</dd>
-									<input type="hidden" id="totalPriceHidden" value="0"/>
+									<dd id="totalPrice" name="totalPrice">₩ 0</dd>
+									<input type="hidden" id="totalPriceHidden" name="totalPriceHidden" value="0"/>
 								</dl>
 							</div>
 							<input type="hidden" name="total" id="total" value="345000.0" />

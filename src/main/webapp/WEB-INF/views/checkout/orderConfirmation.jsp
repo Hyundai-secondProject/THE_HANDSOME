@@ -2659,11 +2659,11 @@ $(document).ready(function ()
 });
 
 function myordersPage() {
-    location.href = "/ko/mypage/order/myorders";
+    location.href = "/mypage/myorders2";
 }
 
 function continuePage() {
-    location.href = "/ko";
+    location.href = "/";
 }
 
 function myordersAthomePage() {
@@ -2784,13 +2784,13 @@ function sendGroobee(){
                 <!--title wrap-->
                 <div class="order_title ">
                 <p class="title">주문이 완료되었습니다.</p>
-	                                <p class="s_title">주문번호 : 221014P15365577 (주문일시 : 2022.10.14 15:00)</p>
+	                               <!--  <p class="s_title">(주문일시 : 2022.10.14 15:00)</p> -->
                     </div>
                 
                 <!--//title wrap-->
                 
                 <!--table wrap-->
-                    <div class="tblwrap">
+<!--                     <div class="tblwrap">
                         <table class="tbl_ltype ">
                             <caption>쇼핑백</caption>
                             <colgroup>
@@ -2809,7 +2809,7 @@ function sendGroobee(){
 
                             <tr class="al_middle">
                                     <td class="frt">
-                                        <!-- pt_list_all -->
+                                        pt_list_all
                                         <div class="pt_list_all">
                                             <a href="/ko/HANDSOME/GOLF/ACC-/Socks/%EB%A0%88%ED%84%B0%EB%A7%81-%EA%B3%A8%ED%94%84-%EC%96%91%EB%A7%90/p/LB2C8ACK428U_BK_S">
 	                                                <img src="http://newmedia.thehandsome.com/LB/2C/FW/LB2C8ACK428U_BK_S01.jpg" alt="" />
@@ -2827,19 +2827,19 @@ function sendGroobee(){
                                                                 size : S</p>
                                                         </div>
                                         </div>
-                                        <!-- //pt_list_all -->
+                                        //pt_list_all
                                     </td>
                                     <td>1</td>
                                     <td>
-                                        <!-- price_wrap -->
+                                        price_wrap
                                         <div class="price_wrap">
                                             <span>₩23,000</span>
                                         </div>
-                                        <!-- //price_wrap -->
+                                        //price_wrap
                                     </td>
                                 </tr>
-                                <!-- AceCounter eCommerce (Cart_InOut) v7.5 Start -->
-                                <!-- Data Allocation (Cart_InOut) -->
+                                AceCounter eCommerce (Cart_InOut) v7.5 Start
+                                Data Allocation (Cart_InOut)
                                 <script language='javascript' type="text/javascript">
                                     _A_amt[_ace_countvar]='23000'; 
                                     _A_nl[_ace_countvar]='1';   
@@ -2848,8 +2848,8 @@ function sendGroobee(){
                                     _A_ct[_ace_countvar]='LANVIN BLANC';  
                                     _ace_countvar++;
                                 </script>
-                                <!-- AceCounter eCommerce (Cart_InOut) v7.5 End -->
-                                <!-- Beshow Loop Start-->
+                                AceCounter eCommerce (Cart_InOut) v7.5 End
+                                Beshow Loop Start
                                 <script type="text/javascript"> 
                                 // 더한섬 추가 부분
                                 var beshow_orderItemNumber_str = 'LB2C8ACK428U_BK_S'; // 상품코드 입력 (관리자에서 테깅시에 상품코드 SJ1I1WPC662W 부문만 입력 해야 함)
@@ -2864,8 +2864,8 @@ function sendGroobee(){
                                 strack.execute('setOrderItemName', '레터링 골프 양말'); 
                                 strack.execute('setOrderItemPrice', '23000'); 
                                 strack.execute('setOrderItemQuantity', '1');   </script>
-                                <!-- Beshow Loop End -->
-                                <!-- adinsight 주문 상품별 아이디 받아옴. start-->
+                                Beshow Loop End
+                                adinsight 주문 상품별 아이디 받아옴. start
 								<script type="text/javascript"> 
 								 if(typeof TRS_PRODUCT == 'undefined') {
 								  	  TRS_PRODUCT = '' + 'LB2C8ACK428U_BK_S'; // 상품아이디 변수(상품코드)
@@ -2875,14 +2875,14 @@ function sendGroobee(){
 								  TRS_ORDER_PRODUCT += ' $ ' + 'LB2C8ACK428U_BK_S' + '@' + '레터링 골프 양말' + '@' + '23000' + '@' + '1';
 								 }
 								</script>
-								<!-- adinsight 주문 상품별 아이디 받아옴. end-->
+								adinsight 주문 상품별 아이디 받아옴. end
                             </tbody>
                         </table>
-                    </div>
+                    </div> -->
                     <!--//table wrap-->
                     <!--total wrap-->
-                    <div class="total_wrap mb40">
-                        <!-- total -->
+                    <!-- <div class="total_wrap mb40">
+                        total
                         <div class="total_price_wrap">
                             <dl>
                                 <dt>상품 합계</dt>
@@ -2890,7 +2890,7 @@ function sendGroobee(){
                                 
                                 <dt class="delch_wrap">
                                     <p class="tlt_ship">배송비</p>
-                                    <!--delivery charge layer popup-->
+                                    delivery charge layer popup
                                     <div class="delch_box">
                                         <span class="arr">위치아이콘</span>
                                         <ul class="bul_sty01_li">
@@ -2898,7 +2898,7 @@ function sendGroobee(){
                                             <li>도서산간 지역은 배송비가 추가될 수 있습니다.</li>
                                         </ul>
                                     </div>
-                                    <!--//delivery charge layer popup-->
+                                    //delivery charge layer popup
                                 </dt>
                                 <dd>₩2,500</dd>
                                 </dl>
@@ -2907,8 +2907,8 @@ function sendGroobee(){
                                 <dd>₩25,500</dd>
                             </dl>
                         </div>
-                        <!-- //total -->
-                    </div>
+                        //total
+                    </div> -->
                     <!--//total wrap-->
                 <!--title wrap & table wrap1-->
                 <div class="title_wrap clearfix">
@@ -2924,11 +2924,11 @@ function sendGroobee(){
                         <tbody>
                         <tr>
                                 <th scope="row" class="th_space">카드사</th>
-                                <td>하나카드 (40896670****6436)</td>
+                                <td>하나카드 (1234***9008)</td>
                                 </tr>
                             <tr>
                                 <th scope="row" class="th_space">결제금액</th>
-                                <td>₩25,500</td>
+                                <td>₩ ${totalPriceHidden}</td>
                             </tr>
                             </tbody>
                     </table>
@@ -2949,9 +2949,9 @@ function sendGroobee(){
                         <tbody>
                             <tr>
                                 <th scope="row" class="th_space">지급 예정 한섬마일리지</th>
-                                <td>1,150 M</td>
+                                <td>${usePoint} M</td>
                                 <th scope="row" class="th_space">지급 예정 H.Point</th>
-                                <td>23 P</td>
+                                <td>${totalPriceHidden*0.05} P</td>
                                 </tr>
                         </tbody>
                     </table>
@@ -2972,15 +2972,15 @@ function sendGroobee(){
                         <tbody>
                             <tr>
                                 <th scope="row" class="th_space">주문자</th>
-                                <td>장주연</td>
+                                <td>${ordererName}</td>
                             </tr>
                             <tr>
                                 <th scope="row" class="th_space">휴대폰</th>
-                                <td>010-3707-3821</td>
+                                <td>${hp_num1}-${hp_num2}-${hp_num3}</td>
                             </tr>
                             <tr>
                                 <th scope="row" class="th_space">E-MAIL</th>
-                                <td>jjy990409@naver.com</td>
+                                <td>${mail}@${emailDely}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -3003,19 +3003,19 @@ function sendGroobee(){
                         <tbody>
                         <tr>
                                 <th scope="row" class="th_space">배송지 주소</th>
-                                <td>(16918) 경기도 용인시 기흥구 언남로 5(언남동, 스파팰리스리가)&nbsp;104동 501호</td>
+                                <td>(${postcode}) ${line1}&nbsp;${line2}</td>
                             </tr>
                             <tr>
                                 <th scope="row" class="th_space">수령인</th>
-                                <td>장주연</td>
+                                <td>${ordererName}</td>
                             </tr>
                             <tr>
                                 <th scope="row" class="th_space">휴대폰</th>
-                                <td>010-3707-3821</td>
+                                <td>${hp_num1}-${hp_num2}-${hp_num3}</td>
                             </tr>
                             <tr>
                                 <th scope="row" class="th_space">연락처</th>
-                                <td></td>
+                                <td>${ph_num1}-${ph_num2}-${ph_num3}</td>
                             </tr>
                             </tbody>
                     </table>
