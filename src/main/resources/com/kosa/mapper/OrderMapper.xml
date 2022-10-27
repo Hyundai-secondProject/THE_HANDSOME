@@ -99,7 +99,7 @@ where rn > ( #{cri.pageNum} - 1 ) *  #{cri.amount}
  
   <insert id="insert">
  insert into orders
-values (#{oid}, #{ozipcode},#{oaddress1},#{oreceiver},#{ophone},#{otel},#{omemo},#{oemail},#{ousedmileage},#{obeforeprice},#{oafterprice},#{ostatus},#{mid},#{pmcode},#{odate},#{cpid},#{oaddress2})
+values (CONCAT(TO_CHAR(SYSDATE, 'YYYYMMDDHH24MISS'), orders_seq.nextval), #{ozipcode},#{oaddress1},#{oreceiver},#{ophone},#{otel},#{omemo},#{oemail},#{ousedmileage},#{obeforeprice},#{oafterprice},#{ostatus},#{mid},#{pmcode},#{odate},#{cpid},#{oaddress2})
  </insert> 
  
   </mapper> 
