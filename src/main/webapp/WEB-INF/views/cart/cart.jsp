@@ -2173,6 +2173,8 @@ function qtyLimitProductAlert(){
 		
                 <form id="ordersheetCloneForm" name="orderSheetCloneForm" action="/checkout/ordersheet"  method="get">
                 	<input type="hidden" id="ordersheetEntryNumber" name="ordersheetEntryNumber" value="" />
+                	<input type="hidden" name="Dtxtqty" id="Dtxtqty" value=1>  
+					<input type="hidden" name="psid" id="psid" value=""> 
 					<!-- <input type="hidden" id="ordersheetCartDivision" name="ordersheetCartDivision" value="" /> -->
 				</div> </form> 
                      

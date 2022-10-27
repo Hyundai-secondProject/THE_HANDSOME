@@ -2147,9 +2147,7 @@
 						</div>
 						<!--//190508 추가 -->
 
-						<form id="addToCartForm" name="addToCartForm"
-							action="/ko/HANDSOME/WOMEN/OUTER/Cardigan-Vest/%EC%BA%90%EC%8B%9C%EB%AF%B8%EC%96%B4-%ED%81%AC%EB%A1%AD-%EA%B0%80%EB%94%94%EA%B1%B4/p/CM2CAKCD131W_GK?categoryCode=we05"
-							method="post">
+						<form id="addToCartForm" name="addToCartForm" action="/checkout/ordersheet" method="get">
 							<input type="hidden" maxlength="3" size="1" name="qty"class="qty"> 
 							<input type="hidden" name="productCodePost"value="CM2CAKCD131W_GK"> 
 							<input type="hidden"id="productCodeType" name="productCodeType" value="ApparelStyleVariantProduct"> 
@@ -2171,19 +2169,21 @@
 							<input type="hidden" name="quickList" id="quickList"> 
 							<input type="hidden" name="buyNowYn" id="buyNowYn" value="false">
 							
+							
+							<input type="hidden" id="ordersheetEntryNumber" name="ordersheetEntryNumber" value="" />
+							<input type="hidden" name="Dtxtqty" id="Dtxtqty" value=1>
 							<input type="hidden" name="mid" id="mid" value="${MID}">  
 							<input type="hidden" name="psid" id="psid" value=""> 
 							
 							<input type="button" value="쇼핑백담기 " class="btn cart1803 float_left ml0" id="addToCartButton" 
 									onclick="addToCart2();GA_Event('상품_상세','하단 고정 버튼','쇼핑백담기');">
 							<div>
-								<input type="hidden" name="CSRFToken"
-									value="418c2329-3174-4d51-952c-2b3eb3333468">
+								<%-- <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /> --%>
 							</div>
 						</form>
 						<input type="button" value="바로주문"
 							class="btn order float_right mr0" id="addToCartBuyNowButton"
-							onclick="GA_Event('상품_상세','하단 고정 버튼','바로주문');addToCart2(true);">
+							onclick="GA_Event('상품_상세','하단 고정 버튼','바로주문');directbuy();">
 					</div>
 
 					<dl class="toggle_type1" style="margin-top: 80px;">
@@ -3155,6 +3155,7 @@
  							        	//console.log("재고 있음");
  							        	//alert("재고 있음");
  							        	$("#txtqty").val(count1+1);
+ 							        	$('input[name=Dtxtqty]').attr('value',count1+1);
  							        	let tmp = pcprice * (count1 + 1);
  							        	
  							        	let tmp2 = tmp.toString().replace( /\B(?=(\d{3})+(?!\d))/g, ',');
@@ -3170,6 +3171,7 @@
  							    	console.log("빼");
 						        	if(count1 > 0) {
 						        	$("#txtqty").val(count1-1); 
+						        	$('input[name=Dtxtqty]').attr('value',count1-1);
 						        	let tmp = pcprice * (count1 - 1);
 						        	console.log(tmp);
 						        	let tmp2 = tmp.toString().replace( /\B(?=(\d{3})+(?!\d))/g, ',');

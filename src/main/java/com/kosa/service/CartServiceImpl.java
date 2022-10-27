@@ -32,6 +32,11 @@ public class CartServiceImpl implements CartService {
     private CartMapper cartMapper;
     
     @Override
+    public List<CartVO> directbuy(String psid){
+        return cartMapper.directbuy(psid);
+    }
+    
+    @Override
     public void putProduct(CartVO cart) {
 
         cartMapper.insert(cart);

@@ -2443,8 +2443,7 @@ function GA_search(){
 	<!-- 원클릭결제 -->
 	<script type="text/javascript" src="/_ui/desktop/common/js/wpay.js"></script>
 	<script type="text/javascript" src="/resources/js/swiper.min.js"></script>
-	<link rel="stylesheet" type="text/css" href="/resources/css/swiper.css"
-		media="all" />
+	<link rel="stylesheet" type="text/css" href="/resources/css/swiper.css" media="all" />
 
 	<script type="text/javascript">
 //<![CDATA[ 
@@ -6128,20 +6127,40 @@ function sendGroobee(){
 </script>
 
 	<!-- 세션아이디를 받아보자 -->
-	<input type="hidden" id="testMid" value="ehfhfh1313">
+	<sec:authorize access="hasRole('ROLE_MEMBER')">
+                <sec:authentication property="principal.username" var="MID"/>
+</sec:authorize>
+	<input type="hidden" id="testMid" value="${MID}">
 	<!-- 체크된거만 받아오자 -->
 	<%
-		/* 주문에서 받아온값 */
-		String str = request.getParameter("ordersheetEntryNumber");
+		/* detail에서 바로 주문해서 받아온 값  */
+		String Dpsid ="";
+		Dpsid = request.getParameter("psid");
+		String Dqty = request.getParameter("Dtxtqty");
+		
+		/* cart에서 받아온값 */
+		String str ="";
+		str = request.getParameter("ordersheetEntryNumber");
 		System.out.println("entry Number is " + str);
 	%>
 	<input type="hidden" id="testEntryNum" value="<%=str%>">
+	<input type="hidden" id="Dpsid" value="<%=Dpsid%>">
+	<input type="hidden" id="Dqty" value="<%=Dqty%>">
 	<!-- 카트리스트띄우기-->
-	<script type="text/javascript"
-		src="/resources/js/handsome/checkoutCartView.js"></script>
+	<script type="text/javascript" src="/resources/js/handsome/checkoutCartView.js"></script>
+	<script type="text/javascript" src="/resources/js/handsome/directbuy.js"></script>
 	<script type="text/javascript" src="/resources/js/order.js"></script>
 	<script type="text/javascript">
 $(document).ready(function(){
+	
+	if($("#testEntryNum").val()=="" || $("#testEntryNum").val()==null) {
+		console.log("엔트리가 비어있습니다.")
+		directbuy();	
+	}
+	if( $("#Dpsid").val()=="" || $("#Dpsid").val() == null){
+		console.log("direct쪽은 아닌가보");
+		cartlist();
+	}
 	
 	// 주문 정보 가져오기
 	var orderer = $('#ordererInfo');

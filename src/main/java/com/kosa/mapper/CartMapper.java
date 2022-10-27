@@ -35,6 +35,7 @@ import com.kosa.domain.member.CartVO;
 @Mapper
 public interface CartMapper {
 	
+    public List<CartVO> directbuy(String psid); // 바로구매
 	public List<CartVO> selectList(String mid); // select 
 	public List<CartVO> selectListWithEntryNum(@Param("mid")String mid, @Param("entryNum") List<Integer> entryNum); // select 
 	public void insert(CartVO cart); // insert 

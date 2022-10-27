@@ -18,6 +18,9 @@ import com.kosa.domain.member.CartVO;
 
 public interface CartService {
     
+    // 바로구매
+    public List<CartVO> directbuy(String psid);
+    
     // insert
     public void putProduct(CartVO cart);
     

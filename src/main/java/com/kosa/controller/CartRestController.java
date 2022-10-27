@@ -27,6 +27,14 @@ public class CartRestController {
     private CartService service;
     
     
+    // 바로주문
+    @GetMapping("/directbuy/{psid}")
+    public List<CartVO> directbuy(@PathVariable("psid") String psid) {
+        
+       System.out.println(psid);
+       return service.directbuy(psid);
+   }
+    
     // 카트목록
     // post 방식으로 하는 대신 get 방식으로 한뒤 url에서값을가져와 사용 -> 주연도움
     @GetMapping("/{mid}")
