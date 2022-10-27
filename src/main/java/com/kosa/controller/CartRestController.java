@@ -50,12 +50,11 @@ public class CartRestController {
     }
 
     
-    // 추가
+    // 장바구니에 상품 추가
     @GetMapping("/addtocart/{mid}/{psid}/{qty}")
     public String addToCart(@PathVariable("mid") String mid,
                                     @PathVariable("psid") String psid,
                                     @PathVariable("qty") int qty) {
-        System.out.println(mid + psid + qty);
         CartVO cart = new CartVO();
         cart.setMid(mid);
         cart.setPsid(psid);
@@ -71,8 +70,6 @@ public class CartRestController {
     @GetMapping("/RemoveProduct/{mid}/{psid}")
     public List<CartVO> RemoveProduct(@PathVariable("mid") String mid,
                                         @PathVariable("psid") String psid) {
-        System.out.println("삭제 테스트");
-        System.out.println(psid);
         CartVO cart = new CartVO();
         cart.setMid(mid);
         cart.setPsid(psid);

@@ -51,10 +51,15 @@ $.ajax({
 		var sum=0;
 		var deliveryCost = 0;
 		
+		var psidlist
+		
 		$.each(data, function(index, item) { // 데이터 =item
 			console.log(index+"\n");
 			console.log(item);
 			sum+= item.pquantity*item.productDetail.pcprice;
+			
+			psidlist+=item.psid+",";
+			
 			
 			cartList+= ' <tr class="al_middle"> ';
 			cartList+= ' 	<td class="frt"> ';
@@ -88,6 +93,8 @@ $.ajax({
 
 		cartList+=' </tbody> ';
 		cartList+=' </table> ';
+		
+		$("#psidlist").attr("value",psidlist);
 		
 		console.log("합은 " + sum);
 		$("#checkoutCartView").html(cartList);

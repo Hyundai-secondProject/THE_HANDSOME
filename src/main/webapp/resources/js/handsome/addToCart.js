@@ -1,3 +1,5 @@
+
+// productdetail에서 장바구니 담기
 function addToCart2(buyNow)
 {	
 	// 헤더에 있는 함수
@@ -14,7 +16,6 @@ function addToCart2(buyNow)
     	alert("로그인이 필요합니다");
     	return;
     }
-    //addToCartProcess
     if(true){
         addToCartProcess = false;
         var productCode = $('form[name=addToCartForm] input[name=productCodePost]').val();
@@ -26,7 +27,6 @@ function addToCart2(buyNow)
             addToCartProcess = true;
             return;
         }
-
         
         $.ajax({
             url: "/cartAjax/addtocart/"+mid+"/"+psid+"/"+qty,
@@ -49,7 +49,6 @@ function addToCart2(buyNow)
                 //
             }
        });
-
     }
 }
 

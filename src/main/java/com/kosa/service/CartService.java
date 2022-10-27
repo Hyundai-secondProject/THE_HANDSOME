@@ -27,11 +27,12 @@ public interface CartService {
     // select
     public List<CartVO> getProducts(String mid);
     
- // select
+    // select
     public List<CartVO> getProductsWithEntryNum(String mid, List<Integer> entryNum);
     
     // delete
     public void deleteProduct(CartVO cart);
+    
     // delete
     public void deleteProducts(String mid, List<String> psidList);
     
@@ -41,7 +42,7 @@ public interface CartService {
     // 카트중복체크 select
     public int checkCart(CartVO cart);
     
-    // 카트중복체크 select
+    // 재고확인 
     public int checkStock(CartVO cart);
     
     

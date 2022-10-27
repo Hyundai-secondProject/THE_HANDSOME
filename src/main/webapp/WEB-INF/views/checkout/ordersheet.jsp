@@ -6140,6 +6140,9 @@ function sendGroobee(){
 	<input type="hidden" id="testEntryNum" value="<%=str%>">
 	<input type="hidden" id="Dpsid" value="<%=Dpsid%>">
 	<input type="hidden" id="Dqty" value="<%=Dqty%>">
+	
+	<input type="hidden" id="psidlist" value="">
+	
 	<!-- 카트리스트띄우기-->
 	<script type="text/javascript" src="/resources/js/handsome/checkoutCartView.js"></script>
 	<script type="text/javascript" src="/resources/js/handsome/directbuy.js"></script>

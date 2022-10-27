@@ -1,7 +1,8 @@
+
 // cart 목록 반환 
 $(document).ready(function(){
 var cartList;
-var mid = $('#mid').val() // 이후 세션아이디로 변경
+var mid = $('#mid').val() 
 // url에 .(dot)이 다른거로 쓰여서 변경
 var tmp1=mid.substr(0,mid.indexOf('.')) //골뱅이 뒤에 없애버리기 mid가 이메일형식이아니면 무관
 var tmp2=mid.substr(mid.indexOf('.')+1, mid.length);
@@ -12,7 +13,7 @@ $.ajax({
 	type: "GET",  
 	url: "/cartAjax/"+mid, 
 	data: {}, 
-	dataType : "json",  // data타입이 없으면 알아서 추측해서 응답받음
+	dataType : "json",  
 	contentType: "application/json; charset=utf-8",
 	success: function(data) { 
 		console.log(mid);
