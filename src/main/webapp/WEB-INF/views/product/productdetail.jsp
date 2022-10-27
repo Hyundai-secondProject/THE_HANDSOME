@@ -2039,7 +2039,7 @@
 									<ul class="size_chip clearfix sizeChipKo1901">
 										<c:forEach var="size" items="${sizes}">
 											<li><a href="javascript:void(0);"
-												onclick="checkStock(${size.psize})">
+												onclick="checkStock('${size.psize}')">
 													${size.psize}</a></li>
 										</c:forEach>
 									</ul>
