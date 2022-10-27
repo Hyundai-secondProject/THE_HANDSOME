@@ -10,7 +10,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  * <pre>
  * 수정일              	수정자                   수정내용
  * 2022.10.14 	신기원  		최초 생성
- * 2022.10.20	신기원		회원 가입시 고정 값 지정		
+ * 2022.10.20	신기원		회원 가입시 고정 값 지정	
+ * 2022.10.26	신기원		회원 정보 수정 update 쿼리 생성	
  * </pre>
  */ -->
 <mapper namespace="com.kosa.mapper.MemberMapper">
@@ -25,9 +26,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where mid = #{mid}
 	</select>
 	
-	<!-- 마이페이지 회원 정보 수정시 사용 예정 
-	insert into member 
-		values(#{mid}, #{mpassword}, #{mname}, #{memail}, #{mphone}, #{mtel}, 
-		#{mzipcode}, #{maddress1}, #{maddress2}, #{mbirth}, #{mgender}, '',
-		'간편회원', #{mtosno}, 1, 'ROLE_MEMBER', 1, 0) -->
+	<!-- 마이페이지 회원 정보 수정시 -->
+	<update id="infoChange">
+	update member set  memail = #{memail}, mphone = #{mphone}, mgender = #{mgender, jdbcType = INTEGER}, mtel = #{mtel, jdbcType=VARCHAR},
+	 mzipcode = #{mzipcode, jdbcType=VARCHAR}, maddress1 = #{maddress1, jdbcType=VARCHAR}, maddress2 = #{maddress2, jdbcType=VARCHAR}, mtosno = #{mtosno, jdbcType=INTEGER}
+	 where mid = #{mid} </update>
 </mapper>
+
+

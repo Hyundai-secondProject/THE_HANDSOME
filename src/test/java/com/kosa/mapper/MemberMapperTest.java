@@ -24,6 +24,7 @@ import lombok.extern.log4j.Log4j;
  * 수정일                    수정자                   수정내용
  * ----------  --------    ---------------------------
  * 2022.10.14    신기원                 최초 생성
+ * 2022.10.26    신기원                  회원정보 수정 테스트
  * </pre>
  */
 
@@ -56,8 +57,16 @@ public class MemberMapperTest {
 	//아이디 값을 통해 VO객체를 찾아 반환하는 테스트
 	@Test
 	public void findIdTest() {
-//		System.out.println(memberMapper);
 		log.info(memberMapper.findById("1"));
+	}
+	
+	//회원정보 수정 테스트
+	@Test
+	public void infoChangeTest() {
+		MemberVO memberVO = memberMapper.findById("qwer");
+		memberVO.setMaddress1("서울시");
+		memberVO.setMtel("1212");
+		log.info(memberMapper.infoChange(memberVO));
 	}
 	
 
