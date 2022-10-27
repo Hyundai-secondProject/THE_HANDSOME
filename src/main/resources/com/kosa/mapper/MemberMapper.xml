@@ -43,6 +43,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <result property="cpexpiredate" column="cpexpiredate"/>
     <result property="cpusedate" column="cpusedate"/>
   </resultMap>
+  
+  <select id="getMemberInfo" resultMap="memberMap">
+  	select m.mid, mpassword, mname, memail, mphone, mtel, mzipcode, maddress1, maddress2, mtosno, mgrade, mmileage, ecoupontitle, c.cpid, econtent, ediscount, cpissuedate, cpexpiredate, cpusedate
+  	from member m
+  	left join coupon_detail c
+  	on m.mid = c.mid
+    left join event e
+    on e.eno = c.eno
+  	where m.mid = #{mid}
+  </select>
 	
 	<insert id="join">
 		insert into member(mid, mpassword, mname, memail, mphone, mbirth, mlogintype, mtosno, menabled, mrole, mgrade)

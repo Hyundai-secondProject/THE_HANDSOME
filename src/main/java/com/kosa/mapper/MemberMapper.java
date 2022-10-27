@@ -22,5 +22,5 @@ public interface MemberMapper {
 	public void join(MemberVO memberVO);
 	public MemberVO findById(String mid);
 	public int infoChange(MemberVO memberVO);
-	
+	public MemberVO getMemberInfo(String mid);
 }

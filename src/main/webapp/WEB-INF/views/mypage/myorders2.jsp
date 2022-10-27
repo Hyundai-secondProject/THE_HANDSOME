@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -2108,7 +2109,16 @@ function GA_search(){
 }
 
 //]]>
+
+
+
 </script>
+
+<sec:authorize access="hasRole('ROLE_MEMBER')">
+                <sec:authentication property="principal.username" var="MID"/>
+</sec:authorize>
+	<input type="hidden" id="mid" value="${MID}">
+
 			<form id="autologinForm" name="autologinForm"
 				action="/ko/hp/autologin" method="get">
 				<input type="hidden" name="hcid" id="hcid" value="e2gaf@naver.com" />
@@ -3880,7 +3890,7 @@ $(document).ready(function(){
 		console.log("type은 "+type);
 		console.log("keyword는 "+keyword);
 		//DB 데이터 가져오기
-		replyService.getList({mid:"seungu00",page: page|| 1, type: type || "N", keyword: keyword}
+		replyService.getList({mid:$("#mid").val(),page: page|| 1, type: type || "N", keyword: keyword}
 		, function(cnt, list) {
 			//페이지 처리 시작
 			console.log("cnt"+cnt);
