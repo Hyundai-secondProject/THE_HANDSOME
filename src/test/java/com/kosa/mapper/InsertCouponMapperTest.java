@@ -1,6 +1,6 @@
 package com.kosa.mapper;
 /**
- * GetCouponMapperTest
+ * InsertCouponMapperTest
  * @author 김민규
  * @since 2022.10.24
  * @version 1.0
@@ -33,12 +33,12 @@ public class InsertCouponMapperTest {
 	private EventMapper mapper;
 	
 	@Test
-	public void getCouponTest() {
+	public void insertCouponTest() {
 		CouponDetailVO coupon = new CouponDetailVO();
 		coupon.setEno(1);
-		//coupon.setMid("team5");
 		
-		mapper.insertCoupon(1, "team5");
+		
+		mapper.insertCoupon(1, "team5"); //쿠폰을 발급해준다.
 		
 		log.info(coupon);
 		

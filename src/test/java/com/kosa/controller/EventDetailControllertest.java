@@ -16,7 +16,7 @@ import org.springframework.web.context.WebApplicationContext;
 
 import lombok.extern.log4j.Log4j;
 /**
- * EventViewControllertest
+ * EventDetailControllertest
  * @author 김민규
  * @since 2022.10.18
  * @version 1.0

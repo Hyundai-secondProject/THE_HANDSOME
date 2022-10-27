@@ -1,9 +1,9 @@
 package com.kosa.service;
 
 /**
- * GetCouponCountServiceTest
+ * UpdateCouponCountServiceTest
  * @author 김민규
- * @since 2022.10.19
+ * @since 2022.10.25
  * @version 1.0
  * 
  * <pre>
@@ -31,11 +31,11 @@ public class UpdateCouponServiceTest {
 	@Autowired
 	private EventService service;
 	
-	private int ENO =1;
+	private int ENO =1;// 이벤트 번호 임시값
 	
 	@Test
 	public void servicetest() {
-		log.info(service.getCouponCount(ENO));
+		log.info(service.getCouponCount(ENO)); // ECOUNT값을 +1 해준다.
 		
 	}
 }

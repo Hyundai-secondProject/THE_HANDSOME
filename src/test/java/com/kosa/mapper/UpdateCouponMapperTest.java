@@ -1,6 +1,7 @@
 package com.kosa.mapper;
+
 /**
- * GetCouponMapperTest
+ * UpdateCouponMapperTest
  * @author 김민규
  * @since 2022.10.24
  * @version 1.0
@@ -8,18 +9,15 @@ package com.kosa.mapper;
  * <pre>
  * 수정일              수정자                   수정내용
  * ----------  --------    ---------------------------
- * 2022.10.25   김민규                    최초 생성
+ * 2022.10.24      김민규              	    최초생성
  * </pre>
  */
-import java.util.List;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
-import com.kosa.domain.event.CouponCountVO;
 
 import lombok.extern.log4j.Log4j;
 
@@ -31,11 +29,11 @@ public class UpdateCouponMapperTest {
 	private EventMapper mapper;
 	
 	@Test
-	public void getCouponCountTest() {
+	public void UpdateCouponTest() {
 		
 		int ENO = 1;
 		
-		int list = mapper.updateCouponCount(ENO); 
+		int list = mapper.updateCouponCount(ENO);  // 쿠폰이 발급되었다면 현재발급량(ECOUNT)를  +1 해준다.
 		System.out.println("list : " + list);
 		System.out.println("==========");
 		log.info(list);

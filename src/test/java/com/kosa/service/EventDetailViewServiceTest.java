@@ -1,7 +1,7 @@
 package com.kosa.service;
 
 /**
- * EventViewServiceTest
+ * EventDetailViewServiceTest
  * @author 김민규
  * @since 2022.10.19
  * @version 1.0
@@ -31,11 +31,11 @@ public class EventDetailViewServiceTest {
 	@Autowired
 	private EventService service;
 	
-	private int ENO =1;
+	private int ENO =1; // 이벤트 번호 임시값
 	
 	@Test
 	public void servicetest() {
-		log.info(service.getEventDetail(ENO));
+		log.info(service.getEventDetail(ENO)); // 이벤트 상세페이지
 		
 	}
 }
