@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -2752,16 +2753,33 @@ deg
 						<!--//검색박스 활성화 data_react -->
 					</div>
 					<!--// 201705 search_box_wrap -->
+					<script>
+	                  function form_logout() {
+	                     document.getElementById('form_logout').submit();
+	                  }
+                  </script>
+					
 					<div class="util_menu" style="display: block;">
-						<ul class="clearfix">
-							<li><a href="/member/login"
-								onclick="GA_Event('공통','헤더_메뉴','로그인')"> 로그인 <!-- 로그인 -->
-							</a></li>
-							<li class="header_dropmemu mypage"><a href="/ko/mypage"
+	                  <ul class="clearfix">
+	                     <sec:authorize access="isAnonymous()">
+	                        <li><a href="/member/login"
+	                           onclick="GA_Event('공통','헤더_메뉴','로그인')"> 로그인 <!-- 로그인 -->
+	                        </a></li>
+	                     </sec:authorize>
+	                     <sec:authorize access="isAuthenticated()">
+	                        <form id="form_logout" action="/member/logout" method="post">
+	                           <input type="hidden" name="${_csrf.parameterName}"
+	                              value="${_csrf.token}" />
+	                        </form>
+	                        <li><a href="javascript:void(0)" onclick="form_logout()"> 로그아웃</a></li>
+	                     </sec:authorize>
+							
+							
+							<li class="header_dropmemu mypage"><a href="${pageContext.request.contextPath}/mypage/myorders2"
 								class="btn" onclick="GA_Event('공통','헤더_메뉴','마이페이지')">마이페이지</a>
 								<div class="list">
 									<ul>
-										<li><a href="/ko/mypage/order/myorders"
+										<li><a href="${pageContext.request.contextPath}/mypage/myorders2"
 											onclick="GA_Event('공통','헤더_메뉴','마이페이지_주문조회')"> 주문조회 <!-- 주문조회 -->
 										</a></li>
 										<li><a href="/ko/mypage/myGradeInfo"
@@ -2777,11 +2795,8 @@ deg
 											onclick="GA_Event('공통','헤더_메뉴','마이페이지_e-Gift Card')">
 												e-Gift Card <!-- e-Gfit Card -->
 										</a></li>
-										<li><a href="/ko/mypage/personInfomationChangePWCheck"
+										<li><a href="${pageContext.request.contextPath}/mypage/PwCheck"
 											onclick="GA_Event('공통','헤더_메뉴','마이페이지_회원정보변경')"> 회원정보변경 <!-- 회원정보변경 -->
-										</a></li>
-										<li><a href="/ko/svcenter/mantomaninquiry"
-											onclick="GA_Event('공통','헤더_메뉴','마이페이지_온라인상담')"> 온라인상담 <!-- 온라인 상담 -->
 										</a></li>
 									</ul>
 								</div></li>
@@ -2839,7 +2854,7 @@ deg
 			<!-- //headerWrap -->
 			<div class="gnbwarp com clearfix">
 				<h1 class="logo logo1903">
-					<a href="/ko/main" onclick="GA_Event('공통', '로고', '상단');">thehandsome.com</a>
+					<a href="/" onclick="GA_Event('공통', '로고', '상단');">thehandsome.com</a>
 				</h1>
 				<div class="gnb_nav gnb_nav1903 hscene1906 hscene1910">
 					<h2 class="invisible">주메뉴</h2>
@@ -3532,7 +3547,7 @@ deg
 									( <span id="wishlistCount">0</span> )
 							</span>
 						</a></li>
-						<li><a href="/shoppingbag"
+						<li><a href="${pageContext.request.contextPath}/cart"
 							onclick="GA_Event('공통','유틸_메뉴','쇼핑백');"> <span
 								class="ico cart">장바구니</span> <span class="count"> ( <span
 									id="cartCount">0</span> )
@@ -3544,11 +3559,18 @@ deg
 			<!-- //201803 util menu -->
 		</div>
 	</div>
-	
+<sec:authorize access="hasRole('ROLE_MEMBER')">
+     <sec:authentication property="principal.username" var="MID"/>
+</sec:authorize>
+ <input type="hidden" name="mid" id="mid" value="${MID}"> 
 <script>
 	$(document).ready(function () {
 		
-		countLikes("team5");
+		var mid = $("#mid").val();
+		console.log("mid-------------" + mid);
+		
+		countLikes(mid);
+		
 		function countLikes(mid) {
 			console.log(mid);
 	   		//alert("수행");

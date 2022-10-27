@@ -1,5 +1,6 @@
 package com.kosa.controller;
 
+import java.security.Principal;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -7,6 +8,8 @@ import javax.servlet.http.HttpSession;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,11 +26,29 @@ import com.kosa.domain.product.ProductColorVO;
 import com.kosa.domain.product.ProductSizeVO;
 import com.kosa.domain.product.ProductStockVO;
 import com.kosa.domain.product.ProductVO;
+import com.kosa.security.domain.CustomMember;
 import com.kosa.service.MyWishService;
 import com.kosa.service.ProductService;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
+
+/**
+ * ProductController
+ * 
+ * @author 공통
+ * @since 2022.10.17
+ * @version 1.0
+ * 
+ *          <pre>
+ * 수정일              수정자                   수정내용
+ * ----------  --------    ---------------------------
+ * 2022.10.17   박서은              최초 생성
+ * 2022.10.19   박서은              ajax로 제품 리스트 띄우기
+ * 2022.10.20   박서은              상세페이지 띄우기 
+ * 2022.10.21   박서은              좋아요 등록 / 삭제
+ *          </pre>
+ */
 
 @Log4j
 @Controller
@@ -38,15 +59,13 @@ public class ProductController {
 
 	private final ProductService service;
 	private final MyWishService mywishservice;
-	String mid = "team5";
-
 
 	@GetMapping(value = "/getProductList", produces = "application/json; charset=UTF-8")
 	@ResponseBody
 	public String getProductList(@RequestParam(defaultValue = "1") int page, String depth1, String depth2,
 			String depth3, @RequestParam(defaultValue = " ")String type, @RequestParam(defaultValue = " ") String bkeyword
 			, @RequestParam(defaultValue = " ") String ckeyword, @RequestParam(defaultValue = "0") int startp, @RequestParam(defaultValue = "0") int endp, 
-			@RequestParam(defaultValue = " ") String price, Model model) {
+			@RequestParam(defaultValue = " ") String price, Model model, @RequestParam(defaultValue = "") String mid) {
 
 		log.info("getListController...................................");
 		log.info("t");
@@ -57,8 +76,7 @@ public class ProductController {
 		log.info(startp);
 		log.info(endp);
 		log.info(price);
-	
-		
+			
 		
 		CategoryVO category = new CategoryVO(depth1, depth2, depth3);
 		model.addAttribute("category", category);
@@ -113,10 +131,11 @@ public class ProductController {
 	}
 
 	@GetMapping("/productlist")
-	public String productList(Model model) {
+	public String productList(Model model,@RequestParam(defaultValue = "")String mid) {
 		log.info("제품 리스트 출력");
-		// 세션에서 mid가져오기!!!!!!!!!!!!!!!!!!!!!!!!111
-		int count = mywishservice.countLikes("team5");
+		// 세션에서 mid가져오기
+		//String mid = principal.getName();
+		int count = mywishservice.countLikes(mid);
 		
 		model.addAttribute("wishCnt",count);
 		model.addAttribute("mid", mid);
@@ -124,15 +143,17 @@ public class ProductController {
 	}
 
 	@RequestMapping("/productdetail")
-	public String productDetail(String pid, String pcid, Model model) {
+	public String productDetail(String pid, String pcid, Model model, @RequestParam(defaultValue = "")String mid) {
 		log.info("상세 페이지");
+		log.info(mid);
 		// pid를 통해 제품 객체 가져오기
 		ProductVO product = service.getProduct(pid);
-		
+				
 		// product로 색상, 사이즈 가져오기
 		List<ProductColorVO> colors = service.getProductColor(product);
 		List<ProductSizeVO> sizes = service.getProductSize(product);
 		boolean checkLike = mywishservice.checkLike(pid,mid);
+		
 		
 		log.info("가격 : " + colors.get(0).getPcprice());
 		log.info("color : " + colors);
@@ -146,12 +167,11 @@ public class ProductController {
 			}
 		}
 		
-		int count = mywishservice.countLikes("team5");
-		log.info("checkLike11111111111 : " + checkLike);
+		int count = mywishservice.countLikes(mid);
+		log.info("checkLike : " + checkLike);
 		model.addAttribute("checkLike",checkLike);
 		model.addAttribute("wishCnt",count);
 		model.addAttribute("mid", mid);
-		// model.addAttribute("mid2", 1);
 		model.addAttribute("pcprice", colors.get(0).getPcprice());
 		model.addAttribute("pcid", pcid);
 		model.addAttribute("product", product);
@@ -166,7 +186,6 @@ public class ProductController {
 	public String getProductStock(String pcid, String psize, Model model) {
 		String psid = pcid + "_" + psize;
 		// psid를 이용해서 재고 테이블에서 StockVO를 가져온다.
-
 		JSONObject jsonObject = new JSONObject();
 		String json;
 
@@ -184,10 +203,12 @@ public class ProductController {
 	
 	@RequestMapping(value = "/insertLike", produces = "application/json; charset=UTF-8")
 	@ResponseBody
-	public String insertLike(String pid, String mid) {
+	public String insertLike(String pid, @RequestParam(defaultValue = "") String mid) {
 		log.info("insert 실행");
+		//log.info("user " + user);
 		JSONObject jsonObject = new JSONObject();
 		String json;
+		//String mid = principal.getName();
 		
 		try {
 			int result = mywishservice.insertLike(pid, mid);

@@ -25,7 +25,20 @@ import com.kosa.service.ProductService;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
-
+/**
+ * MyWishController
+ * 
+ * @author 공통
+ * @since 2022.10.17
+ * @version 1.0
+ * 
+ *          <pre>
+ * 수정일              수정자                   수정내용
+ * ----------  --------    ---------------------------
+ * 2022.10.20   박서은              최초 생성
+ * 2022.10.21   박서은              ajax로 위시 리스트 띄우기
+ *          </pre>
+ */
 @Log4j
 @Controller
 @RequiredArgsConstructor
@@ -37,7 +50,7 @@ public class MyWishController {
 	@RequestMapping("/mywish")
 	public String productList(Model model) {
 		log.info("위시 리스트 출력");
-		// 세션에서 mid가져오기!!!!!!!!!!!!!!!!!!!!!!!!111
+		// 세션에서 mid가져오기!
 		//model.addAttribute("mid", "team5");
 		return "mypage/mywish";
 	}
@@ -47,7 +60,6 @@ public class MyWishController {
 	public String getProductList(@RequestParam("mid") String mid, @RequestParam("page") int page, Model model) {
 
 		log.info("getWishListController...................................");
-		log.info("getWishListController..................................." + page);
 		Criteria cri = new Criteria(page,2); // 한 화면에 표현할 갯수
 		System.out.println(mid);
 		// (카테고리, criteria)를 통해 12개의 상품 표시
@@ -66,8 +78,6 @@ public class MyWishController {
 			pObject.put("pid", l.getPid());
 			pObject.put("pname", l.getPname());
 			pObject.put("bname", l.getBname());
-//			pObject.put("pcprice", l.getPcprice());
-//			pObject.put("pcimg3", l.getPcimg3());
 			 
 			tmpObject.put("product", pObject);
 
@@ -75,9 +85,7 @@ public class MyWishController {
 			// p의 정보를 이용해서 pcode가 가진 컬러 리스트를 DB에서 가져온다.
 			List<ProductColorVO> colors = productService.getProductColor(product);
 			List<ProductSizeVO> sizes = productService.getProductSize(product);
-			//boolean checkLike = mywishservice.checkLike(l.getPid(), l.getMid());
 			
-			//tmpObject.put("checkLike", checkLike);
 			tmpObject.put("colors", colors);
 			tmpObject.put("pcprice", colors.get(0).getPcprice());
 			tmpObject.put("pcimg3", colors.get(0).getPcimg3());
@@ -85,11 +93,9 @@ public class MyWishController {
 			log.info(sizes);
 			tmpObject.put("sizes", sizes);
 			
-			//tmpObject.put("state", 0);
 			jsonArray.put(tmpObject);
 		}
 		
-		//jsonObject.put("likes", likes.getList());
 		jsonObject.put("totalCnt", likes.getTotalCnt());
 		jsonObject.put("likes", jsonArray);
 		String json = jsonObject.toString();		
