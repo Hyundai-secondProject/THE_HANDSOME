@@ -1,9 +1,9 @@
 package com.kosa.controller;
 /**
- * EventController
+ * EventRestController
  * 
  * @author 김민규
- * @since 2022.10.19
+ * @since 2022.10.24
  * @version 1.0
  * 
  * <pre>
@@ -22,21 +22,18 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.kosa.domain.event.EventViewVO;
 import com.kosa.service.EventService;
-
-import lombok.extern.log4j.Log4j;
 @CrossOrigin
 @RequestMapping("/event")
 @RestController
-@Log4j
 public class EventRestController {
 	@Autowired
 	private EventService eventservice;
 	
-	@GetMapping("/Inprogress")
+	@GetMapping("/Inprogress") // Ajax를 이용하여 현재 진행중인 이벤트들을 보여준다.
 	public List<EventViewVO> getProgressList(){
 		return eventservice.getEventList();
 	}
-	@GetMapping("/Past")
+	@GetMapping("/Past")// Ajax를 이용하여 지난 이벤트들을 보여준다.
 	public List<EventViewVO> getEventListpast(){
 		return eventservice.getEventListpast();
 	}

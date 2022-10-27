@@ -41,9 +41,9 @@
 <link rel="stylesheet" type="text/css" href="/resources/css/popup.css"
 	media="all" />
 	
-<!-- 왜 이거를 링크안하고 하는거지ㅣㅣ 
+
 <link rel="stylesheet" type="text/css" href="/resources/css/products.css"
-media="all" /> -->
+media="all" />
 <link rel="stylesheet" type="text/css"
 	href="/resources/css/jquery-ui.min.css" media="all" />
 
@@ -77,6 +77,8 @@ media="all" /> -->
 <!-- cart개수 ajax -->
 <script type="text/javascript" src="/resources/js/handsome/cartCount.js">cartCount()</script>
 
+<!-- 이벤트 페이지 AJAX -->
+<script type="text/javascript" src="/resources/js/handsome/event.js"></script>
 
 <!-- 쿠폰 정렬 -->
 <style media="screen">
@@ -85,10 +87,7 @@ media="all" /> -->
 	.sharing.on {width:90px !important}
 	.sharing.on a {display:block !important;float:left;margin-top:0}
 	.btn_list_wrap {padding:10px 0;text-align:right}
-	/* 7주년 메인 이벤트 S */
-	/* 221014 7주년 퀴즈이벤트 S */
 	.evt-7th-main .evt_floating_banner{position:fixed;left:50%;margin-left:529px;}
-	/* 221014 7주년 퀴즈이벤트 E */
 	.evt-7th-main img {display:block;}
 	.evt-7th-main .evt7th-video-wrap video {display:block;width:100%;}
 	.evt-7th-main .evt7th-main-event01 .coupon-wrap {position:relative;width:613px; margin:0 auto;}
@@ -100,7 +99,6 @@ media="all" /> -->
 	.evt-7th-main .evt7th-main-notice-title {position:relative;cursor:pointer;}
 	.evt-7th-main .evt7th-main-notice-icon {display:block;position:absolute;width:20px;height:20px;top:22px;left:570px;}
 	.evt-7th-main .evt7th-main-notice-title.on .evt7th-main-notice-icon {transform:rotate(45deg);}
-	/* 7주년 메인 이벤트 E */
 </style>
 <!-- 쿠폰 정렬 끝-->
 
@@ -118,7 +116,7 @@ media="all" /> -->
 </script>
 
 <script type="text/javascript" src="/resources/js/handsome/common.js"></script>
-<!-- <script type="text/javascript" src="/resources/js/handsome/event.js"></script> -->
+
 <script type="text/javascript"
 	src="/resources/js/handsome/html5shiv-printshiv.js"></script>
 <script type="text/javascript"

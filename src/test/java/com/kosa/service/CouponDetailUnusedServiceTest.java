@@ -30,11 +30,11 @@ public class CouponDetailUnusedServiceTest {
 	@Autowired
 	private EventService service;
 	
-	private String MID = "team5";
+	private String MID = "team5";// 회원 아이디 임시값
 	
 	@Test
 	public void servicetest() {
-		log.info(service.getCouponDetailUnused(MID));
+		log.info(service.getCouponDetailUnused(MID)); // 미사용된 쿠폰
 		
 	}
 	

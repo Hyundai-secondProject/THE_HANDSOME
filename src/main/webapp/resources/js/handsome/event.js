@@ -1,12 +1,25 @@
+/**
+ * event.js
+ * @author 김민규
+ * @since 2022.10.24
+ * @version 1.0
+ * 
+ * <pre>
+ * 수정일        수정자               수정내용
+ * ----------  --------    ---------------------------
+ * 2022.10.24   김민규               최초 생성
+ * </pre>
+ */
+
 $(document).ready(function(){
 
 	
-getprogress();
+getprogress(); // 바로 실행
 
-$("#progress").on("click", getprogress);
-$("#past").on("click", getpast);
+$("#progress").on("click", getprogress); // 진행중인 이벤트 누르면 실행 
+$("#past").on("click", getpast); // 지난 이벤트 누르면 실행
 
-function yyyymmdd(timestamp){
+function yyyymmdd(timestamp){ // DB에서 받아온 Timestamp 값을 YYYY-MM-DD 형식으로 바꿔주는 함수
 	var date_not_formatted = new Date(timestamp);
 
 	var formatted_string = date_not_formatted.getFullYear() + "-";
@@ -25,17 +38,17 @@ function yyyymmdd(timestamp){
 }
 
 
-function getprogress(){
+function getprogress(){ // 진행중인 이벤트들을 보여주는 ajax
 	var eventlist = "";
 
-$.ajax({//클릭이벤트
+$.ajax({
 	type: "GET",  
 	url: "/event/Inprogress", 
 	data: {}, 
-	dataType : "json",  // data타입이 없으면 알아서 추측해서 응답받음 우리는 json으로?
+	dataType : "json",  
 	contentType: "application/json; charset=utf-8",
 	success: function(data) { 
-		//console.log(JSON.stringify(data));	// 콘솔에 잘뜨는지 확인
+		//메인이벤트 (큰 이미지)
 		eventlist+= ' <div class="event_box col1" style="" data-last="11">    ';
 		eventlist+='<a href="/magazine/eventdetail?ENO=1"';
 		eventlist+='onclick="">';
@@ -47,15 +60,9 @@ $.ajax({//클릭이벤트
 		eventlist+='<p class="date">'+yyyymmdd(data[0].eissuedate)+'~' + yyyymmdd(data[0].eexpiredate)+'</p>';
 		eventlist+='</div>';
 		eventlist+='</a> </div>';
-			
-		/* 
-		item.eno
-		item.etitle
-		item.eissuedate
-		item.eexpiredate
-		item.eimg
-		*/
-		$.each(data, function(index, item) { // 데이터 =item
+		
+		// 서브이벤트 (작은 이미지)
+		$.each(data, function(index, item) { 
 			if(index==0){
 				return null;
 			}
@@ -82,26 +89,19 @@ $.ajax({//클릭이벤트
 }
 
 
-function getpast(){
+function getpast(){ // 지난 이벤트 보여주는 ajax
 	var eventlist = "";
 
-	$.ajax({//클릭이벤트
+	$.ajax({
 		type: "GET",  
 		url: "/event/Past", 
 		data: {}, 
-		dataType : "json",  // data타입이 없으면 알아서 추측해서 응답받음 우리는 json으로?
+		dataType : "json",  
 		contentType: "application/json; charset=utf-8",
 		success: function(data) { 
-			console.log(JSON.stringify(data));	// 콘솔에 잘뜨는지 확인
+			console.log(JSON.stringify(data));	
 			
-			/* 
-			item.eno
-			item.etitle
-			item.eissuedate
-			item.eexpiredate
-			item.eimg
-			*/
-			$.each(data, function(index, item) { // 데이터 =item
+			$.each(data, function(index, item) { 
 				console.log(index+"\n");
 				console.log(item);
 					eventlist+= '   <div class="event_box col2" style="" data-last="11">                                                  ';

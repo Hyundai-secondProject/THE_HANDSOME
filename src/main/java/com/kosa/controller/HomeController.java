@@ -30,7 +30,9 @@ public class HomeController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home() {
 				
-		return "checkout/orderConfirmation";
+
+		return "search/search";
+
 	}
 	
 	// mid를 통해 위리리스트 갯수 가져온다

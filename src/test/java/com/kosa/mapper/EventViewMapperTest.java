@@ -33,9 +33,9 @@ public class EventViewMapperTest {
 	private EventMapper mapper;
 	
 	@Test
-	public void getEventListTest() {
+	public void EventViewTest() {
 		
-		List<EventViewVO> list = mapper.getEventList(); 
+		List<EventViewVO> list = mapper.getEventList(); // 이벤트들의 값을 받는다.
 		System.out.println("list : " + list);
 		System.out.println("==========");
 		log.info(list);
