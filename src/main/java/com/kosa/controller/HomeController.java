@@ -16,6 +16,19 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
 
 /**
+ * HomeController
+ * 
+ * @author 공통
+ * @since 2022.10.17
+ * @version 1.0
+ * 
+ *          <pre>
+ * 수정일              수정자                   수정내용
+ * ----------  --------    ---------------------------
+ * 2022.10.21   박서은              위시리스트 갯수 가져오기
+ *          </pre>
+ */
+/**
  * Handles requests for the application home page.
  */
 @Log4j

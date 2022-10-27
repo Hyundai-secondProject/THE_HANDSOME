@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <%@ include file="/WEB-INF/views/common/header.jsp"%>
 
 
@@ -340,15 +341,22 @@
 	</div>
 </div>
 
+<sec:authorize access="hasRole('ROLE_MEMBER')">
+     <sec:authentication property="principal.username" var="MID"/>
+</sec:authorize>
+
+ <input type="hidden" name="mid" id="mid" value="${MID}"> 
 <!-- 상품 리스트 ajax 처리 -->
 <script type="text/javascript">
 	$(window)
 			.ready(
 					function() {
-						console.log("왜안떠");
+
 						// 카테고리 띄우기
 						const url = new URL(window.location.href);
-						const urlParams = url.searchParams;	
+						const urlParams = url.searchParams;
+						var mid = $("#mid").val();
+						console.log("mid-------------" + mid);
 						
 						// 처음 실행 -> 빈 값으로 초기화
 						let brand = $("#brandCurrent").html();
@@ -395,14 +403,16 @@
 						
 						// ajax로 제품 띄우기
 						function showList(page,type,brand,color,startp,endp,price) {
-
+							
+							
+							var mid = $("#mid").val();
 							$("#brandCurrent").html(brand);
 							$("#colorCurrent").html(color);
 							$("#priceCurrent").html(price);
 							
 							console.log("제품 띄우기 실행 " + price);
 							console.log("제품 띄우기 실행" + startp);
-							console.log("제품 띄우기 실행" + endp);
+							console.log("제품 띄우기 실행" + mid);
 
 							let product_array;
 							let totalCnt;
@@ -427,7 +437,9 @@
 													"ckeyword" : color,
 													"startp" : startp,
 													"endp" : endp,
-													"price" : price
+													"price" : price,
+													"mid" : mid
+													
 												}		
 											})
 									.done(
@@ -482,10 +494,10 @@
 													console.log(totalCnt);
 													console.log(product_info.pid);
 													
-													let mid = "${mid}";
+													
 													let pid = product_info.pid;
 
-													console.log(mid);
+													console.log("mid는!!!!!!!!!!!!!!!!!!!!!!!!!1"+ mid);
 													console.log(pid);
 
 													if (i == 3 || i == 7
@@ -501,7 +513,7 @@
 													tmp += "<a href='productdetail?pid="
 															+ product_array
 																	.at(i).product.pid + "&pcid=" + product_array.at(i).colors.at(0).pcid
-															+ "' class='item_info1' onclick='setEcommerceData('1', 'CATEGORY')'> "; // 상세 페이지로 연결 + 제품 색상 넣기 필요!!!!!!!!!!!
+																	+ "&mid="+mid+"' class='item_info1' onclick='setEcommerceData('1', 'CATEGORY')'> "; // 상세 페이지로 연결 + 제품 색상 넣기 필요!!!!!!!!!!!
 													tmp += "<span class = 'item_img'>";
 													tmp += "		<img src='"
 															+ product_color
@@ -611,16 +623,6 @@
 							if(next) {								
 								str += "<a class='next2' href='" + (endNum+1) + "'> 마지막 페이지 </a>";
 							}
-							
-/* 							if (pageNum >= endNum) {
-								str += "<a class='next' href='" + endNum + "'> 다음 페이지 </a>";
-							} else {
-								str += "<a class='next' href='" + (pageNum + 1)
-										+ "'> 다음 페이지 </a>";
-							}
-							str += "<a class='next2' href='" + endNum + "'> 마지막 페이지 </a>"; */
-							// console.log(str);
-
 							pageNation.html(str);
 						}
 
@@ -796,10 +798,14 @@
 
 </script>
 <script>
+var mid = $("#mid").val();
+
 function insertLike(pid, mid) {
 	
- 	console.log(pid);
-	console.log(mid); 
+	
+	var mid = $("#mid").val();
+ 	console.log("pid : " + pid);
+	console.log("mid : " + mid); 
 		
 	$.ajax({
 		url: "/product/insertLike",
@@ -833,6 +839,7 @@ function deleteLike(pid, mid) {
 	console.log("삭제 수행");
  	console.log(pid);
 	console.log(mid); 
+	//var mid = $("#mid").val();
 		
 	$.ajax({
 		url: "/product/deleteLike",
@@ -855,7 +862,7 @@ function deleteLike(pid, mid) {
 			console.log("위시 갯수: " + data.wishCnt);
 			$("#wishlistCount").html(data.wishCnt);
 		} else {
-			alert("오류 발생.");
+			alert("로그인 후 좋아요를 눌러주세요.");
 		}
 	});	 			
 }

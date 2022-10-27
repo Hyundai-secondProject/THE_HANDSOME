@@ -2122,7 +2122,7 @@
 													<input type="button" value=""
 														class="btn wishlist1803 float_left ml0 on "
 														id = 'wish_${product.pid}';
-														onclick="insertLike('${product.pid}', '${MID}')"> 
+														onclick="insertLike('${product.pid}','${MID}')"> 
    												</c:when>
 											    <c:otherwise>
 													<input type="button" value=""
@@ -3242,7 +3242,7 @@ function deleteLike(pid, mid) {
 			console.log("위시 갯수: " + data.wishCnt);
 			$("#wishlistCount").html(data.wishCnt);
 		} else {
-			alert("오류 발생.");
+			alert("로그인 후 좋아요를 눌러주세요.");
 		}
 	});	 			
 }
