@@ -15,6 +15,7 @@
  */ -->
 <mapper namespace="com.kosa.mapper.CartMapper">
 
+	
    <resultMap type="com.kosa.domain.member.CartVO" id="cartMap">
     <result property="mid" column="mid"/>
     <result property="psid" column="psid"/>
@@ -30,6 +31,13 @@
     	<result property="pcprice" column="pcprice"/>
     	<result property="psize" column="psize"/>
   </resultMap>
+  
+  <!-- 바로구매 -->
+	<select id="directbuy" resultMap="cartMap">
+	SELECT psid, bname, pname, pccolorcode, pcimg1, pcprice, psize  
+	FROM  view_product_detail vpd
+	WHERE psid= #{psid}
+	</select>
   
 	<!-- 뷰에서  가져오기 -->
 	<select id="selectList" resultMap="cartMap">

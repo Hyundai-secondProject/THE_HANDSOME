@@ -53,6 +53,30 @@ function addToCart2(buyNow)
     }
 }
 
+function directbuy(){
+
+	cartCount();
+	var form = $('#addToCartForm');	
+	var mid = $("#mid").val();
+    var psid = $("#psid").val();
+    var qty = $("#Dtxtqty").val();
+
+
+
+    if(psid==""){
+    	alert("사이즈를 선택해 주세요");
+    	return;
+    }
+    if(mid==""){
+    	alert("로그인이 필요합니다");
+    	return;
+    }
+// 
+
+
+    form.submit();
+}
+
 // 위시리스트에서 카트에추가
 function addToCartWish(index)
 {	

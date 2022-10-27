@@ -1,5 +1,6 @@
 // 주문페이지에 선택된 카트목록 띄우기 checkoutCartView
-$(document).ready(function(){
+
+function cartlist(){
 var cartList;
 var mid = $('#testMid').val();
 var entryNumber = $('#testEntryNum').val();
@@ -108,4 +109,4 @@ $.ajax({
 		}
 		
 	});
-});
+}

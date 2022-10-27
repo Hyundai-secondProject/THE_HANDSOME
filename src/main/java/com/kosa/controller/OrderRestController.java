@@ -36,14 +36,14 @@ public class OrderRestController {
         // ,(comma)는 URL에서 %2C로 대체되고 그 URL을 받아쓸때 다시 , 로 반환된다
         System.out.println(str);
         if (str == "")
-            return service.getProducts("ehfhfh1313");
+            return service.getProducts(mid);
         StringTokenizer st = new StringTokenizer(str, ",");
         List<Integer> entryNum = new ArrayList<>();
         while (st.hasMoreTokens()) {
             entryNum.add(Integer.parseInt(st.nextToken()) + 1); // rownum은 1부터시작
         }
         System.out.println(entryNum);
-        return service.getProductsWithEntryNum("ehfhfh1313", entryNum);
+        return service.getProductsWithEntryNum(mid, entryNum);
     }
     
     // 멤버정보 반환
