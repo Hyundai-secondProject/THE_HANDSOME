@@ -3,7 +3,7 @@ $(document).ready(function(){
 var cartList;
 var mid = $('#testMid').val();
 var entryNumber = $('#testEntryNum').val();
-console.log("entryNumber is " + entryNumber);
+
 $.ajax({
 	type: "GET",  
 	url: "/order/orderView/"+mid+"/"+entryNumber,
@@ -47,9 +47,13 @@ $.ajax({
 		cartList+= '  </thead>  ';
 		cartList+= ' <tbody> ';
 		
+		var sum=0;
+		var deliveryCost = 0;
+		
 		$.each(data, function(index, item) { // 데이터 =item
 			console.log(index+"\n");
 			console.log(item);
+			sum+= item.pquantity*item.productDetail.pcprice;
 			
 			cartList+= ' <tr class="al_middle"> ';
 			cartList+= ' 	<td class="frt"> ';
@@ -73,16 +77,35 @@ $.ajax({
 			cartList+= '  <td>';
 			cartList+= '  <!-- price_wrap -->';
 			cartList+= '  <div class="price_wrap ">';
-			cartList+= '  <span>';
+			cartList+= '  <span class="productPrice">';
 			cartList+= '  	₩ '+ addComma(item.pquantity*item.productDetail.pcprice)+'</span>';
 			cartList+= ' </div> <!-- //price_wrap --> ';
 			cartList+= ' </td> ';
 			cartList+= ' </tr> ';
+			
 			});
 
 		cartList+=' </tbody> ';
 		cartList+=' </table> ';
+		
+		console.log("합은 " + sum);
 		$("#checkoutCartView").html(cartList);
+		$("#subTotal").html('₩ ' + addComma(sum));
+		$("#subTotalHidden").html(sum);
+		
+		if (sum < 30000) {
+			deliveryCost = 2500;
 		}
+		
+		$("#deliveryCost").html('₩ ' + addComma(deliveryCost));
+		$("#cartDeliveryCost").html(deliveryCost);
+		
+		$("#totalPrice").html('₩ ' + addComma(sum + deliveryCost));
+		$("#total").val(sum + deliveryCost);
+		$("#totalPriceHidden").val(sum + deliveryCost);
+		
+		$('#txtAccumulationPoint').html('한섬마일리지 ' + addComma(sum*0.05) + ' M');
+		}
+		
 	});
 });

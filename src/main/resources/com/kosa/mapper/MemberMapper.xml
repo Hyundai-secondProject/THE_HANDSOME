@@ -16,6 +16,33 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  */ -->
 <mapper namespace="com.kosa.mapper.MemberMapper">
 	
+	<resultMap type="com.kosa.domain.member.MemberVO" id="memberMap">
+    <result property="mid" column="mid"/>
+    <result property="mpassword" column="mpassword"/>
+    <result property="mname" column="mname"/>
+    <result property="memail" column="memail"/>
+    <result property="mphone" column="mphone"/>
+    <result property="mtel" column="mtel"/>
+    <result property="mzipcode" column="mzipcode"/>
+    <result property="maddress1" column="maddress1"/>
+    <result property="maddress2" column="maddress2"/>
+    <result property="mtosno" column="mtosno"/>
+    <result property="mgrade" column="mgrade"/>
+    <result property="mmileage" column="mmileage"/>
+    <collection property="couponList" resultMap="couponMap">
+    </collection> 
+  </resultMap>
+  
+  <resultMap type="com.kosa.domain.event.CouponDetailViewVO" id="couponMap">
+    <result property="ecoupontitle" column="ecoupontitle"/>
+    <result property="cpid" column="cpid"/>
+    <result property="econtent" column="econtent"/>
+    <result property="ediscount" column="ediscount"/>
+    <result property="cpissuedate" column="cpissuedate"/>
+    <result property="cpexpiredate" column="cpexpiredate"/>
+    <result property="cpusedate" column="cpusedate"/>
+  </resultMap>
+	
 	<insert id="join">
 		insert into member(mid, mpassword, mname, memail, mphone, mbirth, mlogintype, mtosno, menabled, mrole, mgrade)
 		values(#{mid}, #{mpassword}, #{mname}, #{memail}, #{mphone}, #{mbirth},'간편회원', 0, 1, 'ROLE_MEMBER', 1)
