@@ -30,6 +30,7 @@ import lombok.extern.log4j.Log4j;
  * ----------  --------    ---------------------------
  * 2022.10.14    신기원                 최초 생성
  * 2022.10.18    신기원                 패스워드 테스트
+ * 2022.10.26	  신기원		  회원 정보 수정 테스트
  *          </pre>
  */
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -41,6 +42,8 @@ public class MemberServicelpmlTest {
 	@Autowired
 	public MemberService memberService;
 
+	@Autowired
+	public MemberMapper memberMapper;
 	@Test
 	public void joinTest() {
 		MemberVO vo  = new MemberVO();
@@ -62,6 +65,17 @@ public class MemberServicelpmlTest {
 	@Test
 	public void isDupl() {
 		log.info(memberService.isDulpId("shingk0323@naver.com"));
+	}
+	
+	@Test
+	public void memberinfoTest() {
+		MemberVO vo = memberMapper.findById("qwer");
+		vo.setMphone("01011232234");
+		vo.setMtel("12341234");
+		vo.setMzipcode("13313");
+		vo.setMaddress1("서울시");
+		vo.setMaddress2("혜화동");
+		log.info(memberService.memberInfoChange(vo));
 	}
 //	MemberVO vo  = new MemberVO();
 //	vo.setMid("11231");
