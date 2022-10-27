@@ -45,7 +45,8 @@ public class ProductController {
 	@ResponseBody
 	public String getProductList(@RequestParam(defaultValue = "1") int page, String depth1, String depth2,
 			String depth3, @RequestParam(defaultValue = " ")String type, @RequestParam(defaultValue = " ") String bkeyword
-			, @RequestParam(defaultValue = " ") String ckeyword, Model model) {
+			, @RequestParam(defaultValue = " ") String ckeyword, @RequestParam(defaultValue = "0") int startp, @RequestParam(defaultValue = "0") int endp, 
+			@RequestParam(defaultValue = " ") String price, Model model) {
 
 		log.info("getListController...................................");
 		log.info("t");
@@ -53,6 +54,11 @@ public class ProductController {
 		log.info(type);
 		log.info(bkeyword);
 		log.info(ckeyword);
+		log.info(startp);
+		log.info(endp);
+		log.info(price);
+	
+		
 		
 		CategoryVO category = new CategoryVO(depth1, depth2, depth3);
 		model.addAttribute("category", category);
@@ -63,6 +69,8 @@ public class ProductController {
 		cri.setType(type);
 		cri.setBkeyword(bkeyword);
 		cri.setCkeyword(ckeyword);
+		cri.setStartp(startp);
+		cri.setEndp(endp);
 		
 		model.addAttribute("cri", cri);
 		BrandVO brand = new BrandVO();

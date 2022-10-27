@@ -260,32 +260,39 @@
 									style="background: #ffea0a;"
 									onclick="CcheckOnlyOne(this);">YELLOW</a></li>
 							</ul>
-						</div></li>					
+						</div></li>	
+						
+						<li class="price"><a href="#" class="select" onclick="GA_Event('카테고리_리스트','정렬','가격');">가격
+						<span class="current" id="priceCurrent" title=" "></span>
+						<span class="ico_arr">arrow</span></a>
+                            <div class="list" style="display: none;">
+                                <ul>
+                                    <li><input name='price' type="checkbox" id="price_ck1" onclick="PcheckOnlyOne(this);"> <label for="price_ck1" id="lable_ck1"> ￦100,000 이하</label></li>
+                                    <li><input name='price' type="checkbox" id="price_ck2" onclick="PcheckOnlyOne(this);"> <label for="price_ck2" id="lable_ck2">￦100,000 ~ ￦300,000</label></li>
+                                    <li><input name='price' type="checkbox" id="price_ck3" onclick="PcheckOnlyOne(this);"> <label for="price_ck3" id="lable_ck3">￦300,000 ~ ￦500,000</label></li>
+                                    <li><input name='price' type="checkbox" id="price_ck4" onclick="PcheckOnlyOne(this);"> <label for="price_ck4" id="lable_ck4">￦500,000 ~ ￦1,000,000</label></li>
+                                    <li><input name='price' type="checkbox" id="price_ck5" onclick="PcheckOnlyOne(this);"> <label for="price_ck5" id="lable_ck5">￦1,000,000 이상</label></li>
+                                </ul>
+                            </div>
+                        </li>				
 
 					<li class="sortby"><a href="#" class="select"
-						onclick="GA_Event('카테고리_리스트','정렬','정렬순');">정렬순<span
-							class="current">신상품</span><span class="ico_arr">arrow</span></a>
+						onclick="GA_Event('카테고리_리스트','정렬','정렬순');">정렬순
+						<span id = "sortCurrent" class="current">저가순</span>
+						<span class="ico_arr">arrow</span>
+						</a>
 						<div class="list" style="display: none;">
 							<ul>
-								<li><a href="javascript:setProductOrderCode('NEW', '신상품');"
-									onclick="GA_Event('카테고리_리스트','정렬','신상품');">신상품</a></li>
-								<li><a
-									href="javascript:setProductOrderCode('SALES', '판매순');"
-									onclick="GA_Event('카테고리_리스트','정렬','판매순');">판매순</a></li>
 								<li><a
 									href="javascript:setProductOrderCode('HIGH', '고가순');"
-									onclick="GA_Event('카테고리_리스트','정렬','고가순');">고가순</a></li>
+									id ="hsort" onclick="ScheckOnlyOne(this);">고가순</a></li>
 								<li><a href="javascript:setProductOrderCode('LOW', '저가순');"
-									onclick="GA_Event('카테고리_리스트','정렬','저가순');">저가순</a></li>
-								<li><a
-									href="javascript:setProductOrderCode('REVIEW', '평점순');"
-									onclick="GA_Event('카테고리_리스트','정렬','상품평순');">평점순</a></li>
+									id ="hsort" onclick="ScheckOnlyOne(this);">저가순</a></li>
 							</ul>
 						</div></li>
 
 					<li class="btn">
-						<a id = "filter" href="javascript:gubunSearch(1);"
-						onclick="filter()">적용</a>
+						<a id = "filter" href="javascript:gubunSearch(1);">적용</a>
 					</li>
 					<li class="btn">
 						<a id = "reset" href="javascript:reset();"
@@ -338,19 +345,34 @@
 	$(window)
 			.ready(
 					function() {
+						console.log("왜안떠");
 						// 카테고리 띄우기
 						const url = new URL(window.location.href);
 						const urlParams = url.searchParams;	
 						
+						// 처음 실행 -> 빈 값으로 초기화
 						let brand = $("#brandCurrent").html();
 						let color = $("#colorCurrent").html();
-						let type = "";
+						let price = $("#priceCurrent").html();
+						let sort = $("#sortCurrent").html();
+						
+						if (sort == "고가순") {
+							type = "H";
+						} else {
+							type = "L";
+						}
+						
+						let startp = 0;
+						let endp = 0;
 						
 						console.log("brand: " + brand);
 						console.log("color: " + color);
+						console.log("price: " + price);
+						console.log("sort: " + sort);
+						console.log(type);
 						
 						// 바로 상품 띄우기
-						showList(1,type,brand,color);
+						showList(1,type,brand,color,startp,endp,price);
 	
 							let CatTmp = "";
 							let arr = new Array();
@@ -372,12 +394,16 @@
 							$("#cnts_title").html(CatTmp);
 						
 						// ajax로 제품 띄우기
-						function showList(page,type,brand,color) {
+						function showList(page,type,brand,color,startp,endp,price) {
 
 							$("#brandCurrent").html(brand);
 							$("#colorCurrent").html(color);
+							$("#priceCurrent").html(price);
 							
-							console.log("제품 띄우기 실행");
+							console.log("제품 띄우기 실행 " + price);
+							console.log("제품 띄우기 실행" + startp);
+							console.log("제품 띄우기 실행" + endp);
+
 							let product_array;
 							let totalCnt;
 							
@@ -398,7 +424,10 @@
 												data : {
 													"type" : type,
 													"bkeyword" : brand,
-													"ckeyword" : color
+													"ckeyword" : color,
+													"startp" : startp,
+													"endp" : endp,
+													"price" : price
 												}		
 											})
 									.done(
@@ -459,10 +488,10 @@
 													console.log(mid);
 													console.log(pid);
 
-													if (i == 4 || i == 8
-															|| i == 12) {
+													if (i == 3 || i == 7
+															|| i == 11) {
 														tmp += "<li class = 'mr1m'>" // list 시작
-													} else if (i == 5 || i == 9) {
+													} else if (i == 4 || i == 8) {
 														tmp += "<li class = 'clear: both'>"
 													} else {
 														tmp += "<li>"
@@ -535,35 +564,7 @@
 
 						}
 						
-					
-						
-						// 색상으로 변경되는거 수정해야 함------------------------------------
-/* 						function changeColor(product_idx, color_idx) {
-							product_array.at(product_idx)["state"] = color_idx;
-
-							let color_img = product_array.at(product_idx).colors
-									.at(color_idx);
-							let p_color_id = "#product_img" + product_idx;
-							let p_link = "#product_link" + product_idx;
-
-							let tmp = "";
-							tmp += "<img src='" + color_img["cimageproduct1"] + "' alt='' />";
-							tmp += "<img src='" + color_img["cimageproduct2"] + "' alt='' />";
-
-							$(p_link)
-									.attr(
-											"href",
-											"productdetail?pcid="
-													+ product_array
-															.at(product_idx).product.pcode
-													+ "&cproductcolor="
-													+ product_array
-															.at(product_idx).colors
-															.at(product_array
-																	.at(product_idx).state).cproductcolor);
-							$(p_color_id).html(tmp);
-						}
- */
+				
 						// 페이징 표시 자바스크립트
 						var pageNum = 1;
 						var pageNation = $(".paging");
@@ -575,7 +576,7 @@
 							var startNum = endNum - 9;
 							var prev = startNum != 1;
 							var next = false; // 기본 값은 false 
-							// 현재 보이는 pagenation의 마지막 숫자의 *10은 현재 까지의 데이터 갯수인데
+							// 현재 보이는 pagenation의 마지막 숫자의 *12은 현재 까지의 데이터 갯수인데
 							// 이것보다 total 갯수가 더 적다면 -> 페이지 조정이 필요
 							if (endNum * 12 >= totalCnt) { //마지막페이지계산
 								endNum = Math.ceil(totalCnt / 12.0);
@@ -584,9 +585,10 @@
 								next = true;
 							} //end if	 
 
-							console.log("PpageNum" + pageNum);
-							console.log("PendNum" + endNum);
-							console.log("PstartNum" + startNum);
+							console.log("t");
+							console.log("PpageNum " + pageNum);
+							console.log("PendNum " + endNum);
+							console.log("PstartNum " + startNum);
 							// 페이지 네이션 표시
 							var str = "";
 							str += "<a class='prev2' href='1'> 처음 페이지 </a>";
@@ -604,13 +606,19 @@
 										+ i + "</a>";
 							}
 							str += "</span>";
-							if (pageNum >= endNum) {
+						
+							str += "<a class='next' href='"+(parseInt(pageNum)+1)+"'> 다음 페이지 </a>";
+							if(next) {								
+								str += "<a class='next2' href='" + (endNum+1) + "'> 마지막 페이지 </a>";
+							}
+							
+/* 							if (pageNum >= endNum) {
 								str += "<a class='next' href='" + endNum + "'> 다음 페이지 </a>";
 							} else {
 								str += "<a class='next' href='" + (pageNum + 1)
 										+ "'> 다음 페이지 </a>";
 							}
-							str += "<a class='next2' href='" + endNum + "'> 마지막 페이지 </a>";
+							str += "<a class='next2' href='" + endNum + "'> 마지막 페이지 </a>"; */
 							// console.log(str);
 
 							pageNation.html(str);
@@ -634,36 +642,66 @@
 							let type = "";
 							let brand = $("#brandCurrent").html();
 							let color = $("#colorCurrent").html();
+							let price = $("#priceCurrent").html();
+							let sort = $("#sortCurrent").html();
+							let startp = 0;
+							let endp = 0;
 							
-							if (brand == "" && color === "") {
-								type = " ";
-								console.log("null 실행");
-							} else if (brand != "" && color == "") {
-								type = "B";
-								console.log("b 실행");
-							} else if (brand == "" && color != "") {
-								type = "C";
-								console.log("c 실행");
+							if (price == ' ￦100,000 이하') {
+								startp = 0;
+								endp = 100000;
+							} else if (price == '￦100,000 ~ ￦300,000') {
+								startp = 100000;
+								endp = 300000;
+							} else if (price == '￦300,000 ~ ￦500,000') {
+								startp = 300000;
+								endp = 500000;
+							} else if (price == '￦500,000 ~ ￦1,000,000') {
+								startp = 500000;
+								endp = 1000000;
+							} else if (price == '￦1,000,000 이상'){
+								startp = 1000000;
+								endp = 100000000;
 							} else {
-								type = "CB";
-								console.log("cb 실행");
+								starp = 0;
+								endp = 0;
 							}
 							
-							showList(pageNum,type,brand,color); //페이지 리스트 다시 출력
-						}); //end replyPageFooter click
-						
-						// ajax으로 삭제 처리 
-						// 필터 처리
-				/*         modalRemoveBtn.on("click", function (e) {
-				            var rno = modal.data("rno"); //데이터 가져오기
-				            //DB 삭제 처리
-				            replyService.remove(rno, function (result) {
-				                alert(result); //경고창
-				                modal.modal("hide"); //모달 숨기기
-				                //showList(1); //댓글 리스트 새로 가져오기
-				                showList(pageNum); //댓글 리스트 새로 가져오기
-				            }); //end replyService.remove
-				        }); //modalRemoveBtn click" */
+							if (brand == "" && color == "" && endp == "") {
+								type = " ";
+								console.log("null 실행");
+							} else if (brand != "" && color == "" && endp == "") {
+								type = "B";
+								console.log("b 실행");
+							} else if (brand == "" && color != "" && endp == "") {
+								type = "C";
+								console.log("c 실행");
+							} else if (brand == "" && color == "" && endp != "") {
+								type = "P";
+								console.log("p 실행");
+							} else if (brand != "" && color != "" && endp == "") {
+								type = "BC";
+								console.log("bc 실행");
+							} else if (brand != "" && color == "" && endp != "") {
+								type = "BP";
+								console.log("bp 실행");
+							} else if (brand == "" && color != "" && endp != "") {
+								type = "CP";
+								console.log("cp 실행");
+							} else {
+								type = "CBP";
+								console.log("cbp 실행");
+							}
+							
+							
+							if (sort == '고가순') {
+								type += "H";
+							} else {
+								type += "L";
+							}
+							
+							showList(pageNum,type,brand,color,startp,endp); //페이지 리스트 다시 출력
+						}); 
 				        
 				        let filterBtn = $("#filter");
 				        
@@ -671,57 +709,90 @@
 								let type = "";
 								let brand = $("#brandCurrent").html();
 								let color = $("#colorCurrent").html();
+								let price = $("#priceCurrent").html();
+								let sort = $("#sortCurrent").html(); // 정렬순
+								let startp = 0;
+								let endp = 0;
 								
-								if (brand == "" && color === "") {
+								console.log(price);
+								
+								if (price == ' ￦100,000 이하') {
+									startp = 0;
+									endp = 100000;
+								} else if (price == '￦100,000 ~ ￦300,000') {
+									startp = 100000;
+									endp = 300000;
+								} else if (price == '￦300,000 ~ ￦500,000') {
+									startp = 300000;
+									endp = 500000;
+								} else if (price == '￦500,000 ~ ￦1,000,000') {
+									startp = 500000;
+									endp = 1000000;
+								} else if (price == '￦1,000,000 이상'){
+									startp = 1000000;
+									endp = 100000000;
+								} else {
+									starp = 0;
+									endp = 0;
+								}
+								
+								if (brand == "" && color == "" && endp == 0) {
 									type = " ";
 									console.log("null 실행");
-								} else if (brand != "" && color == "") {
+								} else if (brand != "" && color == "" && endp == 0) {
 									type = "B";
 									console.log("b 실행");
-								} else if (brand == "" && color != "") {
+								} else if (brand == "" && color != "" && endp == 0) {
 									type = "C";
 									console.log("c 실행");
+								} else if (brand == "" && color == "" && endp != 0) {
+									type = "P";
+									console.log("p 실행");
+								} else if (brand != "" && color != "" && endp == 0) {
+									type = "BC";
+									console.log("bc 실행");
+								} else if (brand != "" && color == "" && endp != 0) {
+									type = "BP";
+									console.log("bp 실행");
+								} else if (brand == "" && color != "" && endp != 0) {
+									type = "CP";
+									console.log("cp 실행");
 								} else {
-									type = "CB";
-									console.log("cb 실행");
+									type = "CBP";
+									console.log("cbp 실행");
+								}
+								
+								
+								if (sort == '고가순') {
+									type += "H";
+								} else {
+									type += "L";
 								}
 								
 								console.log(type);
 								console.log(brand);
 								console.log(color); 
-				                showList(1,type,brand,color); 
+				                showList(1,type,brand,color,startp,endp); 
 				            });
 				        
 				        let resetBtn = $("#reset");
 				        
 				        resetBtn.on("click", function (e) {
 							let type = "";
+							let startp = 0;
+							let endp = 0;
+							
 							$("#brandCurrent").html("");
 							$("#colorCurrent").html("");
+							$("#priceCurrent").html("");
+							$("#sortCurrent").html("저가순");
 							
 							console.log("r실행 : " + type);
 							console.log("r실행 : " + brand);
 							console.log("r실행 : " + color); 
-			                showList(1,type,brand,color); 
+			                showList(1,type,brand,color,startp,endp); 
 			            });
 				   });
-/* 				        
-						function filter() {
-							console.log($("#brandCurrent").html());
-							console.log($("#colorCurrent").html());
-							let brand = $("#brandCurrent").html();
-							let color = $("#colorCurrent").html();
-							
-							if (brand == "") {
-								console.log("b빈 문자열");
-							}
-							if (color == "") {
-								console.log("c빈 문자열");
-							}
-							showList(1);
-						} */
-					
-	
 
 </script>
 <script>
@@ -811,20 +882,29 @@ function CcheckOnlyOne(element) {
 	$("#colorCurrent").html(element.innerHTML);
 }
 
-/* function filter() {
-	console.log($("#brandCurrent").html());
-	console.log($("#colorCurrent").html());
-	let brand = $("#brandCurrent").html();
-	let color = $("#colorCurrent").html();
+function PcheckOnlyOne(element) {
+	console.log("p체크 함수 실행");
+	console.log("p");
+	console.log(element.nextElementSibling.innerHTML);
 	
-	if (brand == "") {
-		console.log("b빈 문자열");
-	}
-	if (color == "") {
-		console.log("c빈 문자열");
-	}
-	showList(1);
-} */
+	const checkboxes = document.getElementsByName("price");
+	
+	checkboxes.forEach((cb) => {
+  		cb.checked = false;
+	})
+		element.checked = true;
+		$("#priceCurrent").html(element.nextElementSibling.innerHTML);	
+}
+
+function ScheckOnlyOne(element) {
+	console.log("정렬 체크 함수 실행");
+	console.log("o");
+	console.log(element.innerHTML);
+	
+	$("#sortCurrent").html(element.innerHTML);	
+
+}
+
 </script>
 
 <%-- <%@ include file="/WEB-INF/views/common/footer.jsp"%> --%>

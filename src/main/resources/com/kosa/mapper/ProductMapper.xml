@@ -9,18 +9,42 @@
 		<trim prefix=" AND (" suffix=")" prefixOverrides="AND">
 			<foreach item="type" collection="cri.typeArr"> <!-- 여기서 cri.type 해야할지,,,? -->
 				<trim prefix="AND">
-					<choose>
+					<choose>					      
 						<when test="type== 'B'.toString()">
 							bname like '%' || #{cri.bkeyword} || '%'
 						</when>
 						<when test="type== 'C'.toString()">
 							pccolorcode like '%' || #{cri.ckeyword} || '%'
 						</when>
+						<when test="type== 'P'.toString()">
+						  <![CDATA[  
+							pcprice >= #{cri.startp} and pcprice < #{cri.endp}						
+						    ]]>
+						</when>
 					</choose> <!-- end choose -->
 				</trim><!--end trim OR -->
 			</foreach> <!--foreach -->
 		</trim> <!--end trim pre... -->
 	</sql>
+	
+	<!-- 키워드는 무조건 대문자 소문자 구분!!!! -->
+	<sql id="criteria2">
+
+			<foreach item="type" collection="cri.typeArr"> <!-- 여기서 cri.type 해야할지,,,? -->
+	
+					<choose>					      
+						<when test="type== 'H'.toString()">
+							order by pcprice desc
+						</when>
+						<when test="type== 'L'.toString()">
+							order by pcprice 
+						</when>
+					</choose> <!-- end choose -->
+			</foreach> <!--foreach -->
+
+	</sql>
+	
+	
 
 	<!-- 테스트용 -->
 	<!-- <select id="selectProduct" resultType="com.kosa.domain.product.ProductCommonVO"> 
@@ -35,19 +59,19 @@
 			from (
 				select rownum as rnum, pid, pname, pnote, bno, pstatus, depth1name, depth2name,depth3name, bname
 				from (
-                    select distinct pid, pname, pnote, bno, pstatus, depth1name, depth2name,depth3name, bname
+                    select distinct pid, pname, pnote, bno, pstatus, depth1name, depth2name,depth3name, bname, pcprice
                         from (
-                        	select PV.pid, pname, pnote, bno, pstatus, depth1name, depth2name,depth3name, bname, pc.pccolorcode, pc.pcid
+                        	select PV.pid, pname, pnote, bno, pstatus, depth1name, depth2name,depth3name, bname, pc.pccolorcode, pc.pcprice
                         	from productVO_view pv, product_color pc
                         	WHERE pv.pid = pc.pid
                             AND depth1name = #{category.depth1name}
                             AND depth2name LIKE '%'
                             AND depth3name LIKE '%'
                             ]]>
-                            <include refid="criteria"/> 
-
-                    <![CDATA[
+                            <include refid="criteria"/>                  
                     		)
+                    		<include refid="criteria2"/>  
+ 					<![CDATA[
                     )
                     where 
                     ROWNUM <= #{cri.pageNum} * #{cri.amount}
@@ -65,19 +89,19 @@
 			from (
 				select rownum as rnum, pid, pname, pnote, bno, pstatus, depth1name, depth2name,depth3name, bname
 				from (
-                    select distinct pid, pname, pnote, bno, pstatus, depth1name, depth2name,depth3name, bname
+                    select distinct pid, pname, pnote, bno, pstatus, depth1name, depth2name,depth3name, bname, pcprice
                         from (
-                        	select PV.pid, pname, pnote, bno, pstatus, depth1name, depth2name,depth3name, bname, pc.pccolorcode, pc.pcid
+                        	select PV.pid, pname, pnote, bno, pstatus, depth1name, depth2name,depth3name, bname, pc.pccolorcode, pc.pcprice
                         	from productVO_view pv, product_color pc
                         	WHERE pv.pid = pc.pid
                             AND depth1name = #{category.depth1name}
                             AND depth2name = #{category.depth2name}
                             AND depth3name LIKE '%'
                             ]]>
-                            <include refid="criteria"/> 
-
-                    <![CDATA[
+                            <include refid="criteria"/>                  
                     		)
+                    		<include refid="criteria2"/>  
+ 					<![CDATA[
                     )
                     where 
                     ROWNUM <= #{cri.pageNum} * #{cri.amount}
@@ -95,19 +119,19 @@
 			from (
 				select rownum as rnum, pid, pname, pnote, bno, pstatus, depth1name, depth2name,depth3name, bname
 				from (
-                    select distinct pid, pname, pnote, bno, pstatus, depth1name, depth2name,depth3name, bname
+                    select distinct pid, pname, pnote, bno, pstatus, depth1name, depth2name,depth3name, bname, pcprice
                         from (
-                        	select PV.pid, pname, pnote, bno, pstatus, depth1name, depth2name,depth3name, bname, pc.pccolorcode, pc.pcid
+                        	select PV.pid, pname, pnote, bno, pstatus, depth1name, depth2name,depth3name, bname, pc.pccolorcode, pc.pcprice
                         	from productVO_view pv, product_color pc
                         	WHERE pv.pid = pc.pid
                             AND depth1name = #{category.depth1name}
                             AND depth2name = #{category.depth2name}
                             AND depth3name = #{category.depth3name}
                             ]]>
-                            <include refid="criteria"/> 
-
-                    <![CDATA[
+                            <include refid="criteria"/>                  
                     		)
+                    		<include refid="criteria2"/>  
+ 					<![CDATA[
                     )
                     where 
                     ROWNUM <= #{cri.pageNum} * #{cri.amount}
