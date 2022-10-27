@@ -65,6 +65,13 @@ public class MemberServicelmpl implements MemberService {
 			return false;	
 		}
 	}
+
+	@Override
+	public String memberInfoChange(MemberVO memberVo) {
+		int result = memberMapper.infoChange(memberVo);
+		if(result > 0) return "success";
+		else return null;
+	}
 	
 	
 
