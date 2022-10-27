@@ -16,6 +16,11 @@ public class Criteria {
 	private String type; // 검색할 항목을 저장 - key
 	private String bkeyword; 
 	private String ckeyword;
+	private int startp;
+	private int endp;
+	//private String sort;
+
+	
 
 	// type이 없을 경우 빈 배열을 전송
 	public String[] getTypeArr() {

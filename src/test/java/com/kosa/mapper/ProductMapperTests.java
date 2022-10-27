@@ -49,11 +49,15 @@ public class ProductMapperTests {
 	@Test
 	public void selectTest() {
 		Criteria cri = new Criteria();
-		cri.setCkeyword("BLACK");
-		cri.setBkeyword("time");
-		cri.setType("BC");
-		cri.setAmount(3);
+		cri.setCkeyword("");
+		cri.setBkeyword("");
+		cri.setType("PL");
+		cri.setStartp(100000);
+		cri.setEndp(300000);
+		
+		cri.setAmount(12);
 		cri.setPageNum(1);
+		
 		HashMap<String, Object> categoryPager = new HashMap<String, Object>();
 		categoryPager.put("cri",cri);
 		categoryPager.put("brand",new BrandVO());
