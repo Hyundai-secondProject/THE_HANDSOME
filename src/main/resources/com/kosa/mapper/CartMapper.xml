@@ -32,7 +32,7 @@
     	<result property="psize" column="psize"/>
   </resultMap>
   
-  <!-- 바로구매 -->
+  	<!-- 바로구매 -->
 	<select id="directbuy" resultMap="cartMap">
 	SELECT psid, bname, pname, pccolorcode, pcimg1, pcprice, psize  
 	FROM  view_product_detail vpd
