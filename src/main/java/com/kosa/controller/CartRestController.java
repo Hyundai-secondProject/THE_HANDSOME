@@ -116,7 +116,6 @@ public class CartRestController {
         }else {
             return "invalid";
         }
-        //스턱테이블가기
     }   
     
     // 수량변경

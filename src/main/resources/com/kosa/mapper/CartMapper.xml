@@ -101,7 +101,7 @@
 		where mid = #{mid} and psid = #{psid}
 	</update>
 
-	<!-- 카트중복체크 -->
+	<!-- 카트체크 -->
 	<select id="checkCart" resultType="int">
 		select count(*)
 		from cart
