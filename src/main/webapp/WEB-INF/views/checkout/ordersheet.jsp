@@ -4465,7 +4465,96 @@ function doOrder(){
    		$('#orderForm').append(commissionAgreeYN);
    }
     
+    /* var csrfHeaderName = "${_csrf.headerName}";
+    var csrfTokenValue = "${_csrf.token}";
+    $(document).ajaxSend(function(e, xhr, options) {
+       xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+    }); */
+    
+    console.log("주무우우웅 " + $("#rcpt_name").val());
+    console.log("룰룰룰룰ㄹ" + $("#hp_num2").val());
+    console.log("우편번호 우편번호 " + $("#adress").val());
+    console.log("우편번호 우편번호 " + $("#line1").val() + $("#line2").val());
+    console.log("우편번호 우편번호 " + $("#rcpt_name").val());
+    console.log("우편번호 우편번호 " + $("#hp").val() + $("#hp_num2").val() + $("#hp_num3").val());
+    console.log("우편번호 우편번호 " + $("ph").val() + $("#ph_num2").val() + $("ph_num3").val());
+    console.log("우편번호 우편번호 " + $("#orderr").val());
+    console.log("우편번호 우편번호 " + $("#mail").val() + "@" + $("emailDelySel").val());
+    console.log("우편번호 우편번호 " + $("#Hmileage").val());
+    console.log("우편번호 우편번호 " + $("#subTotal").val());
+    console.log("우편번호 우편번호 " + $("#total").val());
+    console.log("우편번호 우편번호 " + $("#mid").val());
+    console.log("우편번호 우편번호 " + $("#selectVoucher").val());
+    console.log("우편번호 우편번호 " + $("#line2").val());
+    
     $.ajax({
+        url: "/order/orderPay",
+        type: "get",            
+        contentType: "application/json; charset=UTF-8",
+        data:  {
+/*         	oid : $("#oid").val(),
+        	ozipcode : $("#ozipcode").val(),
+        	oaddress1 : $("#oaddress1").val(),
+        	oreceiver : $("#rcpt_name").val(),
+        	ophone : $("#ophone").val(),
+        	otel : $("#otel").val(),
+        	omemo : $("#omemo").val(),
+        	oemail : $("#oemail").val(),
+        	ousedmileage : $("#ousedmileage").val(),
+        	obeforeprice : $("#obeforeprice").val(),
+        	oafterprice : $("#oafterprice").val(),
+        	ostatus : $("#ostatus").val(),
+        	mid : $("#mid").val(),
+        	pmcode : $("#pmcode").val(),
+//        	odate : $("#odate").val(),
+        	cpid : $("#cpid").val(),
+        	oaddress2 : $("#oaddress2").val() */
+//        	oid : $("#oid").val(),
+			//////////
+        	/* ozipcode : $("#adress").val(),
+        	oaddress1 : $("#line1").val() + $("#line2").val(),
+        	oreceiver : $("#rcpt_name").val(),
+        	ophone : $("#hp").val() + $("#hp_num2").val() + $("#hp_num3").val(),
+        	otel : $("ph").val() + $("#ph_num2").val() + $("ph_num3").val(),
+        	omemo : $("#orderr").val(),
+        	oemail : $("#mail").val() + " " + $("emailDelySel").val(),
+        	ousedmileage : $("#Hmileage").val(),
+        	obeforeprice : $("#subTotal").val(),
+        	oafterprice : $("#total").val(),
+//        	ostatus : $("#ostatus").val(),
+        	mid : $("#mid").val(),
+//        	pmcode : $("#pmcode").val(),
+//        	odate : $("#odate").val(),
+        	cpid : $("#selectVoucher").val(),
+        	oaddress2 : $("#line2").val() */
+        	/////////////
+        	"ozipcode" : $("#adress").val(),
+        	"oaddress1" : "add",
+        	"oreceiver" : "receiver",
+        	"ophone" : $("#hp").val() + $("#hp_num2").val() + $("#hp_num3").val(),
+        	"otel" : $("ph").val() + $("#ph_num2").val() + $("ph_num3").val(),
+        	"omemo" : $("#orderr").val(),
+        	"oemail" : $("#mail").val() + " " + $("emailDelySel").val(),
+        	"ousedmileage" : $("#Hmileage").val(),
+        	"obeforeprice" : $("#subTotal").val(),
+        	"oafterprice" : $("#total").val(),
+//        	ostatus : $("#ostatus").val(),
+        	"mid" : $("#mid").val(),
+//        	pmcode : $("#pmcode").val(),
+//        	odate : $("#odate").val(),
+        	"cpid" : $("#selectVoucher").val(),
+        	"oaddress2" : "add2"
+        },
+        async : false,
+        success: function(){
+            alert("주문완료");
+        },
+        error: function(xhr, Status, error) {
+            //
+        }
+   });
+    
+    /* $.ajax({
         type: "GET",
         url: "/ko/checkout/checkOnlineStock",
         dataType: "json",
@@ -4516,11 +4605,8 @@ function doOrder(){
 		    		location.href = "/ko/shoppingbag";
 		    	};
             }
-        }//,
-        //error: function(xhr,  Status, error) {
-        //  alert('sendRequest error : ' + xhr.status + " ( " + error + " ) " );
-        //}
-    });
+        }
+    }); */
     
 }
 
@@ -6150,6 +6236,7 @@ function sendGroobee(){
 	<script type="text/javascript" src="/resources/js/handsome/checkoutCartView.js"></script>
 	<script type="text/javascript" src="/resources/js/handsome/directbuy.js"></script>
 	<script type="text/javascript" src="/resources/js/order.js"></script>
+	<script type="text/javascript" src="/resources/js/handsome/pay.js"></script>
 	<script type="text/javascript">
 $(document).ready(function(){
 	
@@ -6178,7 +6265,7 @@ $(document).ready(function(){
 	
 	function showOrder() {
 		// 주문자정보 가져오기
-		orderService.getMemberInfo({mid:"seungu00"}
+		orderService.getMemberInfo({mid:"ehfhfh1313@naver.com"}
 		, function(data) {
 			console.log("showOrder 하는중5");
 			console.log(data);
@@ -6323,27 +6410,43 @@ $(document).ready(function(){
 			type="hidden" id="chk_pointAmount" value="" />
 
 		<form id="orderForm" action="/checkout/ordersheet" method="post">
-			<script language="javascript"
-				src="https://stdpay.inicis.com/stdjs/INIStdPay.js"
-				type="text/javascript" charset="UTF-8"></script>
-			<input type="hidden" id="paytype" name="paytype" value="Inicis" /> <input
-				type="hidden" id="globalPayment" name="globalPayment" value="" /><input
-				type="hidden" name="ordererName" id="ordererName" value="" /> <input
-				type="hidden" name="ordererMobilePhone" id="ordererMobilePhone"
-				value="" /> <input type="hidden" name="ordererEmail"
-				id="ordererEmail" value="" /> <input type="hidden" name="addressId"
-				id="addressId" value="" /> <input type="hidden" name="email"
-				id="email" value="" /> <input type="hidden" id="discInfo_coupon"
-				name="couponCode" value="" /> <input type="hidden"
-				id="customDutiesPaymentYN" name="customDutiesPaymentYN" value="0" />
-			<input type="hidden" id="chinaYN" name="chinaYN" /> <input
-				type="hidden" id="idCardOrPassport" name="idCardOrPassport" /> <input
-				type="hidden" id="selectedCompany" name="selectedCompany" value="" />
-			<input type="hidden" id="isPermanentCompany"
-				name="isPermanentCompany" value="" /> <input type="hidden"
-				name="wpayToken" value="" /> <input type="hidden" name="cardQuota"
-				value="" /> <input type="hidden" name="cardInterest" value="" /> <input
-				type="hidden" name="discInfo" value="" />
+			<script language="javascript" src="https://stdpay.inicis.com/stdjs/INIStdPay.js" type="text/javascript" charset="UTF-8"></script>
+			<input type="hidden" id="paytype" name="paytype" value="Inicis" /> 
+			<input type="hidden" id="globalPayment" name="globalPayment" value="" />
+			<input type="hidden" name="ordererName" id="ordererName" value="" /> 
+			<input type="hidden" name="ordererMobilePhone" id="ordererMobilePhone" value="" /> 
+			<input type="hidden" name="ordererEmail" id="ordererEmail" value="" /> 
+			<input type="hidden" name="addressId" id="addressId" value="" /> 
+			<input type="hidden" name="email" id="email" value="" /> 
+			<input type="hidden" id="discInfo_coupon" name="couponCode" value="" /> 
+			<input type="hidden" id="customDutiesPaymentYN" name="customDutiesPaymentYN" value="0" />
+			<input type="hidden" id="chinaYN" name="chinaYN" />
+			<input type="hidden" id="idCardOrPassport" name="idCardOrPassport" /> 
+			<input type="hidden" id="selectedCompany" name="selectedCompany" value="" />
+			<input type="hidden" id="isPermanentCompany" name="isPermanentCompany" value="" /> 
+			<input type="hidden" name="wpayToken" value="" /> 
+			<input type="hidden" name="cardQuota" value="" /> 
+			<input type="hidden" name="cardInterest" value="" /> 
+			<input type="hidden" name="discInfo" value="" />
+			
+			<input type="hidden" id="oid" name="oid" value="oid2" />
+			<input type="hidden" id="ozipcode" name="ozipcode" value="code" />
+			<input type="hidden" id="oaddress1" name="oaddress1" value="add" />
+			<input type="hidden" id="oreceiver" name="oreceiver" value="rece" />
+			<input type="hidden" id="ophone" name="ophone" value="010" />
+			<input type="hidden" id="otel" name="otel" value="010" />
+			<input type="hidden" id="omemo" name="omemo" value="memo" />
+			<input type="hidden" id="oemail" name="oemail" value="ehfhfh" />
+			<input type="hidden" id="ousedmileage" name="ousedmileage" value=1000 />
+			<input type="hidden" id="obeforeprice" name="obeforeprice" value=3000 />
+			<input type="hidden" id="oafterprice" name="oafterprice" value=2000 />
+			<input type="hidden" id="ostatus" name="ostatus" value="주문완료" />
+			<input type="hidden" id="mid" name="mid" value= "${MID}"/>
+			<input type="hidden" id="pmcode" name="pmcode" value="001" />
+			<!-- <input type="hidden" id="odate" name="odate" value="" /> -->
+			<input type="hidden" id="cpid" name="cpid" value="cpid" />
+			<input type="hidden" id="oaddress2" name="oaddress2" value="add2" />
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 
 			<!--sub_container-->
 			<div class="sub_container">
@@ -7139,7 +7242,9 @@ $(document).ready(function(){
 									<dt>상품 합계</dt>
 									<dd id="subTotal">₩0</dd>
 									<div style="display:none" id="subTotalHidden"></div>
-									<div id="Hmileage" val=""></div>
+									<div id="Hmileage" val="">
+										
+									</div>
 									<!-- <dt>한섬마일리지 결제</dt>
         							<dd>- ₩3,000</dd> -->
 									<dt>배송비</dt>
@@ -7187,7 +7292,8 @@ $(document).ready(function(){
 						</div>
 						<!--//point & agreement box-->
 						<span id="doOrderBtn"> <a href="#;" class="btn gray "
-							onclick="doOrder();"> 결제하기</a>
+							onclick="orderpay2();"> 결제하기</a>
+							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 						</span>
 					</div>
 					<!--//orderwrap right-->
@@ -7197,8 +7303,8 @@ $(document).ready(function(){
 			<!--//sub_container-->
 
 			<div>
-				<input type="hidden" name="CSRFToken"
-					value="53ca9b9c-c912-4cba-92cb-e959f1b4e2e5" />
+				<!-- <input type="hidden" name="CSRFToken"
+					value="53ca9b9c-c912-4cba-92cb-e959f1b4e2e5" /> -->
 			</div>
 		</form>
 		<!--layer pop-->
