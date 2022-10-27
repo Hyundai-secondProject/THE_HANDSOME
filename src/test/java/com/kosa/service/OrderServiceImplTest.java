@@ -1,5 +1,6 @@
 package com.kosa.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.junit.Test;
@@ -35,6 +36,33 @@ public class OrderServiceImplTest {
 	public OrderServiceImpl orderService;
 	
 	@Test
+    public void insertTest() {
+        log.info("insertTest.....");
+        OrdersVO orders = new OrdersVO();
+        orders.setOid("oididid");
+        orders.setOzipcode("code");
+        orders.setOaddress1("oaddress1");
+        orders.setOreceiver("oreceiver");
+        orders.setOphone("ophone");
+        orders.setOtel("otel");
+        orders.setOmemo("omemo");
+        orders.setOemail("ozip");
+        orders.setOusedmileage(2000);
+        orders.setObeforeprice(20000);
+        orders.setOafterprice(18000);
+        orders.setOstatus("주문완료");
+        orders.setMid("ehfhfh1313@naver.com");
+        orders.setPmcode("001");
+        orders.setOdate( new Date());
+        orders.setCpid("cpid");
+        orders.setOaddress2("address2");
+        
+        orderService.insert(orders);
+
+    }
+	
+	
+	@Test
 	public void getListTest() {
 		for (OrdersVO order : orderService.getList(new Criteria(1, 10), "asdf")) {
 			log.info(order);
@@ -67,4 +95,6 @@ public class OrderServiceImplTest {
 //			log.info(orders);
 //		}
 	}
+	
+	
 }

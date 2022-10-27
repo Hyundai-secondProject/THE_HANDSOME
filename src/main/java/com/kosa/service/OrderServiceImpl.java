@@ -22,6 +22,12 @@ public class OrderServiceImpl implements OrderService {
 	private OrderMapper mapper;
 	
 	@Override
+	public void insert(OrdersVO orders) {
+	    log.info("insert orders.............");
+	    mapper.insert(orders);
+	}
+	
+	@Override
 	public List<OrdersVO> getList() {
 		log.info("get List.............");
 		return mapper.getList();

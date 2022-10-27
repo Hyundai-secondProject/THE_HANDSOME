@@ -8,6 +8,8 @@ import com.kosa.domain.order.OrdersVO;
 
 public interface OrderService {
 
+    public void insert(OrdersVO orders);
+    
 	public List<OrdersVO> getList();
 	
 	public List<OrdersVO> getList(Criteria cri, String mid);

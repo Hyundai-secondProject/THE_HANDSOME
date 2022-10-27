@@ -9,13 +9,18 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.kosa.domain.member.CartVO;
 import com.kosa.domain.member.MemberVO;
+import com.kosa.domain.order.OrdersVO;
 import com.kosa.service.CartService;
 import com.kosa.service.MemberService;
+import com.kosa.service.OrderService;
 
 import lombok.extern.log4j.Log4j;
 
@@ -28,6 +33,8 @@ public class OrderRestController {
     private CartService service;
 	@Autowired
 	private MemberService memberService;
+	@Autowired
+	private OrderService orderService;
 	
 	// 선택항목 반환
     @GetMapping("/orderView/{mid}/{entryNum}")
@@ -56,4 +63,16 @@ public class OrderRestController {
     // 멤버 쿠폰 정보 반환
     
     
+    
+    
+    
+    
+ // 주문 결제하기
+    @GetMapping("/orderPay")
+    public void orderPay(OrdersVO orders) {
+//        OrdersVO orders = new OrdersVO();
+        System.out.println(orders);
+        System.out.println("orderpay 왔음");
+        //orderService.insert(orders);
+    }
 }

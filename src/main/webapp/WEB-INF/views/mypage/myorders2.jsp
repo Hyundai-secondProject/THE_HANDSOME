@@ -3831,7 +3831,6 @@ function getExchangePrice(price) {
 							value="조회하기"> -->
 						<button id="searchBtn" class="btn_search" name="searchBtn" value="조회하기">조회하기</button>
 						<!-- 조회하기 -->
-						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 					</div>
 
 				</form>
