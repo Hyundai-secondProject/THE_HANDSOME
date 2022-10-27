@@ -2953,8 +2953,8 @@ function centerPopup(url, name, width, height) {
 
 // 한글바이트계산(utf-8 한글 3byte식 계산)
 function getByteLength(s,b,i,c){
-    for (b = i = 0; c = s.charCodeAt(i++); b += c >> 11 ? 3 : c >> 7 ? 2 : 1);
-    return b;
+//    for (b = i = 0; c = s.charCodeAt(i++); b += c >> 11 ? 3 : c >> 7 ? 2 : 1);
+//    return b;
 }
 
 /*

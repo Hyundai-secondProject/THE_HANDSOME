@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -592,41 +593,13 @@ function GA_Event(Category,Action,Label) {
 }
 </script>
 <style media="screen">
-.blsmflw1 {
-	animation: target_image 1.5s;
-	animation-iteration-count: 2;
-	transform-origin: 50% 50%;
-}
-
-.leaf2209 {
-	animation: target_image 1.5s;
-	animation-iteration-count: 2;
-	transform-origin: 50% 50%;
-}
-
-@
-keyframes target_image { 0% {
-	transform: rotate(-1deg);
-}
-50%
-{
-transform
-:
- 
-rotate
-(9deg)
- 
-}
-100%
-{
-transform
-:
- 
-rotate
-(-1deg);
- 
-}
-}
+.blsmflw1 {animation: target_image 1.5s;animation-iteration-count: 2;transform-origin:50% 50%;}
+.leaf2209 {animation: target_image 1.5s;animation-iteration-count: 2;transform-origin:50% 50%;}
+ @keyframes target_image {
+	0% { transform: rotate(-1deg); }
+	50% { transform: rotate(9deg) }
+	100% { transform: rotate(-1deg); }
+ }
 </style>
 
 <script>
@@ -2469,10 +2442,9 @@ function GA_search(){
 
 	<!-- 원클릭결제 -->
 	<script type="text/javascript" src="/_ui/desktop/common/js/wpay.js"></script>
-	<script type="text/javascript"
-		src="/_ui/handsomemobile/js/swiper.min.js"></script>
-	<link rel="stylesheet" type="text/css"
-		href="/_ui/handsomemobile/css/handsomecss/swiper.css" media="all" />
+	<script type="text/javascript" src="/resources/js/swiper.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="/resources/css/swiper.css"
+		media="all" />
 
 	<script type="text/javascript">
 //<![CDATA[ 
@@ -2821,7 +2793,7 @@ $(document).ready(function ()
         $('#orderr').keyup();
      });
      
-     $('#point_useall').click(function(){
+     /* $('#point_useall').click(function(){
          if($('#point_useall').is(":checked") && parseInt(3753) > 0){
              
             var usepoint = $('#total').val() - $('#cartDeliveryCost').val();
@@ -2832,7 +2804,7 @@ $(document).ready(function ()
             	return;
         	}
              
-            var usablePoint = parseInt('3753')
+            var usablePoint = $('#pointpay').val();
             if( usablePoint > checktHandsomepointUsableAmount ){
                 usablePoint = checktHandsomepointUsableAmount
             }
@@ -2849,16 +2821,16 @@ $(document).ready(function ()
             $('#pointpay').prop('readonly', false);
             $('#point_useall').prop("checked", false);
          }
-     });
+     }); */
       
-     $('#pointpay').blur(function(){
+     /* $('#pointpay').blur(function(){
          if(parseInt(3753) > 0 && $('#pointpay').val() >= parseInt(3753)){
             $('#pointpay').val('3753');
             if($('#pointpay').val() > 0){
                 $('#point_useall').prop("checked", true);
             }
          }
-     });
+     }); */
      
      // H.Point Start  ##########################################################
      $('#hpoint_useall').click(function(){
@@ -3079,7 +3051,8 @@ function fn_updateDiscInfo(){
     var totalPrice = $("#total").val();
     var totalAmountHtml = "";
 
-    totalAmountHtml = "₩" + addComma(Number(totalPrice));
+    totalAmountHtml = "₩ " + addComma(Number(totalPrice));
+    console.log("fn_updateDiscInfo: " + totalPrice);
 
     $(".discinfo_point").remove();
 
@@ -3102,7 +3075,7 @@ function fn_updateDiscInfo(){
 
             $("#subTotal").after(discInfoHtml);
 
-            totalAmountHtml = "₩" + addComma(Number(totalPrice)- Number(discAmt));
+            totalAmountHtml = "₩ " + addComma(Number(totalPrice)- Number(discAmt));
         }
     }
     
@@ -3234,22 +3207,23 @@ function addressSetting(frm){
     $('input[name=line2]').val(frm.find('input[name=sel_line2]').val());
     
     
+    // 여기문제?
     if(getByteLength(frm.find('input[name=sel_lastName]').val()) > 40){
         $('input[name=lastName]').val(subStringBytes(frm.find('input[name=sel_lastName]').val(),40,3));
     }else{
         $('input[name=lastName]').val(frm.find('input[name=sel_lastName]').val());
     }
-    var hp_num = frm.find('input[name=sel_cellphone]').val().split("-");
-    $("#hp").val(hp_num[0]).prop("selected", "selected");
-    $('input[name=hp_num2]').val(hp_num[1]);
-    $('input[name=hp_num3]').val(hp_num[2]);
+    //var hp_num = frm.find('input[name=sel_cellphone]').val().split("-");
+    //$("#hp").val(hp_num[0]).prop("selected", "selected");
+    //$('input[name=hp_num2]').val(hp_num[1]);
+    //$('input[name=hp_num3]').val(hp_num[2]);
     
-    var ph_num = frm.find('input[name=sel_phone]').val().split("-");
-    $("#ph").val(ph_num[0]).prop("selected", "selected");
-    $('input[name=ph_num2]').val(ph_num[1]);
-    $('input[name=ph_num3]').val(ph_num[2]);
+    //var ph_num = frm.find('input[name=sel_phone]').val().split("-");
+    //$("#ph").val(ph_num[0]).prop("selected", "selected");
+    //$('input[name=ph_num2]').val(ph_num[1]);
+    //$('input[name=ph_num3]').val(ph_num[2]);
     
-    var email = frm.find('input[name=sel_email]').val().split("@");
+    /* var email = frm.find('input[name=sel_email]').val().split("@");
     if(email.indexOf("undefined") > -1){
         email = "";
     }
@@ -3263,9 +3237,9 @@ function addressSetting(frm){
         $("#basis_bk_flag").removeClass("basis_bk_flag");
     }
     
-    $('#adress').change();
+    $('#adress').change();*/
     
-}
+} 
 
 //vip 배송업체 선택 기능 추가
 function openVipCompany(){
@@ -3321,7 +3295,7 @@ function selectDeliveryAddress(){
 }
 
 function redeemVoucher(self){
-     
+	
 	if($('#voucherCode').val() != ''){
 		var tmpCode = $('#voucherCode').val(); 
 		$('#voucherCode').val(tmpCode.toUpperCase())
@@ -4742,7 +4716,7 @@ var launchIniPayAlipay = function () {
 }
 
 
-function doPwcheck(self, gubun, subUseAmt){
+/* function doPwcheck(self, gubun, subUseAmt){
 	
 	
     var pw = $("#pw").val();
@@ -4757,7 +4731,6 @@ function doPwcheck(self, gubun, subUseAmt){
         async: false,
    		data:{"uid":$("#uid").val(), "pw":pw, "CSRFToken":"53ca9b9c-c912-4cba-92cb-e959f1b4e2e5"},
         success: function(data){
-        	if(data == true) {
         		if(gubun == "1") {
 	        		setUsePoint(subUseAmt);
         		} else if(gubun == "2") {
@@ -4785,15 +4758,37 @@ function doPwcheck(self, gubun, subUseAmt){
         	alert('getSubPaymentPwAuth sendRequest error : ' + "[gubun : " + gubun + "]" + xhr.status + " ( " + error + " ) " );
     	}
 	});
-}
+} */
 
 function doUsePoint(self){
+	
     var use_point = $('#pointpay').val();
     var use_gift_amount = $('#giftpay').val(); 
     var deliveryCost = $('#cartDeliveryCost').val();
     var saleCheck = "0";
     var voucherRateCheck = $("#voucherRateCheck").val();
+    var totalPrice = $('#total').val();
+    console.log(totalPrice);
 
+
+    var HmileageUL = $("#Hmileage");
+    var fixTotal = $("#totalPriceHidden").val();
+    
+    console.log("sum + deliveryCost" + $('#totalPriceHidden').val());
+    var clicked = HmileageUL.val();
+    
+	if (use_point != "") {
+		 var str = "";
+		 str += "<dt>한섬마일리지 결제</dt>";
+		 str += "<dd>- ₩ "+addComma(use_point)+"</dd>";
+		 HmileageUL.html(str);
+		 
+		 totalPrice = fixTotal - use_point;
+		 console.log(totalPrice);
+		 $("#total").val(totalPrice);
+		 $("#totalPrice").html('₩ ' + addComma(totalPrice));
+	}
+    
     if($(self).prop('class') == 'btn dis_s min_auto'){
         return;
     }
@@ -4808,7 +4803,7 @@ function doUsePoint(self){
     }else {
         if(use_gift_amount > 0){
             layerAlert("한섬마일리지/기프트카드 중복사용 할 수 없습니다.");
-            return;
+            return; 
         }  
     }
     
@@ -4864,7 +4859,7 @@ function doUsePoint(self){
         return;
     }
     
-    doPwcheck(self, '1', use_point);
+    //doPwcheck(self, '1', use_point);
 }
 
 function doUseHPoint(self){
@@ -4930,7 +4925,7 @@ function doUseHPoint(self){
         }
     }
   
-    doPwcheck(self, '3', use_point);
+    //doPwcheck(self, '3', use_point);
 }   
 
 function doUseEGiftAmount(self){
@@ -4964,12 +4959,28 @@ function doUseEGiftAmount(self){
         }
     }
     
-    doPwcheck(self, '4', use_point);
+    //doPwcheck(self, '4', use_point);
 }
 
 function cancelUsePoint(self){
-    var use_point = $('#pointpay').val();
-
+	
+    var use_point = $('#pointpay').val('');
+	
+	var fixTotal = $("#totalPriceHidden").val();
+	
+	var HmileageUL = $("#Hmileage");
+	var str = "";
+	str += "<dt>한섬마일리지 결제</dt>";
+	str += "<dd>- ₩ "+0+"</dd>";
+	
+	HmileageUL.html(str);
+	
+	$('#pointpay').prop('readonly',false);
+	$("input:checkbox[id='point_useall']").prop("checked", false);
+	
+	$("#total").val(fixTotal);
+	$("#totalPrice").html('₩ ' + addComma(fixTotal));
+    
     if($(self).prop('class') == 'btn dis_s min_auto'){
         return;
     }
@@ -4978,7 +4989,7 @@ function cancelUsePoint(self){
         return;
     }
     
-    $.ajax({
+    /* $.ajax({
         type: "GET",
         url: "/ko/checkout/cancelUsePoint",
         dataType: "json",
@@ -5019,7 +5030,7 @@ function cancelUsePoint(self){
         //error: function(xhr,  Status, error) {
             //alert('sendRequest error : ' + xhr.status + " ( " + error + " ) " );
         //}
-    });
+    }); */
 }
 
 function cancelUseHPoint(self){
@@ -5268,7 +5279,7 @@ function doUseGiftAmount(self){
     }
     
     
-    doPwcheck(self, '2', use_gift_amount);
+    //doPwcheck(self, '2', use_gift_amount);
 }
 
 function cancelUseGiftAmount(self){
@@ -5519,7 +5530,7 @@ function showExchangeRate(){
         var rate = "199.66";
         var simbol = "¥";
         
-        var exchangeAmt = Math.round(parseFloat(sumPrice) / parseFloat(rate) * 100) / 100 ;
+        //var exchangeAmt = Math.round(parseFloat(sumPrice) / parseFloat(rate) * 100) / 100 ;
         
         addHtml += "<p>"+ simbol + ""+addComma(exchangeAmt); +"</p>"
     
@@ -5527,7 +5538,7 @@ function showExchangeRate(){
         var rate = "1433.5";
         var simbol = "$";
         
-        var exchangeAmt = Math.round(parseFloat(sumPrice) / parseFloat(rate) * 100) / 100 ;
+        //var exchangeAmt = Math.round(parseFloat(sumPrice) / parseFloat(rate) * 100) / 100 ;
         
         addHtml += "<p>"+ simbol + ""+addComma(exchangeAmt); +"</p>"
     
@@ -6083,7 +6094,6 @@ function disabledHistoryBack(){
     });
 }
 
-
 function sendGroobee(){
     
     groobee( "OR", {
@@ -6115,24 +6125,149 @@ function sendGroobee(){
 }
 
 //]]>
-
 </script>
 
-<!-- 세션아이디를 받아보자 -->
-<input type="hidden" id="testMid"  value="ehfhfh1313">
-<!-- 체크된거만 받아오자 -->
-<%    
-/* 주문에서 받아온값 */
-    String str = request.getParameter("ordersheetEntryNumber");
-	System.out.println("entry Number is " + str);
-%>
-<input type="hidden" id="testEntryNum"  value="<%=str%>">
-<!-- 카트리스트띄우기-->
-<script type="text/javascript" src="/resources/js/handsome/checkoutCartView.js"></script>
-
+	<!-- 세션아이디를 받아보자 -->
+	<input type="hidden" id="testMid" value="ehfhfh1313">
+	<!-- 체크된거만 받아오자 -->
+	<%
+		/* 주문에서 받아온값 */
+		String str = request.getParameter("ordersheetEntryNumber");
+		System.out.println("entry Number is " + str);
+	%>
+	<input type="hidden" id="testEntryNum" value="<%=str%>">
+	<!-- 카트리스트띄우기-->
+	<script type="text/javascript"
+		src="/resources/js/handsome/checkoutCartView.js"></script>
+	<script type="text/javascript" src="/resources/js/order.js"></script>
+	<script type="text/javascript">
+$(document).ready(function(){
+	
+	// 주문 정보 가져오기
+	var orderer = $('#ordererInfo');
+	var customerAddress = $('#customerAddress');
+	var defaultAddress = $('#defaultAddress');
+	var orderForm = $('#orderForm');
+	var findzipcode = $('#findzipcode');
+	var couponVoucher = $('#selectVoucher');
+	
+	var mileage = $('#mileage');
+	
+	console.log("showOrder 하기전");
+	showOrder();
+	console.log("showOrder 한 후");
+	
+	function showOrder() {
+		// 주문자정보 가져오기
+		orderService.getMemberInfo({mid:"seungu00"}
+		, function(data) {
+			console.log("showOrder 하는중5");
+			console.log(data);
+			console.log("showOrder 하는중6");
+			
+			var ostr = "";
+			ostr += "<caption>주문자 정보</caption>";
+			ostr += "<colgroup><col style='width: 140px' /><col /></colgroup>";
+			ostr += "<tbody>";
+			ostr += "<tr><th scope='row' class='th_space'>주문자</th><td>"+data.mname+"</td></tr>";
+			ostr += "<tr><th scope='row' class='th_space'>휴대폰</th><td>"+data.mphone.substr(0, 3)+"-"+data.mphone.substr(3, 4)+"-"+data.mphone.substr(7, 4)+"</td></tr>";
+			ostr += "<tr><th scope='row' class='th_space'>E-mail</th><td>"+data.memail+"</td></tr></tbody>";
+			orderer.html(ostr);
+			//주문자 정보 끝
+			
+			var mstr = "";
+			mstr += "<input type='hidden' name='sel_lastName' value='"+data.mname+"' /> <input type='hidden' name='sel_postcode' value='' />";
+			mstr += "<input type='hidden' name='sel_line1' value='' /> <input type='hidden' name='sel_line2' value='' /> <input type='hidden' name='sel_phone' value='' />";
+			mstr += "<input type='hidden' name='sel_cellphone' value='"+data.mphone+"' />";
+			mstr += "<input type='hidden' name='sel_email' value='"+data.memail+"' />";
+			mstr += "<div><input type='hidden' name='${"+_csrf.parameterName+"}' value='${"+_csrf.token+"}' /></div>";
+			customerAddress.html(mstr);
+			
+			var dstr = "";
+			console.log(data.mname);
+			dstr += "<input type='hidden' name='sel_addressId' value='10105422643223' />";
+			dstr += "<input type='hidden' name='sel_lastName' value='"+data.mname+"' />";
+			dstr += "<input type='hidden' name='sel_postcode' value='08786' />";
+			dstr += "<input type='hidden' name='sel_line1' value='"+data.maddress1+"' />";
+			dstr += "<input type='hidden' name='sel_line2' value='"+data.maddress2+"' />"; 
+			dstr += "<input type='hidden' name='sel_phone' value='"+data.mtel+"' />";
+			dstr += "<input type='hidden' name='sel_cellphone' value='"+data.mphone+"' />";
+			dstr += "<input type='hidden' name='sel_email' value='"+data.memail+"' />";
+			dstr += "<div><input type='hidden' name='${"+_csrf.parameterName+"}' value='${"+_csrf.token+"}' /></div>";
+			defaultAddress.html(dstr);
+			
+			var cstr = "";
+			cstr += "<option value=''>쿠폰을 선택해 주세요.</option>";
+			console.log()
+			
+			cstr += "<option value='FW2-022-092-8H8-PVA-GHB'>[1만원]FRIEND 등급 축하 바우처 / ₩ 10,000</option>";
+			
+			
+			// 우편번호 정보
+			$('.post').val(data.mzipcode);
+			$('#line1').val(data.maddress1);
+			$('#line2').val(data.maddress2);
+			
+			// 배송지 정보
+			// 휴대폰 번호 정보
+			$('#hp').val(data.mphone.substr(0, 3));
+			$('#hp_num2').val(data.mphone.substr(3, 4));
+			$('#hp_num3').val(data.mphone.substr(7, 4));
+			
+			$('#rcpt_name').val(data.mname);
+			$('#mail').val(data.memail.split("@")[0]);
+			$('#emailDely').val(data.memail.split("@")[1]);
+			
+			// 마일리지 정보
+			var mlstr = "";
+			mlstr += "M 사용 (잔액 : <span>"+data.mmileage+"</span>M)";
+			mileage.html(mlstr);
+			// 쿠폰 정보
+			/* var cstr = "";
+			cstr += "<option value="">쿠폰을 선택해 주세요.</option>";
+			cstr += "<option value='FW2-022-092-8H8-PVA-GHB'>[1만원] FRIEND 등급 축하 바우처 / ₩ 10,000</option>"; */
+			
+			$('#point_useall').click(function(){
+				if($('#point_useall').is(":checked") && data.mmileage > 0) {
+					var usepoint = $('#total').val() - $('#cartDeliveryCost').val();
+					console.log("usepoint는 " +usepoint);
+					
+					if (usepoint <= 30000) {
+						$('#pointpay').val(0);
+						layerAlert("제품 당 실결제금액(할인 적용가)이 3만원 이하인 제품은 한섬마일리지를 사용하실 수 없습니다.");
+						return;
+					}
+					var usablePoint = parseInt(data.mmileage);
+					
+					if( usablePoint > usepoint ){
+		                $('#pointpay').val(usepoint);
+		                $('#pointpay').prop('readonly', true);
+		            }else{
+		                $('#pointpay').val(usablePoint);
+		                $('#pointpay').prop('readonly', true);
+		            }       
+				} else {
+					$('#pointpay').val('');
+		            $('#pointpay').prop('readonly', false);
+		            $('#point_useall').prop("checked", false);
+				}
+			});
+			
+			$('#btnCancelUsePoint').click(function(){
+				$('#pointpay').val(0);
+			});
+			
+		});		
+		// 결제 후 마일리지 적립 금액
+		
+	};
+	
+});
+</script>
 
 	<form id="customerAddress" name="customerAddress"
-		action="/ko/checkout/ ordersheet" method="post">
+		action="/checkout/ordersheet" method="post">
+		<!--
 		<input type="hidden" name="sel_lastName" value="신기원" /> <input
 			type="hidden" name="sel_postcode" value="" /> <input type="hidden"
 			name="sel_line1" value="" /> <input type="hidden" name="sel_line2"
@@ -6142,22 +6277,22 @@ function sendGroobee(){
 		<div>
 			<input type="hidden" name="CSRFToken"
 				value="53ca9b9c-c912-4cba-92cb-e959f1b4e2e5" />
-		</div>
+		</div>  -->
 	</form>
 	<form id="defaultAddress" name="defaultAddress"
-		action="/ko/checkout/ordersheet" method="post">
-		<input type="hidden" name="sel_addressId" value="10105422643223" /> <input
+		action="/checkout/ordersheet" method="post">
+		<!-- <input type="hidden" name="sel_addressId" value="10105422643223" /><input
 			type="hidden" name="sel_lastName" value="신기원" /> <input
-			type="hidden" name="sel_postcode" value="08786" /> <input
+			type="hidden" name="sel_postcode" value="08786" />  <input
 			type="hidden" name="sel_line1" value="서울특별시 관악구 쑥고개로 119(봉천동)" /> <input
 			type="hidden" name="sel_line2" value="802호" /> <input type="hidden"
 			name="sel_phone" value="" /> <input type="hidden"
 			name="sel_cellphone" value="010-7216-7522" /> <input type="hidden"
-			name="sel_email" value="sksrldnjs123@naver.com" />
-		<div>
+			name="sel_email" value="sksrldnjs123@naver.com" />-->
+		<!-- <div>
 			<input type="hidden" name="CSRFToken"
 				value="53ca9b9c-c912-4cba-92cb-e959f1b4e2e5" />
-		</div>
+		</div>   -->
 	</form>
 	<!-- bodyWrap -->
 	<div id="bodyWrap">
@@ -6168,7 +6303,7 @@ function sendGroobee(){
 		<input type="hidden" id="chk_giftAmount" value="" /> <input
 			type="hidden" id="chk_pointAmount" value="" />
 
-		<form id="orderForm" action="/ko/checkout/ordersheet" method="post">
+		<form id="orderForm" action="/checkout/ordersheet" method="post">
 			<script language="javascript"
 				src="https://stdpay.inicis.com/stdjs/INIStdPay.js"
 				type="text/javascript" charset="UTF-8"></script>
@@ -6199,7 +6334,7 @@ function sendGroobee(){
 					<div class="float_left">
 						<!--table wrap1-->
 						<div id="checkoutCartView" class="tblwrap">
-							
+
 							<!-- 목록 반환하는 부분!!! -->
 							<!-- 목록 반환하는 부분!!! -->
 							<!-- 목록 반환하는 부분!!! -->
@@ -6207,8 +6342,8 @@ function sendGroobee(){
 							<!-- 목록 반환하는 부분!!! -->
 							<!-- 목록 반환하는 부분!!! -->
 							<!-- 목록 반환하는 부분!!! -->
-							
-							
+
+
 							<script>var checktHandsomepointUsableAmount = parseInt('345000.0');</script>
 						</div>
 						<!--//table wrap1-->
@@ -6218,8 +6353,8 @@ function sendGroobee(){
 							<h4 class="float_left">주문자 정보</h4>
 						</div>
 						<div class="tblwrap">
-							<table class="tbl_wtype1">
-								<caption>주문자 정보</caption>
+							<table class="tbl_wtype1" id="ordererInfo">
+								<!-- <caption>주문자 정보</caption>
 								<colgroup>
 									<col style="width: 140px" />
 									<col />
@@ -6237,7 +6372,7 @@ function sendGroobee(){
 										<th scope="row" class="th_space">E-mail</th>
 										<td>sksrldnjs123@naver.com</td>
 									</tr>
-								</tbody>
+								</tbody> -->
 							</table>
 						</div>
 						<!--nonmember-->
@@ -6278,8 +6413,7 @@ function sendGroobee(){
 													<li>기본배송지 설정 시 기본배송지가 최우선으로 노출 됩니다.</li>
 												</ul>
 											</div></th>
-										<td>
-											<!-- address --> <input value="" title="우편번호" id="adress"
+										<td><input value="" title="우편번호" id="adress"
 											name="postcode" class="post" type="text" readonly /> <input
 											value="우편번호 조회" id="addrSearchBtn" class="btn add_s"
 											type="button" /> <br />
@@ -6288,8 +6422,7 @@ function sendGroobee(){
 													class="post_wall top" type="text" readonly />
 											</div> <input value="" title="주소2" name="line2" id="line2"
 											class="post_wall" type="text" maxlength="110"
-											placeholder="나머지 주소를 입력해 주세요." /> <!-- //address -->
-										</td>
+											placeholder="나머지 주소를 입력해 주세요." /></td>
 									</tr>
 									<tr>
 										<th scope="row"><strong class="reqd">*</strong><label
@@ -6301,8 +6434,7 @@ function sendGroobee(){
 									<tr>
 										<th scope="row"><strong class="reqd">*</strong><label
 											for="hp">휴대폰 번호</label></th>
-										<td>
-											<!-- hp --> <select id="hp" name="hp_num1" title="휴대폰 번호 앞자리"
+										<td><select id="hp" name="hp_num1" title="휴대폰 번호 앞자리"
 											class="hp_num1">
 												<option value="010">010</option>
 												<option value="011">011</option>
@@ -6316,13 +6448,12 @@ function sendGroobee(){
 											maxlength="4" numberOnly="true" />
 											<div class="form_hyphen">-</div> <input title="휴대폰 번호 뒷자리"
 											name="hp_num3" id="hp_num3" class="hp_num2" type="text"
-											maxlength="4" numberOnly="true" /> <!-- //hp -->
+											maxlength="4" numberOnly="true" /> 
 										</td>
 									</tr>
 									<tr>
 										<th scope="row" class="th_space"><label for="ph">연락처</label></th>
-										<td>
-											<!-- phone --> <select name="ph_num1" id="ph" title="연락처 앞자리"
+										<td><select name="ph_num1" id="ph" title="연락처 앞자리"
 											class="hp_num1">
 												<option value="">선택</option>
 												<option value="02">02</option>
@@ -6348,7 +6479,7 @@ function sendGroobee(){
 											maxlength="4" numberOnly="true" />
 											<div class="form_hyphen">-</div> <input title="연락처 뒷자리"
 											name="ph_num3" id="ph_num3" class="hp_num2" type="text"
-											maxlength="4" numberOnly="true" /> <!-- //phone -->
+											maxlength="4" numberOnly="true" />
 										</td>
 									</tr>
 									<tr>
@@ -6357,12 +6488,11 @@ function sendGroobee(){
 										<td>
 											<div class="input_sumtxt">
 												<div class="input_sumtxt_box">
-													<!-- input -->
-													<input onkeyup="chkword('orderr','orderr_text_length',20);"
+													<input
+														onkeyup="chkword('orderr','orderr_text_length',20);"
 														id="orderr" name="deliveryRequestContents"
 														autocomplete="off" type="text" value="" title="배송 메세지"
 														maxlength="20" />
-													<!-- //input -->
 													<div class="delivery_comt">
 														<ul>
 															<li><a href="#;" data-readonly="readonly"
@@ -6442,8 +6572,7 @@ function sendGroobee(){
 									<tr>
 										<th scope="row" class="th_space"><label for="mail">수령인
 												E-mail</label></th>
-										<td>
-											<!-- email --> <input type="text" id="mail" name="mail"
+										<td> <input type="text" id="mail" name="mail"
 											title="이메일 아이디" class="em_form" /> <span class="andmail">@</span>
 											<input type="text" value="" name="emailDely" id="emailDely"
 											title="직접입력" class="em_form" /> <select title="이메일 계정"
@@ -6456,7 +6585,7 @@ function sendGroobee(){
 												<option value="hanmail.net">hanmail.net</option>
 												<option value="yahoo.com">yahoo.com</option>
 												<option value="dreamwiz.com">dreamwiz.com</option>
-										</select> <!-- //email -->
+										</select> 
 										</td>
 									</tr>
 								</tbody>
@@ -6491,11 +6620,7 @@ function sendGroobee(){
 													<p>또는</p>
 													<select title="쿠폰을 선택해 주세요." id="selectVoucher"
 														style="width: 190px;">
-														<option value="">쿠폰을 선택해 주세요.</option>
-														<option value="FW2-022-092-8H8-PVA-GHB">[1만원]
-															FRIEND 등급 축하 바우처 / ₩ 10,000</option>
-														<option value="FX2-022-092-8HS-YTG-7P9">[10%]
-															FRIEND 등급 축하 바우처 / 10%</option>
+														
 													</select>
 													<div class="btnwrap">
 														<a href="#;" id="btnRedeemVoucher"
@@ -6534,9 +6659,9 @@ function sendGroobee(){
 											<!-- point wrap -->
 											<div class="point_wrap">
 												<input title="한섬마일리지 결제" class="inpput" type="text"
-													id="pointpay" name="usePoint" numberOnly="true" />
-												<p class="p_txt">
-													M 사용 (잔액 : <span>3,753</span>M)
+													id="pointpay" name="usePoint" numberOnly="true" value=""/>
+												<p class="p_txt" id="mileage">
+													<!-- M 사용 (잔액 : <span>3,753</span>M) -->
 												</p>
 												<!-- apply -->
 												<div class="point_apply">
@@ -6556,11 +6681,11 @@ function sendGroobee(){
 										</td>
 									</tr>
 									<!-- H.Point Start NOT ANY **********************************-->
-									<tr>
+									<!-- <tr>
 										<th scope="row" class="th_space"><label for="hpointpay">H.Point
 												결제</label></th>
 										<td>
-											<!-- point wrap -->
+											point wrap
 											<div class="point_wrap">
 
 												<input title="H.Point 결제" class="inpput" type="text"
@@ -6569,7 +6694,7 @@ function sendGroobee(){
 												<p class="p_txt">
 													P 사용 (잔액 : <span>1,204</span>P)
 												</p>
-												<!-- apply -->
+												apply
 												<div class="point_apply">
 													<div class="all">
 														<input title="선택" value="" type="checkbox"
@@ -6583,15 +6708,15 @@ function sendGroobee(){
 														type="button" onclick="cancelUseHPoint(this);"
 														value="적용취소" />
 												</div>
-												<!-- //apply -->
+												//apply
 												<p class="txt_guide">
 													* 100 포인트 이상부터 사용이 가능합니다. <a
 														href="https://www.h-point.co.kr/pe/preppoint/prepPayRequest.shd"
 														target="_blank" class="quick-h-point-btn">충전하러가기</a>
 												</p>
-											</div> <!-- point wrap -->
+											</div> point wrap
 										</td>
-									</tr>
+									</tr> -->
 									<!-- H.Point End ********************************************-->
 									<tr>
 										<th scope="row" class="th_space">결제수단 선택</th>
@@ -6724,8 +6849,7 @@ function sendGroobee(){
 						<div class="tab_a m3 mt40" id="ce_tab">
 							<ul>
 								<li><a href="#;" class="active">무이자 할부</a></li>
-								<li><a href="#;">
-										<!-- <strong style="color:#c69c6c">NEW</strong>  -->청구할인
+								<li><a href="#;"> <!-- <strong style="color:#c69c6c">NEW</strong>  -->청구할인
 								</a></li>
 								<li><a href="#;">즉시할인</a></li>
 							</ul>
@@ -6749,7 +6873,7 @@ function sendGroobee(){
 									<tbody>
 										<tr>
 											<th scope="row"><span class="card"><img
-													src="/medias/shinhan.jpg?context=bWFzdGVyfHJvb3R8MjY1N3xpbWFnZS9qcGVnfGhkZS9oMmIvODgxNDE4MTUxNTI5NC5qcGd8NTAwMDYxM2ZmZmRlZGFhZDQ0ODNmODJjZTg2OTE3MGI3OWQ2ZmE3YzI0ZjA3MDY3NzIxYWVhNmY3NDQyYWUzMA"
+													src="/resources/images/medias/shinhan.jpg"
 													alt="신한카드" /></span></th>
 											<td><b>신한카드 5만원이상 결제시 2~6개월 무이자 할부</b><br /> 대상: 신한카드 전
 												회원<br /> (신한BC 제외/ 법인,기프트,체크,선불카드 제외)</td>
@@ -6757,7 +6881,7 @@ function sendGroobee(){
 										</tr>
 										<tr>
 											<th scope="row"><span class="card"><img
-													src="/medias/SAMSUNG.jpg?context=bWFzdGVyfHJvb3R8MzIxOXxpbWFnZS9qcGVnfGgzZC9oNGQvODgxNDE4MTYxMzU5OC5qcGd8ZGY1NDJiM2U1YWNmNGE5MTJkOTA0MTAxMDliMDc4ZjRlNTJmZjJlOTkxOTQzZTEwMDcxZWU2NGU2MjJmMWE2Mw"
+													src="/resources/images/medias/SAMSUNG.jpg"
 													alt="삼성카드" /></span></th>
 											<td><b>삼성카드 5만원이상 결제시 2~6개월 무이자 할부</b><br /> 대상: 삼성카드 전
 												회원<br /> (법인,기프트,체크,선불카드 제외)</td>
@@ -6765,7 +6889,7 @@ function sendGroobee(){
 										</tr>
 										<tr>
 											<th scope="row"><span class="card"><img
-													src="/medias/BC.jpg?context=bWFzdGVyfHJvb3R8MjQ1OHxpbWFnZS9qcGVnfGhmMi9oMGQvODgxNDE4MTIyMDM4Mi5qcGd8MjZlZGU2ZGQyNDBkYzU5YmY2NWY0MDU3NDc1OTA0YWI5NmM4NDJjMDFiYjBiYjBjY2FhZjhmMzg3ZmE5NGU5Yw"
+													src="/resources/images/medias/BC.jpg"
 													alt="비씨카드" /></span></th>
 											<td><b>비씨카드 5만원이상 결제시 2~7개월 무이자 할부</b><br /> 대상: 비씨카드 전
 												회원<br />(법인,기프트,체크,선불카드 제외)</td>
@@ -6773,7 +6897,7 @@ function sendGroobee(){
 										</tr>
 										<tr>
 											<th scope="row"><span class="card"><img
-													src="/medias/HYUNDAI.jpg?context=bWFzdGVyfHJvb3R8MjYxMHxpbWFnZS9qcGVnfGg1ZC9oN2MvODgxNDE4MTcxMTkwMi5qcGd8YmM5ZWY0ZjlhODlkMzdmMjYyNmY4NjQ4OWU5NWVjOWFlMGY4ODIwYzZlNjA0MjBlNDkwNWI0ZDllYThjMWE5Mw"
+													src="/resources/images/medias/HYUNDAI.jpg"
 													alt="현대카드" /></span></th>
 											<td><b>현대카드 5만원이상 결제시 2~7개월 무이자 할부</b><br /> 대상: 현대카드 전
 												회원<br /> (법인,기프트,체크,선불카드 제외)</td>
@@ -6781,7 +6905,7 @@ function sendGroobee(){
 										</tr>
 										<tr>
 											<th scope="row"><span class="card"><img
-													src="/medias/kucmin.jpg?context=bWFzdGVyfHJvb3R8MzMwM3xpbWFnZS9qcGVnfGgyZS9oMzQvODgxNDE4MTAyMzc3NC5qcGd8MjM1YjEyN2I4OTljMGIxYzY3MjhjNDhkZWMyOTE5ODZjYmRiYWExNDdhOWZmNDQ3ZWNhNGIxZjYwYzk2MDA4Zg"
+													src="/resources/images/medias/kucmin.jpg"
 													alt="국민카드" /></span></th>
 											<td><b>KB국민카드 5만원이상 결제시 2~7개월 무이자 할부</b><br /> 대상:
 												KB국민카드 전 회원<br /> (NH농협, 국민BC 제외/ 법인,기프트,체크,선불카드 제외)</td>
@@ -6789,7 +6913,7 @@ function sendGroobee(){
 										</tr>
 										<tr>
 											<th scope="row"><span class="card"><img
-													src="/medias/hanacard.gif?context=bWFzdGVyfHJvb3R8MTkzNXxpbWFnZS9naWZ8aDYwL2hmYi84ODE0MDU0OTY1Mjc4LmdpZnxhMGM5OWY0MDdhNDhjYzkwOTdiMzhkM2VmMDQ2YTI0NTAyNDBjZTljNTdiYzk4YWRhZmI0NjBhOWRhNzRiMGYw"
+													src="/resources/images/medias/hanacard.gif"
 													alt="하나카드" /></span></th>
 											<td><b>하나카드 5만원이상 결제시 2~8개월 무이자 할부</b><br /> 대상: 하나카드 전
 												회원 (구 하나SK, 구 외환)<br /> (하나BC카드 포함/법인,기프트,체크,선불카드 제외)</td>
@@ -6797,7 +6921,7 @@ function sendGroobee(){
 										</tr>
 										<tr>
 											<th scope="row"><span class="card"><img
-													src="/medias/NH.jpg?context=bWFzdGVyfHJvb3R8Mzk3OXxpbWFnZS9qcGVnfGg4ZS9oMzYvODgxNDE4MTkwODUxMC5qcGd8ZWVlNmY1OWM0NDdmMjg2M2Y4NGZkNDZjYThmOTVkMWNmY2QwYWNkOWI1ODc5YTdiMTc5MjY4MThiZTkzYzNmMw"
+													src="/resources/images/medias/NH.jpg"
 													alt="NH카드" /></span></th>
 											<td><b>NH농협카드 5만원이상 결제시 2~8개월 무이자 할부</b><br /> 대상:
 												NH농협카드 전 회원<br /> (NH농협BC카드 포함/ 법인,기프트,체크,선불카드 제외)</td>
@@ -6805,7 +6929,7 @@ function sendGroobee(){
 										</tr>
 										<tr>
 											<th scope="row"><span class="card"><img
-													src="/medias/LOTTE.jpg?context=bWFzdGVyfHJvb3R8MzI3MXxpbWFnZS9qcGVnfGhiMy9oNDcvODgxNDE4MTgxMDIwNi5qcGd8MDliOThkNzA1ZDc2ZDE4MzZhYmUzYjI2MDMxZDk0NGU3OTVjYzBhYTA1MmMzMjAyZmE0Y2U4OTZlNTU3NDU2Zg"
+													src="/resources/images/medias/LOTTE.jpg"
 													alt="롯데카드" /></span></th>
 											<td><b>롯데카드 5만원이상 결제시 2~4개월 무이자 할부</b><br /> 대상:롯데카드 전
 												회원<br /> (법인,기프트,체크,선불카드 제외)</td>
@@ -6828,7 +6952,7 @@ function sendGroobee(){
 									<tbody>
 										<tr>
 											<th scope="row"><span class="card"><img
-													src="/medias/shinhan.jpg?context=bWFzdGVyfHJvb3R8MjY1N3xpbWFnZS9qcGVnfGhkZS9oMmIvODgxNDE4MTUxNTI5NC5qcGd8NTAwMDYxM2ZmZmRlZGFhZDQ0ODNmODJjZTg2OTE3MGI3OWQ2ZmE3YzI0ZjA3MDY3NzIxYWVhNmY3NDQyYWUzMA"
+													src="/resources/images/medias/shinhan.jpg"
 													alt="신한카드" /></span></th>
 											<td><b>10개월 부분무이자</b><br /> (5만원이상 결제시/1,2,3,4회차 고객부담,
 												잔여할부 수수료 면제/법인,체크,기프트카드 제외)</td>
@@ -6836,7 +6960,7 @@ function sendGroobee(){
 										</tr>
 										<tr>
 											<th scope="row"><span class="card"><img
-													src="/medias/SAMSUNG.jpg?context=bWFzdGVyfHJvb3R8MzIxOXxpbWFnZS9qcGVnfGgzZC9oNGQvODgxNDE4MTYxMzU5OC5qcGd8ZGY1NDJiM2U1YWNmNGE5MTJkOTA0MTAxMDliMDc4ZjRlNTJmZjJlOTkxOTQzZTEwMDcxZWU2NGU2MjJmMWE2Mw"
+													src="/resources/images/medias/SAMSUNG.jpg"
 													alt="삼성카드" /></span></th>
 											<td><b>10개월 부분무이자</b><br /> (5만원이상 결제시/1,2,3,4회차 고객 부담,
 												잔여할부 수수료 면제/법인,체크,기프트카드 제외)</b></td>
@@ -6844,7 +6968,7 @@ function sendGroobee(){
 										</tr>
 										<tr>
 											<th scope="row"><span class="card"><img
-													src="/medias/SAMSUNG.jpg?context=bWFzdGVyfHJvb3R8MzIxOXxpbWFnZS9qcGVnfGgzZC9oNGQvODgxNDE4MTYxMzU5OC5qcGd8ZGY1NDJiM2U1YWNmNGE5MTJkOTA0MTAxMDliMDc4ZjRlNTJmZjJlOTkxOTQzZTEwMDcxZWU2NGU2MjJmMWE2Mw"
+													src="/resources/images/medias/SAMSUNG.jpg"
 													alt="삼성카드" /></span></th>
 											<td><b>12개월 부분무이자</b><br /> (5만원이상 결제시/1,2,3,4,5회차 고객
 												부담, 잔여할부 수수료 면제/법인,체크,기프트카드 제외)</b></td>
@@ -6852,7 +6976,7 @@ function sendGroobee(){
 										</tr>
 										<tr>
 											<th scope="row"><span class="card"><img
-													src="/medias/BC.jpg?context=bWFzdGVyfHJvb3R8MjQ1OHxpbWFnZS9qcGVnfGhmMi9oMGQvODgxNDE4MTIyMDM4Mi5qcGd8MjZlZGU2ZGQyNDBkYzU5YmY2NWY0MDU3NDc1OTA0YWI5NmM4NDJjMDFiYjBiYjBjY2FhZjhmMzg3ZmE5NGU5Yw"
+													src="/resources/images/medias/BC.jpg"
 													alt="비씨카드" /></span></th>
 											<td><b> 우리BC 10개월 부분무이자</b><br /> (5만원이상 결제시/1,2,3회차
 												고객부담, 잔여할부 수수료 면제/법인,체크,기프트카드 제외)</td>
@@ -6860,7 +6984,7 @@ function sendGroobee(){
 										</tr>
 										<tr>
 											<th scope="row"><span class="card"><img
-													src="/medias/BC.jpg?context=bWFzdGVyfHJvb3R8MjQ1OHxpbWFnZS9qcGVnfGhmMi9oMGQvODgxNDE4MTIyMDM4Mi5qcGd8MjZlZGU2ZGQyNDBkYzU5YmY2NWY0MDU3NDc1OTA0YWI5NmM4NDJjMDFiYjBiYjBjY2FhZjhmMzg3ZmE5NGU5Yw"
+													src="/images/medias/BC.jpg"
 													alt="비씨카드" /></span></th>
 											<td><b>우리BC 12개월 부분무이자</b><br /> (5만원이상 결제시/1,2,3,4회차
 												고객부담, 잔여할부 수수료 면제/법인,체크,기프트카드 제외)</td>
@@ -6868,7 +6992,7 @@ function sendGroobee(){
 										</tr>
 										<tr>
 											<th scope="row"><span class="card"><img
-													src="/medias/kucmin.jpg?context=bWFzdGVyfHJvb3R8MzMwM3xpbWFnZS9qcGVnfGgyZS9oMzQvODgxNDE4MTAyMzc3NC5qcGd8MjM1YjEyN2I4OTljMGIxYzY3MjhjNDhkZWMyOTE5ODZjYmRiYWExNDdhOWZmNDQ3ZWNhNGIxZjYwYzk2MDA4Zg"
+													src="/resources/images/medias/kucmin.jpg"
 													alt="국민카드" /></span></th>
 											<td><b>10개월 부분무이자</b><br /> (5만원이상 결제시/1,2,3,4 회차 고객부담,
 												잔여할부 수수료 면제/법인,체크,기프트카드 제외)</td>
@@ -6876,7 +7000,7 @@ function sendGroobee(){
 										</tr>
 										<tr>
 											<th scope="row"><span class="card"><img
-													src="/medias/kucmin.jpg?context=bWFzdGVyfHJvb3R8MzMwM3xpbWFnZS9qcGVnfGgyZS9oMzQvODgxNDE4MTAyMzc3NC5qcGd8MjM1YjEyN2I4OTljMGIxYzY3MjhjNDhkZWMyOTE5ODZjYmRiYWExNDdhOWZmNDQ3ZWNhNGIxZjYwYzk2MDA4Zg"
+													src="/resources/images/medias/kucmin.jpg"
 													alt="국민카드" /></span></th>
 											<td><b>12개월 부분무이자</b><br /> (5만원이상 결제시/1,2,3,4,5 회차
 												고객부담, 잔여할부 수수료 면제/법인,체크,기프트카드 제외)</td>
@@ -6884,7 +7008,7 @@ function sendGroobee(){
 										</tr>
 										<tr>
 											<th scope="row"><span class="card"><img
-													src="/medias/hanacard.gif?context=bWFzdGVyfHJvb3R8MTkzNXxpbWFnZS9naWZ8aDYwL2hmYi84ODE0MDU0OTY1Mjc4LmdpZnxhMGM5OWY0MDdhNDhjYzkwOTdiMzhkM2VmMDQ2YTI0NTAyNDBjZTljNTdiYzk4YWRhZmI0NjBhOWRhNzRiMGYw"
+													src="/resources/images/medias/hanacard.gif"
 													alt="하나카드" /></span></th>
 											<td><b>10개월 부분무이자</b><br /> (5만원이상 결제시/1,2,3회차 고객부담,
 												잔여할부 수수료 면제/법인,체크,기프트카드 제외)</td>
@@ -6892,7 +7016,7 @@ function sendGroobee(){
 										</tr>
 										<tr>
 											<th scope="row"><span class="card"><img
-													src="/medias/hanacard.gif?context=bWFzdGVyfHJvb3R8MTkzNXxpbWFnZS9naWZ8aDYwL2hmYi84ODE0MDU0OTY1Mjc4LmdpZnxhMGM5OWY0MDdhNDhjYzkwOTdiMzhkM2VmMDQ2YTI0NTAyNDBjZTljNTdiYzk4YWRhZmI0NjBhOWRhNzRiMGYw"
+													src="/resources/images/medias/hanacard.gif"
 													alt="하나카드" /></span></th>
 											<td><b>12개월 부분무이자</b><br /> (5만원이상 결제시/1,2,3,4회차 고객부담,
 												잔여할부 수수료 면제/법인,체크,기프트카드 제외)</td>
@@ -6900,7 +7024,7 @@ function sendGroobee(){
 										</tr>
 										<tr>
 											<th scope="row"><span class="card"><img
-													src="/medias/shinhan.jpg?context=bWFzdGVyfHJvb3R8MjY1N3xpbWFnZS9qcGVnfGhkZS9oMmIvODgxNDE4MTUxNTI5NC5qcGd8NTAwMDYxM2ZmZmRlZGFhZDQ0ODNmODJjZTg2OTE3MGI3OWQ2ZmE3YzI0ZjA3MDY3NzIxYWVhNmY3NDQyYWUzMA"
+													src="/resources/images/medias/shinhan.jpg"
 													alt="신한카드" /></span></th>
 											<td><b>12개월 부분무이자</b><br /> (5만원이상 결제시/1,2,3,4,5회차
 												고객부담, 잔여할부 수수료 면제/법인,체크,기프트카드 제외)</td>
@@ -6994,15 +7118,21 @@ function sendGroobee(){
 								<hr />
 								<dl class="clearfix">
 									<dt>상품 합계</dt>
-									<dd id="subTotal">₩345,000</dd>
+									<dd id="subTotal">₩0</dd>
+									<div style="display:none" id="subTotalHidden"></div>
+									<div id="Hmileage" val=""></div>
+									<!-- <dt>한섬마일리지 결제</dt>
+        							<dd>- ₩3,000</dd> -->
 									<dt>배송비</dt>
 									<dd id="deliveryCost">₩ 0</dd>
+									<!-- <div style="display:none" id="deliveryCostHidden"></div> -->
 								</dl>
 							</div>
 							<div class="total">
 								<dl class="clearfix">
 									<dt>합계</dt>
-									<dd id="totalPrice">₩345,000</dd>
+									<dd id="totalPrice">₩ 0</dd>
+									<input type="hidden" id="totalPriceHidden" value="0"/>
 								</dl>
 							</div>
 							<input type="hidden" name="total" id="total" value="345000.0" />
@@ -7017,7 +7147,7 @@ function sendGroobee(){
 								<p class="tlt">구매 시 지급 예정 포인트</p>
 								<p>(제품 수령 완료 후 10일 후 적립)</p>
 								<p class="txt" id="txtAccumulationPoint">한섬마일리지 17,250 M</p>
-								<p class="txt" id="txtAccumulationHPoint">H.Point 345 P</p>
+								<!-- <p class="txt" id="txtAccumulationHPoint">H.Point 345 P</p> -->
 								<!-- 간편회원이 아닐 때  e -->
 								<input type="hidden" name="accumulationPoint"
 									id="accumulationPoint" value="17250" /> <input type="hidden"
@@ -7029,9 +7159,8 @@ function sendGroobee(){
 									class="tlt">[필수] 구매자 동의 </label>
 								<p class="txt">
 									주문할 상품의 상품명, 가격, 배송정보 등<br /> 판매조건을 확인하였으며, 구매진행에 동의합니다.<br />
-									(전자상거래법 제8조 2항)<br />
-									<br /> 기존 마이너스 한섬마일리지를 보유하고 있는 고객은 한섬마일리지가 차감되어 적립되는 것에 동의합니다.
-									적립 예정 한섬마일리지가 상이할 수 있습니다.
+									(전자상거래법 제8조 2항)<br /> <br /> 기존 마이너스 한섬마일리지를 보유하고 있는 고객은
+									한섬마일리지가 차감되어 적립되는 것에 동의합니다. 적립 예정 한섬마일리지가 상이할 수 있습니다.
 
 								</p>
 							</div>
