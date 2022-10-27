@@ -44,6 +44,7 @@ public class MemberController {
 		return "member/admin";
 	}
 	
+	//로그인
 	@GetMapping("login")
 	public void login(String error, String logout, Model model) {
 		if (error != null) {
@@ -54,6 +55,7 @@ public class MemberController {
 		}
 	}
 	
+	//로그아웃 페이지 이동
 	@GetMapping("logout")
 	public String logout() {
 		log.info("logout");
