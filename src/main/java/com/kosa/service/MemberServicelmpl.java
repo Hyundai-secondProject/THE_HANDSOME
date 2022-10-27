@@ -20,7 +20,8 @@ import org.springframework.stereotype.Service;
  * ----------  --------    ---------------------------
  * 2022.10.14    신기원                	 최초 생성
  * 2022.10.18    신기원                 	패스워드 암호화, 입력 값과 DB 값 일치 확인
- * 2022.10.21	  신기원			이메일 중복확인
+ * 2022.10.21	  신기원		이메일 중복확인
+ * 2022.10.27	신기원		회원정보 수정 기능
  * </pre>
  */
 @Service
@@ -68,8 +69,10 @@ public class MemberServicelmpl implements MemberService {
 
 	@Override
 	public String memberInfoChange(MemberVO memberVo) {
+		
+		memberVo.setMpassword(encoder.encode(memberVo.getMpassword()));
 		int result = memberMapper.infoChange(memberVo);
-		if(result > 0) return "success";
+		if(result > 0) return "SUCCESS";
 		else return null;
 	}
 	

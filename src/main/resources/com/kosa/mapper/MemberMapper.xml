@@ -12,6 +12,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  * 2022.10.14 	신기원  		최초 생성
  * 2022.10.20	신기원		회원 가입시 고정 값 지정	
  * 2022.10.26	신기원		회원 정보 수정 update 쿼리 생성	
+ * 2022.10.27	신기원		회원 정보 수정 update 수정
  * </pre>
  */ -->
 <mapper namespace="com.kosa.mapper.MemberMapper">
@@ -55,7 +56,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 마이페이지 회원 정보 수정시 -->
 	<update id="infoChange">
-	update member set  memail = #{memail}, mphone = #{mphone}, mgender = #{mgender, jdbcType = INTEGER}, mtel = #{mtel, jdbcType=VARCHAR},
+	update member set  memail = #{memail}, mphone = #{mphone}, mpassword = #{mpassword}, mtel = #{mtel, jdbcType=VARCHAR},
 	 mzipcode = #{mzipcode, jdbcType=VARCHAR}, maddress1 = #{maddress1, jdbcType=VARCHAR}, maddress2 = #{maddress2, jdbcType=VARCHAR}, mtosno = #{mtosno, jdbcType=INTEGER}
 	 where mid = #{mid} </update>
 </mapper>

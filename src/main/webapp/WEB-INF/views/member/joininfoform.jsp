@@ -2169,7 +2169,7 @@ deg
 							$('#ck1').click(
 									function() {
 										if ($(this).is(':checked')) {
-											var email = "shingk0323@naver.com";
+											var email = "${sessionScope.uidEmail}";
 											var emailArray = email.split("@");
 
 											$("#email").val(emailArray[0]);
@@ -2351,7 +2351,7 @@ deg
 										<th scope="row"><strong class="reqd">*</strong><label
 											for="pw">아이디</label></th>
 										<td><input type="text" id="id" name="id"
-											style="width: 150px" title="아이디" value="${uidEmail}"></td>
+											style="width: 150px" title="아이디" value="${uidEmail}" readonly></td>
 									</tr>
 									<tr>
 										<th scope="row"><strong class="reqd">*</strong><label
@@ -2370,7 +2370,7 @@ deg
 											id="pwcCapsLockMsg"></span></td>
 									</tr>
 									<tr>
-										<th scope="row"><label for="email">E-mail (정보수신용)</label></th>
+										<th scope="row"><strong class="reqd">*</strong><label for="email">E-mail (정보수신용)</label></th>
 										<td><input type="text" style="width: 120px" title="이메일"
 											id="email"> <span class="andmail">@</span> <select
 											id="emailDomainSel" style="width: 120px" title="이메일">
