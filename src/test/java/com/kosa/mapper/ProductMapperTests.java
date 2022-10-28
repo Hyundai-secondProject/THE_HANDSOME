@@ -12,11 +12,24 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.kosa.domain.paging.Criteria;
 import com.kosa.domain.product.BrandVO;
 import com.kosa.domain.product.CategoryVO;
-import com.kosa.domain.product.ProductCommonVO;
 import com.kosa.domain.product.ProductVO;
 
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
+/**
+ * ProductMapperTests
+ * 
+ * @author 공통
+ * @since 2022.10.17
+ * @version 1.0
+ * 
+ *          <pre>
+ * 수정일              수정자                   수정내용
+ * ----------  --------    -------------------------
+ * 2022.10.17   박서은              최초 생성
+ * 2022.10.26   박서은              cri 값 변경
+ *          </pre>
+ */
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration({"file:src/main/webapp/WEB-INF/spring/root-context.xml",
@@ -27,13 +40,10 @@ public class ProductMapperTests {
 	@Autowired
 	private ProductMapper mapper;
 
+	// 제품 갯수 가져오기 test
 	@Test
 	public void countTest() {
-
 		Criteria cri = new Criteria();
-		//cri.setCkeyword(" ");
-		//cri.setBkeyword(" ");
-		//cri.setType(" ");
 		cri.setAmount(2);
 		cri.setPageNum(1);
 		HashMap<String, Object> categoryPager = new HashMap<String, Object>();
@@ -46,6 +56,7 @@ public class ProductMapperTests {
 		
 	}//end test
 	
+	// 제품 가져오기 test
 	@Test
 	public void selectTest() {
 		Criteria cri = new Criteria();
