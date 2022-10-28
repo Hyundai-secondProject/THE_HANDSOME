@@ -2,6 +2,16 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <!-- /**
+ * @author 박서은
+ * @since 2022.10.17
+ * @version 1.0
+ * 
+ * <pre>
+ * 수정일              	수정자                   수정내용
+ * 2022.10.17     박서은              최초 생성
+ * </pre>
+ */ --> 
 <mapper namespace="com.kosa.mapper.MyWishMapper">
 
 	<!-- 좋아요 제품 삽입 -->
@@ -18,32 +28,22 @@
 		pid = #{pid} and mid = #{mid}
 	</delete>
 
-	<!-- 필요한지 모르겠음 -->
-	<!-- 제품 아이디+상품id로 상품 가져오기 -->
-	<!-- 같은 pid 다른 pcid의 경우 리스트로 출력 -->
-	<select id="selectLikeProduct"
-		parameterType="com.kosa.domain.member.LikesVO"
-		resultType="com.kosa.domain.member.LikesVO">
-		SELECT *
-		FROM likesVO_VIEW
-		WHERE pid = #{pid} and mid = #{mid}
-	</select>
 
 	<!-- mid로 전체 위시리스트 가져오기 -->
 	<select id="selectLikeProducts"
 		resultType="com.kosa.domain.member.LikesVO">
- <![CDATA[
- select pid,mid,ltime,pname,bname
-  from(
-  select /* +INDEX(tbl_reply idx_reply) */ 
-  rownum rn ,pid,mid,ltime,pname,bname
-  from likesVO_VIEW
-  where mid = #{mid}
-  
-  and rownum <= #{cri.pageNum} * #{cri.amount}
-  )
-where rn > (#{cri.pageNum} - 1) * #{cri.amount}
- ]]>
+		 <![CDATA[
+		 select pid,mid,ltime,pname,bname
+		  from(
+		  select /* +INDEX(tbl_reply idx_reply) */ 
+		  rownum rn ,pid,mid,ltime,pname,bname
+		  from likesVO_VIEW
+		  where mid = #{mid}
+		  
+		  and rownum <= #{cri.pageNum} * #{cri.amount}
+		  )
+		where rn > (#{cri.pageNum} - 1) * #{cri.amount}
+		 ]]>
 	</select>
 
 	<!-- 좋아요 갯수 세기 -->

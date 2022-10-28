@@ -31,6 +31,20 @@ import lombok.extern.log4j.Log4j;
 /**
  * Handles requests for the application home page.
  */
+/**
+ * HomeController
+ * 
+ * @author 공통
+ * @since 2022.10.17
+ * @version 1.0
+ * 
+ *          <pre>
+ * 수정일              수정자                   수정내용
+ * ----------  --------    ---------------------------
+ * 2022.10.17   공통              		최초 생성
+ * 2022.10.21   박서은              위시리스트 갯수 띄우기
+ *          </pre>
+ */
 @Log4j
 @Controller
 @RequiredArgsConstructor
