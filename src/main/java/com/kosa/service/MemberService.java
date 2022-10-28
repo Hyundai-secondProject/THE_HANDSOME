@@ -14,10 +14,18 @@ import com.kosa.domain.member.MemberVO;
  */
 public interface MemberService {
 
+	//회원 가입
 	public String join(MemberVO membervo);
+	
+	//패스워드 체크
 	public MemberVO passwordCheck(String mid, String mpassword);
+	
+	//회원ID 중복 검사
 	public boolean isDulpId(String id);
+	
+	//회원 정보 수정
 	public String memberInfoChange(MemberVO memberVo);
 	
+	//쿠폰과 함꼐 조회
 	public MemberVO getMember(String mid);
 }

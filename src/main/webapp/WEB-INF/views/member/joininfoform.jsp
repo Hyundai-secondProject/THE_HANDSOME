@@ -2095,18 +2095,12 @@
                       <option value="hanafos.com">hanafos.com</option>
                       <option value="freechal.com">freechal.com</option>
                       <option value="hitel.net">hitel.net</option>
-                    </select> <input type="text" id="emailDomain" style="width: 120px" value="" title="이메일 도메인"> <input
-                      type="button" class="btn add_s" id="emailDubChkBtn" value="중복확인"> <span class="guide_comment"
+                    </select> <input type="text" id="emailDomain" style="width: 120px" value="" title="이메일 도메인"> <span class="guide_comment"
                       id="emailMsg"></span>
                     <div class="wtype_comment pt10">
-                      <input type="checkbox" id="ck1"><label for="ck1">이메일
-                        아이디 적용</label>
+                      <input type="checkbox" id="ck1"><label for="ck1">이메일 아이디 적용</label>
                     </div>
-                    <div class="wtype_comment pt5">
-                      <input type="checkbox" id="emailReceiveYn" name="emailReceiveYn" value="Y"><label
-                        for="emailReceiveYn">이메일을 통한 상품 및 이벤트 정보 수신에 동의합니다.
-                        (선택)</label> <a href="javascript:void(0);" class="email-prev-detail-btn">자세히 보기</a>
-                    </div>
+                    
                   </td>
                 </tr>
                 <tr>

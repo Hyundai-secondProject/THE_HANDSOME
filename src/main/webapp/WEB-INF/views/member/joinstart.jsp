@@ -50,8 +50,7 @@
                     "@" +
                     $("#uidDomain")
                     .val();
-                  $
-                    .ajax({
+                  $.ajax({
                       type: "POST",
                       url: "/member/join/ok",
                       data: {

@@ -67,6 +67,7 @@ public class MemberServicelmpl implements MemberService {
 		}
 	}
 
+	//회원 정보 수정 성공시 Ajax에서 성공여부 값 비교를 위해 SUCCESS 문자열 출력
 	@Override
 	public String memberInfoChange(MemberVO memberVo) {
 		

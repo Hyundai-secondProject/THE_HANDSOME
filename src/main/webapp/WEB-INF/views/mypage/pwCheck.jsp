@@ -94,7 +94,7 @@
               $("#cancle_btn")
                 .click(
                   function () {
-                    location.href = "/mypage/order/myorders";
+                    location.href = "/";
                   });
 
               $("#j_password").keypress(function (event) {
