@@ -2,6 +2,7 @@
 
   <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
     <%@ include file="/WEB-INF/views/common/header.jsp" %>
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
       <div id="bodyWrap">
         <h3 class="cnts_title">
           <span id="menuTitle">개인정보 변경</span>
@@ -863,7 +864,6 @@
                               </select>
                               <input type="text" id="emailDomain" style="width: 120px; display: none;"
                                 value="${fn:split(email, '@')[1]}" title="이메일 도메인">
-                              <input type="button" class="btn add_s" id="emailDubChkBtn" value="중복확인">
                               <span class="guide_comment" id="emailMsg"></span>
                               <div class="wtype_comment pt10">
                                 <span>정확한 이메일 정보를 입력하셔야 주문/배송 및 서비스정보를 받아 보실 수 있습니다.</span>
@@ -886,9 +886,9 @@
                   </fieldset>
 
                   <!-- btn_btwrap -->
-                  <div class="btn_btwrap">
+                  <!-- <div class="btn_btwrap">
                     <input type="button" class="btn wt_ss" value="회원탈퇴" id="memberSecessionBtn">
-                  </div>
+                  </div> -->
                   <div class="btnwrap mypage2">
                     <input type="button" class="btn wt" value="취소" id="cancleBtn">
                     <input type="button" class="btn gray" value="변경사항 저장" id="saveBtn">

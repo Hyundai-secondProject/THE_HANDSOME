@@ -55,12 +55,6 @@ public class MemberController {
 		}
 	}
 	
-	//로그아웃 페이지 이동
-	@GetMapping("logout")
-	public String logout() {
-		log.info("logout");
-		return "member/logout";
-	}
 
 	// 회원가입 1페이지 : 회원 가입을 위한 이메일 인증 페이지로 이동
 	@GetMapping(value = "joinstart")

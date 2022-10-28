@@ -19,8 +19,15 @@ import com.kosa.domain.member.MemberVO;
 @Mapper
 public interface MemberMapper {
 
+	//회원가입
 	public void join(MemberVO memberVO);
+	
+	//ID로 회원 정보 조회
 	public MemberVO findById(String mid);
+	
+	//회원 정보 수정
 	public int infoChange(MemberVO memberVO);
+	
+	//쿠폰까지 같이 조회
 	public MemberVO getMemberInfo(String mid);
 }
