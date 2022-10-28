@@ -53,11 +53,11 @@ $.ajax({
 		eventlist+='<a href="/magazine/eventdetail?ENO=1"';
 		eventlist+='onclick="">';
 		eventlist+='<div class="pic">';
-		//eventlist+='<img src='+data[0].eimg+' >';
+		eventlist+='<img src='+data[0].eimg+' >';
 		eventlist+='</div>';
 		eventlist+='<div class="evt_txt_box">';
-		//eventlist+='<p class="title">'+data[0].etitle+'</p>';
-		//eventlist+='<p class="date">'+yyyymmdd(data[0].eissuedate)+'~' + yyyymmdd(data[0].eexpiredate)+'</p>';
+		eventlist+='<p class="title">'+data[0].etitle+'</p>';
+		eventlist+='<p class="date">'+yyyymmdd(data[0].eissuedate)+'~' + yyyymmdd(data[0].eexpiredate)+'</p>';
 		eventlist+='</div>';
 		eventlist+='</a> </div>';
 		
