@@ -38,7 +38,7 @@ public class OrderMapperTest {
 	@Test
 	public void testGetCountByMid() {
 		Criteria cri = new Criteria();
-		log.info(mapper.getCountByMid(cri, "seungu00"));
+		log.info(mapper.getCountByMid(cri, "asdf"));
 	}
 	
 	//총 주문 갯수 테스트 
@@ -102,7 +102,7 @@ public class OrderMapperTest {
 	@Test
 	public void testGetListWithPaging2() {		
 		Criteria cri = new Criteria(1, 5);
-		for (OrdersVO order : mapper.getListWithPaging(cri, "seungu00")) {
+		for (OrdersVO order : mapper.getListWithPaging(cri, "asdf")) {
 			log.info(order);
 		}
 	}
