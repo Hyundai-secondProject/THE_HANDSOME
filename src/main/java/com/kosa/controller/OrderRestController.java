@@ -25,6 +25,19 @@ import com.kosa.service.OrderService;
 
 import lombok.extern.log4j.Log4j;
 
+/**
+ * @author 장주연
+ * @since 2022.10.27
+ * @version 1.0
+ * 
+ * <pre>
+ * 수정일                  수정자                   수정내용
+ * ----------  --------    -------------------
+ * 2022.10.25   장주연                 최초 생성
+ * 2022.10.27   장주연                 주문 기능 수정
+ * </pre>
+ */
+
 @RequestMapping("/order")
 @RestController
 @Log4j

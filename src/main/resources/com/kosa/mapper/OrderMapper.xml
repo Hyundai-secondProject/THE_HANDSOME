@@ -12,6 +12,7 @@
  * 2022.10.17     장주연              최초 생성
  * 2022.10.18	    장주연		 ProductDetailVO resultMap 추가
  *							 orderMap oid 태그 id -> result로 변경 (ostatus, odate 값이 동일 주문번호 두번째 원소부터 [unread]였던 문제 해결)
+ * 2022.10.21     장주연               검색 + 페이징 처리 기능 추가
  * </pre>
  */ -->  
  

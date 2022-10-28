@@ -10,6 +10,7 @@ import com.kosa.domain.member.MemberVO;
  * 수정일              수정자                   수정내용
  * ----------  --------    ---------------------------
  * 2022.10.14     신기원              최초 생성
+ * 2022.10.27     장주연              멤버 + 멤버별 쿠폰 조회 메서드 추가
  * </pre>
  */
 public interface MemberService {
@@ -26,6 +27,6 @@ public interface MemberService {
 	//회원 정보 수정
 	public String memberInfoChange(MemberVO memberVo);
 	
-	//쿠폰과 함꼐 조회
+	//쿠폰과 함께 조회
 	public MemberVO getMember(String mid);
 }
