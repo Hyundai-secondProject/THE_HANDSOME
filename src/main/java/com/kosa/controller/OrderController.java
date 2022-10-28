@@ -13,6 +13,19 @@ import com.kosa.service.OrderService;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
 
+/**
+ * @author 장주연
+ * @since 2022.10.15
+ * @version 1.0
+ * 
+ * <pre>
+ * 수정일                  수정자                   수정내용
+ * ----------  --------    -----------------------------------------
+ * 2022.10.15   장주연                 최초 생성
+ * 2022.10.27   장주연                 주문자 정보, 배송지 정보 가져오기 / 한섬마일리지 결제 적용 
+ * </pre>
+ */
+
 @Log4j
 @Controller
 @RequestMapping("/checkout/*")
@@ -21,6 +34,7 @@ public class OrderController {
 
 	private OrderService service;
 	
+	// 배송&결제정보 페이지로 매핑
 	@GetMapping("/ordersheet") 
 	public void getOrder() {
 	}
@@ -30,6 +44,7 @@ public class OrderController {
 		log.info("OrderController........");
 	}
 	
+	// 결제 후 주문 내역 jsp로 데이터 전달
 	@GetMapping("/orderConfirmation")
 	public void getOrderConfirmation(HttpServletRequest request, Model model) {
 		System.out.println(request.getParameter("postcode"));

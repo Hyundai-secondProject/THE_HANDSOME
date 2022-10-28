@@ -27,6 +27,7 @@ import lombok.extern.log4j.Log4j;
  * 수정일              	수정자                   수정내용
  * ----------  --------    ---------------------------
  * 2022.10.14       장주연              	최초 생성
+ * 2022.10.24   장주연                 검색 + 페이징 기능 추가
  * 2022.10.24	신기원		패스워드확인 url 추가
  * 2022.10.27	신기원		회원 정보 수정 추가
  * </pre>
@@ -45,10 +46,12 @@ public class MypageController {
 		return "mypage/member";
 	}
 	
+	// 주문/배송/반품/취소 페이지로 매핑 
 	@GetMapping("/myorders2")
 	public void list(Criteria cri) {
 	}
 	
+	// 카테고리 검색, 키워드 검색 키 반환
 	@PostMapping("/myorders2")
 	public void list(HttpServletRequest httpServletRequest, Model model) {
 		log.info("search.....");
