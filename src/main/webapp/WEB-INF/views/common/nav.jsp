@@ -18,7 +18,7 @@
 					<dt>혜택관리</dt>
 					<dd>
 						<sec:authentication property="principal.username" var="MID"/>
-						<a href="${pageContext.request.contextPath}/mypage/mycoupon?MID=${MID}"
+						<a href="${pageContext.request.contextPath}/mypage/mycouponUnuseds?MID=${MID}"
 							onclick="GA_Event('마이페이지','LNB','나의 쿠폰');">나의 쿠폰 <!-- 쿠폰함 --></a>
 					</dd>
 				</dl>
