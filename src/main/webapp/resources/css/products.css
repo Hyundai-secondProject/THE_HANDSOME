@@ -5903,9 +5903,46 @@ body.gate_body {
 	display: inline-block; /*padding:0 4.5px;*/
 }
 
-.detail-pg-fit-guide .fit-con .fit-slide .fit-sp-box .pic img {
-	width: 100%;
-}
+
+/* color_size */
+.size_chip li{float:left;margin:0 10px 10px 0;}
+.size_chip > li > a{display:block;padding:0 3px;min-width:29px;height:24px;line-height: 24px;border:1px solid #ccc;text-align: center;color:#363636!important;font-family: "Malgun Gothic","맑은 고딕";}
+.size_chip > li > a:hover,
+.size_chip > li > .on{padding:0 3px;min-width:27px;height:22px;line-height: 22px;border:2px solid #363636;}
+.size_chip > li > .not_stock,
+.size_chip > li > .not_stock:hover{display:inline-block;padding:0 3px;min-width:29px;height:24px;line-height: 24px;border:1px solid #cacaca;color:#bebebe!important;cursor:default;text-align: center}
+.color_chip li{float:left;margin:0 10px 5px 0;}
+.color_chip a{display:block;width:24px;height:24px;text-indent: -999em;border:1px solid #e3e3e3}
+.color_chip a:hover,
+.color_chip .on{width:22px;height:22px;border:2px solid #363636;}
+.color_chip .no_color,
+.color_chip .no_color:hover{width:24px;height:24px;border:1px solid #cacaca;background-image: url("/_ui/desktop/common/images/common/color_chip_no.png");background-position: -1px -1px;cursor:default}
+
+.qty_sel{}
+.qty_sel a{float:left;display:block;width:26px;height:26px;background: url("/resources/images/common/ico_qty.png") no-repeat;text-indent: -999em}
+.qty_sel a.left{float:left;display:block;width:26px;height:26px;text-indent: -999em;background: url("/resources/images/common/ico_qty.png") no-repeat;background-position: 0 0;}
+.qty_sel a.right{float:left;display:block;width:26px;height:26px;text-indent: -999em;background: url("/resources/images/common/ico_qty.png") no-repeat;background-position: right 0;}
+.qty_sel input{float:left;width:30px!important;height:24px!important;line-height: 24px!important;border-left:none!important;border-right:none!important;text-align: center;text-indent: 0}
+
+.matches_items{margin-top: 40px;position: relative;}
+.matches_items .tab_b {padding-bottom:20px}
+.matches_items > div > .title{padding:0 35px 15px 0;font-size: 18px;color:#363636;}
+.matches_items .matches_list li{float:left;width:186px;padding-left:15px;}
+.matches_items .matches_list li a{display: block}
+.matches_items .matches_list li:first-child{padding-left: 0}
+.matches_items .controls a{position:absolute;display:block;width:20px;height:33px;background: url("/_ui/desktop/common/images/main/items_list_controls.png") no-repeat;text-indent: -999em}
+.matches_items .controls .prev{top:37%;left:13px;background-position: left top;}
+.matches_items .controls .next{top:37%;right:13px;background-position: right top}
+.matches_items .matches_list .item_info2 {width:95%;display:block;margin:10px auto 0;}
+.matches_items .matches_list .item_info2 span{display: block;text-align: center;height:20px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.matches_items .matches_list .item_info2 .price{padding:5px 0;color:#0d0d0d;}
+.matches_items .matches_list .item_info2 .price.point_color1{color:#ff0000;}
+.matches_items .matches_list .item_info2 .flag span{display: inline-block;padding:0 5px;font-size: 11px;}
+.matches_items .matches_list .item_info2 .flag .flag_typ1{color:#c69c6d;}
+.matches_items .matches_list .item_info2 .flag .flag_typ2{color:#ff0000;}
+
+.matches_items .matches_list .hidden_wrap{overflow: hidden;min-height:270px;}
+.matches_items .matches_list ul{width:10000%;}
 
 .detail-pg-fit-guide .fit-con .fit-slide .size {
 	font-size: 12px;

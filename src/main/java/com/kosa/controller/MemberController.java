@@ -44,6 +44,7 @@ public class MemberController {
 		return "member/admin";
 	}
 	
+	//로그인
 	@GetMapping("login")
 	public void login(String error, String logout, Model model) {
 		if (error != null) {
@@ -54,11 +55,6 @@ public class MemberController {
 		}
 	}
 	
-	@GetMapping("logout")
-	public String logout() {
-		log.info("logout");
-		return "member/logout";
-	}
 
 	// 회원가입 1페이지 : 회원 가입을 위한 이메일 인증 페이지로 이동
 	@GetMapping(value = "joinstart")

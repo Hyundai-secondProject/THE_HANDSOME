@@ -131,7 +131,7 @@ public class OrderMapperTest {
 	@Test
 	public void testInsert() {
 		OrdersVO order = new OrdersVO();
-		order.setOid("O1114");
+		//order.setOid("O1114");
 		order.setOzipcode("18100");
 		order.setOaddress1("경상남도 부산시 해운대구 OO아파트");
 		order.setOreceiver("장부산");

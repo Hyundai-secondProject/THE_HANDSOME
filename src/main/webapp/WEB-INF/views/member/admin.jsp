@@ -9,6 +9,7 @@
 <title>admin</title>
 </head>
 <body>
+<%@ include file="/WEB-INF/views/common/header.jsp"%>
 <h2>admin</h2>
 <a href="/member/logout">logout</a>
 
@@ -20,7 +21,7 @@
    로그아웃
    회원정보보기
 </sec:authorize>
-
+<a href="member/logout">로그아웃</a>
 <sec:authorize access="hasRole('ROLE_ADMIN')">
   관리자 페이지
 </sec:authorize>

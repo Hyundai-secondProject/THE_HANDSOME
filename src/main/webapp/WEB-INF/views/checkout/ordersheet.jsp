@@ -4092,7 +4092,7 @@ function doOrder(){
 			        	
 			        };
 			    	
-		    		return;
+		    		return false;
 		    	}
 	        }
 	    }
@@ -4106,7 +4106,7 @@ function doOrder(){
 			        	
 			        };
 			    	
-		    		return;	            
+		    		return false;	            
 		        }
 	        }
 	    }
@@ -4288,10 +4288,12 @@ function doOrder(){
         return;
     }
     
-    if($('#pointpay').val() != '' && $('#pointpay').val() != '0' && $('#pointpay').val() > parseInt(3753)){
+    var fixTotal = $("#totalPriceHidden").val();
+    
+   /*  if($('#pointpay').val() != '' && $('#pointpay').val() != '0' && $('#pointpay').val() > fixTotal){
         layerAlert("한섬마일리지 사용액은 결제할 금액보다 같거나 작아야 합니다.");
         return;
-    }
+    } */
     if($('#hpointpay').val() != '' && $('#hpointpay').val() != '0' && $('#hpointpay').val() > parseInt(1204)){
         layerAlert("H.Point 사용액은 결제할 금액보다 같거나 작아야 합니다.");
         return;
@@ -4343,9 +4345,7 @@ function doOrder(){
        xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
     }); */
     
-    console.log("주무우우웅 " + $("#rcpt_name").val());
-    console.log("룰룰룰룰ㄹ" + $("#hp_num2").val());
-    console.log("우편번호 우편번호 " + $("#adress").val());
+    console.log("우편번호 " + $("#adress").val());
     console.log("우편번호 우편번호 " + $("#line1").val() + $("#line2").val());
     console.log("우편번호 우편번호 " + $("#rcpt_name").val());
     console.log("우편번호 우편번호 " + $("#hp").val() + $("#hp_num2").val() + $("#hp_num3").val());
@@ -4359,7 +4359,7 @@ function doOrder(){
     console.log("우편번호 우편번호 " + $("#selectVoucher").val());
     console.log("우편번호 우편번호 " + $("#line2").val());
     
-    $.ajax({
+    /* $.ajax({
         url: "/order/orderPay",
         type: "get",            
         contentType: "application/json; charset=UTF-8",
@@ -4398,7 +4398,7 @@ function doOrder(){
 //        	pmcode : $("#pmcode").val(),
 //        	odate : $("#odate").val(),
         	cpid : $("#selectVoucher").val(),
-        	oaddress2 : $("#line2").val() */
+        	oaddress2 : $("#line2").val()
         	/////////////
         	"ozipcode" : $("#adress").val(),
         	"oaddress1" : "add",
@@ -4424,8 +4424,44 @@ function doOrder(){
         error: function(xhr, Status, error) {
             //
         }
-   });
+   }); */
     
+   var form = $("#orderForm");
+   
+	 $.ajax({
+	        url: "/order/orderPay",
+	        type: "GET",            
+	        contentType: "application/json; charset=UTF-8",
+	        data:  {
+	        	ozipcode : $("#adress").val(),
+	        	oaddress1 : $("#line1").val() + $("#line2").val(),
+	        	oreceiver : $("#rcpt_name").val(),
+	        	ophone : $("#hp").val() + $("#hp_num2").val() + $("#hp_num3").val(),
+	        	otel : $("#ph").val() + $("#ph_num2").val() + $("#ph_num3").val(),
+	        	omemo : $("#orderr").val(),
+	        	oemail : $("#mail").val() + "@" + $("#emailDelySel").val(),
+	        	ousedmileage : $("#Hmileage").innerText,
+	        	obeforeprice : $("#subTotal").innerText,
+	        	oafterprice : $("#total").val(),
+	        	ostatus : "결제 완료",
+	        	mid : $("#mid").val(),
+	        	pmcode : $("#pmcode").val(),
+//	        	odate : $("#odate").val(),
+	        	cpid : $("#selectVoucher").val().replaceAll("'", ""),
+	        	oaddress2 : $("#line2").val() 
+
+	        },
+	        async : false,
+	        success: function(){ 
+	            alert("주문완료");
+	            form.prop("action", "/checkout/orderConfirmation");
+	            form.submit();
+	        },
+	        error: function(xhr, Status, error) {
+	            //
+	        }
+	   });
+   
     /* $.ajax({
         type: "GET",
         url: "/ko/checkout/checkOnlineStock",
@@ -6156,7 +6192,12 @@ $(document).ready(function(){
 			ostr += "<tr><th scope='row' class='th_space'>휴대폰</th><td>"+data.mphone.substr(0, 3)+"-"+data.mphone.substr(3, 4)+"-"+data.mphone.substr(7, 4)+"</td></tr>";
 			ostr += "<tr><th scope='row' class='th_space'>E-mail</th><td>"+data.memail+"</td></tr></tbody>";
 			orderer.html(ostr);
+			
+			$("#ordererName").val(data.mname);
 			//주문자 정보 끝
+			
+			var totalPriceHidden = $("totalPriceHidden").val();
+			$("#oafterprice").val(totalPriceHidden);
 			
 			var mstr = "";
 			mstr += "<input type='hidden' name='sel_lastName' value='"+data.mname+"' /> <input type='hidden' name='sel_postcode' value='' />";
@@ -6288,7 +6329,7 @@ $(document).ready(function(){
 		<input type="hidden" id="chk_giftAmount" value="" /> <input
 			type="hidden" id="chk_pointAmount" value="" />
 
-		<form id="orderForm" action="/checkout/ordersheet" method="post">
+		<form id="orderForm" action="/checkout/orderConfirmation" method="get">
 			<script language="javascript" src="https://stdpay.inicis.com/stdjs/INIStdPay.js" type="text/javascript" charset="UTF-8"></script>
 			<input type="hidden" id="paytype" name="paytype" value="Inicis" /> 
 			<input type="hidden" id="globalPayment" name="globalPayment" value="" />
@@ -7134,8 +7175,8 @@ $(document).ready(function(){
 							<div class="total">
 								<dl class="clearfix">
 									<dt>합계</dt>
-									<dd id="totalPrice">₩ 0</dd>
-									<input type="hidden" id="totalPriceHidden" value="0"/>
+									<dd id="totalPrice" name="totalPrice">₩ 0</dd>
+									<input type="hidden" id="totalPriceHidden" name="totalPriceHidden" value="0"/>
 								</dl>
 							</div>
 							<input type="hidden" name="total" id="total" value="345000.0" />
@@ -7170,8 +7211,8 @@ $(document).ready(function(){
 							<!-- 20220905 our legacy 개인정보 제3자 제공 추가. -->
 						</div>
 						<!--//point & agreement box-->
-						<span id="doOrderBtn"> <a href="#;" class="btn gray "
-							onclick="orderpay2();"> 결제하기</a>
+						<span id="doOrderBtn"> <a href="/checkout/orderConfirmation" class="btn gray "
+							onclick="doOrder();"> 결제하기</a>
 							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 						</span>
 					</div>
@@ -7401,7 +7442,7 @@ $(document).ready(function(){
 			</div>
 			<!-- btn_close -->
 			<a href="#" class="btn_close"><img
-				src="/_ui/desktop/common/images/popup/ico_close.png" alt="닫기"></a>
+				src="/resources/images/popup/ico_close.png" alt="닫기"></a>
 			<!-- //btn_close -->
 		</div>
 		<!--//layer pop-->

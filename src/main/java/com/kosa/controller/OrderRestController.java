@@ -1,6 +1,7 @@
 package com.kosa.controller;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.StringTokenizer;
 
@@ -62,17 +63,13 @@ public class OrderRestController {
     
     // 멤버 쿠폰 정보 반환
     
-    
-    
-    
-    
-    
  // 주문 결제하기
     @GetMapping("/orderPay")
     public void orderPay(OrdersVO orders) {
-//        OrdersVO orders = new OrdersVO();
         System.out.println(orders);
         System.out.println("orderpay 왔음");
-        //orderService.insert(orders);
+        
+        orders.setOdate(new Date());
+        orderService.insert(orders);
     }
 }
