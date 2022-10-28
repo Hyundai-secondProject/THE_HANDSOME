@@ -55,7 +55,7 @@ public class MemberServicelmpl implements MemberService {
 		else return null;
 	}
 
-	//가입하려는 이메일 중복확인
+	//가입하려는 이메일 중복확인(중복되면 true, 없으면 false 반환)
 	@Override
 	public boolean isDulpId(String mid) {
 		
@@ -67,7 +67,7 @@ public class MemberServicelmpl implements MemberService {
 		}
 	}
 
-	//회원 정보 수정 성공시 Ajax에서 성공여부 값 비교를 위해 SUCCESS 문자열 출력
+	//회원 정보 수정 성공시 SUCCESS 문자열을 반환하고 Controller와 ajax 통신 사이에 결과 비교를 위해 사용
 	@Override
 	public String memberInfoChange(MemberVO memberVo) {
 		
