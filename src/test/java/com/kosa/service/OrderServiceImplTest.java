@@ -13,6 +13,7 @@ import com.kosa.domain.order.Criteria;
 import com.kosa.domain.order.OrderItemVO;
 import com.kosa.domain.order.OrderPageDTO;
 import com.kosa.domain.order.OrdersVO;
+import com.kosa.domain.product.ProductDetailVO;
 
 import lombok.extern.log4j.Log4j;
 
@@ -73,12 +74,12 @@ public class OrderServiceImplTest {
 	public void getListPageTest() {
 		log.info("getListPageTest.....");
 		Criteria cri = new Criteria(1, 5);
-		OrderPageDTO orders = orderService.getListPage(cri, "seungu00");
+		OrderPageDTO orders = orderService.getListPage(cri, "asdf");
 		List<OrdersVO> orderList = orders.getList();
-		log.info(orderList.get(1).getItemList().size());
-		for (OrderItemVO item : orderList.get(1).getItemList()) {
-			log.info(item);
-		}
+
+		ProductDetailVO product = orderList.get(0).getItemList().get(0).getProductDetail();
+			log.info(product);
+		
 	}
 	
 	@Test

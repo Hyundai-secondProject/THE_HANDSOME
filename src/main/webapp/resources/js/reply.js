@@ -2,14 +2,18 @@ console.log("Replyservice Module.....");
 var replyService = (function() {
 
 	function getList(param, callback, error) {
-	    var mid = param.mid;
 	    var page = param.page || 1;	    
 	    var type = param.type;
 	    var keyword = param.keyword;
-
-	    $.getJSON("/orderlists/" + mid + "/" + page + "/" + type + "/" + keyword + ".json",
+	    
+	    //console.log("aaaaaaaa");
+	    console.log("ajax mid " + mid);
+	    //console.log("vvvvvvvv");
+	    //console.log("function : " + $("#mid").val());
+	    
+	    $.getJSON("/orderlists/" + $("#mid").val() + "/" + page + "/" + type + "/" + keyword + ".json",
 	        function(data) {	    
-	    	console.log(JSON.stringify(data));
+
 	          if (callback) {
 	        	
 	            callback(data.cnt, data.list);  

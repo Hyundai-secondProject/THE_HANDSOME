@@ -18,6 +18,9 @@ import com.kosa.service.OrderService;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
 
+
+
+
 @RequestMapping("/orderlists")
 @RestController
 @Log4j
@@ -35,7 +38,9 @@ public class MypageRestController {
 			@PathVariable("keyword") String keyword) {
 		log.info("getList............");
 		Criteria cri = new Criteria(page, 5);
-
+		
+		System.out.println("controller mid " + mid);
+		
 		if (!type.equals("N") && !keyword.equals("none")) {
 			cri.setType(type);
 			cri.setKeyword(keyword);
