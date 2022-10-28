@@ -17,6 +17,26 @@ import com.kosa.service.CartService;
 
 import lombok.extern.log4j.Log4j;
 
+/**
+ * CartRestController
+ * @author 김민찬
+ * @since 2022.10.20
+ * @version 1.0
+ * 
+ * <pre>
+ * 수정일               수정자                      수정내용
+ * ----------  -------------   --------------------------------------------------
+ * 2022.10.20   김민찬                     최초 생성
+ * 2022.10.21   김민찬, 장주연         cart목록반환       
+ * 2022.10.23   김민찬, 장주연         cart에서 ordersheet으로 선택값만 보내기
+ * 2022.10.24   김민찬                     삭제(단일)기능 구현
+ * 2022.10.25   김민찬                     삭제(다중)기능, 장바구니 추가, 수량변경 기능 구현
+ * 2022.10.25   장주연                     결합도를 낮추기위한 코드 분리(ordersheet 코드) 
+ * 2022.10.26   김민찬                     장바구니 추가 시 이미 있을경우 처리
+ * 2022.10.27   김민찬                     헤더의 장바구니 개수 반영, 바로주문 기능 구현
+ * </pre>
+ */
+
 @CrossOrigin
 @RequestMapping("/cartAjax")
 @RestController
@@ -36,7 +56,7 @@ public class CartRestController {
    }
     
     // 카트목록
-    // post 방식으로 하는 대신 get 방식으로 한뒤 url에서값을가져와 사용 -> 주연도움
+    // post 방식으로 하는 대신 get 방식으로 한뒤 url에서값을가져와 사용
     @GetMapping("/{mid}")
     public List<CartVO> getCartGET(@PathVariable("mid") String mid) {
         
@@ -100,7 +120,7 @@ public class CartRestController {
         service.deleteProducts(mid, psidList);
     }
     
- // 수량체크
+    // 수량체크
     @GetMapping("checkStock/{mid}/{psid}/{qty}")
     public String checkStock(@PathVariable("mid") String mid,
                                 @PathVariable("psid") String psid,
@@ -116,7 +136,6 @@ public class CartRestController {
         }else {
             return "invalid";
         }
-        //스턱테이블가기
     }   
     
     // 수량변경

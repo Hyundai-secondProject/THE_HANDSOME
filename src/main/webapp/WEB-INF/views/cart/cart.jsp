@@ -178,10 +178,6 @@ $(document).ready(function ()
             var newCartQuantity = form.find('input[name=quantity]').val();
             var cartData = form.data("cart");
             var mid = $("#mid").val();
-            console.log("개수변경중입니다");
-            console.log(psid);
-            console.log(initialCartQuantity);
-            console.log(newCartQuantity);
      
             // 초기값과 다르면
             //if(initialCartQuantity != newCartQuantity)
@@ -1125,6 +1121,7 @@ function outOfStockRemove() {
 	selectRemove(entryNumber);
 }
 
+// 선택 삭제
 function selectRemove(entryNumber) {
 	var type = "outOfStock";
  	if($.trim(entryNumber) == "") {

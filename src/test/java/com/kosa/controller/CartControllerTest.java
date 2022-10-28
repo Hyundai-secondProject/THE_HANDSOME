@@ -17,7 +17,8 @@ import lombok.extern.log4j.Log4j;
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
 @ContextConfiguration({"file:src/main/webapp/WEB-INF/spring/root-context.xml",
-    "file:src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml"})
+                        "file:src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml",
+                        "file:src/main/webapp/WEB-INF/spring/security-context.xml"})
 @Log4j
 public class CartControllerTest {
     
@@ -30,7 +31,7 @@ public class CartControllerTest {
         this.mockMvc = MockMvcBuilders.webAppContextSetup(ctx).build();     
     }
     
-    // 카트물품조회
+    // 카트페이지
     @Test
     public void getProductsTest() throws Exception {
         log.info(
@@ -40,8 +41,81 @@ public class CartControllerTest {
                 .getModelAndView()
                 .getModelMap()
                 );
-        
     }
+    
+    // 아이디로 검색
+    @Test
+    public void getProductsTest2() throws Exception {
+        log.info(
+                mockMvc.perform(
+                MockMvcRequestBuilders.get("/cartAjax/ehfhfh1313@naver,com"))
+                .andReturn()
+                .getModelAndView()
+                .getModelMap()
+                );
+    }
+    
+    // productdetail에서 장바구니 추가
+    @Test
+    public void addToCartTest() throws Exception {
+        log.info(
+                mockMvc.perform(
+                MockMvcRequestBuilders.get("/cartAjax/addtocart/ehfhfh1313@naver.com/CM2C0ASZ740WS_BK_88/4"))
+                .andReturn()
+                .getModelAndView()
+                .getModelMap()
+                );
+    }
+    
+    // 삭제(단일)
+    @Test
+    public void deleteCartTest() throws Exception {
+        log.info(
+                mockMvc.perform(
+                MockMvcRequestBuilders.get("/cartAjax/RemoveProduct/ehfhfh1313@naver.com/CM2C0ASZ740WS_BK_88"))
+                .andReturn()
+                .getModelAndView()
+                .getModelMap()
+                );
+    }
+    
+    // 선택삭제(다중)
+    @Test
+    public void deleteCartTest2() throws Exception {
+        log.info(
+                mockMvc.perform(
+                MockMvcRequestBuilders.get("/cartAjax/selectRemove/ehfhfh1313@naver.com/1,2"))
+                .andReturn()
+                .getModelAndView()
+                .getModelMap()
+                );
+    }
+    
+    // 수량체크
+    @Test 
+    public void checkstock() throws Exception {
+        log.info(
+                mockMvc.perform(
+                MockMvcRequestBuilders.get("/cartAjax/checkStock/ehfhfh1313@naver.com/CM2C0ASZ740WS_BK_88/4"))
+                .andReturn()
+                .getModelAndView()
+                .getModelMap()
+                );
+    }
+    
+    
+    // 수량변경
+    @Test 
+    public void updateQuantity() throws Exception {
+        log.info(
+                mockMvc.perform(
+                MockMvcRequestBuilders.get("/cartAjax/updateQuantity/ehfhfh1313@naver.com/CM2C0ASZ740WS_BK_88/3"))
+                .andReturn()
+                .getModelAndView()
+                .getModelMap()
+                );
+    }
+    
     
 //    // 카트추가
 //    @Test
