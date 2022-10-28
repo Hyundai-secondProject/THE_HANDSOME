@@ -47,10 +47,8 @@ public class MemberRestController {
 			
 		} else {
 			data = "N";
-			
 		}
 		return data;
-		
 	}
 	
 	//form에서 받아온 이메일 전송 후 난수값 반환
@@ -81,9 +79,7 @@ public class MemberRestController {
         }catch(Exception e) {
             e.printStackTrace();
         }
-        
         return Integer.toString(checkNum);
- 
 	}
 	
 	//이메일 중복 확인

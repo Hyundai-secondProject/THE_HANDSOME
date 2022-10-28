@@ -54,37 +54,24 @@
                         /</g,
                         "({[]})");
 
-                      $
-                        .ajax({
+                      $.ajax({
                           type: "post",
-                          url: "/mypage/passwordrecheck" +
-                            "?callPage=mypage",
+                          url: "/mypage/passwordrecheck" + "?callPage=mypage",
                           data: {
-                            "uid": $(
-                                "#j_username")
-                              .val(),
+                            "uid": $("#j_username").val(),
                             "pw": pw
                           },
                           success: function (
                             response) {
-
                             if (response == true) {
-                              $(
-                                  "#personInfomationChangePage")
-                                .attr(
-                                  "action",
-                                  "/mypage/memberInfomationChange");
-                              $(
-                                  "#personInfomationChangePage")
-                                .submit();
+                              $("#personInfomationChangePage").attr("action","/mypage/memberInfomationChange");
+                              $("#personInfomationChangePage").submit();
                             } else {
                               location.href = "/mypage/personInfomationChangePWCheck?error=true";
                             }
                           },
-                          error: function (
-                            e) {
-                            console
-                              .log(e);
+                          error: function (e) {
+                            console.log(e);
                           }
                         });
                     }

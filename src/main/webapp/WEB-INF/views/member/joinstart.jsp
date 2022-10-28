@@ -28,28 +28,23 @@
     $(document)
       .ready(
         function () {
-
-          $('#emailAuthBtn')
-            .click(
-              function () {
+        	
+          $('#emailAuthBtn').click(function () {
                 var vc = new ValidationCheck();
+                
                 vc.checkIdList = ['uid',
                   'uidDomain',
                   'uidDuplChk'
                 ];
 
                 if (vc.isValid() &&
-                  $("#uidDuplChk")
-                  .val() != 'N') {
+                  $("#uidDuplChk").val() != 'N') {
                   $("#idDubChkBtn").attr(
                     "disabled", true);
                   $("#emailAuthBtn").attr(
                     "disabled", true);
 
-                  var email = $("#uid").val() +
-                    "@" +
-                    $("#uidDomain")
-                    .val();
+                  var email = $("#uid").val() + "@" + $("#uidDomain") .val();
                   $.ajax({
                       type: "POST",
                       url: "/member/join/ok",
@@ -68,8 +63,7 @@
                       error: function (
                         data) {
                         alert("이메일 인증 에러 발생!");
-                        console
-                          .log(data);
+                        console.log(data);
                       }
                     });
                 }
@@ -128,39 +122,19 @@
                 }
 
                 if (vc.isValid()) {
-                  $
-                    .ajax({
+                  $.ajax({
                       type: "GET",
-                      url: "/member/join/isdupluid?uid=" +
-                        $(
-                          "#uid")
-                        .val() +
-                        "@" +
-                        $(
-                          "#uidDomain")
-                        .val(),
-                      success: function (
-                        response) {
+                      url: "/member/join/isdupluid?uid=" + $("#uid").val() +"@" + $( "#uidDomain").val(),
+                      success: function (response) {
                         if (response == true) {
-                          $(
-                              "#idDubMsg")
-                            .text(
-                              '이미 사용중인 이메일입니다.');
+                          $("#idDubMsg").text('이미 사용중인 이메일입니다.');
                         } else {
-                          $(
-                              "#idDubMsg")
-                            .text(
-                              '사용 가능한 이메일입니다.');
-                          $(
-                              "#uidDuplChk")
-                            .val(
-                              'Y');
+                          $("#idDubMsg").text('사용 가능한 이메일입니다.');
+                          $("#uidDuplChk").val('Y');
                         }
                       },
-                      error: function (
-                        e) {
-                        console
-                          .log(e);
+                      error: function (e) {
+                        console.log(e);
                       }
                     });
                 }
